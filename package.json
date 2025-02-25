@@ -1,19 +1,19 @@
 {
-  "name": "techno-ui",
+  "name": "techno-components",
   "private": false,
   "version": "0.1.0",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/techno-ui.umd.cjs",
-  "module": "./dist/techno-ui.js",
+  "main": "./dist/techno-components.umd.cjs",
+  "module": "./dist/techno-components.js",
   "exports": {
     ".": {
-      "import": "./dist/techno-ui.js",
-      "require": "./dist/techno-ui.umd.cjs"
+      "import": "./dist/techno-components.js",
+      "require": "./dist/techno-components.umd.cjs"
     },
-    "./dist/techno-ui.css": "./dist/techno-ui.css"
+    "./dist/techno-ui.css": "./dist/techno-components.css"
   },
   "scripts": {
     "dev": "vite",

@@ -12,8 +12,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/main.js"),
-      name: "techno-ui",
-      fileName: "techno-ui",
+      name: "techno-components",
+      fileName: "techno-components",
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime"],
