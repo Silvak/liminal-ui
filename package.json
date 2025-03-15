@@ -21,7 +21,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "commit": "cz"
   },
   "release": {
     "branches": [
@@ -75,6 +76,8 @@
     "@vitejs/plugin-react-swc": "^3.8.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.21.0",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.0.0",
@@ -94,5 +97,10 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
