@@ -23,6 +23,34 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
+  "release": {
+    "branches": [
+      "main",
+      "next"
+    ]
+  },
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    "@semantic-release/npm",
+    "@semantic-release/github",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "package.json",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
+  ],
   "peerDependencies": {
     "@tailwindcss/vite": "^4.0.8",
     "react": "^19.0.0",
@@ -32,6 +60,8 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.5",
     "@eslint/js": "^9.21.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@storybook/addon-essentials": "^8.6.4",
     "@storybook/addon-interactions": "^8.6.4",
     "@storybook/addon-onboarding": "^8.6.4",
@@ -54,6 +84,7 @@
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "semantic-release": "^24.2.3",
     "storybook": "^8.6.4",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.8",
