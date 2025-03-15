@@ -1,4 +1,4 @@
-import { ArgTypes, Story } from "@storybook/blocks";
+//import { ArgTypes, Story } from "@storybook/blocks";
 import { Button } from "./Button";
 
 const meta = {
@@ -12,13 +12,13 @@ const meta = {
       control: "text",
       description: "Button text",
     },
-    colVariant: {
+    variant: {
       type: "string",
       control: "select",
       options: ["primary", "secondary", "warning", "danger"],
       description: "Color variant",
     },
-    variant: {
+    rounded: {
       type: "string",
       control: "select",
       options: ["basic", "rounded", "pill"],
@@ -28,6 +28,12 @@ const meta = {
       type: "boolean",
       description: "Button outline",
     },
+    size: {
+      type: "string",
+      control: "radio",
+      options: ["sm", "md", "lg"],
+      description: "Button size",
+    },
   },
 };
 
@@ -36,6 +42,5 @@ export default meta;
 export const Primary = {
   args: {
     children: "Button",
-    Story: Button,
   },
 };
