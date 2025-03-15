@@ -12,7 +12,7 @@ export default meta;
 
 export const Default = {
   args: {
-    as: "p",
+    as: "h1",
     children: "Hello World",
   },
 };
