@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/Silvak/techno-ui/compare/v0.7.0...v0.8.0) (2025-03-20)
+
+
+### Features
+
+* **button:** change button size & update doc ([ea29664](https://github.com/Silvak/techno-ui/commit/ea29664768e20dc91752aceb93322206fbf8a95c))
+
 # [0.7.0](https://github.com/Silvak/techno-ui/compare/v0.6.0...v0.7.0) (2025-03-20)
 
 
