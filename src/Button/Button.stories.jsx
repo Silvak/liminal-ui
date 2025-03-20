@@ -44,3 +44,10 @@ export const Primary = {
     children: "Button",
   },
 };
+
+export const Secondary = {
+  args: {
+    children: "Button",
+    variant: "secondary",
+  },
+};
