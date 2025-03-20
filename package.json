@@ -13,7 +13,7 @@
       "import": "./dist/techno-components.js",
       "require": "./dist/techno-components.umd.cjs"
     },
-    "./style.css": "./dist/techno-components.css"
+    "./dist/techno-components.css": "./dist/techno-components.css"
   },
   "scripts": {
     "dev": "vite",
