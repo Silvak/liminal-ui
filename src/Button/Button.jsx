@@ -9,7 +9,7 @@ const button = cva("inline-block px-2 py-2 font-semibold", {
       primary: "bg-blue-500 text-white",
       secondary: "bg-green-500 text-white",
       warning: "bg-yellow-500 text-white",
-      danger: "bg-red-500 text-white",
+      danger: "bg-red-600 text-white",
     },
     outline: {
       true: "border border-input bg-transparent text-slate-600",
