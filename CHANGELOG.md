@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/Silvak/techno-ui/compare/v0.6.0...v0.7.0) (2025-03-20)
+
+
+### Features
+
+* **button:** change lg size ([708b1ec](https://github.com/Silvak/techno-ui/commit/708b1ec179ec2fc8454db1aea47e17a7d4f46bd1))
+
 # [0.6.0](https://github.com/Silvak/techno-ui/compare/v0.5.2...v0.6.0) (2025-03-20)
 
 
