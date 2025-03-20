@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/Silvak/techno-ui/compare/v0.5.0...v0.5.1) (2025-03-20)
+
+
+### Bug Fixes
+
+* **package:** rename export css file ([bbb49f6](https://github.com/Silvak/techno-ui/commit/bbb49f6310b1b4d8b44cc94849eb8b9ddc02fc36))
+
 # [0.5.0](https://github.com/Silvak/techno-ui/compare/v0.4.0...v0.5.0) (2025-03-20)
 
 
