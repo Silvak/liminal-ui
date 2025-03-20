@@ -23,7 +23,7 @@ const button = cva("inline-block px-2 py-2 font-semibold", {
     size: {
       sm: "h-8 px-3 py-1 text-sm",
       md: "h-10 px-4 py-2 text-base",
-      lg: "h-12 px-5 py-3 text-lg",
+      lg: "h-14 px-5 py-3 text-lg",
     },
   },
   compoundVariants: [
