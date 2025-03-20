@@ -1,3 +1,15 @@
+# [0.6.0](https://github.com/Silvak/techno-ui/compare/v0.5.2...v0.6.0) (2025-03-20)
+
+
+### Bug Fixes
+
+* **package:** update package and workflows ([9ab4955](https://github.com/Silvak/techno-ui/commit/9ab4955839154dea2573de282eaf61a16695b509))
+
+
+### Features
+
+* **button:** change lg size ([bed9a19](https://github.com/Silvak/techno-ui/commit/bed9a1932926022603211f6f5596136af69a0240))
+
 ## [0.5.2](https://github.com/Silvak/techno-ui/compare/v0.5.1...v0.5.2) (2025-03-20)
 
 
