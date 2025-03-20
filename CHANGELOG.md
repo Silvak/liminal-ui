@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/Silvak/techno-ui/compare/v0.4.0...v0.5.0) (2025-03-20)
+
+
+### Features
+
+* **button:** change danger color ([39bb376](https://github.com/Silvak/techno-ui/commit/39bb376e286eb799db27fc3cd3c856515cd6d371))
+
 # [0.4.0](https://github.com/Silvak/techno-ui/compare/v0.3.0...v0.4.0) (2025-03-15)
 
 
