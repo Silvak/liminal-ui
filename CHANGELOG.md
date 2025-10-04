@@ -1,3 +1,10 @@
+# [0.10.0](https://github.com/Silvak/techno-ui/compare/v0.9.0...v0.10.0) (2025-10-04)
+
+
+### Features
+
+* rename package from techno-components to liminal-ui ([94ef9b6](https://github.com/Silvak/techno-ui/commit/94ef9b624dc049c220f389b7ec17e06d10728a87))
+
 # [0.9.0](https://github.com/Silvak/techno-ui/compare/v0.8.0...v0.9.0) (2025-10-04)
 
 
