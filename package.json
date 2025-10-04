@@ -1,18 +1,18 @@
 {
-  "name": "techno-components",
+  "name": "liminal-ui",
   "private": false,
   "version": "0.9.0",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/techno-components.umd.js",
-  "module": "./dist/techno-components.js",
+  "main": "./dist/liminal-ui.umd.js",
+  "module": "./dist/liminal-ui.js",
   "exports": {
     ".": {
       "types": "./dist/main.d.ts",
-      "import": "./dist/techno-components.js",
-      "require": "./dist/techno-components.umd.js"
+      "import": "./dist/liminal-ui.js",
+      "require": "./dist/liminal-ui.umd.js"
     },
     "./Button": {
       "types": "./dist/Button/Button.d.ts",
@@ -29,8 +29,8 @@
       "import": "./dist/Stack/Stack.js",
       "default": "./dist/Stack/Stack.js"
     },
-    "./styles.css": "./dist/techno-components.css",
-    "./dist/styles.css": "./dist/techno-components.css"
+    "./styles.css": "./dist/liminal-ui.css",
+    "./dist/styles.css": "./dist/liminal-ui.css"
   },
   "types": "./dist/main.d.ts",
   "sideEffects": [

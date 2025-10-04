@@ -1,72 +1,105 @@
-# TechnoUI Components
+# Liminal UI
 
-Techno-UI is a futuristic UI component library for React, designed to bring modernity and innovation to interface development.
+> Modern, accessible, and tree-shakeable React component library with pre-compiled Tailwind styles.
 
-## 📌 Versions
+[![npm version](https://img.shields.io/npm/v/liminal-ui.svg)](https://www.npmjs.com/package/liminal-ui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-- **v0.8.0** → Components: `Button`, `Stack`, `Text` + TypeScript support
-- **v0.4.1** → Components: `Button`, `Stack`, `Text`
-- **v0.0.1** → Initial version
+---
 
 ## ✨ Features
 
-- ✅ Modern React components with forwardRef support
-- ✅ Full TypeScript support with type definitions
-- ✅ Tailwind CSS powered styling
-- ✅ Tree-shakeable ES modules
-- ✅ Accessible and semantic HTML
-- ✅ Zero runtime overhead
+- 🎨 **Modern React Components** - Built with `forwardRef` and `displayName`
+- 📘 **TypeScript Support** - Full type definitions included
+- 🎭 **Pre-compiled Styles** - No Tailwind installation required for usage
+- 🌳 **Tree-shakeable** - Import only what you need
+- ♿ **Accessible** - Semantic HTML and ARIA support
+- ⚡ **Zero Runtime Overhead** - Optimized for performance
+- 🌍 **Universal** - Works with any React project
+- 📦 **Direct Imports** - `import Button from "liminal-ui/Button"`
 
-## 🚀 Installation
+---
 
-To install the library, run the following command:
+## 🚀 Quick Start
 
-```sh
-npm install techno-components
-```
-
-## ⚙️ Configuration
-
-**¡No requiere configuración!** 🎉
-
-Los estilos se cargan automáticamente cuando importas cualquier componente. Simplemente instala y usa:
+### Installation
 
 ```bash
-npm install techno-components
+npm install liminal-ui
 ```
 
-**Nota:** Si tu bundler no procesa CSS de node_modules automáticamente, puedes importar manualmente:
+### Setup (One-time)
+
+Import the CSS file once in your project:
+
+**React (Vite/CRA):**
 
 ```js
-import "techno-components/styles.css"; // Opcional
+// main.jsx
+import "liminal-ui/styles.css";
 ```
 
-## 📖 Usage Example
+**Next.js (App Router):**
 
-### 📌 Initial Setup
-
-```js
-import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css";
-
-// ✨ Los estilos se cargan automáticamente al importar componentes
-// No necesitas importar "techno-components/styles.css" manualmente
-
-createRoot(document.getElementById("root")).render(<App />);
+```jsx
+// app/layout.jsx
+import "liminal-ui/styles.css";
 ```
 
-### 📌 Using Components
+**Next.js (Pages Router):**
 
-Existen **dos formas** de importar los componentes:
+```jsx
+// pages/_app.jsx
+import "liminal-ui/styles.css";
+```
 
-#### Opción 1: Importación Directa por Componente (Recomendado) 🚀
+**Remix:**
 
-```js
-// ✨ Los estilos se cargan automáticamente
-import Button from "techno-components/Button";
-import Stack from "techno-components/Stack";
-import Text from "techno-components/Text";
+```jsx
+// app/root.jsx
+import "liminal-ui/styles.css";
+```
+
+### Basic Usage
+
+```jsx
+import Button from "liminal-ui/Button";
+
+function App() {
+  return <Button variant="primary">Click Me</Button>;
+}
+```
+
+That's it! ✅
+
+---
+
+## 🎯 Framework Compatibility
+
+| Framework                  | Status         | Setup Required          | Tailwind Needed |
+| -------------------------- | -------------- | ----------------------- | --------------- |
+| **React (Vite/CRA)**       | ✅ Plug & Play | Import CSS once in main | ❌ No           |
+| **React + TypeScript**     | ✅ Plug & Play | Import CSS once in main | ❌ No           |
+| **Next.js (App Router)**   | ✅ Compatible  | Import CSS in layout    | ❌ No           |
+| **Next.js (Pages Router)** | ✅ Compatible  | Import CSS in \_app     | ❌ No           |
+| **Remix**                  | ✅ Compatible  | Import CSS in root      | ❌ No           |
+
+**🌟 Key Advantage:** You don't need Tailwind CSS installed unless you want to fork and modify component source code.
+
+---
+
+## 📚 Usage Levels
+
+This package supports **3 levels of usage** depending on your needs:
+
+### 📌 Level 1: Basic Usage (90% of users) - **No Tailwind Required** ✅
+
+Simply import and use components with the provided props:
+
+```jsx
+import Button from "liminal-ui/Button";
+import Stack from "liminal-ui/Stack";
+import Text from "liminal-ui/Text";
 
 function App() {
   return (
@@ -74,53 +107,187 @@ function App() {
       <Text size="2xl" weight="bold">
         Hello World
       </Text>
-      <Button variant="primary">Click Me</Button>
+      <Button variant="primary" size="lg">
+        Click Me
+      </Button>
     </Stack>
   );
 }
-
-export default App;
 ```
 
-**Ventajas:**
+**What you get:**
 
-- ✅ **Estilos automáticos** - No necesitas importar CSS
-- ✅ Mejor tree-shaking (solo importas lo que usas)
-- ✅ Más directo y limpio
-- ✅ Tamaño de bundle optimizado
+- ✅ All styles pre-compiled and included
+- ✅ No Tailwind installation needed
+- ✅ Works in any React project
 
-#### Opción 2: Importación desde el Barrel Export
+---
 
-```js
-// ✨ Los estilos también se cargan automáticamente
-import { Button, Stack, Text } from "techno-components";
+### 📌 Level 2: Custom Styling - **No Tailwind Required** ✅
+
+Add your own CSS classes alongside component props:
+
+```jsx
+import Button from "liminal-ui/Button";
 
 function App() {
   return (
-    <Stack col spacing={4}>
-      <Text size="2xl" weight="bold">
-        Hello World
-      </Text>
-      <Button variant="primary">Click Me</Button>
-    </Stack>
+    <Button
+      variant="primary"
+      outline
+      rounded="pill"
+      className="my-custom-class"
+    >
+      Custom Styled
+    </Button>
   );
 }
-
-export default App;
 ```
 
-**Cuándo usar:** Para importar múltiples componentes rápidamente. Los estilos se incluyen automáticamente.
+```css
+/* your-styles.css */
+.my-custom-class {
+  background: linear-gradient(to right, purple, pink);
+  transform: scale(1.1);
+}
+```
 
-### 📌 TypeScript Support
+**What you get:**
 
-The library includes full TypeScript definitions:
+- ✅ Combine component variants with your own styles
+- ✅ Use regular CSS, CSS Modules, or styled-components
+- ✅ No Tailwind needed
+
+---
+
+### 📌 Level 3: Fork & Modify - **Tailwind Required** ⚠️
+
+Copy the component source code to your project and modify it:
+
+```jsx
+// src/components/MyCustomButton.jsx
+import { forwardRef } from "react";
+import { cva } from "class-variance-authority";
+
+const button = cva("inline-block px-2 py-2", {
+  variants: {
+    variant: {
+      primary: "bg-purple-700 text-white", // ← New custom color
+      rainbow: "bg-gradient-to-r from-pink-500 to-blue-500",
+    },
+  },
+});
+
+export const MyCustomButton = forwardRef(({ variant, ...props }, ref) => {
+  return <button ref={ref} className={button({ variant })} {...props} />;
+});
+```
+
+**Requirements:**
+
+- ⚠️ Requires Tailwind CSS installed in your project
+- ⚠️ Requires `class-variance-authority` package
+- ✅ Full control over component code
+
+---
+
+## 📦 Import Methods
+
+### Option 1: Direct Import (Recommended) 🚀
+
+```js
+import Button from "liminal-ui/Button";
+import Stack from "liminal-ui/Stack";
+import Text from "liminal-ui/Text";
+```
+
+**Advantages:**
+
+- ✅ Better tree-shaking (import only what you use)
+- ✅ Smaller bundle size
+- ✅ More explicit imports
+
+### Option 2: Barrel Export
+
+```js
+import { Button, Stack, Text } from "liminal-ui";
+```
+
+**When to use:** Quick imports for multiple components.
+
+---
+
+## 🧩 Available Components
+
+### Button
+
+```jsx
+<Button variant="primary" size="md" rounded="pill">
+  Click Me
+</Button>
+```
+
+**Props:**
+
+- `variant`: `'default' | 'primary' | 'secondary' | 'warning' | 'danger'`
+- `size`: `'sm' | 'md' | 'lg'`
+- `rounded`: `'default' | 'basic' | 'rounded' | 'pill'`
+- `outline`: `boolean`
+- `className`: `string` - Add custom classes
+- `ref`: `React.Ref` - Forward ref to button element
+
+---
+
+### Text
+
+```jsx
+<Text size="2xl" weight="bold" align="center">
+  Hello World
+</Text>
+```
+
+**Props:**
+
+- `size`: `'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl'`
+- `weight`: `'thin' | 'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'black'`
+- `align`: `'left' | 'center' | 'right'`
+- `italic`: `boolean`
+- `underline`: `boolean`
+- `className`: `string`
+- `as`: `'p' | 'span' | 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'` (default: `'p'`)
+- `ref`: `React.Ref`
+
+---
+
+### Stack
+
+```jsx
+<Stack col spacing={4} align="center">
+  <Text>Item 1</Text>
+  <Text>Item 2</Text>
+</Stack>
+```
+
+**Props:**
+
+- `col`: `boolean` - Vertical layout (default: horizontal)
+- `spacing`: `number` - Gap between items (1-24)
+- `align`: `'start' | 'center' | 'end'`
+- `justify`: `'start' | 'center' | 'end' | 'between'`
+- `wrap`: `boolean` - Enable flex-wrap
+- `className`: `string`
+- `ref`: `React.Ref`
+
+---
+
+## 📘 TypeScript Support
+
+Full TypeScript definitions are included:
 
 ```tsx
-// Importación directa (recomendado)
-import Button, { type ButtonProps } from "techno-components/Button";
-
-// O importación desde el barrel export
-import { Button, type ButtonProps } from "techno-components";
+import Button, { type ButtonProps } from "liminal-ui/Button";
+import Text, { type TextProps } from "liminal-ui/Text";
+import Stack, { type StackProps } from "liminal-ui/Stack";
 
 const MyButton: React.FC = () => {
   return (
@@ -131,72 +298,187 @@ const MyButton: React.FC = () => {
 };
 ```
 
-### 📌 Available Components
-
-#### Button
+**Barrel export types:**
 
 ```tsx
-<Button variant="primary" size="md" rounded="pill">
-  Primary Button
-</Button>
+import { Button, type ButtonProps } from "liminal-ui";
 ```
 
-**Props:**
+---
 
-- `variant`: `'default' | 'primary' | 'secondary' | 'warning' | 'danger'`
-- `size`: `'sm' | 'md' | 'lg'`
-- `rounded`: `'default' | 'basic' | 'rounded' | 'pill'`
-- `outline`: `boolean`
+## 🎭 Do You Need Tailwind CSS?
 
-#### Text
+**Short answer: NO (for 90%+ of use cases)**
+
+| Usage Level                | Tailwind Required | What You Can Do                                 |
+| -------------------------- | ----------------- | ----------------------------------------------- |
+| **Level 1: Basic**         | ❌ No             | Use components with provided props              |
+| **Level 2: Custom Styles** | ❌ No             | Add your own CSS/styles alongside               |
+| **Level 3: Fork Source**   | ✅ Yes            | Modify component code, add new Tailwind classes |
+
+**Why?** All Tailwind styles are pre-compiled and included in `liminal-ui.css`. You only need Tailwind if you want to fork the component source code and add completely new Tailwind classes.
+
+### Comparison with Other Libraries
+
+| Library         | Requires Tailwind      | Why                               |
+| --------------- | ---------------------- | --------------------------------- |
+| **liminal-ui**  | ❌ No (unless forking) | Pre-compiled CSS                  |
+| **shadcn/ui**   | ✅ Yes                 | Components copied to your project |
+| **daisyUI**     | ✅ Yes                 | Tailwind plugin                   |
+| **NextUI**      | ⚠️ Recommended         | Uses tailwind-variants            |
+| **Ant Design**  | ❌ No                  | Own CSS system                    |
+| **Material-UI** | ❌ No                  | CSS-in-JS (Emotion)               |
+
+---
+
+## 📖 Examples
+
+### Basic Example
+
+```jsx
+import Button from "liminal-ui/Button";
+
+function App() {
+  return (
+    <div>
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="danger" outline>
+        Danger Outline
+      </Button>
+    </div>
+  );
+}
+```
+
+### Complete Example
+
+```jsx
+import Button from "liminal-ui/Button";
+import Stack from "liminal-ui/Stack";
+import Text from "liminal-ui/Text";
+
+function App() {
+  return (
+    <Stack col spacing={6} align="center">
+      <Text size="3xl" weight="bold" align="center">
+        Welcome to Liminal UI
+      </Text>
+
+      <Text size="lg" align="center">
+        Modern React components with pre-compiled Tailwind styles
+      </Text>
+
+      <Stack spacing={4}>
+        <Button variant="primary" size="lg">
+          Get Started
+        </Button>
+        <Button variant="secondary" size="lg" outline>
+          Learn More
+        </Button>
+      </Stack>
+    </Stack>
+  );
+}
+```
+
+### TypeScript Example
 
 ```tsx
-<Text as="h1" size="3xl" weight="bold" align="center">
-  Hello World
-</Text>
+import { useState } from "react";
+import Button from "liminal-ui/Button";
+import Text from "liminal-ui/Text";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <Text size="2xl" weight="bold">
+        Count: {count}
+      </Text>
+      <Button variant="primary" onClick={() => setCount(count + 1)}>
+        Increment
+      </Button>
+    </div>
+  );
+}
 ```
-
-**Props:**
-
-- `as`: Any HTML element (`'p' | 'h1' | 'h2' | 'span'`, etc.)
-- `size`: `'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl'`
-- `weight`: `'thin' | 'normal' | 'medium' | 'semibold' | 'bold' | 'black'`
-- `align`: `'left' | 'center' | 'right'`
-- `italic`: `boolean`
-- `underline`: `boolean`
-
-#### Stack
-
-```tsx
-<Stack col spacing={4}>
-  <Button>Button 1</Button>
-  <Button>Button 2</Button>
-</Stack>
-```
-
-**Props:**
-
-- `col`: `boolean` - Stack vertically
-- `spacing`: `string | number` - Gap between items
 
 ---
 
 ## 🛠️ Development
 
+### Building the Package
+
 ```bash
-# Install dependencies
-npm install
-
-# Run development mode
-npm run dev
-
-# Build the library
 npm run build
+```
 
-# Run Storybook
+### Running Storybook
+
+```bash
 npm run storybook
+```
+
+### Linting
+
+```bash
+npm run lint
 ```
 
 ---
 
-Enjoy building interfaces with Techno-UI! 🚀
+## 📝 Publishing
+
+### Automatic (with semantic-release)
+
+Push to `main` branch with conventional commits:
+
+```bash
+git add .
+git commit -m "feat: add new feature"
+git push origin main
+```
+
+### Manual
+
+```bash
+npm version patch|minor|major
+npm run build
+npm publish
+git push origin main --follow-tags
+```
+
+---
+
+## 📄 License
+
+MIT © [Your Name]
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 📌 Versions
+
+- **v0.9.0** → Current version with updated documentation
+- **v0.8.0** → Components: `Button`, `Stack`, `Text` + TypeScript support
+- **v0.4.1** → Components: `Button`, `Stack`, `Text`
+- **v0.0.1** → Initial version
+
+---
+
+## 🔗 Links
+
+- [npm Package](https://www.npmjs.com/package/liminal-ui)
+- [GitHub Repository](https://github.com/yourusername/techno-ui)
+- [Issues](https://github.com/yourusername/techno-ui/issues)
+
+---
+
+Made with ❤️ using React, TypeScript, and Tailwind CSS

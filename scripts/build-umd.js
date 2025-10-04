@@ -17,8 +17,8 @@ await build({
     emptyOutDir: false,
     lib: {
       entry: resolve(rootDir, "src/main.js"),
-      name: "TechnoComponents",
-      fileName: "techno-components",
+      name: "LiminalUI",
+      fileName: "liminal-ui",
       formats: ["umd"],
     },
     rollupOptions: {

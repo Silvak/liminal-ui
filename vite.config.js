@@ -20,7 +20,7 @@ export default defineConfig({
       formats: ["es"],
       fileName: (format, entryName) => {
         if (entryName === "index") {
-          return "techno-components.js";
+          return "liminal-ui.js";
         }
         return `${entryName}.js`;
       },
@@ -36,7 +36,7 @@ export default defineConfig({
       ],
       output: {
         preserveModules: false,
-        assetFileNames: "techno-components[extname]",
+        assetFileNames: "liminal-ui[extname]",
       },
     },
   },
