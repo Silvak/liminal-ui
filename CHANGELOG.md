@@ -1,3 +1,10 @@
+# [0.9.0](https://github.com/Silvak/techno-ui/compare/v0.8.0...v0.9.0) (2025-10-04)
+
+
+### Features
+
+* add direct imports, auto-loading styles, and TypeScript support ([3edf2a4](https://github.com/Silvak/techno-ui/commit/3edf2a4a8006f8858ceeae3d5970d46c0bd408df))
+
 # [0.8.0](https://github.com/Silvak/techno-ui/compare/v0.7.0...v0.8.0) (2025-03-20)
 
 
