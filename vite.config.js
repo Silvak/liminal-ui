@@ -11,18 +11,32 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/main.js"),
-      name: "techno-components",
-      fileName: "techno-components",
+      entry: {
+        index: resolve(__dirname, "src/main.js"),
+        "Button/Button": resolve(__dirname, "src/Button/Button.jsx"),
+        "Text/Text": resolve(__dirname, "src/Text/Text.jsx"),
+        "Stack/Stack": resolve(__dirname, "src/Stack/Stack.jsx"),
+      },
+      formats: ["es"],
+      fileName: (format, entryName) => {
+        if (entryName === "index") {
+          return "techno-components.js";
+        }
+        return `${entryName}.js`;
+      },
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+      ],
       output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDom",
-          "react/jsx-runtime": "react/jsx-runtime",
-        },
+        preserveModules: false,
+        assetFileNames: "techno-components[extname]",
       },
     },
   },

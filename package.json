@@ -6,18 +6,41 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/techno-components.umd.cjs",
+  "main": "./dist/techno-components.umd.js",
   "module": "./dist/techno-components.js",
   "exports": {
     ".": {
+      "types": "./dist/main.d.ts",
       "import": "./dist/techno-components.js",
-      "require": "./dist/techno-components.umd.cjs"
+      "require": "./dist/techno-components.umd.js"
     },
-    "./dist/techno-ui.css": "./dist/techno-components.css"
+    "./Button": {
+      "types": "./dist/Button/Button.d.ts",
+      "import": "./dist/Button/Button.js",
+      "default": "./dist/Button/Button.js"
+    },
+    "./Text": {
+      "types": "./dist/Text/Text.d.ts",
+      "import": "./dist/Text/Text.js",
+      "default": "./dist/Text/Text.js"
+    },
+    "./Stack": {
+      "types": "./dist/Stack/Stack.d.ts",
+      "import": "./dist/Stack/Stack.js",
+      "default": "./dist/Stack/Stack.js"
+    },
+    "./styles.css": "./dist/techno-components.css",
+    "./dist/styles.css": "./dist/techno-components.css"
   },
+  "types": "./dist/main.d.ts",
+  "sideEffects": [
+    "*.css",
+    "dist/**/*.js",
+    "dist/*.js"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/build-umd.js && node scripts/copy-types.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -53,8 +76,16 @@
     ]
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    }
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.5",
@@ -84,6 +115,7 @@
     "semantic-release": "^24.2.3",
     "storybook": "^8.6.4",
     "tailwindcss": "^4.0.8",
+    "typescript": "^5.7.2",
     "vite": "^6.2.0"
   },
   "eslintConfig": {

@@ -1,10 +1,12 @@
 import { forwardRef } from "react";
 import { cn } from "../utils/utils";
+import "../index.css"; // Estilos automáticos
 
-export const Stack = forwardRef(
-  ({ children, col, spacing, className, ...props }) => {
+const Stack = forwardRef(
+  ({ children, col, spacing, className, ...props }, ref) => {
     return (
       <div
+        ref={ref}
         className={cn(
           "flex gap-4 flex-wrap",
           col && "flex-col",
@@ -18,3 +20,8 @@ export const Stack = forwardRef(
     );
   }
 );
+
+Stack.displayName = "Stack";
+
+export { Stack };
+export default Stack;

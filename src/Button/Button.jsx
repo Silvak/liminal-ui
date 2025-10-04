@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import { cn } from "../utils/utils";
 import { cva } from "class-variance-authority";
+import "../index.css"; // Estilos automáticos
 
 const button = cva("inline-block px-2 py-2 font-semibold", {
   variants: {
@@ -53,10 +54,11 @@ const button = cva("inline-block px-2 py-2 font-semibold", {
   },
 });
 
-export const Button = forwardRef(
-  ({ children, className, variant, rounded, outline, size, ...props }) => {
+const Button = forwardRef(
+  ({ children, className, variant, rounded, outline, size, ...props }, ref) => {
     return (
       <button
+        ref={ref}
         className={cn(button({ variant, rounded, outline, size, className }))}
         {...props}
       >
@@ -65,3 +67,8 @@ export const Button = forwardRef(
     );
   }
 );
+
+Button.displayName = "Button";
+
+export { Button };
+export default Button;

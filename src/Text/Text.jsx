@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import { cn } from "../utils/utils";
 import { cva } from "class-variance-authority";
+import "../index.css"; // Estilos automáticos
 
 const textStyles = cva("w-full", {
   variants: {
@@ -41,7 +42,7 @@ const textStyles = cva("w-full", {
   },
 });
 
-export const Text = forwardRef(
+const Text = forwardRef(
   (
     {
       as,
@@ -80,12 +81,7 @@ export const Text = forwardRef(
   }
 );
 
-/*
-export const Text = forwardRef(({ children, className, ...props }, ref) => {
-  return (
-    <p className={cn(textStyles({}), className)} {...props} ref={ref}>
-      {children}
-    </p>
-  );
-});
-*/
+Text.displayName = "Text";
+
+export { Text };
+export default Text;
