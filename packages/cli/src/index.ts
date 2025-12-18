@@ -9,7 +9,7 @@ const program = new Command();
 program
   .name("liminal-ui")
   .description("CLI para agregar componentes de Liminal UI")
-  .version("0.0.1");
+  .version("0.0.2");
 
 // 2. Definir el comando 'init' (placeholder)
 program
