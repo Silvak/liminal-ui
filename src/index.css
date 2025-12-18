@@ -1,6 +1,0 @@
-@import "tailwindcss";
-/*@plugin "daisyui";*/
-
-@theme {
-  --color-twitter-blue: #3b82f6;
-}
