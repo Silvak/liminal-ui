@@ -1,3 +1,10 @@
+## [0.10.1](https://github.com/Silvak/liminal-ui/compare/v0.10.0...v0.10.1) (2025-12-18)
+
+
+### Bug Fixes
+
+* actualizar dependencias para corregir vulnerabilidades de seguridad ([eb43fc8](https://github.com/Silvak/liminal-ui/commit/eb43fc8ddf60adc4fab02c4bbfd58c7454c314b8))
+
 # [0.10.0](https://github.com/Silvak/techno-ui/compare/v0.9.0...v0.10.0) (2025-10-04)
 
 
