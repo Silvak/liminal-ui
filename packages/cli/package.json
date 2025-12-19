@@ -4,7 +4,7 @@
   "description": "CLI para liminal-ui",
   "type": "module",
   "bin": {
-    "liminal-ui": "./dist/index.js"
+    "liminal-ui": "dist/index.js"
   },
   "files": [
     "dist",
