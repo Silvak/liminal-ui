@@ -10,6 +10,9 @@
     "dist",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "tsup src/index.ts --format esm --watch",
     "build": "tsup src/index.ts --format esm --minify --clean",
