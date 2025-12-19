@@ -5,6 +5,7 @@ Esta guía describe el proceso de publicación usando Changesets, la herramienta
 ## ¿Qué es Changesets?
 
 Changesets es una herramienta diseñada específicamente para monorepos que te permite:
+
 - Control explícito sobre las versiones (no depende de mensajes de commit)
 - Gestión automática de dependencias internas
 - Flujo basado en Pull Requests para mayor control
@@ -15,6 +16,28 @@ Changesets es una herramienta diseñada específicamente para monorepos que te p
 1. Estar autenticado en npm: `npm login`
 2. Tener configurado `NPM_TOKEN` en los secrets de GitHub Actions
 3. Tener configurado `GITHUB_TOKEN` en los secrets de GitHub Actions (se configura automáticamente)
+4. El workflow de GitHub Actions está configurado para crear manualmente el archivo `.npmrc` con el token de autenticación
+
+## Configuración de GitHub Actions
+
+El workflow de release (`.github/workflows/release.yml`) está configurado para garantizar una autenticación confiable con NPM mediante la creación manual del archivo `.npmrc`.
+
+### Autenticación Manual de NPM
+
+En lugar de depender de la configuración automática de `setup-node@v4`, el workflow crea explícitamente el archivo `.npmrc` antes de instalar dependencias:
+
+```yaml
+- name: Create .npmrc
+  run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+```
+
+Este paso se ejecuta después de configurar Node.js y antes de instalar dependencias, garantizando que todas las operaciones de NPM (incluyendo `npm ci` y `npm publish`) tengan acceso al token de autenticación.
+
+**Ventajas de este enfoque:**
+
+- ✅ Autenticación explícita y confiable
+- ✅ No depende de la configuración automática que puede fallar
+- ✅ Funciona consistentemente en todos los entornos
 
 ## Flujo de Trabajo
 
@@ -31,6 +54,7 @@ npx changeset
 ```
 
 Este comando te preguntará:
+
 - **¿Qué paquetes cambiaron?** → Selecciona `liminal-ui` (packages/cli)
 - **¿Es major, minor o patch?** → Elige según el tipo de cambio:
   - `patch`: Correcciones de bugs (1.0.0 → 1.0.1)
@@ -61,6 +85,7 @@ git push
 ### 5. Publicación a npm
 
 Cuando **apruebes y hagas merge** de la PR "Version Packages":
+
 - GitHub Actions ejecutará automáticamente `npm run release`
 - Se compilarán todos los workspaces
 - Se publicará el paquete a npm usando `changeset publish`
