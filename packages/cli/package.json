@@ -4,7 +4,7 @@
   "description": "CLI para liminal-ui",
   "type": "module",
   "bin": {
-    "liminal-ui": "dist/index.js"
+    "liminal": "dist/index.js"
   },
   "files": [
     "dist",
@@ -18,34 +18,6 @@
     "build": "tsup src/index.ts --format esm --minify --clean",
     "start": "node dist/index.js"
   },
-  "release": {
-    "branches": [
-      "main",
-      "next"
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogFile": "CHANGELOG.md"
-        }
-      ],
-      "@semantic-release/npm",
-      "@semantic-release/github",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "package.json",
-            "CHANGELOG.md"
-          ],
-          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-        }
-      ]
-    ]
-  },
   "dependencies": {
     "commander": "^12.0.0",
     "chalk": "^5.3.0",
@@ -55,12 +27,9 @@
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.0",
     "@types/prompts": "^2.4.9",
-    "semantic-release": "^25.0.2",
     "tsup": "^8.0.1",
     "typescript": "^5.7.2"
   }

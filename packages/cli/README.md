@@ -58,6 +58,7 @@ npx liminal-ui add button card dialog
 ```
 
 The CLI will:
+
 1. Download component source files to `src/components/ui/`
 2. Install required npm dependencies
 3. Resolve component dependencies (e.g., Card depends on Button)
@@ -66,6 +67,7 @@ The CLI will:
 ### Initial Setup
 
 The first time you use the CLI, it will prompt you for configuration:
+
 - Component directory (default: `src/components/ui`)
 - Utils file location (default: `src/lib/utils.ts`)
 - TypeScript/JavaScript preference
@@ -94,7 +96,7 @@ npx liminal-ui add button card dialog
 
 ---
 
-## 📖 Documentation
+## Documentation
 
 For complete documentation, architecture details, contributing guidelines, roadmap, and more, please visit the [GitHub Repository](https://github.com/yourusername/liminal-ui).
 
