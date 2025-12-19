@@ -1,3 +1,12 @@
+## [0.11.1](https://github.com/Silvak/liminal-ui/compare/v0.11.0...v0.11.1) (2025-12-19)
+
+
+### Bug Fixes
+
+* configure npm authentication using setup-node instead of manual .npmrc ([7fdab0f](https://github.com/Silvak/liminal-ui/commit/7fdab0fc5eb1e6a9f8e3bf669337244e398c4ea1))
+* normalize bin path in package.json to avoid npm warning ([3eca2cd](https://github.com/Silvak/liminal-ui/commit/3eca2cda5ef78b5360bd97279cddf3bfff116200))
+* remove merge conflict markers from package.json ([1f41bf2](https://github.com/Silvak/liminal-ui/commit/1f41bf2cd040a12478303eff89b9c2cd0c181e6a))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
