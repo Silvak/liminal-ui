@@ -1,5 +1,11 @@
 ## [0.11.1](https://github.com/Silvak/liminal-ui/compare/v0.11.0...v0.11.1) (2025-12-19)
 
+## 0.12.0
+
+### Minor Changes
+
+- Fix button component, auto-detect src/ folder, improve dependency detection
+
 ## 0.11.2
 
 ### Patch Changes
