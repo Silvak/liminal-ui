@@ -28,3 +28,7 @@ dist-ssr
 # Storybook
 *storybook.log
 storybook-static
+
+# Test artifacts (created by CLI during local testing)
+components/
+lib/

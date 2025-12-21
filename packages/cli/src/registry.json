@@ -1,0 +1,24 @@
+{
+  "name": "liminal-ui",
+  "items": [
+    {
+      "name": "button",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "name": "button.tsx",
+          "content": "import * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\nconst buttonVariants = cva(\r\n  \"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\",\r\n  {\r\n    variants: {\r\n      variant: {\r\n        default: \"bg-primary text-primary-foreground hover:bg-primary/90\",\r\n        destructive: \"bg-destructive text-destructive-foreground hover:bg-destructive/90\",\r\n        outline: \"border border-input bg-background hover:bg-accent hover:text-accent-foreground\",\r\n        secondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80\",\r\n        ghost: \"hover:bg-accent hover:text-accent-foreground\",\r\n        link: \"text-primary underline-offset-4 hover:underline\",\r\n      },\r\n      size: {\r\n        default: \"h-10 px-4 py-2\",\r\n        sm: \"h-9 rounded-md px-3\",\r\n        lg: \"h-11 rounded-md px-8\",\r\n        icon: \"h-10 w-10\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      variant: \"default\",\r\n      size: \"default\",\r\n    },\r\n  }\r\n);\r\n\r\nexport interface ButtonProps\r\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\r\n    VariantProps<typeof buttonVariants> {\r\n  asChild?: boolean;\r\n}\r\n\r\nconst Button = React.forwardRef<HTMLButtonElement, ButtonProps>(\r\n  ({ className, variant, size, asChild = false, children, ...props }, ref) => {\r\n    // Si asChild es true, clonamos el primer hijo y le pasamos los props\r\n    if (asChild && React.isValidElement(children)) {\r\n      return React.cloneElement(children as React.ReactElement<any>, {\r\n        className: cn(buttonVariants({ variant, size }), className, (children as React.ReactElement<any>).props?.className),\r\n        ref,\r\n        ...props,\r\n      });\r\n    }\r\n\r\n    return (\r\n      <button\r\n        className={cn(buttonVariants({ variant, size, className }))}\r\n        ref={ref}\r\n        {...props}\r\n      >\r\n        {children}\r\n      </button>\r\n    );\r\n  }\r\n);\r\n\r\nButton.displayName = \"Button\";\r\n\r\nexport { Button, buttonVariants };\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    }
+  ]
+}
