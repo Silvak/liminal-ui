@@ -1,5 +1,11 @@
 ## [0.11.1](https://github.com/Silvak/liminal-ui/compare/v0.11.0...v0.11.1) (2025-12-19)
 
+## 0.13.0
+
+### Minor Changes
+
+- [`f10820c`](https://github.com/Silvak/liminal-ui/commit/f10820c2a18336aefeb7dc9a9eb01ece405b5252) Thanks [@Silvak](https://github.com/Silvak)! - production CLI features
+
 ## 0.12.0
 
 ### Minor Changes
