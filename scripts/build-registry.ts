@@ -13,6 +13,7 @@ const KNOWN_DEPENDENCIES: Record<string, string> = {
   'class-variance-authority': 'class-variance-authority',
   'clsx': 'clsx',
   'tailwind-merge': 'tailwind-merge',
+  'lucide-react': 'lucide-react',
 };
 
 // Detectar dependencias desde el contenido del archivo

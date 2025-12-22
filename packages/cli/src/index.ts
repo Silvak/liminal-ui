@@ -5,6 +5,7 @@ import chalk from "chalk";
 import fs from "fs/promises";
 import path from "path";
 import { existsSync, mkdirSync } from "fs";
+import { installDependencies, checkInstalledDependencies } from "./utils/install-deps.js";
 
 // Importamos el registro generado. 
 // TypeScript podría quejarse si el archivo no existe aún. 
@@ -52,8 +53,10 @@ program
 program
   .command("add")
   .argument("<component>", "El nombre del componente (ej: button)")
+  .option("-y, --yes", "Instalar dependencias automáticamente sin preguntar")
+  .option("--no-deps", "No instalar dependencias")
   .description("Instala un componente en tu proyecto")
-  .action(async (componentName) => {
+  .action(async (componentName, options) => {
     try {
       // 1. Buscar en el registro
       const component = registry.items.find((item) => item.name === componentName);
@@ -108,10 +111,21 @@ program
         console.log(chalk.green(`   + Creado: ${displayPath}`));
       }
 
-      // 4. Mostrar dependencias faltantes
-      if (component.dependencies && component.dependencies.length > 0) {
-        console.log("\n" + chalk.yellow("⚠️  Dependencias necesarias:"));
-        console.log(chalk.cyan(`   npm install ${component.dependencies.join(" ")}`));
+      // 5. Manejar dependencias
+      if (component.dependencies && component.dependencies.length > 0 && options.deps !== false) {
+        const missingDeps = await checkInstalledDependencies(component.dependencies);
+        
+        if (missingDeps.length > 0) {
+          if (options.yes) {
+            // Instalar automáticamente sin preguntar
+            await installDependencies(missingDeps);
+          } else {
+            // Mostrar qué instalar manualmente
+            console.log("\n" + chalk.yellow("⚠️  Dependencias faltantes:"));
+            console.log(chalk.cyan(`   npm install ${missingDeps.join(" ")}`));
+            console.log(chalk.gray("   (usa --yes para instalarlas automáticamente)"));
+          }
+        }
       }
 
       console.log(chalk.green(`\n✅ ${componentName} instalado correctamente.`));
@@ -122,5 +136,19 @@ program
     }
   });
 
-program.parse(process.argv);
+// --- COMANDO LIST ---
+program
+  .command("list")
+  .description("Lista todos los componentes disponibles")
+  .action(() => {
+    console.log(chalk.blue("\n📋 Componentes disponibles:\n"));
+    for (const item of registry.items) {
+      console.log(chalk.green(`   • ${item.name}`));
+      if (item.dependencies.length > 0) {
+        console.log(chalk.gray(`     deps: ${item.dependencies.join(", ")}`));
+      }
+    }
+    console.log("");
+  });
 
+program.parse(process.argv);
