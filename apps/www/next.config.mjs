@@ -5,6 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   output: 'standalone',
+  turbopack: {},
 };
 
 export default withContentlayer(nextConfig);
