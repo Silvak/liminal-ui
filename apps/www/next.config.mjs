@@ -4,6 +4,7 @@ import { withContentlayer } from 'next-contentlayer2';
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  output: 'standalone',
 };
 
 export default withContentlayer(nextConfig);
