@@ -35,3 +35,21 @@ storybook-static
 # Test artifacts (created by CLI during local testing)
 components/
 lib/
+
+# Next.js
+.next/
+out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Turbo
+.turbo
+
+# Contentlayer
+.contentlayer
+
+# Vercel
+.vercel
