@@ -5,7 +5,8 @@
   "description": "Documentación y sitio web de Liminal UI",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "contentlayer": "contentlayer2 build",
+    "build": "npm run contentlayer && next build",
     "start": "next start",
     "lint": "next lint"
   },
