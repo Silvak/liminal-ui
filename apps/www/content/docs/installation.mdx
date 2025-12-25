@@ -1,0 +1,75 @@
+---
+title: Installation
+description: How to install and configure Liminal UI in your project
+---
+
+# Installation
+
+Get started with Liminal UI in your React project.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- Node.js 18+ installed
+- A React 18+ project (Next.js, Vite, Create React App, etc.)
+- Tailwind CSS configured
+
+## Install the CLI
+
+First, install the Liminal UI CLI globally:
+
+```bash
+npm install -g @liminal-ui/cli
+```
+
+Or use it directly with npx:
+
+```bash
+npx @liminal-ui/cli init
+```
+
+## Initialize Your Project
+
+Navigate to your project directory and run:
+
+```bash
+liminal init
+```
+
+This will:
+
+1. Create a `components.json` configuration file
+2. Set up your component and utility directories
+3. Configure path aliases
+
+You'll be asked a few questions:
+
+- **TypeScript**: Are you using TypeScript? (Yes/No)
+- **RSC**: Are you using React Server Components? (Yes/No)
+- **Components Path**: Where to install components (default: `src/components/ui`)
+- **Utils Path**: Where to install utilities (default: `src/lib`)
+
+## Add Components
+
+Once initialized, you can start adding components:
+
+```bash
+liminal add button
+```
+
+This will:
+
+1. Copy the component source code to your project
+2. Install required dependencies automatically
+3. Set up any utility functions needed
+
+## Manual Installation
+
+If you prefer not to use the CLI, you can manually copy components from our [GitHub repository](https://github.com/yourusername/liminal-ui).
+
+## Next Steps
+
+- Browse available [components](/docs/components/button)
+- Learn about [theming and customization](/docs/theming)
+- Check out [examples](/docs/examples)
