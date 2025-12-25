@@ -1,0 +1,31 @@
+﻿---
+title: Select
+description: A dropdown select component
+component: true
+---
+
+# Select
+
+A select component built with Ark UI.
+
+## Installation
+
+```bash
+liminal add select
+```
+
+## Usage
+
+```tsx
+import { Select } from "@/components/ui/select";
+
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Svelte", value: "svelte" },
+];
+
+export default function Example() {
+  return <Select items={items} placeholder="Select a framework" />;
+}
+```
