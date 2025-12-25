@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { allDocs } from 'contentlayer/generated';
+import { useMDXComponent } from 'next-contentlayer2/hooks';
 
 interface DocPageProps {
   params: Promise<{
@@ -24,6 +25,11 @@ export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   }));
 }
 
+function Mdx({ code }: { code: string }) {
+  const Component = useMDXComponent(code);
+  return <Component />;
+}
+
 export default async function DocPage({ params }: DocPageProps) {
   const resolvedParams = await params;
   const doc = await getDocFromParams(resolvedParams);
@@ -39,7 +45,8 @@ export default async function DocPage({ params }: DocPageProps) {
         <p className="text-lg text-muted-foreground">{doc.description}</p>
       )}
       <hr className="my-4" />
-      <div dangerouslySetInnerHTML={{ __html: doc.body.html }} />
+      <Mdx code={doc.body.code} />
     </article>
   );
 }
+
