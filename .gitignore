@@ -33,8 +33,8 @@ dist-ssr
 storybook-static
 
 # Test artifacts (created by CLI during local testing)
-components/
-lib/
+/components/
+/lib/
 
 # Next.js
 .next/
