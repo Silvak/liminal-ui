@@ -1,0 +1,32 @@
+---
+title: Label
+description: A text label for form controls
+component: true
+---
+
+# Label
+
+A simple label component that pairs well with form controls like `Input` and `Textarea`.
+
+## Installation
+
+```bash
+liminal add label
+```
+
+## Usage
+
+```tsx
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="email">Email</Label>
+      <Input id="email" type="email" placeholder="you@example.com" />
+    </div>
+  );
+}
+```
+

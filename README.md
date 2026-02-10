@@ -55,6 +55,8 @@ npx liminal-ui add dialog accordion select
 - `popover` — Ark Popover posicionado con Portal + Positioner, más componente de conveniencia (`<Popover trigger={...}>`)
 - `toast` — Wrapper de [`sonner`](https://sonner.emilkowal.dev/) con tokens de Liminal (`Toaster`, `toast(...)`)
 
+Para ver ejemplos y detalles de uso de cada componente, consulta la documentación en la app de docs (`apps/www`), por ejemplo en `/docs/components/button`, `/docs/components/dialog`, etc.
+
 ## Theming
 
 Liminal UI usa un sistema de tokens CSS basado en variables HSL, compatible con shadcn/ui y herramientas como [`tweakcn`](https://tweakcn.com/editor/theme).

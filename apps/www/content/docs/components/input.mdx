@@ -1,0 +1,36 @@
+---
+title: Input
+description: A text input field with focus and error states
+component: true
+---
+
+# Input
+
+A text input component with focus styles and support for error states via `aria-invalid`.
+
+## Installation
+
+```bash
+liminal add input
+```
+
+## Usage
+
+```tsx
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return <Input placeholder="Email" type="email" />;
+}
+```
+
+## Error state
+
+```tsx
+<Input
+  placeholder="Email"
+  type="email"
+  aria-invalid="true"
+/>
+```
+

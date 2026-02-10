@@ -1,0 +1,42 @@
+---
+title: Separator
+description: A visual divider between sections of content
+component: true
+---
+
+# Separator
+
+A simple separator component for visually dividing content.
+
+## Installation
+
+```bash
+liminal add separator
+```
+
+## Usage
+
+```tsx
+import { Separator } from "@/components/ui/separator";
+
+export default function Example() {
+  return (
+    <div className="space-y-4">
+      <div>Section one</div>
+      <Separator />
+      <div>Section two</div>
+    </div>
+  );
+}
+```
+
+## Orientation
+
+```tsx
+<div className="flex h-10 items-center space-x-4">
+  <span>Item A</span>
+  <Separator orientation="vertical" />
+  <span>Item B</span>
+</div>
+```
+

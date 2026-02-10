@@ -1,0 +1,66 @@
+---
+title: Popover
+description: A small overlay positioned relative to a trigger element
+component: true
+---
+
+# Popover
+
+A popover component built with Ark UI, rendered in a portal and positioned relative to a trigger.
+
+## Installation
+
+```bash
+liminal add popover
+```
+
+## Usage (convenience)
+
+```tsx
+import { Popover } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Popover trigger={<Button>Open popover</Button>}>
+      <p className="text-sm">
+        This is some content inside the popover.
+      </p>
+    </Popover>
+  );
+}
+```
+
+## Compound API
+
+```tsx
+import {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverTitle,
+  PopoverDescription,
+  PopoverCloseTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <PopoverRoot>
+      <PopoverTrigger asChild>
+        <Button>Details</Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverTitle>Popover title</PopoverTitle>
+        <PopoverDescription>
+          Additional information about this action.
+        </PopoverDescription>
+        <PopoverCloseTrigger className="mt-2 text-sm underline">
+          Close
+        </PopoverCloseTrigger>
+      </PopoverContent>
+    </PopoverRoot>
+  );
+}
+```
+

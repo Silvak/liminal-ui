@@ -1,0 +1,51 @@
+---
+title: Avatar
+description: A user avatar component with image and fallback
+component: true
+---
+
+# Avatar
+
+A simple avatar component built with Ark UI, supporting both image and fallback content.
+
+## Installation
+
+```bash
+liminal add avatar
+```
+
+## Usage
+
+```tsx
+import { Avatar } from "@/components/ui/avatar";
+
+export default function Example() {
+  return (
+    <Avatar
+      src="https://avatars.githubusercontent.com/u/000000?v=4"
+      alt="User avatar"
+      fallback="JD"
+    />
+  );
+}
+```
+
+## Compound API
+
+```tsx
+import {
+  AvatarRoot,
+  AvatarImage,
+  AvatarFallback,
+} from "@/components/ui/avatar";
+
+export default function Example() {
+  return (
+    <AvatarRoot>
+      <AvatarImage src="/avatar.png" alt="User avatar" />
+      <AvatarFallback>JD</AvatarFallback>
+    </AvatarRoot>
+  );
+}
+```
+

@@ -1,0 +1,50 @@
+---
+title: Switch
+description: A toggle switch component with convenience and compound APIs
+component: true
+---
+
+# Switch
+
+A toggle switch component built with Ark UI that supports both a convenience API and a full compound API.
+
+## Installation
+
+```bash
+liminal add switch
+```
+
+## Usage (convenience)
+
+```tsx
+import { Switch } from "@/components/ui/switch";
+
+export default function Example() {
+  return <Switch label="Enable notifications" />;
+}
+```
+
+## Compound API
+
+```tsx
+import {
+  SwitchRoot,
+  SwitchControl,
+  SwitchThumb,
+  SwitchLabel,
+  SwitchHiddenInput,
+} from "@/components/ui/switch";
+
+export default function Example() {
+  return (
+    <SwitchRoot className="inline-flex items-center gap-2">
+      <SwitchHiddenInput />
+      <SwitchControl>
+        <SwitchThumb />
+      </SwitchControl>
+      <SwitchLabel>Dark mode</SwitchLabel>
+    </SwitchRoot>
+  );
+}
+```
+

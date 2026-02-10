@@ -1,0 +1,40 @@
+---
+title: Textarea
+description: A multiline text input field
+component: true
+---
+
+# Textarea
+
+A textarea component for multiline text input, visually aligned with the `Input` component.
+
+## Installation
+
+```bash
+liminal add textarea
+```
+
+## Usage
+
+```tsx
+import { Textarea } from "@/components/ui/textarea";
+
+export default function Example() {
+  return (
+    <Textarea
+      placeholder="Write your message here"
+      rows={4}
+    />
+  );
+}
+```
+
+## Error state
+
+```tsx
+<Textarea
+  placeholder="Write your message here"
+  aria-invalid="true"
+/>
+```
+

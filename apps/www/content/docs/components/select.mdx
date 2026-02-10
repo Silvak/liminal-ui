@@ -1,4 +1,4 @@
-﻿---
+---
 title: Select
 description: A dropdown select component
 component: true
@@ -27,5 +27,54 @@ const items = [
 
 export default function Example() {
   return <Select items={items} placeholder="Select a framework" />;
+}
+```
+
+## Compound API
+
+For more control, you can use the underlying Ark UI parts:
+
+```tsx
+import {
+  SelectRoot,
+  SelectControl,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+} from "@/components/ui/select";
+
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Svelte", value: "svelte" },
+];
+
+export default function Example() {
+  return (
+    <SelectRoot
+      collection={ArkSelect.createCollection({
+        items,
+        itemToString: (item) => item.label,
+        itemToValue: (item) => item.value,
+      })}
+    >
+      <SelectControl>
+        <SelectTrigger>
+          <SelectValue placeholder="Select a framework" />
+        </SelectTrigger>
+      </SelectControl>
+      <SelectContent>
+        <SelectGroup>
+          {items.map((item) => (
+            <SelectItem key={item.value} item={item}>
+              {item.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </SelectRoot>
+  );
 }
 ```

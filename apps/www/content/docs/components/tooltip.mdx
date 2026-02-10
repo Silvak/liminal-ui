@@ -1,0 +1,43 @@
+---
+title: Tooltip
+description: A small popup that displays additional information
+component: true
+---
+
+# Tooltip
+
+A tooltip component built with Ark UI for showing additional information on hover or focus.
+
+## Installation
+
+```bash
+liminal add tooltip
+```
+
+## Usage
+
+```tsx
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Hover me</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          Additional information about this action.
+        </TooltipContent>
+      </TooltipPositioner>
+    </Tooltip>
+  );
+}
+```
+

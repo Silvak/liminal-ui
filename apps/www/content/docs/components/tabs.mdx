@@ -1,0 +1,67 @@
+---
+title: Tabs
+description: A tabbed interface for switching between views
+component: true
+---
+
+# Tabs
+
+A tabs component built with Ark UI, with both a convenience API and a compound API.
+
+## Installation
+
+```bash
+liminal add tabs
+```
+
+## Usage (convenience)
+
+```tsx
+import { Tabs } from "@/components/ui/tabs";
+
+const items = [
+  {
+    value: "account",
+    label: "Account",
+    content: <p>Make changes to your account here.</p>,
+  },
+  {
+    value: "password",
+    label: "Password",
+    content: <p>Change your password here.</p>,
+  },
+];
+
+export default function Example() {
+  return <Tabs defaultValue="account" items={items} />;
+}
+```
+
+## Compound API
+
+```tsx
+import {
+  TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs";
+
+export default function Example() {
+  return (
+    <TabsRoot defaultValue="account">
+      <TabsList>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">
+        Make changes to your account here.
+      </TabsContent>
+      <TabsContent value="password">
+        Change your password here.
+      </TabsContent>
+    </TabsRoot>
+  );
+}
+```
+

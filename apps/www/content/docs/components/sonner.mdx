@@ -1,0 +1,38 @@
+---
+title: Toast
+description: Toast notifications powered by sonner
+component: true
+---
+
+# Toast (sonner)
+
+Toast notifications built on top of the [`sonner`](https://sonner.emilkowal.dev/) library.
+
+## Installation
+
+```bash
+liminal add sonner
+```
+
+## Usage
+
+```tsx
+import { Toaster, toast } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <>
+      <Toaster />
+      <Button
+        onClick={() => toast("Settings saved", {
+          description: "Your preferences have been updated.",
+        })}
+      >
+        Show toast
+      </Button>
+    </>
+  );
+}
+```
+

@@ -11,9 +11,10 @@
 # 1. Initialize config
 npx liminal-ui init
 
-# 2. Add components
+# 2. Add components (ejemplos)
 npx liminal-ui add button
-npx liminal-ui add dialog
+npx liminal-ui add accordion dialog select
+npx liminal-ui add tabs alert popover
 ```
 
 ## Commands
@@ -26,6 +27,25 @@ npx liminal-ui add dialog
 | `liminal add <name> -f` | Force overwrite existing files |
 | `liminal list` | Show available components |
 | `liminal diff <name>` | Compare local vs registry version |
+
+## Available components
+
+Liminal UI incluye una colección de componentes listos para copiar en tu proyecto (no viven en `node_modules`). Algunos ejemplos:
+
+- `accordion`, `tabs` — navegación y contenido colapsable
+- `button` — botones con variantes y tamaños
+- `dialog`, `popover`, `tooltip` — overlays y feedback
+- `input`, `textarea`, `checkbox`, `switch`, `label` — formularios
+- `card`, `badge`, `separator`, `avatar` — layout y display
+- `toast` — notificaciones via wrapper de [`sonner`](https://sonner.emilkowal.dev/)
+
+Puedes ver la lista completa con:
+
+```bash
+liminal-ui list
+```
+
+Y cada componente tiene su propia página de documentación en la app de docs de este repo (`apps/www`), por ejemplo `/docs/components/button`.
 
 ## Configuration
 
