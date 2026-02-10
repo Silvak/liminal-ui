@@ -23,6 +23,26 @@
       "type": "components:ui"
     },
     {
+      "name": "badge",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "badge.tsx",
+          "content": "import * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\n// ============================================================================\r\n// VARIANTS\r\n// ============================================================================\r\nconst badgeVariants = cva(\r\n  \"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\",\r\n  {\r\n    variants: {\r\n      variant: {\r\n        default: \"bg-primary text-primary-foreground hover:bg-primary/80\",\r\n        secondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80\",\r\n        destructive: \"bg-destructive text-destructive-foreground hover:bg-destructive/80\",\r\n        outline: \"border-input text-foreground\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      variant: \"default\",\r\n    },\r\n  },\r\n);\r\n\r\n// ============================================================================\r\n// BADGE\r\n// ============================================================================\r\nexport interface BadgeProps\r\n  extends React.HTMLAttributes<HTMLSpanElement>,\r\n    VariantProps<typeof badgeVariants> {}\r\n\r\nconst Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(\r\n  ({ className, variant, ...props }, ref) => (\r\n    <span\r\n      ref={ref}\r\n      className={cn(badgeVariants({ variant, className }))}\r\n      {...props}\r\n    />\r\n  ),\r\n);\r\n\r\nBadge.displayName = \"Badge\";\r\n\r\nexport { Badge, badgeVariants };\r\n\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    },
+    {
       "name": "button",
       "dependencies": [
         "@ark-ui/react",
@@ -35,6 +55,45 @@
         {
           "name": "button.tsx",
           "content": "import { ark } from \"@ark-ui/react/factory\";\r\nimport * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\nconst buttonVariants = cva(\r\n  \"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\",\r\n  {\r\n    variants: {\r\n      variant: {\r\n        default: \"bg-primary text-primary-foreground hover:bg-primary/90\",\r\n        destructive: \"bg-destructive text-destructive-foreground hover:bg-destructive/90\",\r\n        outline: \"border border-input bg-background hover:bg-accent hover:text-accent-foreground\",\r\n        secondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80\",\r\n        ghost: \"hover:bg-accent hover:text-accent-foreground\",\r\n        link: \"text-primary underline-offset-4 hover:underline\",\r\n      },\r\n      size: {\r\n        default: \"h-10 px-4 py-2\",\r\n        sm: \"h-9 rounded-md px-3\",\r\n        lg: \"h-11 rounded-md px-8\",\r\n        icon: \"h-10 w-10\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      variant: \"default\",\r\n      size: \"default\",\r\n    },\r\n  }\r\n);\r\n\r\nexport interface ButtonProps\r\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\r\n    VariantProps<typeof buttonVariants> {}\r\n\r\nconst Button = React.forwardRef<HTMLButtonElement, ButtonProps>(\r\n  ({ className, variant, size, ...props }, ref) => (\r\n    <ark.button\r\n      className={cn(buttonVariants({ variant, size, className }))}\r\n      ref={ref}\r\n      {...props}\r\n    />\r\n  )\r\n);\r\n\r\nButton.displayName = \"Button\";\r\n\r\nexport { Button, buttonVariants };\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    },
+    {
+      "name": "card",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "card.tsx",
+          "content": "import * as React from \"react\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\n// ============================================================================\r\n// CARD\r\n// ============================================================================\r\nconst Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\r\n  ({ className, ...props }, ref) => (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\"rounded-lg border bg-card text-card-foreground shadow-sm\", className)}\r\n      {...props}\r\n    />\r\n  ),\r\n);\r\nCard.displayName = \"Card\";\r\n\r\n// ============================================================================\r\n// CARD HEADER\r\n// ============================================================================\r\nconst CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\r\n  ({ className, ...props }, ref) => (\r\n    <div ref={ref} className={cn(\"flex flex-col space-y-1.5 p-6\", className)} {...props} />\r\n  ),\r\n);\r\nCardHeader.displayName = \"CardHeader\";\r\n\r\n// ============================================================================\r\n// CARD TITLE\r\n// ============================================================================\r\nconst CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(\r\n  ({ className, ...props }, ref) => (\r\n    <h3\r\n      ref={ref}\r\n      className={cn(\"text-2xl font-semibold leading-none tracking-tight\", className)}\r\n      {...props}\r\n    />\r\n  ),\r\n);\r\nCardTitle.displayName = \"CardTitle\";\r\n\r\n// ============================================================================\r\n// CARD DESCRIPTION\r\n// ============================================================================\r\nconst CardDescription = React.forwardRef<\r\n  HTMLParagraphElement,\r\n  React.HTMLAttributes<HTMLParagraphElement>\r\n>(({ className, ...props }, ref) => (\r\n  <p ref={ref} className={cn(\"text-sm text-muted-foreground\", className)} {...props} />\r\n));\r\nCardDescription.displayName = \"CardDescription\";\r\n\r\n// ============================================================================\r\n// CARD CONTENT\r\n// ============================================================================\r\nconst CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\r\n  ({ className, ...props }, ref) => (\r\n    <div ref={ref} className={cn(\"p-6 pt-0\", className)} {...props} />\r\n  ),\r\n);\r\nCardContent.displayName = \"CardContent\";\r\n\r\n// ============================================================================\r\n// CARD FOOTER\r\n// ============================================================================\r\nconst CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\r\n  ({ className, ...props }, ref) => (\r\n    <div ref={ref} className={cn(\"flex items-center p-6 pt-0\", className)} {...props} />\r\n  ),\r\n);\r\nCardFooter.displayName = \"CardFooter\";\r\n\r\nexport { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter };\r\n\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    },
+    {
+      "name": "checkbox",
+      "dependencies": [
+        "@ark-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "checkbox.tsx",
+          "content": "import * as React from \"react\";\r\nimport { Checkbox as ArkCheckbox } from \"@ark-ui/react/checkbox\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\n// ============================================================================\r\n// ROOT\r\n// ============================================================================\r\nconst CheckboxRoot = ArkCheckbox.Root;\r\nconst CheckboxHiddenInput = ArkCheckbox.HiddenInput;\r\n\r\n// ============================================================================\r\n// CONTROL\r\n// ============================================================================\r\nconst CheckboxControl = React.forwardRef<\r\n  React.ElementRef<typeof ArkCheckbox.Control>,\r\n  React.ComponentPropsWithoutRef<typeof ArkCheckbox.Control>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkCheckbox.Control\r\n    ref={ref}\r\n    className={cn(\r\n      \"h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50\",\r\n      \"data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  >\r\n    <ArkCheckbox.Indicator>\r\n      <svg\r\n        viewBox=\"0 0 24 24\"\r\n        fill=\"none\"\r\n        stroke=\"currentColor\"\r\n        strokeWidth=\"4\"\r\n        aria-hidden=\"true\"\r\n        focusable=\"false\"\r\n      >\r\n        <polyline points=\"20 6 9 17 4 12\" />\r\n      </svg>\r\n    </ArkCheckbox.Indicator>\r\n  </ArkCheckbox.Control>\r\n));\r\nCheckboxControl.displayName = \"CheckboxControl\";\r\n\r\n// ============================================================================\r\n// LABEL\r\n// ============================================================================\r\nconst CheckboxLabel = React.forwardRef<\r\n  React.ElementRef<typeof ArkCheckbox.Label>,\r\n  React.ComponentPropsWithoutRef<typeof ArkCheckbox.Label>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkCheckbox.Label\r\n    ref={ref}\r\n    className={cn(\"text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\", className)}\r\n    {...props}\r\n  />\r\n));\r\nCheckboxLabel.displayName = \"CheckboxLabel\";\r\n\r\n// ============================================================================\r\n// CONVENIENCE COMPONENT\r\n// ============================================================================\r\ntype CheckboxRootProps = React.ComponentPropsWithoutRef<typeof CheckboxRoot>;\r\n\r\ninterface CheckboxProps extends Omit<CheckboxRootProps, \"children\"> {\r\n  label?: React.ReactNode;\r\n  className?: string;\r\n  children?: React.ReactNode;\r\n}\r\n\r\nconst Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>(\r\n  ({ label, className, children, ...props }, ref) => {\r\n    return (\r\n      <CheckboxRoot ref={ref} className={cn(\"inline-flex items-center gap-2\", className)} {...props}>\r\n        <CheckboxHiddenInput />\r\n        <CheckboxControl />\r\n        {label ? <CheckboxLabel>{label}</CheckboxLabel> : children}\r\n      </CheckboxRoot>\r\n    );\r\n  },\r\n);\r\n\r\nCheckbox.displayName = \"Checkbox\";\r\n\r\nexport {\r\n  // Conveniencia\r\n  Checkbox,\r\n  // Partes atomicas\r\n  CheckboxRoot,\r\n  CheckboxControl,\r\n  CheckboxLabel,\r\n  CheckboxHiddenInput,\r\n  // Tipos\r\n  type CheckboxProps,\r\n}\r\n"
         },
         {
           "name": "utils.ts",
@@ -65,6 +124,44 @@
       "type": "components:ui"
     },
     {
+      "name": "input",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "input.tsx",
+          "content": "import * as React from \"react\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\nconst Input = React.forwardRef<HTMLInputElement, React.ComponentProps<\"input\">>(\r\n  ({ className, type = \"text\", ...props }, ref) => {\r\n    return (\r\n      <input\r\n        type={type}\r\n        className={cn(\r\n          \"flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors\",\r\n          \"file:border-0 file:bg-transparent file:text-sm file:font-medium\",\r\n          \"placeholder:text-muted-foreground\",\r\n          \"focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring\",\r\n          \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n          \"aria-[invalid=true]:border-destructive\",\r\n          className,\r\n        )}\r\n        ref={ref}\r\n        {...props}\r\n      />\r\n    );\r\n  },\r\n);\r\nInput.displayName = \"Input\";\r\n\r\nexport { Input };\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    },
+    {
+      "name": "label",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "label.tsx",
+          "content": "import * as React from \"react\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\n// ============================================================================\r\n// LABEL\r\n// ============================================================================\r\nconst Label = React.forwardRef<\r\n  HTMLLabelElement,\r\n  React.LabelHTMLAttributes<HTMLLabelElement>\r\n>(({ className, ...props }, ref) => (\r\n  <label\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\n\r\nLabel.displayName = \"Label\";\r\n\r\nexport { Label };\r\n\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    },
+    {
       "name": "select",
       "dependencies": [
         "@ark-ui/react",
@@ -77,6 +174,64 @@
         {
           "name": "select.tsx",
           "content": "import * as React from \"react\";\r\nimport { Select as ArkSelect, Portal } from \"@ark-ui/react/select\";\r\nimport { cn } from \"../lib/utils\";\r\nimport { Check, ChevronDown } from \"lucide-react\";\r\n\r\n// ============================================================================\r\n// TYPES\r\n// ============================================================================\r\ninterface SelectItem {\r\n  label: string;\r\n  value: string;\r\n  disabled?: boolean;\r\n}\r\n\r\n// ============================================================================\r\n// ROOT\r\n// ============================================================================\r\nconst SelectRoot = ArkSelect.Root;\r\n\r\n// ============================================================================\r\n// CONTROL (Container for Trigger)\r\n// ============================================================================\r\nconst SelectControl = React.forwardRef<\r\n  React.ElementRef<typeof ArkSelect.Control>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSelect.Control>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkSelect.Control ref={ref} className={cn(className)} {...props} />\r\n));\r\nSelectControl.displayName = \"SelectControl\";\r\n\r\n// ============================================================================\r\n// TRIGGER\r\n// ============================================================================\r\nconst SelectTrigger = React.forwardRef<\r\n  React.ElementRef<typeof ArkSelect.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSelect.Trigger>\r\n>(({ className, children, ...props }, ref) => (\r\n  <ArkSelect.Trigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background\",\r\n      \"placeholder:text-muted-foreground\",\r\n      \"focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2\",\r\n      \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n      \"[&>span]:line-clamp-1\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    {children}\r\n    <ArkSelect.Indicator>\r\n      <ChevronDown className=\"h-4 w-4 opacity-50\" />\r\n    </ArkSelect.Indicator>\r\n  </ArkSelect.Trigger>\r\n));\r\nSelectTrigger.displayName = \"SelectTrigger\";\r\n\r\n// ============================================================================\r\n// VALUE TEXT\r\n// ============================================================================\r\nconst SelectValue = React.forwardRef<\r\n  React.ElementRef<typeof ArkSelect.ValueText>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSelect.ValueText>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkSelect.ValueText ref={ref} className={cn(className)} {...props} />\r\n));\r\nSelectValue.displayName = \"SelectValue\";\r\n\r\n// ============================================================================\r\n// PORTAL (Re-export)\r\n// ============================================================================\r\nconst SelectPortal = Portal;\r\n\r\n// ============================================================================\r\n// POSITIONER\r\n// ============================================================================\r\nconst SelectPositioner = ArkSelect.Positioner;\r\n\r\n// ============================================================================\r\n// CONTENT\r\n// ============================================================================\r\nconst SelectContent = React.forwardRef<\r\n  React.ElementRef<typeof ArkSelect.Content>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSelect.Content>\r\n>(({ className, children, ...props }, ref) => (\r\n  <SelectPortal>\r\n    <SelectPositioner>\r\n      <ArkSelect.Content\r\n        ref={ref}\r\n        className={cn(\r\n          \"relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md\",\r\n          \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n          \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n          \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n          \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2\",\r\n          \"data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\r\n          className\r\n        )}\r\n        {...props}\r\n      >\r\n        {children}\r\n      </ArkSelect.Content>\r\n    </SelectPositioner>\r\n  </SelectPortal>\r\n));\r\nSelectContent.displayName = \"SelectContent\";\r\n\r\n// ============================================================================\r\n// ITEM GROUP\r\n// ============================================================================\r\nconst SelectGroup = React.forwardRef<\r\n  React.ElementRef<typeof ArkSelect.ItemGroup>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSelect.ItemGroup>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkSelect.ItemGroup ref={ref} className={cn(\"p-1\", className)} {...props} />\r\n));\r\nSelectGroup.displayName = \"SelectGroup\";\r\n\r\n// ============================================================================\r\n// LABEL\r\n// ============================================================================\r\nconst SelectLabel = React.forwardRef<\r\n  React.ElementRef<typeof ArkSelect.ItemGroupLabel>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSelect.ItemGroupLabel>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkSelect.ItemGroupLabel\r\n    ref={ref}\r\n    className={cn(\"py-1.5 pl-8 pr-2 text-sm font-semibold\", className)}\r\n    {...props}\r\n  />\r\n));\r\nSelectLabel.displayName = \"SelectLabel\";\r\n\r\n// ============================================================================\r\n// ITEM\r\n// ============================================================================\r\nconst SelectItem = React.forwardRef<\r\n  React.ElementRef<typeof ArkSelect.Item>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSelect.Item>\r\n>(({ className, children, ...props }, ref) => (\r\n  <ArkSelect.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none\",\r\n      \"focus:bg-accent focus:text-accent-foreground\",\r\n      \"data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      \"data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <ArkSelect.ItemIndicator className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\r\n      <Check className=\"h-4 w-4\" />\r\n    </ArkSelect.ItemIndicator>\r\n    <ArkSelect.ItemText>{children}</ArkSelect.ItemText>\r\n  </ArkSelect.Item>\r\n));\r\nSelectItem.displayName = \"SelectItem\";\r\n\r\n// ============================================================================\r\n// SEPARATOR\r\n// ============================================================================\r\nconst SelectSeparator = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"-mx-1 my-1 h-px bg-muted\", className)}\r\n    {...props}\r\n  />\r\n));\r\nSelectSeparator.displayName = \"SelectSeparator\";\r\n\r\n// ============================================================================\r\n// CONVENIENCE COMPONENT (All-in-one for simple use cases)\r\n// ============================================================================\r\ninterface SelectProps extends Omit<ArkSelect.RootProps<SelectItem>, \"collection\"> {\r\n  items: SelectItem[];\r\n  placeholder?: string;\r\n  className?: string;\r\n}\r\n\r\nconst Select = React.forwardRef<HTMLDivElement, SelectProps>(\r\n  ({ items, placeholder = \"Select an option\", className, ...props }, ref) => {\r\n    const collection = ArkSelect.createCollection({\r\n      items,\r\n      itemToString: (item) => item.label,\r\n      itemToValue: (item) => item.value,\r\n    });\r\n\r\n    return (\r\n      <SelectRoot collection={collection} {...props}>\r\n        <SelectControl ref={ref} className={className}>\r\n          <SelectTrigger>\r\n            <SelectValue placeholder={placeholder} />\r\n          </SelectTrigger>\r\n        </SelectControl>\r\n        <SelectContent>\r\n          <SelectGroup>\r\n            {items.map((item) => (\r\n              <SelectItem key={item.value} item={item}>\r\n                {item.label}\r\n              </SelectItem>\r\n            ))}\r\n          </SelectGroup>\r\n        </SelectContent>\r\n      </SelectRoot>\r\n    );\r\n  }\r\n);\r\nSelect.displayName = \"Select\";\r\n\r\nexport {\r\n  // Convenience component\r\n  Select,\r\n  // Atomic parts\r\n  SelectRoot,\r\n  SelectControl,\r\n  SelectTrigger,\r\n  SelectValue,\r\n  SelectPortal,\r\n  SelectPositioner,\r\n  SelectContent,\r\n  SelectGroup,\r\n  SelectLabel,\r\n  SelectItem,\r\n  SelectSeparator,\r\n  // Types\r\n  type SelectItem as SelectItemType,\r\n  type SelectProps,\r\n};\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    },
+    {
+      "name": "separator",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "separator.tsx",
+          "content": "import * as React from \"react\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\n// ============================================================================\r\n// SEPARATOR\r\n// ============================================================================\r\ninterface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {\r\n  orientation?: \"horizontal\" | \"vertical\";\r\n  decorative?: boolean;\r\n}\r\n\r\nconst Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(\r\n  ({ className, orientation = \"horizontal\", decorative = false, role, ...props }, ref) => {\r\n    const ariaOrientation = orientation === \"vertical\" ? \"vertical\" : \"horizontal\";\r\n\r\n    return (\r\n      <div\r\n        ref={ref}\r\n        role={decorative ? \"none\" : role ?? \"separator\"}\r\n        aria-orientation={decorative ? undefined : ariaOrientation}\r\n        className={cn(\r\n          \"bg-border\",\r\n          orientation === \"vertical\" ? \"h-full w-px\" : \"h-px w-full\",\r\n          className,\r\n        )}\r\n        {...props}\r\n      />\r\n    );\r\n  },\r\n);\r\n\r\nSeparator.displayName = \"Separator\";\r\n\r\nexport { Separator, type SeparatorProps };\r\n\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    },
+    {
+      "name": "switch",
+      "dependencies": [
+        "@ark-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "switch.tsx",
+          "content": "import * as React from \"react\";\r\nimport { Switch as ArkSwitch } from \"@ark-ui/react/switch\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\n// ============================================================================\r\n// ROOT\r\n// ============================================================================\r\nconst SwitchRoot = ArkSwitch.Root;\r\nconst SwitchHiddenInput = ArkSwitch.HiddenInput;\r\n\r\n// ============================================================================\r\n// CONTROL\r\n// ============================================================================\r\nconst SwitchControl = React.forwardRef<\r\n  React.ElementRef<typeof ArkSwitch.Control>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSwitch.Control>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkSwitch.Control\r\n    ref={ref}\r\n    className={cn(\r\n      \"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-input bg-input transition-colors\",\r\n      \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\",\r\n      \"data-[state=checked]:bg-primary data-[state=checked]:border-primary\",\r\n      \"data-[state=unchecked]:bg-input\",\r\n      \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nSwitchControl.displayName = \"SwitchControl\";\r\n\r\n// ============================================================================\r\n// THUMB\r\n// ============================================================================\r\nconst SwitchThumb = React.forwardRef<\r\n  React.ElementRef<typeof ArkSwitch.Thumb>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSwitch.Thumb>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkSwitch.Thumb\r\n    ref={ref}\r\n    className={cn(\r\n      \"pointer-events-none block h-4 w-4 rounded-full bg-background shadow transition-transform\",\r\n      \"data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nSwitchThumb.displayName = \"SwitchThumb\";\r\n\r\n// ============================================================================\r\n// LABEL\r\n// ============================================================================\r\nconst SwitchLabel = React.forwardRef<\r\n  React.ElementRef<typeof ArkSwitch.Label>,\r\n  React.ComponentPropsWithoutRef<typeof ArkSwitch.Label>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkSwitch.Label\r\n    ref={ref}\r\n    className={cn(\"text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\", className)}\r\n    {...props}\r\n  />\r\n));\r\nSwitchLabel.displayName = \"SwitchLabel\";\r\n\r\n// ============================================================================\r\n// CONVENIENCE COMPONENT\r\n// ============================================================================\r\ntype SwitchRootProps = React.ComponentPropsWithoutRef<typeof SwitchRoot>;\r\n\r\ninterface SwitchProps extends Omit<SwitchRootProps, \"children\"> {\r\n  label?: React.ReactNode;\r\n  className?: string;\r\n  children?: React.ReactNode;\r\n}\r\n\r\nconst Switch = React.forwardRef<HTMLDivElement, SwitchProps>(\r\n  ({ label, className, children, ...props }, ref) => {\r\n    return (\r\n      <SwitchRoot\r\n        ref={ref}\r\n        className={cn(\"inline-flex items-center gap-2\", className)}\r\n        {...props}\r\n      >\r\n        <SwitchHiddenInput />\r\n        <SwitchControl>\r\n          <SwitchThumb />\r\n        </SwitchControl>\r\n        {label ? <SwitchLabel>{label}</SwitchLabel> : children}\r\n      </SwitchRoot>\r\n    );\r\n  },\r\n);\r\n\r\nSwitch.displayName = \"Switch\";\r\n\r\nexport {\r\n  // Conveniencia\r\n  Switch,\r\n  // Partes atomicas\r\n  SwitchRoot,\r\n  SwitchControl,\r\n  SwitchThumb,\r\n  SwitchLabel,\r\n  SwitchHiddenInput,\r\n  // Tipos\r\n  type SwitchProps,\r\n};\r\n\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
+    },
+    {
+      "name": "textarea",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "textarea.tsx",
+          "content": "import * as React from \"react\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\n// ============================================================================\r\n// TEXTAREA\r\n// ============================================================================\r\nconst Textarea = React.forwardRef<\r\n  HTMLTextAreaElement,\r\n  React.TextareaHTMLAttributes<HTMLTextAreaElement>\r\n>(({ className, ...props }, ref) => {\r\n  return (\r\n    <textarea\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm transition-colors\",\r\n        \"placeholder:text-muted-foreground\",\r\n        \"focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring\",\r\n        \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n        \"aria-[invalid=true]:border-destructive\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    />\r\n  );\r\n});\r\n\r\nTextarea.displayName = \"Textarea\";\r\n\r\nexport { Textarea };\r\n\r\n"
         },
         {
           "name": "utils.ts",
