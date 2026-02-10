@@ -84,6 +84,26 @@
         }
       ],
       "type": "components:ui"
+    },
+    {
+      "name": "tooltip",
+      "dependencies": [
+        "@ark-ui/react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "name": "tooltip.tsx",
+          "content": "import * as React from \"react\";\r\nimport { Tooltip as ArkTooltip } from \"@ark-ui/react/tooltip\";\r\nimport { cn } from \"../lib/utils\";\r\n\r\n// ============================================================================\r\n// ROOT\r\n// ============================================================================\r\nconst Tooltip = ArkTooltip.Root;\r\n\r\n// ============================================================================\r\n// TRIGGER\r\n// ============================================================================\r\nconst TooltipTrigger = React.forwardRef<\r\n  React.ElementRef<typeof ArkTooltip.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof ArkTooltip.Trigger>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkTooltip.Trigger ref={ref} className={cn(className)} {...props} />\r\n));\r\nTooltipTrigger.displayName = \"TooltipTrigger\";\r\n\r\n// ============================================================================\r\n// POSITIONER\r\n// ============================================================================\r\nconst TooltipPositioner = React.forwardRef<\r\n  React.ElementRef<typeof ArkTooltip.Positioner>,\r\n  React.ComponentPropsWithoutRef<typeof ArkTooltip.Positioner>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkTooltip.Positioner ref={ref} className={cn(className)} {...props} />\r\n));\r\nTooltipPositioner.displayName = \"TooltipPositioner\";\r\n\r\n// ============================================================================\r\n// CONTENT\r\n// ============================================================================\r\nconst TooltipContent = React.forwardRef<\r\n  React.ElementRef<typeof ArkTooltip.Content>,\r\n  React.ComponentPropsWithoutRef<typeof ArkTooltip.Content>\r\n>(({ className, ...props }, ref) => (\r\n  <ArkTooltip.Content\r\n    ref={ref}\r\n    className={cn(\r\n      \"z-50 overflow-hidden rounded-md border bg-primary px-3 py-1.5 text-primary-foreground text-sm shadow-md\",\r\n      \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n      \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n      \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nTooltipContent.displayName = \"TooltipContent\";\r\n\r\nexport { Tooltip, TooltipTrigger, TooltipPositioner, TooltipContent };\r\n"
+        },
+        {
+          "name": "utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n"
+        }
+      ],
+      "type": "components:ui"
     }
   ]
 }
