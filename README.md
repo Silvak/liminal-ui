@@ -36,10 +36,35 @@ npx liminal-ui add dialog accordion select
 
 ## Available Components
 
+- `accordion` — Expandable content sections with Ark UI
+- `badge` — Small status pill with variants (default, secondary, destructive, outline)
 - `button` — Variants: default, destructive, outline, secondary, ghost, link
+- `card` — Layout container with `CardHeader`, `CardContent`, `CardFooter`, etc.
+- `checkbox` — Ark UI checkbox with convenience API (`<Checkbox label="Acepto" />`) y API compuesta
 - `dialog` — Modal with overlay, header, footer, close button
-- `accordion` — Expandable content sections
-- `select` — Dropdown selection with groups
+- `input` — Text input with error state via `aria-invalid`
+- `label` — Styled label for form fields
+- `select` — Dropdown selection with groups and convenience `Select` component
+- `separator` — Horizontal/vertical divider
+- `switch` — Toggle switch with convenience API (`<Switch label="Dark mode" />`)
+- `textarea` — Multiline text area aligned with `Input` styles
+- `tooltip` — Simple tooltip built on Ark UI
+
+## Theming
+
+Liminal UI usa un sistema de tokens CSS basado en variables HSL, compatible con shadcn/ui y herramientas como [`tweakcn`](https://tweakcn.com/editor/theme).
+
+- Los tokens base viven en `registry/lib/themes.css` (preset **slate** por defecto).
+- El CLI ofrece 3 presets de color: **slate**, **blue**, **green**.
+- Durante `liminal init` puedes elegir:
+  - Copiar el CSS de tokens base a tu archivo global (por defecto `app/globals.css`).
+  - Elegir el preset de color.
+- Si quieres personalizar visualmente el tema:
+  1. Genera un preset con `liminal init` o copia `registry/lib/themes.css`.
+  2. Abre [`tweakcn`](https://tweakcn.com/editor/theme), ajusta los colores.
+  3. Exporta el CSS y reemplaza las variables en tu `globals.css`.
+
+Mientras mantengas los mismos nombres de variables (`--background`, `--primary`, `--card`, etc.), todos los componentes de Liminal UI seguirán funcionando.
 
 ## Project Structure
 

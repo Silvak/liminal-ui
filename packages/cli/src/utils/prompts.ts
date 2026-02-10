@@ -78,6 +78,9 @@ export interface InitOptions {
   libPath: string;
   useTypeScript: boolean;
   useRsc: boolean;
+  copyThemeCSS?: boolean;
+  themePreset?: string;
+  cssPath?: string;
 }
 
 export async function promptInit(): Promise<InitOptions> {
@@ -106,6 +109,29 @@ export async function promptInit(): Promise<InitOptions> {
       message: "¿Usar React Server Components?",
       initial: true,
     },
+    {
+      type: "confirm",
+      name: "copyThemeCSS",
+      message: "¿Copiar CSS de tokens base (recomendado)?",
+      initial: true,
+    },
+    {
+      type: (prev) => (prev ? "select" : null),
+      name: "themePreset",
+      message: "Elige un preset de color:",
+      choices: [
+        { title: "Slate (default)", value: "slate" },
+        { title: "Blue", value: "blue" },
+        { title: "Green", value: "green" },
+      ],
+      initial: 0,
+    },
+    {
+      type: (_prev, values) => (values.copyThemeCSS ? "text" : null),
+      name: "cssPath",
+      message: "Ruta del archivo CSS global:",
+      initial: "app/globals.css",
+    },
   ]);
 
   // Handle Ctrl+C
@@ -119,5 +145,8 @@ export async function promptInit(): Promise<InitOptions> {
     libPath: response.libPath,
     useTypeScript: response.useTypeScript ?? true,
     useRsc: response.useRsc ?? true,
+    copyThemeCSS: response.copyThemeCSS ?? true,
+    themePreset: response.themePreset ?? "slate",
+    cssPath: response.cssPath ?? "app/globals.css",
   };
 }

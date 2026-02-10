@@ -19,8 +19,14 @@ import {
   CONFIG_FILE_NAME,
   type Config,
 } from "./utils/get-config.js";
-import { confirmOverwrite, promptInit, confirmInstallDependencies } from "./utils/prompts.js";
+import {
+  confirmOverwrite,
+  promptInit,
+  confirmInstallDependencies,
+  type InitOptions,
+} from "./utils/prompts.js";
 import { transformImports, transformKnownPatterns } from "./utils/transform-imports.js";
+import { getThemeByName, generateThemeCSS } from "./themes.js";
 
 // Registry
 import registry from "./registry.json" assert { type: "json" };
@@ -61,15 +67,22 @@ program
       }
 
       let config: Config;
+      let themeOptions: { copyThemeCSS: boolean; themePreset: string; cssPath: string };
 
       if (options.yes) {
         // Use defaults
         config = { ...DEFAULT_CONFIG };
         console.log(chalk.blue("🔧 Usando configuración por defecto..."));
+
+        themeOptions = {
+          copyThemeCSS: true,
+          themePreset: DEFAULT_CONFIG.tailwind.baseColor,
+          cssPath: DEFAULT_CONFIG.tailwind.css,
+        };
       } else {
         // Interactive prompts
         console.log(chalk.blue("\n🔧 Configurando Liminal UI...\n"));
-        const answers = await promptInit();
+        const answers: InitOptions = await promptInit();
 
         config = {
           ...DEFAULT_CONFIG,
@@ -82,7 +95,23 @@ program
             utils: `${answers.libPath}/utils`,
           },
         };
+
+        themeOptions = {
+          copyThemeCSS: answers.copyThemeCSS ?? true,
+          themePreset: answers.themePreset ?? DEFAULT_CONFIG.tailwind.baseColor,
+          cssPath: answers.cssPath ?? DEFAULT_CONFIG.tailwind.css,
+        };
       }
+
+      // Persist Tailwind theme info in config
+      config = {
+        ...config,
+        tailwind: {
+          ...config.tailwind,
+          baseColor: themeOptions.themePreset,
+          css: themeOptions.cssPath,
+        },
+      };
 
       // Write config file
       spinner.start("Escribiendo configuración...");
@@ -101,6 +130,34 @@ program
       if (!existsSync(libDir)) {
         mkdirSync(libDir, { recursive: true });
         console.log(chalk.green(`   ✅ Creado: ${chalk.gray(libDir)}`));
+      }
+
+      // Copy theme CSS if requested
+      if (themeOptions.copyThemeCSS) {
+        const preset = getThemeByName(themeOptions.themePreset);
+        const cssContent = generateThemeCSS(preset);
+        const targetCssPath = path.resolve(process.cwd(), themeOptions.cssPath);
+
+        if (existsSync(targetCssPath)) {
+          const overwrite = await confirmOverwrite(targetCssPath, "tokens CSS");
+          if (!overwrite) {
+            console.log(chalk.gray(`   ⏭️ Omitido: ${chalk.gray(targetCssPath)}`));
+          } else {
+            await fs.writeFile(targetCssPath, cssContent, "utf8");
+            console.log(
+              chalk.green(
+                `   ✅ Tema "${preset.label}" copiado en ${chalk.gray(targetCssPath)}`,
+              ),
+            );
+          }
+        } else {
+          await fs.writeFile(targetCssPath, cssContent, "utf8");
+          console.log(
+            chalk.green(
+              `   ✅ Tema "${preset.label}" copiado en ${chalk.gray(targetCssPath)}`,
+            ),
+          );
+        }
       }
 
       console.log(chalk.green("\n✅ ¡Liminal UI inicializado correctamente!"));

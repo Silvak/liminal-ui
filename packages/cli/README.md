@@ -35,39 +35,37 @@ Running `liminal init` creates `components.json`:
 {
   "tsx": true,
   "rsc": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "app/globals.css",
+    "baseColor": "slate",
+    "cssVariables": true
+  },
   "aliases": {
     "ui": "@/components/ui",
-    "lib": "@/lib"
+    "lib": "@/lib",
+    "utils": "@/lib/utils"
   }
 }
 ```
 
 ## Requirements
 
-- **Tailwind CSS** with CSS variables
+- **Tailwind CSS** with CSS variables (`background`, `foreground`, `primary`, etc.)
 - **TypeScript** (optional but recommended)
 
-Add to your global CSS:
+You have two options for the CSS tokens:
 
-```css
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-  }
-}
-```
+1. **Let `liminal init` copy them for you** (recommended)
+   - During `liminal init`, answer:
+     - `¿Copiar CSS de tokens base?` → **yes**
+     - Choose a preset: `slate`, `blue`, `green`
+     - Confirm the path for your global CSS (default `app/globals.css`)
+   - The CLI will write a full `@layer base { :root { ... } .dark { ... } }` block compatible with shadcn/ui.
+
+2. **Copy tokens manually**
+   - Use the reference file `registry/lib/themes.css` from this repo.
+   - Or generate a theme visually with tools like [`tweakcn`](https://tweakcn.com/editor/theme) and paste the exported CSS into your global stylesheet.
 
 ## Usage
 
