@@ -1,5 +1,11 @@
 ## [0.11.1](https://github.com/Silvak/liminal-ui/compare/v0.11.0...v0.11.1) (2025-12-19)
 
+## 0.14.0
+
+### Minor Changes
+
+- [`3e93723`](https://github.com/Silvak/liminal-ui/commit/3e9372361927c137fe13f7cf1d8734e3d67db8c3) Thanks [@Silvak](https://github.com/Silvak)! - feat: add tooltip component (Root, Trigger, Positioner, Content)
+
 ## 0.13.0
 
 ### Minor Changes
