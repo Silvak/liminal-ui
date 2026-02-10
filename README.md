@@ -49,6 +49,11 @@ npx liminal-ui add dialog accordion select
 - `switch` — Toggle switch with convenience API (`<Switch label="Dark mode" />`)
 - `textarea` — Multiline text area aligned with `Input` styles
 - `tooltip` — Simple tooltip built on Ark UI
+- `alert` — Static alert banner with `AlertTitle` y `AlertDescription` (variantes `default`, `destructive`)
+- `tabs` — Ark Tabs con API compuesta y conveniencia (`<Tabs items={[{ value, label, content }]}/>`)
+- `avatar` — Ark Avatar con API dual (`Avatar`, `AvatarRoot`, `AvatarImage`, `AvatarFallback`)
+- `popover` — Ark Popover posicionado con Portal + Positioner, más componente de conveniencia (`<Popover trigger={...}>`)
+- `toast` — Wrapper de [`sonner`](https://sonner.emilkowal.dev/) con tokens de Liminal (`Toaster`, `toast(...)`)
 
 ## Theming
 

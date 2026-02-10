@@ -19,15 +19,15 @@ Mantener la identidad del proyecto (code ownership, CLI copy-paste) pero que cad
 
 ### Semana 1-2: Componentes core
 
-- [ ] Crear componentes de formulario: `input`, `textarea`, `checkbox`, `switch`, `label`
-- [ ] Crear componentes de layout: `card`, `badge`, `separator`
-- [ ] Ejecutar `npm run build:registry` y verificar ~13 componentes en `registry.json`
+- [x] Crear componentes de formulario: `input`, `textarea`, `checkbox`, `switch`, `label`
+- [x] Crear componentes de layout: `card`, `badge`, `separator`
+- [x] Ejecutar `npm run build:registry` y verificar ~13 componentes en `registry.json`
 
 ### Semana 3-4: Componentes interactivos + temas
 
-- [ ] Crear componentes overlay/feedback: `popover`, `alert`, `toast` (evaluar sonner)
-- [ ] Crear componentes de navegación: `tabs`, `avatar`
-- [ ] Sistema de temas básico: `registry/lib/themes.css`, opción en CLI `init` para copiar CSS de tokens, 2-3 presets (slate, blue, green)
+- [x] Crear componentes overlay/feedback: `popover`, `alert`, `toast` (evaluar sonner)
+- [x] Crear componentes de navegación: `tabs`, `avatar`
+- [x] Sistema de temas básico: `registry/lib/themes.css`, opción en CLI `init` para copiar CSS de tokens, 2-3 presets (slate, blue, green)
 
 ### Semana 5-6: Documentación + CLI
 
