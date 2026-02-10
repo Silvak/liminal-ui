@@ -137,6 +137,11 @@ program
         const preset = getThemeByName(themeOptions.themePreset);
         const cssContent = generateThemeCSS(preset);
         const targetCssPath = path.resolve(process.cwd(), themeOptions.cssPath);
+        const cssDir = path.dirname(targetCssPath);
+
+        if (!existsSync(cssDir)) {
+          mkdirSync(cssDir, { recursive: true });
+        }
 
         if (existsSync(targetCssPath)) {
           const overwrite = await confirmOverwrite(targetCssPath, "tokens CSS");
