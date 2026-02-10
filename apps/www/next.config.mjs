@@ -11,6 +11,9 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   output: 'standalone',
   outputFileTracingRoot: resolve(__dirname, '../../'),
+  experimental: {
+    globalNotFound: true,
+  },
 };
 
 export default withContentlayer(nextConfig);

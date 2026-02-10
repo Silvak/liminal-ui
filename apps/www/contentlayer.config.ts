@@ -14,8 +14,8 @@ export const Doc = defineDocumentType(() => ({
       required: true,
     },
     component: {
-      type: 'boolean',
-      default: false,
+      type: 'string',
+      required: false,
     },
   },
   computedFields: {
@@ -26,6 +26,16 @@ export const Doc = defineDocumentType(() => ({
     slugAsParams: {
       type: 'string',
       resolve: (doc) => doc._raw.flattenedPath.split('/').slice(1).join('/'),
+    },
+    isComponent: {
+      type: 'boolean',
+      resolve: (doc) => {
+        const component = doc.component;
+        if (!component) return false;
+        // Normalizar strings con retorno de carro o espacios
+        const normalized = String(component).trim().replace(/\r/g, '').toLowerCase();
+        return normalized === 'true' || normalized === '1';
+      },
     },
   },
 }));

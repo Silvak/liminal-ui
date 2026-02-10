@@ -31,12 +31,12 @@ Mantener la identidad del proyecto (code ownership, CLI copy-paste) pero que cad
 
 ### Semana 5-6: Documentación + CLI
 
-- [ ] Añadir docs MDX para cada componente nuevo en `apps/www/content/docs/components/`
-- [ ] Actualizar navegación en `apps/www/app/docs/layout.tsx`
+- [x] Añadir docs MDX para cada componente nuevo en `apps/www/content/docs/components/`
+- [x] Actualizar navegación en `apps/www/app/docs/layout.tsx`
 - [ ] Mejorar cada doc: ejemplo rápido, ejemplo completo, props, variantes
 - [ ] Crear página `/docs/theming`
-- [ ] Pulir landing `apps/www/app/page.tsx`
-- [ ] Mejorar CLI `init`: preguntar si copiar CSS de tokens
+- [x] Pulir landing `apps/www/app/page.tsx`
+- [x] Mejorar CLI `init`: preguntar si copiar CSS de tokens
 - [ ] Verificar `liminal add` con todos los componentes nuevos
 
 ### Semana 7-8: Pulido y release
