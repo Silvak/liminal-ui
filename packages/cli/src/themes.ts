@@ -148,10 +148,11 @@ export function generateThemeCSS(preset: ThemePreset): string {
   lines.push("");
   lines.push("@layer base {");
   lines.push("  * {");
-    lines.push("    @apply border-border;");
+  lines.push("    border-color: hsl(var(--border));");
   lines.push("  }");
   lines.push("  body {");
-    lines.push("    @apply bg-background text-foreground;");
+  lines.push("    background-color: hsl(var(--background));");
+  lines.push("    color: hsl(var(--foreground));");
   lines.push("  }");
   lines.push("}");
 
