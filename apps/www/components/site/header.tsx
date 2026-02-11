@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,7 +15,7 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur px-4">
       <div className="container flex h-14 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
@@ -49,7 +49,7 @@ export function SiteHeader() {
             aria-label="Open GitHub repository"
           >
             <Link
-              href="https://github.com/yourusername/liminal-ui"
+              href="https://github.com/silvak/liminal-ui"
               target="_blank"
               rel="noreferrer"
             >
@@ -61,4 +61,3 @@ export function SiteHeader() {
     </header>
   );
 }
-

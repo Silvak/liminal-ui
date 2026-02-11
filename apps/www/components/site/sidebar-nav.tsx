@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -59,8 +59,8 @@ export function SidebarNav() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r bg-background md:sticky md:block">
-      <div className="py-6 pr-6 lg:py-8">
+    <aside className="fixed top-14 px-6 z-30 h-[calc(100vh-56px)] w-[288px] shrink-0 overflow-y-auto border-r bg-background  md:block bg-white">
+      <div className="pr-4 py-2 bg-red-200 h-full">
         {sections.map((section) => (
           <div key={section.title} className="pb-4">
             <h4 className="mb-1 rounded-md px-2 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -75,8 +75,7 @@ export function SidebarNav() {
                     href={item.href}
                     className={cn(
                       "group flex w-full items-center rounded-md px-2 py-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                      active &&
-                        "bg-accent text-foreground font-medium",
+                      active && "bg-accent text-foreground font-medium",
                     )}
                   >
                     {item.title}
@@ -90,4 +89,3 @@ export function SidebarNav() {
     </aside>
   );
 }
-
