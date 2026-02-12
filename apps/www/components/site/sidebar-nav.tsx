@@ -147,13 +147,13 @@ function CollapsibleSection({
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-muted-foreground transition-colors hover:bg-slate-100 ",
-                  active && "bg-slate-100",
+                  "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-muted-foreground transition-colors hover:bg-muted",
+                  active && "bg-muted",
                 )}
               >
                 {active && (
                   <span
-                    className="absolute -left-3 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-white"
+                    className="absolute -left-3 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-foreground"
                     aria-hidden
                   />
                 )}
@@ -184,7 +184,7 @@ function NavContent({
   };
 
   return (
-    <div className="relative h-full bg-white">
+    <div className="relative h-full bg-background">
       <div
         className={cn(
           "h-full w-full overflow-y-auto py-12 [mask:linear-gradient(to_bottom,transparent,black_48px,black_calc(100%-48px),transparent)] [&::-webkit-scrollbar]:hidden",

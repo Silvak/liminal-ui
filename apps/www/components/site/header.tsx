@@ -6,6 +6,7 @@ import { Github, Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
+import { ThemeToggle } from "./theme-toggle";
 
 const mainNav = [
   { label: "Docs", href: "/docs/introduction" },
@@ -57,6 +58,7 @@ export function SiteHeader() {
               <Menu className="h-4 w-4" />
             </Button>
           )}
+          <ThemeToggle />
           <Button
             asChild
             variant="ghost"
