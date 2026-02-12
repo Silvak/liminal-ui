@@ -1,15 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ChevronRight, X } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { useDocsSidebar } from "../../store/docs-sidebar";
+import { Badge } from "../ui/badge";
 
-type NavSection = {
+export type NavItem = {
   title: string;
-  items: { title: string; href: string }[];
+  href: string;
+  badge?: "new" | "beta" | "updated";
+  disabled?: boolean;
 };
 
-const sections: NavSection[] = [
+export type NavSection = {
+  title: string;
+  items: NavItem[];
+};
+
+export const docNavSections: NavSection[] = [
   {
     title: "Getting Started",
     items: [
@@ -55,37 +66,202 @@ const sections: NavSection[] = [
   },
 ];
 
-export function SidebarNav() {
+const badgeVariantMap = {
+  new: "default",
+  beta: "secondary",
+  updated: "outline",
+} as const;
+
+function CollapsibleSection({
+  section,
+  pathname,
+  onNavigate,
+  isOpen,
+  onToggle,
+}: {
+  section: NavSection;
+  pathname: string;
+  onNavigate?: () => void;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div key={section.title} className="mb-5">
+      <button
+        type="button"
+        onClick={onToggle}
+        className="mb-1 flex w-auto items-center gap-1 px-1 pb-[2px] text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+        aria-expanded={isOpen}
+      >
+        <ChevronRight
+          className={cn(
+            "h-3.5 w-3.5 shrink-0 transition-transform ",
+            isOpen && "rotate-90",
+          )}
+          aria-hidden
+        />
+        {section.title}
+      </button>
+
+      <div
+        className={cn(
+          "grid overflow-hidden transition-[max-height] duration-200 ease-out",
+          isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-60",
+        )}
+      >
+        <div className="flex flex-col text-sm">
+          {section.items.map((item) => {
+            const active = pathname === item.href;
+            const content = (
+              <>
+                <span className="truncate">{item.title}</span>
+                {item.badge && (
+                  <Badge
+                    variant={
+                      badgeVariantMap[item.badge] as
+                        | "default"
+                        | "secondary"
+                        | "outline"
+                    }
+                    className="ml-auto shrink-0 text-[10px]"
+                  >
+                    {item.badge}
+                  </Badge>
+                )}
+              </>
+            );
+            if (item.disabled) {
+              return (
+                <span
+                  key={item.href}
+                  className=" flex h-8 w-full cursor-not-allowed items-center rounded-md border border-transparent px-2 text-muted-foreground/60"
+                >
+                  {content}
+                </span>
+              );
+            }
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onNavigate}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-muted-foreground transition-colors hover:bg-slate-100 ",
+                  active && "bg-slate-100",
+                )}
+              >
+                {active && (
+                  <span
+                    className="absolute -left-3 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-white"
+                    aria-hidden
+                  />
+                )}
+                {content}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NavContent({
+  onNavigate,
+  hasPadding = true,
+}: {
+  onNavigate?: () => void;
+  hasPadding?: boolean;
+}) {
   const pathname = usePathname();
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>(
+    () => Object.fromEntries(docNavSections.map((s) => [s.title, true])),
+  );
+
+  const toggleSection = (title: string) => {
+    setOpenSections((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
 
   return (
-    <aside className="fixed top-14 px-6 z-30 h-[calc(100vh-56px)] w-[288px] shrink-0 overflow-y-auto border-r bg-background  md:block bg-white">
-      <div className="pr-4 py-2 bg-red-200 h-full">
-        {sections.map((section) => (
-          <div key={section.title} className="pb-4">
-            <h4 className="mb-1 rounded-md px-2 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              {section.title}
-            </h4>
-            <div className="grid grid-flow-row auto-rows-max text-sm">
-              {section.items.map((item) => {
-                const active = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "group flex w-full items-center rounded-md px-2 py-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                      active && "bg-accent text-foreground font-medium",
-                    )}
-                  >
-                    {item.title}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
+    <div className="relative h-full bg-white">
+      <div
+        className={cn(
+          "h-full w-full overflow-y-auto py-12 [mask:linear-gradient(to_bottom,transparent,black_48px,black_calc(100%-48px),transparent)] [&::-webkit-scrollbar]:hidden",
+          hasPadding && "px-6",
+        )}
+      >
+        {docNavSections.map((section) => (
+          <CollapsibleSection
+            key={section.title}
+            section={section}
+            pathname={pathname}
+            onNavigate={onNavigate}
+            isOpen={openSections[section.title] ?? true}
+            onToggle={() => toggleSection(section.title)}
+          />
         ))}
       </div>
-    </aside>
+    </div>
+  );
+}
+
+export function SidebarNav() {
+  const { open, closeMenu } = useDocsSidebar();
+
+  return (
+    <>
+      {/* Desktop: fixed sidebar, hidden on mobile */}
+      <aside
+        className="fixed top-14 left-0 z-30 hidden h-[calc(100vh-3.5rem)] w-[288px] shrink-0 overflow-hidden border-r bg-background md:block"
+        aria-label="Documentación"
+      >
+        <NavContent />
+      </aside>
+
+      {/* Mobile: overlay when open */}
+      <div
+        role="presentation"
+        aria-hidden={!open}
+        onClick={closeMenu}
+        onKeyDown={(e) => e.key === "Escape" && closeMenu()}
+        className={cn(
+          "fixed inset-0 z-55 bg-black/50 transition-opacity md:hidden",
+          open ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
+      />
+
+      {/* Mobile: drawer panel */}
+      <aside
+        aria-label="Menú de documentación"
+        aria-modal="true"
+        role="dialog"
+        onKeyDown={(e) => e.key === "Escape" && closeMenu()}
+        className={cn(
+          "docs-drawer-panel fixed inset-y-0 left-0 z-60 flex w-[288px] flex-col border-r bg-background shadow-xl transition-transform duration-200 ease-out md:hidden",
+          open ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
+        {/* Drawer header */}
+        <div className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-background px-4">
+          <span className="text-sm font-semibold tracking-tight">
+            Documentación
+          </span>
+          <button
+            type="button"
+            onClick={closeMenu}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            aria-label="Cerrar menú"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Drawer body */}
+        <div className="flex-1 overflow-hidden">
+          <NavContent onNavigate={closeMenu} hasPadding={true} />
+        </div>
+      </aside>
+    </>
   );
 }

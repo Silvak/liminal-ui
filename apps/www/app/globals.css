@@ -57,3 +57,7 @@
     color: hsl(var(--foreground));
   }
 }
+
+.docs-drawer-panel {
+  background-color: hsl(var(--background));
+}

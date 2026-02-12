@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Github } from "lucide-react";
+import { Github, Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
+import { useDocsSidebar } from "../../store/docs-sidebar";
 
 const mainNav = [
   { label: "Docs", href: "/docs/introduction" },
@@ -13,6 +14,8 @@ const mainNav = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const isDocs = pathname.startsWith("/docs");
+  const toggleDocsSidebar = useDocsSidebar((s) => s.toggle);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur px-4">
@@ -42,6 +45,18 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="flex items-center gap-2">
+          {isDocs && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              aria-label="Abrir menú de documentación"
+              onClick={toggleDocsSidebar}
+            >
+              <Menu className="h-4 w-4" />
+            </Button>
+          )}
           <Button
             asChild
             variant="ghost"
