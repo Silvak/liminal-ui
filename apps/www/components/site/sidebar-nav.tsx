@@ -92,7 +92,7 @@ function CollapsibleSection({
       <button
         type="button"
         onClick={onToggle}
-        className="mb-1 flex w-auto items-center gap-1 px-1 pb-[2px] text-left text-sm font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+        className="mb-1 flex w-auto items-center gap-1 px-1 pb-[2px] text-left text-sm md:text-xs font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
         aria-expanded={isOpen}
       >
         <ChevronRight
@@ -111,7 +111,7 @@ function CollapsibleSection({
           isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-60",
         )}
       >
-        <div className="flex flex-col text-base">
+        <div className="flex flex-col text-base md:text-sm">
           {section.items.map((item) => {
             const active = pathname === item.href;
             const content = (
