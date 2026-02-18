@@ -61,3 +61,9 @@
 .docs-drawer-panel {
   background-color: hsl(var(--background));
 }
+
+/* Code blocks: Shiki genera un <pre> con background propio; forzamos transparente
+   para que el contenedor controle el fondo y no haya doble color. */
+pre.shiki {
+  background-color: transparent !important;
+}

@@ -1,47 +1,74 @@
 ---
 title: Introduction
-description: Welcome to Liminal UI - A modern React component library
+description: Welcome to Liminal UI - A modern React component library you own and control
 ---
 
 # Introduction
 
-Liminal UI is a modern React component library built with **Ark UI** and **Tailwind CSS**. It follows the shadcn/ui philosophy of providing copy-paste components that you own and control.
+Liminal UI is a modern React component library built with **Ark UI** and **Tailwind CSS**. Instead of installing a closed dependency, you add components by copying their source code into your project. You own the code, you control the styles, and you can change anything.
 
-## Philosophy
+## Why Liminal UI?
 
-Unlike traditional component libraries that you install as dependencies, Liminal UI gives you the source code. This means:
+Traditional libraries ship as npm packages: you get compiled components and a public API, but the implementation stays inside `node_modules`. Customization often means fighting props, CSS variables, or forking the package. Liminal UI inverts this: the CLI copies the **source code** of each component into your app. There is no black box.
 
-- **Full Control**: Modify components to fit your exact needs
-- **No Lock-in**: You own the code, no vendor dependencies
-- **Type-Safe**: Built with TypeScript from the ground up
-- **Accessible**: Built on Ark UI primitives with ARIA compliance
+- **Full control**: Edit components directly to match your design system or product needs.
+- **No lock-in**: No dependency on a runtime from us; only React, Ark UI, and Tailwind.
+- **Type-safe**: Components are written in TypeScript with clear types.
+- **Accessible**: Built on [Ark UI](https://ark-ui.com) primitives with ARIA and keyboard support.
 
-## Features
+## How it works
 
-- 🎨 **Customizable**: Tailwind CSS for easy styling
-- ♿ **Accessible**: ARIA-compliant components
-- 🔧 **Developer Experience**: CLI for easy installation
-- 📦 **Tree-shakeable**: Only bundle what you use
-- 🌙 **Dark Mode**: Built-in dark mode support
+Liminal UI follows the same idea as [shadcn/ui](https://ui.shadcn.com): copy-paste over install-and-import.
 
-## Quick Start
+1. You run the CLI (`liminal add button`) in your project.
+2. The CLI copies the component files (e.g. `button.tsx`) and any utilities into your repo.
+3. You import from your own paths (e.g. `@/components/ui/button`) and use them like any React component.
+4. You can edit, refactor, or delete the code at any time.
 
-Get started by installing the CLI:
+There is no “Liminal UI runtime”. Once the code is in your project, it’s just your code.
 
-```bash
-npm install -g @liminal-ui/cli
-```
+## Liminal UI vs traditional libraries
 
-Then initialize in your project:
+| Aspect | Liminal UI | Traditional (e.g. MUI, Chakra) |
+|--------|------------|----------------------------------|
+| **Code location** | Lives in your repo | Lives in `node_modules` |
+| **Customization** | Edit source directly | Override via props/themes or fork |
+| **Bundle size** | Only what you add | Often whole library or large chunks |
+| **Updates** | You choose when to re-run CLI and merge | Upgrade dependency, hope nothing breaks |
+| **Styling** | Tailwind, your design tokens | Library’s design system or CSS-in-JS |
 
-```bash
-liminal init
-```
+## Tech stack
 
-Add your first component:
+- **[Ark UI](https://ark-ui.com)**: Headless, accessible primitives (accordion, dialog, tabs, etc.). Liminal UI builds on these and adds styling and composition.
+- **Tailwind CSS**: Utility-first CSS. All components are styled with Tailwind classes, so you can tweak or extend with your config.
+- **TypeScript**: Components are written in TypeScript. You get full type safety and editor support.
 
-```bash
-liminal add button
-```
+## Framework compatibility
 
-That's it! Check out the [Installation](/docs/installation) guide for more details.
+Liminal UI works in any React 18+ environment:
+
+- **Next.js** (App Router or Pages Router)
+- **Vite** (React template)
+- **Remix**
+- **Create React App** (or similar)
+
+You only need React, Tailwind, and a way to resolve the path alias you configure (e.g. `@/components/ui`). The [Installation](/docs/installation) guide covers setup per framework.
+
+## Quick example
+
+After adding the Button component, you use it like this:
+
+<CodeTabs
+  ts={`import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return <Button>Click me</Button>;
+}`}
+  js={`import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return <Button>Click me</Button>;
+}`}
+/>
+
+No special provider or theme wrapper is required. Install the CLI, run `liminal init`, then add components as you need them. See the [Installation](/docs/installation) guide for step-by-step setup and the [Components](/docs/components/button) section for usage and variants.

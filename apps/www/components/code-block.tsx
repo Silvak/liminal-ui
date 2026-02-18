@@ -9,6 +9,8 @@ interface CodeBlockProps {
   code: string;
   language?: string;
   className?: string;
+  /** Oculta la barra superior (lenguaje + copiar). Útil cuando se usa dentro de CodeTabs. */
+  hideHeader?: boolean;
 }
 
 let highlighterPromise: Promise<Highlighter> | null = null;
@@ -16,7 +18,7 @@ let highlighterPromise: Promise<Highlighter> | null = null;
 function getClientHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = getHighlighter({
-      themes: ["github-dark"],
+      themes: ["one-dark-pro"],
       langs: ["tsx", "ts", "js", "jsx", "bash", "json", "css", "html"],
     });
   }
@@ -30,7 +32,12 @@ function escapeHtml(code: string) {
     .replace(/>/g, "&gt;");
 }
 
-export function CodeBlock({ code, language = "tsx", className }: CodeBlockProps) {
+export function CodeBlock({
+  code,
+  language = "tsx",
+  className,
+  hideHeader = false,
+}: CodeBlockProps) {
   const [html, setHtml] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -40,7 +47,7 @@ export function CodeBlock({ code, language = "tsx", className }: CodeBlockProps)
         const highlighter = await getClientHighlighter();
         const highlighted = highlighter.codeToHtml(code.trimEnd(), {
           lang: language,
-          theme: "github-dark",
+          theme: "one-dark-pro",
         });
         if (!cancelled) {
           setHtml(highlighted);
@@ -59,10 +66,25 @@ export function CodeBlock({ code, language = "tsx", className }: CodeBlockProps)
     };
   }, [code, language]);
 
+  const content = (
+    <div
+      className="overflow-auto p-4 text-[0.8rem]"
+      dangerouslySetInnerHTML={{
+        __html:
+          html ??
+          `<pre><code>${escapeHtml(code)}</code></pre>`,
+      }}
+    />
+  );
+
+  if (hideHeader) {
+    return <>{content}</>;
+  }
+
   return (
     <div
       className={cn(
-        "relative my-4 overflow-hidden rounded-lg border bg-[#020617] text-xs",
+        "relative my-4 overflow-hidden rounded-lg border bg-[#282c34] text-xs",
         className,
       )}
     >
@@ -70,14 +92,7 @@ export function CodeBlock({ code, language = "tsx", className }: CodeBlockProps)
         <span>{language}</span>
         <CopyButton value={code} />
       </div>
-      <div
-        className="overflow-auto p-4 text-[0.8rem]"
-        dangerouslySetInnerHTML={{
-          __html:
-            html ??
-            `<pre><code>${escapeHtml(code)}</code></pre>`,
-        }}
-      />
+      {content}
     </div>
   );
 }

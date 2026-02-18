@@ -1,75 +1,184 @@
 ---
 title: Installation
-description: How to install and configure Liminal UI in your project
+description: How to install and configure Liminal UI in your React project
 ---
 
 # Installation
 
-Get started with Liminal UI in your React project.
+This guide walks you through installing the Liminal UI CLI, initializing your project, and adding your first components. You can use **npm**, **pnpm**, **yarn**, or **bun**.
 
 ## Prerequisites
 
-Before you begin, make sure you have:
-
-- Node.js 18+ installed
-- A React 18+ project (Next.js, Vite, Create React App, etc.)
-- Tailwind CSS configured
+- **Node.js 18+**
+- A **React 18+** project (Next.js, Vite, Remix, Create React App, etc.)
+- **Tailwind CSS** already configured (see [Tailwind setup](https://tailwindcss.com/docs/installation) if needed)
 
 ## Install the CLI
 
-First, install the Liminal UI CLI globally:
+Install the Liminal UI CLI globally so you can run `liminal` from any directory:
 
-```bash
-npm install -g @liminal-ui/cli
-```
+<PkgManTabs
+  npm="npm install -g @liminal-ui/cli"
+  pnpm="pnpm add -g @liminal-ui/cli"
+  yarn="yarn global add @liminal-ui/cli"
+  bun="bun add -g @liminal-ui/cli"
+/>
 
-Or use it directly with npx:
+Alternatively, run commands without a global install using `npx` or `pnpm dlx`:
 
 ```bash
 npx @liminal-ui/cli init
 ```
 
-## Initialize Your Project
+## Initialize your project
 
-Navigate to your project directory and run:
+From the root of your React project, run:
+
+<PkgManTabs
+  npm="npx @liminal-ui/cli init"
+  pnpm="pnpm dlx @liminal-ui/cli init"
+  yarn="yarn dlx @liminal-ui/cli init"
+  bun="bunx @liminal-ui/cli init"
+/>
+
+If you installed the CLI globally, you can run:
 
 ```bash
 liminal init
 ```
 
-This will:
+The wizard will ask:
 
-1. Create a `components.json` configuration file
-2. Set up your component and utility directories
-3. Configure path aliases
+- **TypeScript**: Are you using TypeScript?
+- **React Server Components**: Are you using RSC? (e.g. Next.js App Router)
+- **Components path**: Where to put UI components (default: `src/components/ui`)
+- **Utils path**: Where to put shared utilities (default: `src/lib`)
 
-You'll be asked a few questions:
+After this, you’ll have a `components.json` config and the folder structure ready for components.
 
-- **TypeScript**: Are you using TypeScript? (Yes/No)
-- **RSC**: Are you using React Server Components? (Yes/No)
-- **Components Path**: Where to install components (default: `src/components/ui`)
-- **Utils Path**: Where to install utilities (default: `src/lib`)
+## Example: `components.json`
 
-## Add Components
+Initialization creates a `components.json` file in your project root. It might look like this:
 
-Once initialized, you can start adding components:
+```json
+{
+  "$schema": "https://liminal-ui.com/schema.json",
+  "style": "default",
+  "tsx": true,
+  "rsc": false,
+  "components": "src/components/ui",
+  "utils": "src/lib",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib"
+  }
+}
+```
+
+You can edit this file to change paths or options; the CLI reads it when you run `liminal add`.
+
+## Project structure after init
+
+A typical structure after running `liminal init` and adding a few components:
+
+```
+your-app/
+├── components.json
+├── src/
+│   ├── components/
+│   │   └── ui/          # Components added with `liminal add`
+│   │       ├── button.tsx
+│   │       └── ...
+│   └── lib/
+│       └── utils.ts      # cn() and other helpers
+```
+
+Path aliases (e.g. `@/components/ui`) must be configured in your build tool (see framework sections below).
+
+## Add components
+
+Add components one by one with:
+
+<PkgManTabs
+  npm="npx @liminal-ui/cli add button"
+  pnpm="pnpm dlx @liminal-ui/cli add button"
+  yarn="yarn dlx @liminal-ui/cli add button"
+  bun="bunx @liminal-ui/cli add button"
+/>
+
+With the CLI installed globally:
 
 ```bash
 liminal add button
 ```
 
-This will:
+The CLI will copy the component source into your configured `components` path and install any required dependencies (e.g. Ark UI). You can then import and use it:
 
-1. Copy the component source code to your project
-2. Install required dependencies automatically
-3. Set up any utility functions needed
+<CodeTabs
+  ts={`import { Button } from "@/components/ui/button";
 
-## Manual Installation
+export default function Page() {
+  return (
+    <Button variant="outline" size="lg">
+      Get started
+    </Button>
+  );
+}`}
+  js={`import { Button } from "@/components/ui/button";
 
-If you prefer not to use the CLI, you can manually copy components from our [GitHub repository](https://github.com/yourusername/liminal-ui).
+export default function Page() {
+  return (
+    <Button variant="outline" size="lg">
+      Get started
+    </Button>
+  );
+}`}
+/>
 
-## Next Steps
+Replace `button` with any component name from the [components list](/docs/components/button) (e.g. `liminal add dialog`, `liminal add tabs`).
 
-- Browse available [components](/docs/components/button)
-- Learn about [theming and customization](/docs/theming)
-- Check out [examples](/docs/examples)
+## Framework-specific setup
+
+### Next.js
+
+- **App Router**: Ensure `tsconfig.json` (or `jsconfig.json`) has path aliases, e.g. `"@/*": ["./src/*"]`. Next.js uses this for `@/components` and `@/lib`.
+- **Tailwind**: If you use `tailwind.config.ts`, ensure `content` includes your components path so Tailwind can see the classes used in Liminal UI components.
+
+### Vite
+
+- In `vite.config.ts`, add resolve alias if not already present, for example:
+  `resolve: { alias: { "@": path.resolve(__dirname, "./src") } }`
+- Ensure `tsconfig.json` has `"paths": { "@/*": ["./src/*"] }` so types resolve.
+
+### Remix
+
+- Use Remix’s built-in alias support (e.g. `~` or `@`) and point it to your app directory. Set the same path in `components.json` (e.g. `app/components/ui`) so the CLI writes files where your aliases expect them.
+
+## Manual installation
+
+If you prefer not to use the CLI, you can copy component source files from the [Liminal UI repository](https://github.com/liminal-ui/liminal-ui) into your project. You’ll need to:
+
+1. Copy the component file(s) (e.g. `button.tsx`) into your UI folder.
+2. Ensure `cn` and any other utilities from `@/lib/utils` exist.
+3. Install Ark UI and other dependencies listed in the component or in the repo’s `package.json`.
+
+The CLI automates this and keeps paths consistent with your `components.json`.
+
+## Troubleshooting
+
+**"Command not found: liminal"**  
+Install the CLI globally (see Install the CLI above) or use `npx @liminal-ui/cli` / `pnpm dlx` / `bunx` instead of `liminal`.
+
+**Path alias errors (e.g. `@/components/ui` not found)**  
+Check that your build tool and `tsconfig.json` (or `jsconfig.json`) define the same alias you use in imports. For example, if you use `@/*`, it must resolve to the directory that contains `components` and `lib`.
+
+**Tailwind classes not applied**  
+Ensure your Tailwind `content` (or equivalent) includes the paths where Liminal UI components live (e.g. `src/components/**/*.{ts,tsx}`). Otherwise Tailwind won’t see the classes and will purge them.
+
+**RSC / "use client" issues**  
+If you use React Server Components (e.g. Next.js App Router), components that use hooks or browser APIs must have `"use client"` at the top. The CLI can set this when you answer “Yes” to RSC during `liminal init`. If you added components before enabling RSC, add `"use client"` manually to those files if they use client-only features.
+
+## Next steps
+
+- Browse [components](/docs/components/button) for usage and variants.
+- Read the [Introduction](/docs/introduction) for philosophy and tech stack.

@@ -1,5 +1,7 @@
 import * as React from "react";
 import { CodeBlock } from "./code-block";
+import { CodeTabs } from "./code-tabs";
+import { PkgManTabs } from "./pkg-man-tabs";
 import { Separator } from "./ui/separator";
 import { cn } from "../lib/utils";
 import { ComponentPreview } from "./component-preview";
@@ -134,5 +136,7 @@ export const mdxComponents: MDXComponents = {
   Preview: ({ className, ...props }) => (
     <ComponentPreview className={className} {...props} />
   ),
+  CodeTabs,
+  PkgManTabs,
 };
 
