@@ -3,7 +3,7 @@ import Link from "next/link";
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background">
-      <div className="container flex flex-col items-center justify-between gap-4 py-6 text-sm text-muted-foreground md:flex-row px-4">
+      <div className="flex w-full flex-col items-center justify-between gap-4 px-4 py-6 text-sm text-muted-foreground md:flex-row md:px-8">
         <p>© {new Date().getFullYear()} Liminal UI. MIT License.</p>
         <div className="flex items-center gap-4">
           <Link

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SiteHeader } from "../components/site/header";
 import { SiteFooter } from "../components/site/footer";
 import { PageContainer } from "../components/site/page-container";
+import { SidebarNav } from "../components/site/sidebar-nav";
 import { Badge } from "../components/ui/badge";
 import {
   Card,
@@ -47,6 +48,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+      <SidebarNav mobileOnly />
 
       <main>
         <PageContainer className="py-12 md:py-16 space-y-16">

@@ -2,31 +2,45 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Github, Menu } from "lucide-react";
+import { Github, Menu, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
 import { ThemeToggle } from "./theme-toggle";
 
-const mainNav = [
+export const mainNav = [
   { label: "Docs", href: "/docs/introduction" },
   { label: "Components", href: "/docs/components/button" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const isDocs = pathname.startsWith("/docs");
+  const open = useDocsSidebar((s) => s.open);
   const toggleDocsSidebar = useDocsSidebar((s) => s.toggle);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur px-4">
-      <div className="container flex h-14 items-center justify-between">
+    <header className="sticky top-0 z-50 border-b border-border bg-background md:bg-background/80 backdrop-blur">
+      <div className="flex h-14 w-full items-center justify-between pl-0 pr-4 md:px-4 ">
         <div className="flex items-center gap-6">
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="md:hidden w-[56px] h-[56px] rounded-none border-r"
+            aria-label={
+              open ? "Cerrar menú de navegación" : "Abrir menú de navegación"
+            }
+            onClick={toggleDocsSidebar}
+          >
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </Button>
+
           <Link href="/" className="flex items-center gap-2">
             <span className="text-sm font-semibold tracking-tight">
               Liminal UI
             </span>
           </Link>
+
           <nav className="hidden items-center gap-4 text-sm md:flex">
             {mainNav.map((item) => {
               const active = pathname.startsWith(item.href);
@@ -45,19 +59,8 @@ export function SiteHeader() {
             })}
           </nav>
         </div>
+
         <div className="flex items-center gap-2">
-          {isDocs && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              aria-label="Abrir menú de documentación"
-              onClick={toggleDocsSidebar}
-            >
-              <Menu className="h-4 w-4" />
-            </Button>
-          )}
           <ThemeToggle />
           <Button
             asChild

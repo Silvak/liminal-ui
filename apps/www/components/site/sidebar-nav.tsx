@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
 import { Badge } from "../ui/badge";
+import { Separator } from "../ui/separator";
+import { mainNav } from "./header";
 
 export type NavItem = {
   title: string;
@@ -90,7 +92,7 @@ function CollapsibleSection({
       <button
         type="button"
         onClick={onToggle}
-        className="mb-1 flex w-auto items-center gap-1 px-1 pb-[2px] text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+        className="mb-1 flex w-auto items-center gap-1 px-1 pb-[2px] text-left text-sm font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
         aria-expanded={isOpen}
       >
         <ChevronRight
@@ -109,7 +111,7 @@ function CollapsibleSection({
           isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-60",
         )}
       >
-        <div className="flex flex-col text-sm">
+        <div className="flex flex-col text-base">
           {section.items.map((item) => {
             const active = pathname === item.href;
             const content = (
@@ -170,9 +172,11 @@ function CollapsibleSection({
 function NavContent({
   onNavigate,
   hasPadding = true,
+  showSiteNav = false,
 }: {
   onNavigate?: () => void;
   hasPadding?: boolean;
+  showSiteNav?: boolean;
 }) {
   const pathname = usePathname();
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(
@@ -184,13 +188,43 @@ function NavContent({
   };
 
   return (
-    <div className="relative h-full bg-background">
+    <div className="relative h-full">
       <div
         className={cn(
           "h-full w-full overflow-y-auto py-12 [mask:linear-gradient(to_bottom,transparent,black_48px,black_calc(100%-48px),transparent)] [&::-webkit-scrollbar]:hidden",
           hasPadding && "px-6",
         )}
       >
+        {showSiteNav && (
+          <>
+            <div className="mb-6">
+              {mainNav.map((item) => {
+                const active = pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onNavigate}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-base text-muted-foreground transition-colors hover:bg-muted",
+                      active && "bg-muted text-foreground font-medium",
+                    )}
+                  >
+                    {active && (
+                      <span
+                        className="absolute -left-3 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-foreground"
+                        aria-hidden
+                      />
+                    )}
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+            <Separator className="mb-6" />
+          </>
+        )}
         {docNavSections.map((section) => (
           <CollapsibleSection
             key={section.title}
@@ -206,60 +240,55 @@ function NavContent({
   );
 }
 
-export function SidebarNav() {
+export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
   const { open, closeMenu } = useDocsSidebar();
 
   return (
     <>
       {/* Desktop: fixed sidebar, hidden on mobile */}
-      <aside
-        className="fixed top-14 left-0 z-30 hidden h-[calc(100vh-3.5rem)] w-[288px] shrink-0 overflow-hidden border-r bg-background md:block"
-        aria-label="Documentación"
-      >
-        <NavContent />
-      </aside>
+      {!mobileOnly && (
+        <aside
+          className="fixed top-14 left-0 z-30 hidden h-[calc(100vh-3.5rem)] w-[288px] shrink-0 overflow-hidden border-r bg-background md:block"
+          aria-label="Documentación"
+        >
+          <NavContent />
+        </aside>
+      )}
 
       {/* Mobile: overlay when open */}
+      {/*
       <div
         role="presentation"
         aria-hidden={!open}
         onClick={closeMenu}
         onKeyDown={(e) => e.key === "Escape" && closeMenu()}
         className={cn(
-          "fixed inset-0 z-55 bg-black/50 transition-opacity md:hidden",
+          "fixed top-14 inset-x-0 bottom-0 z-55 bg-black/50 transition-opacity md:hidden",
           open ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       />
+      */}
 
       {/* Mobile: drawer panel */}
       <aside
-        aria-label="Menú de documentación"
+        aria-label="Menú de navegación"
         aria-modal="true"
         role="dialog"
         onKeyDown={(e) => e.key === "Escape" && closeMenu()}
         className={cn(
-          "docs-drawer-panel fixed inset-y-0 left-0 z-60 flex w-[288px] flex-col border-r bg-background shadow-xl transition-transform duration-200 ease-out md:hidden",
-          open ? "translate-x-0" : "-translate-x-full",
+          "docs-drawer-panel fixed top-[56px] bottom-0 left-0 z-60 flex w-full border-t flex-col bg-background/80 backdrop-blur transition-all duration-200 ease-out md:hidden",
+          open
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-4 pointer-events-none",
         )}
       >
-        {/* Drawer header */}
-        <div className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-background px-4">
-          <span className="text-sm font-semibold tracking-tight">
-            Documentación
-          </span>
-          <button
-            type="button"
-            onClick={closeMenu}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            aria-label="Cerrar menú"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-
         {/* Drawer body */}
         <div className="flex-1 overflow-hidden">
-          <NavContent onNavigate={closeMenu} hasPadding={true} />
+          <NavContent
+            onNavigate={closeMenu}
+            hasPadding={true}
+            showSiteNav={true}
+          />
         </div>
       </aside>
     </>
