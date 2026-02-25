@@ -8,6 +8,11 @@ component: true
 
 A button component built with Ark UI that supports multiple variants and sizes.
 
+<Callout type="tip" title="When to use Button">
+  Use `variant="default"` for primary actions and `variant="outline"` for secondary
+  actions. Keeping this hierarchy improves UI readability.
+</Callout>
+
 ## Installation
 
 ```bash
@@ -18,7 +23,7 @@ liminal add button
 
 <Preview>
 
-```tsx
+```tsx title="button-basic.tsx" {3} showLineNumbers
 import { Button } from "@/components/ui/button";
 
 export default function Example() {
@@ -30,7 +35,7 @@ export default function Example() {
 
 ## Variants
 
-```tsx
+```tsx title="button-variants.tsx" {1,3,5} showLineNumbers
 <Button variant="default">Default</Button>
 <Button variant="destructive">Destructive</Button>
 <Button variant="outline">Outline</Button>
@@ -41,7 +46,7 @@ export default function Example() {
 
 ## Sizes
 
-```tsx
+```tsx title="button-sizes.tsx" {1,3,4} showLineNumbers
 <Button size="sm">Small</Button>
 <Button size="default">Default</Button>
 <Button size="lg">Large</Button>
@@ -49,3 +54,28 @@ export default function Example() {
   <span className="i-lucide-settings" />
 </Button>
 ```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "variant",
+      type: '"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"',
+      default: '"default"',
+      description: "Visual style of the button.",
+    },
+    {
+      prop: "size",
+      type: '"sm" | "default" | "lg" | "icon"',
+      default: '"default"',
+      description: "Controls height and padding of the button.",
+    },
+    {
+      prop: "asChild",
+      type: "boolean",
+      default: "false",
+      description: "Renders as another element (Link, a, etc.) while keeping styles.",
+    },
+  ]}
+/>

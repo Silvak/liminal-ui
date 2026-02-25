@@ -8,6 +8,11 @@ component: true
 
 A modal dialog component built with Ark UI.
 
+<Callout type="warning" title="Destructive actions">
+  For irreversible actions use `variant="destructive"` and a clear description
+  inside `DialogDescription`.
+</Callout>
+
 ## Installation
 
 ```bash
@@ -16,7 +21,7 @@ liminal add dialog
 
 ## Usage
 
-```tsx
+```tsx title="dialog-basic.tsx" {15-16,24} showLineNumbers
 import {
   Dialog,
   DialogTrigger,
@@ -53,3 +58,28 @@ export default function Example() {
   );
 }
 ```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "open",
+      type: "boolean",
+      default: "uncontrolled",
+      description: "Allows controlling open/closed state manually.",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(details) => void",
+      default: "-",
+      description: "Callback fired when the dialog open state changes.",
+    },
+    {
+      prop: "DialogClose asChild",
+      type: "boolean",
+      default: "false",
+      description: "Renders a custom button/link to close the dialog.",
+    },
+  ]}
+/>

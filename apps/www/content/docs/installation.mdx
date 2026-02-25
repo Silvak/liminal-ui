@@ -13,6 +13,11 @@ This guide walks you through installing the Liminal UI CLI, initializing your pr
 - A **React 18+** project (Next.js, Vite, Remix, Create React App, etc.)
 - **Tailwind CSS** already configured (see [Tailwind setup](https://tailwindcss.com/docs/installation) if needed)
 
+<Callout type="info" title="Recommendation">
+  If you're starting from scratch, set up aliases (`@/*`) and Tailwind first. That avoids
+  errors when running `liminal init` for the first time.
+</Callout>
+
 ## Install the CLI
 
 Install the Liminal UI CLI globally so you can run `liminal` from any directory:
@@ -49,10 +54,20 @@ liminal init
 
 The wizard will ask:
 
-- **TypeScript**: Are you using TypeScript?
-- **React Server Components**: Are you using RSC? (e.g. Next.js App Router)
-- **Components path**: Where to put UI components (default: `src/components/ui`)
-- **Utils path**: Where to put shared utilities (default: `src/lib`)
+<Steps>
+  <Step title="TypeScript">
+    Whether your project uses TypeScript so components are generated with types.
+  </Step>
+  <Step title="React Server Components">
+    Whether you use App Router or an RSC setup so the CLI adds `"use client"` when needed.
+  </Step>
+  <Step title="Components path">
+    Output path for your UI components, e.g. `src/components/ui`.
+  </Step>
+  <Step title="Utils path">
+    Path for shared utilities, e.g. `src/lib`.
+  </Step>
+</Steps>
 
 After this, you’ll have a `components.json` config and the folder structure ready for components.
 
@@ -60,7 +75,7 @@ After this, you’ll have a `components.json` config and the folder structure re
 
 Initialization creates a `components.json` file in your project root. It might look like this:
 
-```json
+```json title="components.json" {2,6-7} showLineNumbers
 {
   "$schema": "https://liminal-ui.com/schema.json",
   "style": "default",

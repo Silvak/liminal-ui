@@ -7,13 +7,13 @@ import { CopyButton } from "./copy-button";
 import { cn } from "../lib/utils";
 
 interface CodeTabsProps {
-  /** Código en TypeScript (o TSX). */
+  /** TypeScript (or TSX) code. */
   ts: string;
-  /** Código en JavaScript (o JSX). */
+  /** JavaScript (or JSX) code. */
   js: string;
-  /** Lenguaje para la pestaña TS: "ts" | "tsx". Por defecto "tsx". */
+  /** Language for the TS tab: "ts" | "tsx". Default "tsx". */
   tsLang?: "ts" | "tsx";
-  /** Lenguaje para la pestaña JS: "js" | "jsx". Por defecto "jsx". */
+  /** Language for the JS tab: "js" | "jsx". Default "jsx". */
   jsLang?: "js" | "jsx";
   className?: string;
 }
@@ -25,12 +25,12 @@ export function CodeTabs({
   jsLang = "jsx",
   className,
 }: CodeTabsProps) {
-  // Si el código TS y JS es idéntico, renderizar CodeBlock simple sin tabs
+  const [activeValue, setActiveValue] = React.useState<string>("ts");
+
+  // If TS and JS code are identical, render simple CodeBlock without tabs
   if (ts.trim() === js.trim()) {
     return <CodeBlock code={ts} language={tsLang} className={className} />;
   }
-
-  const [activeValue, setActiveValue] = React.useState<string>("ts");
   const codeToCopy = activeValue === "ts" ? ts : js;
 
   return (
@@ -45,13 +45,13 @@ export function CodeTabs({
           <TabsList className="h-auto gap-0 rounded-md border-0 bg-transparent p-0 text-[0.7rem] text-slate-300">
             <TabsTrigger
               value="ts"
-              className="rounded-sm border-0 bg-transparent px-3 py-1 uppercase tracking-wide data-[selected]:bg-white/10 data-[selected]:text-white data-[selected]:font-semibold"
+              className="rounded-sm border-0 bg-transparent px-3 py-1 uppercase tracking-wide data-selected:bg-white/10 data-selected:text-white data-selected:font-semibold"
             >
               TypeScript
             </TabsTrigger>
             <TabsTrigger
               value="js"
-              className="rounded-sm border-0 bg-transparent px-3 py-1 uppercase tracking-wide data-[selected]:bg-white/10 data-[selected]:text-white data-[selected]:font-semibold"
+              className="rounded-sm border-0 bg-transparent px-3 py-1 uppercase tracking-wide data-selected:bg-white/10 data-selected:text-white data-selected:font-semibold"
             >
               JavaScript
             </TabsTrigger>

@@ -8,6 +8,11 @@ component: true
 
 An accordion component built with Ark UI.
 
+<Callout type="info" title="Best practices">
+  Use short titles in `AccordionTrigger` and clear content in `AccordionContent` for
+  better scannability.
+</Callout>
+
 ## Installation
 
 ```bash
@@ -16,7 +21,7 @@ liminal add accordion
 
 ## Usage
 
-```tsx
+```tsx title="accordion-example.tsx" {10,17} showLineNumbers
 import {
   Accordion,
   AccordionItem,
@@ -43,3 +48,28 @@ export default function Example() {
   );
 }
 ```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "type",
+      type: '"single" | "multiple"',
+      default: '"single"',
+      description: "Whether one or multiple items can be open at the same time.",
+    },
+    {
+      prop: "defaultValue",
+      type: "string[]",
+      default: "[]",
+      description: "Default open values in uncontrolled mode.",
+    },
+    {
+      prop: "value",
+      type: "string[]",
+      default: "-",
+      description: "Controlled values from external state.",
+    },
+  ]}
+/>

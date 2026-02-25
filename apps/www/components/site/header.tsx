@@ -28,7 +28,7 @@ export function SiteHeader() {
             size="icon"
             className="md:hidden w-[56px] h-[56px] rounded-none border-r"
             aria-label={
-              open ? "Cerrar menú de navegación" : "Abrir menú de navegación"
+              open ? "Close navigation menu" : "Open navigation menu"
             }
             onClick={toggleDocsSidebar}
           >

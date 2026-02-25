@@ -46,16 +46,16 @@ export async function installDependencies(dependencies: string[]): Promise<boole
   const installCmd = getInstallCommand(packageManager);
   const depsString = dependencies.join(" ");
 
-  console.log(chalk.blue(`\n📦 Instalando dependencias con ${packageManager}...`));
+  console.log(chalk.blue(`\n📦 Installing dependencies with ${packageManager}...`));
   console.log(chalk.gray(`   ${dependencies.join(", ")}`));
 
   try {
     await execAsync(`${packageManager} ${installCmd} ${depsString}`);
-    console.log(chalk.green("✅ Dependencias instaladas correctamente."));
+    console.log(chalk.green("✅ Dependencies installed successfully."));
     return true;
   } catch (error) {
-    console.error(chalk.red("\n❌ Error instalando dependencias automáticamente."));
-    console.log(chalk.yellow("   Instálalas manualmente con:"));
+    console.error(chalk.red("\n❌ Error installing dependencies automatically."));
+    console.log(chalk.yellow("   Install them manually with:"));
     console.log(chalk.cyan(`   ${packageManager} ${installCmd} ${depsString}\n`));
     return false;
   }

@@ -7,6 +7,13 @@ description: Welcome to Liminal UI - A modern React component library you own an
 
 Liminal UI is a modern React component library built with **Ark UI** and **Tailwind CSS**. Instead of installing a closed dependency, you add components by copying their source code into your project. You own the code, you control the styles, and you can change anything.
 
+![New documentation layout](/docs/docs-layout.svg "Modern documentation layout with sidebar, content, and table of contents")
+
+<Callout type="tip" title="Recommended approach">
+  Start with the installation section, then go through one component family at a time.
+  This speeds up adoption without forcing a full migration.
+</Callout>
+
 ## Why Liminal UI?
 
 Traditional libraries ship as npm packages: you get compiled components and a public API, but the implementation stays inside `node_modules`. Customization often means fighting props, CSS variables, or forking the package. Liminal UI inverts this: the CLI copies the **source code** of each component into your app. There is no black box.
@@ -36,6 +43,29 @@ There is no “Liminal UI runtime”. Once the code is in your project, it’s j
 | **Bundle size** | Only what you add | Often whole library or large chunks |
 | **Updates** | You choose when to re-run CLI and merge | Upgrade dependency, hope nothing breaks |
 | **Styling** | Tailwind, your design tokens | Library’s design system or CSS-in-JS |
+
+<ApiTable
+  data={[
+    {
+      prop: "style",
+      type: '"default" | "custom"',
+      default: '"default"',
+      description: "Style profile applied by the CLI in components.json.",
+    },
+    {
+      prop: "tsx",
+      type: "boolean",
+      default: "true",
+      description: "Whether components are generated as TypeScript files.",
+    },
+    {
+      prop: "rsc",
+      type: "boolean",
+      default: "false",
+      description: "Enables adjustments for React Server Components.",
+    },
+  ]}
+/>
 
 ## Tech stack
 

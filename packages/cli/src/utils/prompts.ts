@@ -11,13 +11,13 @@ export async function confirmOverwrite(
   const response = await prompts({
     type: "confirm",
     name: "overwrite",
-    message: `El componente ${chalk.cyan(componentName)} ya existe en ${chalk.gray(filePath)}. ¿Quieres sobreescribirlo?`,
+    message: `Component ${chalk.cyan(componentName)} already exists at ${chalk.gray(filePath)}. Overwrite?`,
     initial: false,
   });
 
   // Handle Ctrl+C
   if (response.overwrite === undefined) {
-    console.log(chalk.yellow("\n⚠️ Operación cancelada."));
+    console.log(chalk.yellow("\n⚠️ Operation cancelled."));
     process.exit(0);
   }
 
@@ -33,7 +33,7 @@ export async function confirmInstallDependencies(
   const response = await prompts({
     type: "confirm",
     name: "install",
-    message: `¿Quieres instalar ${dependencies.length} dependencia(s) faltante(s)?`,
+    message: `Install ${dependencies.length} missing dependency/dependencies?`,
     initial: true,
   });
 
@@ -49,7 +49,7 @@ export async function confirmInstallDependencies(
 // ============================================================================
 export async function selectComponents(
   available: string[],
-  message: string = "Selecciona los componentes a instalar:"
+  message: string = "Select components to install:"
 ): Promise<string[]> {
   const response = await prompts({
     type: "multiselect",
@@ -59,11 +59,11 @@ export async function selectComponents(
       title: name,
       value: name,
     })),
-    hint: "- Espacio para seleccionar, Enter para confirmar",
+    hint: "- Space to select, Enter to confirm",
   });
 
   if (response.components === undefined) {
-    console.log(chalk.yellow("\n⚠️ Operación cancelada."));
+    console.log(chalk.yellow("\n⚠️ Operation cancelled."));
     process.exit(0);
   }
 
@@ -88,37 +88,37 @@ export async function promptInit(): Promise<InitOptions> {
     {
       type: "text",
       name: "componentsPath",
-      message: "¿Dónde quieres instalar los componentes UI?",
+      message: "Where do you want to install UI components?",
       initial: "@/components/ui",
     },
     {
       type: "text",
       name: "libPath",
-      message: "¿Dónde quieres instalar las utilidades (lib)?",
+      message: "Where do you want to install utilities (lib)?",
       initial: "@/lib",
     },
     {
       type: "confirm",
       name: "useTypeScript",
-      message: "¿Usar TypeScript?",
+      message: "Use TypeScript?",
       initial: true,
     },
     {
       type: "confirm",
       name: "useRsc",
-      message: "¿Usar React Server Components?",
+      message: "Use React Server Components?",
       initial: true,
     },
     {
       type: "confirm",
       name: "copyThemeCSS",
-      message: "¿Copiar CSS de tokens base (recomendado)?",
+      message: "Copy base token CSS (recommended)?",
       initial: true,
     },
     {
       type: (prev) => (prev ? "select" : null),
       name: "themePreset",
-      message: "Elige un preset de color:",
+      message: "Choose a color preset:",
       choices: [
         { title: "Slate (default)", value: "slate" },
         { title: "Blue", value: "blue" },
@@ -129,14 +129,14 @@ export async function promptInit(): Promise<InitOptions> {
     {
       type: (_prev, values) => (values.copyThemeCSS ? "text" : null),
       name: "cssPath",
-      message: "Ruta del archivo CSS global:",
+      message: "Path to global CSS file:",
       initial: "app/globals.css",
     },
   ]);
 
   // Handle Ctrl+C
   if (!response.componentsPath) {
-    console.log(chalk.yellow("\n⚠️ Operación cancelada."));
+    console.log(chalk.yellow("\n⚠️ Operation cancelled."));
     process.exit(0);
   }
 

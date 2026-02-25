@@ -1,5 +1,6 @@
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files';
 import remarkGfm from 'remark-gfm';
+import { extractHeadingsFromRawMdx } from './lib/docs';
 
 export const Doc = defineDocumentType(() => ({
   name: 'Doc',
@@ -32,6 +33,10 @@ export const Doc = defineDocumentType(() => ({
     isComponent: {
       type: 'boolean',
       resolve: (doc) => Boolean(doc.component),
+    },
+    headings: {
+      type: 'json',
+      resolve: (doc) => extractHeadingsFromRawMdx(doc.body.raw),
     },
   },
 }));

@@ -44,7 +44,7 @@ const program = new Command();
 
 program
   .name("liminal")
-  .description("CLI para agregar componentes de Liminal UI")
+  .description("CLI to add Liminal UI components to your project")
   .version("0.1.0");
 
 // ============================================================================
@@ -52,17 +52,17 @@ program
 // ============================================================================
 program
   .command("init")
-  .description("Inicializa la configuración de Liminal UI en tu proyecto")
-  .option("-y, --yes", "Usar valores por defecto sin preguntar")
-  .option("--force", "Sobrescribir configuración existente")
+  .description("Initialize Liminal UI configuration in your project")
+  .option("-y, --yes", "Use default values without prompting")
+  .option("--force", "Overwrite existing configuration")
   .action(async (options) => {
     const spinner = ora();
 
     try {
       // Check if config already exists
       if (configExists() && !options.force) {
-        console.log(chalk.yellow(`⚠️ Ya existe un archivo ${CONFIG_FILE_NAME}.`));
-        console.log(chalk.gray("   Usa --force para sobrescribirlo."));
+        console.log(chalk.yellow(`⚠️ A ${CONFIG_FILE_NAME} file already exists.`));
+        console.log(chalk.gray("   Use --force to overwrite it."));
         return;
       }
 
@@ -72,7 +72,7 @@ program
       if (options.yes) {
         // Use defaults
         config = { ...DEFAULT_CONFIG };
-        console.log(chalk.blue("🔧 Usando configuración por defecto..."));
+        console.log(chalk.blue("🔧 Using default configuration..."));
 
         themeOptions = {
           copyThemeCSS: true,
@@ -81,7 +81,7 @@ program
         };
       } else {
         // Interactive prompts
-        console.log(chalk.blue("\n🔧 Configurando Liminal UI...\n"));
+        console.log(chalk.blue("\n🔧 Configuring Liminal UI...\n"));
         const answers: InitOptions = await promptInit();
 
         config = {
@@ -114,9 +114,9 @@ program
       };
 
       // Write config file
-      spinner.start("Escribiendo configuración...");
+      spinner.start("Writing configuration...");
       await writeConfig(config);
-      spinner.succeed(`Configuración guardada en ${chalk.cyan(CONFIG_FILE_NAME)}`);
+      spinner.succeed(`Configuration saved to ${chalk.cyan(CONFIG_FILE_NAME)}`);
 
       // Create directories
       const componentsDir = getComponentsDir(config);
@@ -124,12 +124,12 @@ program
 
       if (!existsSync(componentsDir)) {
         mkdirSync(componentsDir, { recursive: true });
-        console.log(chalk.green(`   ✅ Creado: ${chalk.gray(componentsDir)}`));
+        console.log(chalk.green(`   ✅ Created: ${chalk.gray(componentsDir)}`));
       }
 
       if (!existsSync(libDir)) {
         mkdirSync(libDir, { recursive: true });
-        console.log(chalk.green(`   ✅ Creado: ${chalk.gray(libDir)}`));
+        console.log(chalk.green(`   ✅ Created: ${chalk.gray(libDir)}`));
       }
 
       // Copy theme CSS if requested
@@ -144,14 +144,14 @@ program
         }
 
         if (existsSync(targetCssPath)) {
-          const overwrite = await confirmOverwrite(targetCssPath, "tokens CSS");
+          const overwrite = await confirmOverwrite(targetCssPath, "CSS tokens");
           if (!overwrite) {
-            console.log(chalk.gray(`   ⏭️ Omitido: ${chalk.gray(targetCssPath)}`));
+            console.log(chalk.gray(`   ⏭️ Skipped: ${chalk.gray(targetCssPath)}`));
           } else {
             await fs.writeFile(targetCssPath, cssContent, "utf8");
             console.log(
               chalk.green(
-                `   ✅ Tema "${preset.label}" copiado en ${chalk.gray(targetCssPath)}`,
+                `   ✅ Theme "${preset.label}" copied to ${chalk.gray(targetCssPath)}`,
               ),
             );
           }
@@ -159,18 +159,18 @@ program
           await fs.writeFile(targetCssPath, cssContent, "utf8");
           console.log(
             chalk.green(
-              `   ✅ Tema "${preset.label}" copiado en ${chalk.gray(targetCssPath)}`,
+              `   ✅ Theme "${preset.label}" copied to ${chalk.gray(targetCssPath)}`,
             ),
           );
         }
       }
 
-      console.log(chalk.green("\n✅ ¡Liminal UI inicializado correctamente!"));
-      console.log(chalk.gray("\n   Ahora puedes agregar componentes con:"));
+      console.log(chalk.green("\n✅ Liminal UI initialized successfully!"));
+      console.log(chalk.gray("\n   You can now add components with:"));
       console.log(chalk.cyan("   liminal add button\n"));
 
     } catch (error) {
-      spinner.fail("Error durante la inicialización");
+      spinner.fail("Error during initialization");
       console.error(chalk.red("❌ Error:"), error);
       process.exit(1);
     }
@@ -181,12 +181,12 @@ program
 // ============================================================================
 program
   .command("add")
-  .argument("<component>", "El nombre del componente (ej: button)")
-  .option("-y, --yes", "Instalar dependencias automáticamente sin preguntar")
-  .option("-f, --force", "Sobrescribir componentes existentes sin preguntar")
-  .option("--no-deps", "No instalar dependencias npm")
-  .option("--dry-run", "Mostrar qué se instalaría sin hacer cambios")
-  .description("Instala un componente en tu proyecto")
+  .argument("<component>", "Component name (e.g. button)")
+  .option("-y, --yes", "Install dependencies automatically without prompting")
+  .option("-f, --force", "Overwrite existing components without prompting")
+  .option("--no-deps", "Do not install npm dependencies")
+  .option("--dry-run", "Show what would be installed without making changes")
+  .description("Install a component in your project")
   .action(async (componentName, options) => {
     const spinner = ora();
 
@@ -194,8 +194,8 @@ program
       // 1. Check config exists
       const config = await getConfig();
       if (!config) {
-        console.error(chalk.red(`❌ No se encontró ${CONFIG_FILE_NAME}.`));
-        console.log(chalk.gray("   Ejecuta primero: liminal init"));
+        console.error(chalk.red(`❌ ${CONFIG_FILE_NAME} not found.`));
+        console.log(chalk.gray("   Run first: liminal init"));
         process.exit(1);
       }
 
@@ -203,8 +203,8 @@ program
       const component = registry.items.find((item) => item.name === componentName) as RegistryItem | undefined;
 
       if (!component) {
-        console.error(chalk.red(`❌ Componente "${componentName}" no encontrado en el registro.`));
-        console.log(chalk.gray(`   Componentes disponibles: ${registry.items.map(i => i.name).join(", ")}`));
+        console.error(chalk.red(`❌ Component "${componentName}" not found in the registry.`));
+        console.log(chalk.gray(`   Available components: ${registry.items.map(i => i.name).join(", ")}`));
         process.exit(1);
       }
 
@@ -217,7 +217,7 @@ program
 
         const comp = registry.items.find((item) => item.name === name) as RegistryItem | undefined;
         if (!comp) {
-          console.warn(chalk.yellow(`⚠️ Dependencia interna "${name}" no encontrada en el registro.`));
+          console.warn(chalk.yellow(`⚠️ Internal dependency "${name}" not found in the registry.`));
           return;
         }
 
@@ -237,13 +237,13 @@ program
         }
       }
 
-      spinner.start(`Resolviendo dependencias de ${componentName}...`);
+      spinner.start(`Resolving dependencies for ${componentName}...`);
       await collectComponents(componentName);
-      spinner.succeed(`${componentsToInstall.size} componente(s) a instalar`);
+      spinner.succeed(`${componentsToInstall.size} component(s) to install`);
 
       // Show what will be installed
       if (componentsToInstall.size > 1) {
-        console.log(chalk.blue("\n📦 Componentes a instalar:"));
+        console.log(chalk.blue("\n📦 Components to install:"));
         for (const name of componentsToInstall) {
           console.log(chalk.gray(`   • ${name}`));
         }
@@ -251,13 +251,13 @@ program
 
       // Dry run - just show what would happen
       if (options.dryRun) {
-        console.log(chalk.yellow("\n🔍 Dry run - no se realizarán cambios:\n"));
-        console.log(chalk.gray("   Componentes:"));
+        console.log(chalk.yellow("\n🔍 Dry run - no changes will be made:\n"));
+        console.log(chalk.gray("   Components:"));
         for (const name of componentsToInstall) {
           console.log(chalk.cyan(`     • ${name}`));
         }
         if (allNpmDeps.size > 0) {
-          console.log(chalk.gray("\n   Dependencias npm:"));
+          console.log(chalk.gray("\n   npm dependencies:"));
           console.log(chalk.cyan(`     ${Array.from(allNpmDeps).join(", ")}`));
         }
         return;
@@ -275,7 +275,7 @@ program
         await fs.mkdir(libDir, { recursive: true });
       }
 
-      console.log(chalk.blue("\n📝 Escribiendo archivos...\n"));
+      console.log(chalk.blue("\n📝 Writing files...\n"));
 
       for (const name of componentsToInstall) {
         const comp = registry.items.find((item) => item.name === name) as RegistryItem;
@@ -302,7 +302,7 @@ program
           if (existsSync(targetPath) && !options.force) {
             const shouldOverwrite = await confirmOverwrite(displayPath, name);
             if (!shouldOverwrite) {
-              console.log(chalk.gray(`   ⏭️ Omitido: ${displayPath}`));
+              console.log(chalk.gray(`   ⏭️ Skipped: ${displayPath}`));
               continue;
             }
           }
@@ -326,17 +326,17 @@ program
             if (shouldInstall) {
               await installDependencies(missingDeps);
             } else {
-              console.log(chalk.yellow("\n⚠️ Dependencias faltantes:"));
+              console.log(chalk.yellow("\n⚠️ Missing dependencies:"));
               console.log(chalk.cyan(`   npm install ${missingDeps.join(" ")}`));
             }
           }
         }
       }
 
-      console.log(chalk.green(`\n✅ ¡Instalación completada!`));
+      console.log(chalk.green(`\n✅ Installation complete!`));
 
     } catch (error) {
-      spinner.fail("Error instalando componente");
+      spinner.fail("Error installing component");
       console.error(chalk.red("❌ Error:"), error);
       process.exit(1);
     }
@@ -347,9 +347,9 @@ program
 // ============================================================================
 program
   .command("list")
-  .description("Lista todos los componentes disponibles")
+  .description("List all available components")
   .action(() => {
-    console.log(chalk.blue("\n📋 Componentes disponibles:\n"));
+    console.log(chalk.blue("\n📋 Available components:\n"));
     for (const item of registry.items) {
       const registryItem = item as RegistryItem;
       console.log(chalk.green(`   • ${registryItem.name}`));
@@ -368,19 +368,19 @@ program
 // ============================================================================
 program
   .command("diff")
-  .argument("<component>", "El nombre del componente")
-  .description("Muestra las diferencias entre el componente local y el del registro")
+  .argument("<component>", "Component name")
+  .description("Show differences between local component and registry version")
   .action(async (componentName) => {
     try {
       const config = await getConfig();
       if (!config) {
-        console.error(chalk.red(`❌ No se encontró ${CONFIG_FILE_NAME}.`));
+        console.error(chalk.red(`❌ ${CONFIG_FILE_NAME} not found.`));
         process.exit(1);
       }
 
       const component = registry.items.find((item) => item.name === componentName) as RegistryItem | undefined;
       if (!component) {
-        console.error(chalk.red(`❌ Componente "${componentName}" no encontrado.`));
+        console.error(chalk.red(`❌ Component "${componentName}" not found.`));
         process.exit(1);
       }
 
@@ -388,14 +388,14 @@ program
       const componentFile = component.files.find(f => f.name !== "utils.ts");
 
       if (!componentFile) {
-        console.error(chalk.red("❌ No se encontró archivo de componente."));
+        console.error(chalk.red("❌ Component file not found."));
         process.exit(1);
       }
 
       const localPath = path.join(componentsDir, componentFile.name);
 
       if (!existsSync(localPath)) {
-        console.log(chalk.yellow(`⚠️ El componente ${componentName} no está instalado localmente.`));
+        console.log(chalk.yellow(`⚠️ Component ${componentName} is not installed locally.`));
         return;
       }
 
@@ -407,10 +407,10 @@ program
       registryContent = transformKnownPatterns(registryContent, config);
 
       if (localContent === registryContent) {
-        console.log(chalk.green(`✅ El componente ${componentName} está sincronizado con el registro.`));
+        console.log(chalk.green(`✅ Component ${componentName} is in sync with the registry.`));
       } else {
-        console.log(chalk.yellow(`⚠️ El componente ${componentName} tiene diferencias locales.`));
-        console.log(chalk.gray("   Usa 'liminal add " + componentName + " --force' para actualizar."));
+        console.log(chalk.yellow(`⚠️ Component ${componentName} has local differences.`));
+        console.log(chalk.gray("   Use 'liminal add " + componentName + " --force' to update."));
       }
 
     } catch (error) {
