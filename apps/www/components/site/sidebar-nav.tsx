@@ -92,16 +92,10 @@ function CollapsibleSection({
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-muted-foreground transition-colors hover:bg-muted",
-                  active && "bg-muted",
+                  "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                  active && "bg-primary text-primary-foreground hover:bg-primary/90",
                 )}
               >
-                {active && (
-                  <span
-                    className="absolute -left-3 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-foreground"
-                    aria-hidden
-                  />
-                )}
                 {content}
               </Link>
             );
@@ -150,16 +144,10 @@ function NavContent({
                     onClick={onNavigate}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-base text-muted-foreground transition-colors hover:bg-muted",
-                      active && "bg-muted text-foreground font-medium",
+                      "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                      active && "bg-primary text-primary-foreground hover:bg-primary/90",
                     )}
                   >
-                    {active && (
-                      <span
-                        className="absolute -left-3 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-foreground"
-                        aria-hidden
-                      />
-                    )}
                     <span className="truncate">{item.label}</span>
                   </Link>
                 );
@@ -191,7 +179,7 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
       {/* Desktop: fixed sidebar, hidden on mobile */}
       {!mobileOnly && (
         <aside
-          className="fixed top-14 left-0 z-30 hidden h-[calc(100vh-3.5rem)] w-[288px] shrink-0 overflow-hidden border-r bg-background md:block"
+          className="fixed top-14 left-0 z-30 hidden h-[calc(100vh-3.5rem)] w-[288px] shrink-0 overflow-hidden border-r border-border bg-background md:block"
           aria-label="Documentation"
         >
           <NavContent />

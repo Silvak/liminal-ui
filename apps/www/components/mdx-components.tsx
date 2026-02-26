@@ -209,10 +209,10 @@ export const mdxComponents: MDXComponents = {
     />
   ),
   table: ({ className, ...props }) => (
-    <div className="my-6 w-full overflow-x-auto rounded-xl border border-border">
+    <div className="my-6 w-full overflow-x-auto rounded-xl border border-border bg-white shadow-none dark:bg-background">
       <table
         className={cn(
-          "w-full min-w-[620px] border-collapse text-sm [&_tbody_tr:nth-child(odd)]:bg-muted/20",
+          "w-full min-w-[620px] border-collapse text-sm [&_tbody_tr:nth-child(odd)]:bg-white [&_tbody_tr:nth-child(odd)]:dark:bg-background [&_tbody_tr:nth-child(even)]:bg-muted/10",
           className,
         )}
         {...props}
@@ -222,7 +222,7 @@ export const mdxComponents: MDXComponents = {
   th: ({ className, align, ...props }) => (
     <th
       className={cn(
-        "sticky top-0 z-[1] border-b border-border bg-muted px-4 py-2 font-medium",
+        "sticky top-0 z-[1] border-b border-border bg-muted px-4 py-2 font-medium text-foreground",
         getAlignClass(align),
         className,
       )}

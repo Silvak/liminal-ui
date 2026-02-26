@@ -67,9 +67,9 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
               key={heading.id}
               href={`#${heading.id}`}
               className={cn(
-                "block rounded-md border border-transparent px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground",
+                "block rounded-md px-2 py-1.5 text-sm font-normal text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground",
                 heading.level === 3 && "ml-3 text-[13px]",
-                isActive && "border-border bg-muted text-foreground",
+                isActive && "text-foreground",
               )}
             >
               {heading.title}

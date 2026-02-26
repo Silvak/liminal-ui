@@ -57,7 +57,9 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        display: ['var(--font-display)', 'Impact', 'sans-serif'],
+        sans: ['var(--font-geist-sans)', 'ui-sans-serif', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
+        display: ['var(--font-geist-sans)', 'sans-serif'],
         'mono-custom': ['var(--font-mono-custom)', 'Courier New', 'monospace'],
         syne: ['var(--font-syne)', 'sans-serif'],
       },

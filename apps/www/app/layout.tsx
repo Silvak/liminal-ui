@@ -1,20 +1,8 @@
 import type { Metadata } from 'next';
-import { Bebas_Neue, IBM_Plex_Mono } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import { ThemeProvider } from '../components/theme-provider';
 import './globals.css';
-
-const bebasNeue = Bebas_Neue({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-display',
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-ibm',
-});
 
 export const metadata: Metadata = {
   title: 'Liminal UI — Build beautiful UIs you own',
@@ -26,11 +14,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${bebasNeue.variable} ${ibmPlexMono.variable}`}
-        style={{ fontFamily: 'var(--font-ibm), "Courier New", monospace' }}
-      >
+    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
