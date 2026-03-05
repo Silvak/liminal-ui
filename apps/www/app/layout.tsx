@@ -1,20 +1,22 @@
-import type { Metadata } from 'next';
-import Script from 'next/script';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-import { ThemeProvider } from '../components/theme-provider';
-import './globals.css';
+import type { Metadata } from "next";
+import Script from "next/script";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { ThemeProvider } from "../components/theme-provider";
+import "./globals.css";
 
 const isTweakcnEnabled =
-  typeof process !== 'undefined'
-    ? process.env.NEXT_PUBLIC_TWEAKCN_ENABLED !== 'false'
+  typeof process !== "undefined"
+    ? process.env.NEXT_PUBLIC_TWEAKCN_ENABLED !== "false"
     : true;
 
 export const metadata: Metadata = {
-  title: 'Liminal UI — Build beautiful UIs you own',
+  title: "Liminal UI — Build beautiful UIs you own",
   description:
-    'Copy-paste React components built with Ark UI and Tailwind CSS. No black boxes, just source code you control.',
+    "Copy-paste React components built with Ark UI and Tailwind CSS. No black boxes, just source code you control.",
 };
+
+//TODO: remove this after testing
 
 export default function RootLayout({
   children,

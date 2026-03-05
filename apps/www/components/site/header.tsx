@@ -34,7 +34,7 @@ export function SiteHeader() {
             type="button"
             variant="ghost"
             size="icon"
-            className="md:hidden w-[56px] h-[56px] rounded-none border-r"
+            className="md:hidden w-[56px] h-[56px] rounded-none border-r border-border"
             aria-label={
               mobileOpen ? "Close navigation menu" : "Open navigation menu"
             }

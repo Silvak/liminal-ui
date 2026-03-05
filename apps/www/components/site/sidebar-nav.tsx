@@ -35,7 +35,7 @@ function CollapsibleSection({
       <button
         type="button"
         onClick={onToggle}
-        className="mb-1 flex w-auto items-center gap-1 px-1 pb-[2px] text-left text-sm md:text-xs font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+        className="mb-1 flex w-auto items-center gap-1 px-6 pb-[2px] text-left text-sm md:text-xs font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
         aria-expanded={isOpen}
       >
         <ChevronRight
@@ -92,8 +92,10 @@ function CollapsibleSection({
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                  active && "bg-primary text-primary-foreground hover:bg-primary/90",
+                  "group filter-pixel-noise relative flex h-[42px] w-full items-center rounded-md px-8 text-muted-foreground transition-colors hover:bg-gray-200 dark:hover:bg-muted hover:text-foreground",
+                  active &&
+                    //"bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground",
+                    "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground shadow-2xl",
                 )}
               >
                 {content}
@@ -106,6 +108,9 @@ function CollapsibleSection({
   );
 }
 
+/*
+ *  This function is used to render the navigation content for the sidebar.
+ * */
 function NavContent({
   onNavigate,
   hasPadding = true,
@@ -128,8 +133,8 @@ function NavContent({
     <div className="relative h-full">
       <div
         className={cn(
-          "h-full w-full overflow-y-auto py-12 [mask:linear-gradient(to_bottom,transparent,black_48px,black_calc(100%-48px),transparent)] [&::-webkit-scrollbar]:hidden",
-          hasPadding && "px-6",
+          "h-full w-full overflow-y-auto py-16 [mask:linear-gradient(to_bottom,transparent,black_96px,black_calc(100%-96px),transparent)] [&::-webkit-scrollbar]:hidden",
+          hasPadding && "",
         )}
       >
         {showSiteNav && (
@@ -144,8 +149,9 @@ function NavContent({
                     onClick={onNavigate}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-2 text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-                      active && "bg-primary text-primary-foreground hover:bg-primary/90",
+                      "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-6 text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                      active &&
+                        "bg-primary text-primary-foreground hover:bg-primary/90",
                     )}
                   >
                     <span className="truncate">{item.label}</span>
@@ -156,6 +162,7 @@ function NavContent({
             <Separator className="mb-6" />
           </>
         )}
+
         {docNavSections.map((section) => (
           <CollapsibleSection
             key={section.title}
@@ -176,7 +183,7 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
 
   return (
     <>
-      {/* Desktop: fixed sidebar, hidden on mobile */}
+      {/* Desktop */}
       {!mobileOnly && (
         <aside
           className="fixed top-14 left-0 z-30 hidden h-[calc(100vh-3.5rem)] w-[288px] shrink-0 overflow-hidden border-r border-border bg-background md:block"
@@ -200,20 +207,19 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
       />
       */}
 
-      {/* Mobile: drawer panel */}
+      {/* Mobile */}
       <aside
         aria-label="Navigation menu"
         aria-modal="true"
         role="dialog"
         onKeyDown={(e) => e.key === "Escape" && closeMenu()}
         className={cn(
-          "docs-drawer-panel fixed top-[56px] bottom-0 left-0 z-60 flex w-full border-t flex-col bg-background/80 backdrop-blur transition-all duration-200 ease-out md:hidden",
+          "docs-drawer-panel fixed top-[56px] bottom-0 left-0 z-60 flex w-full border-t border-border flex-col bg-background/80 backdrop-blur transition-all duration-200 ease-out md:hidden",
           open
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-4 pointer-events-none",
         )}
       >
-        {/* Drawer body */}
         <div className="flex-1 overflow-hidden">
           <NavContent
             onNavigate={closeMenu}
