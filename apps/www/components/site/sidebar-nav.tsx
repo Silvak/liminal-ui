@@ -92,12 +92,14 @@ function CollapsibleSection({
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group filter-pixel-noise relative flex h-[42px] w-full items-center rounded-md px-8 text-muted-foreground transition-colors hover:bg-gray-200 dark:hover:bg-muted hover:text-foreground",
+                  "relative group filter-pixel-noise flex h-[42px] w-full items-center rounded-md px-8 text-muted-foreground transition-colors hover:bg-primary/10 dark:hover:bg-muted  hover:text-foreground",
                   active &&
-                    //"bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground",
-                    "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground shadow-2xl",
+                    "bg-gradient-to-r from-primary/70 from-15% to-white/00  to-90% text-primary-foreground hover:text-white dark:hover:text-foreground ",
                 )}
               >
+                {active && (
+                  <div className="w-[8px] h-[26px] absolute left-2 bg-muted rounded-[2px] " />
+                )}
                 {content}
               </Link>
             );
