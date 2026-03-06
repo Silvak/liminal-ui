@@ -6,6 +6,37 @@ import { getHighlighter, type Highlighter } from "shiki";
 import { cn } from "../lib/utils";
 import { CopyButton } from "./copy-button";
 
+/** Colores del tema del sitio (modo claro) para bloques de código */
+const LIMINAL_LIGHT_THEME = {
+  name: "liminal-light",
+  type: "light" as const,
+  colors: {
+    "editor.background": "#ffffff",
+    "editor.foreground": "#24292e",
+  },
+  tokenColors: [
+    { scope: ["comment", "punctuation.definition.comment", "string.comment"], settings: { foreground: "#6b7280" } },
+    { scope: ["constant", "entity.name.constant", "variable.other.constant", "variable.other.enummember", "variable.language"], settings: { foreground: "#6366f1" } },
+    { scope: ["entity", "entity.name"], settings: { foreground: "#7c3aed" } },
+    { scope: ["variable.parameter.function"], settings: { foreground: "#24292e" } },
+    { scope: ["entity.name.tag"], settings: { foreground: "#16a34a" } },
+    { scope: ["keyword"], settings: { foreground: "#6366f1" } },
+    { scope: ["storage", "storage.type"], settings: { foreground: "#6366f1" } },
+    { scope: ["storage.modifier.package", "storage.modifier.import", "storage.type.java"], settings: { foreground: "#24292e" } },
+    { scope: ["string", "punctuation.definition.string", "string punctuation.section.embedded source"], settings: { foreground: "#16a34a" } },
+    { scope: ["support"], settings: { foreground: "#6366f1" } },
+    { scope: ["meta.property-name"], settings: { foreground: "#6366f1" } },
+    { scope: ["variable"], settings: { foreground: "#ea580c" } },
+    { scope: ["variable.other"], settings: { foreground: "#24292e" } },
+    { scope: ["invalid.broken", "invalid.deprecated", "invalid.illegal", "invalid.unimplemented", "message.error"], settings: { foreground: "#dc2626" } },
+    { scope: ["string variable"], settings: { foreground: "#6366f1" } },
+    { scope: ["support.constant", "support.variable", "meta.module-reference"], settings: { foreground: "#6366f1" } },
+    { scope: ["markup.heading", "markup.heading entity.name"], settings: { foreground: "#6366f1" } },
+    { scope: ["markup.inline.raw"], settings: { foreground: "#6366f1" } },
+    { scope: ["constant.other.reference.link", "string.other.link"], settings: { foreground: "#16a34a" } },
+  ],
+};
+
 interface CodeBlockProps {
   code: string;
   language?: string;
@@ -22,7 +53,7 @@ let highlighterPromise: Promise<Highlighter> | null = null;
 function getClientHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = getHighlighter({
-      themes: ["one-dark-pro", "github-light"],
+      themes: ["one-dark-pro", LIMINAL_LIGHT_THEME],
       langs: [
         "tsx",
         "ts",
@@ -108,7 +139,7 @@ export function CodeBlock({
         const highlighter = await getClientHighlighter();
         const highlighted = highlighter.codeToHtml(code.trimEnd(), {
           lang: language,
-          themes: { light: "github-light", dark: "one-dark-pro" },
+          themes: { light: "liminal-light", dark: "one-dark-pro" },
           defaultColor: false,
         });
         if (!cancelled) {

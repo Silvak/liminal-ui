@@ -131,7 +131,7 @@ export function DocActions({ title, slug, rawContent, className }: DocActionsPro
       </Button>
       {open && (
         <div
-          className="absolute right-0 top-full z-50 mt-1 min-w-[180px] rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-md"
+          className="absolute right-0 top-full z-50 mt-1 min-w-[180px] rounded-md border border-border bg-popover text-popover-foreground shadow-md"
           role="menu"
         >
           <button
