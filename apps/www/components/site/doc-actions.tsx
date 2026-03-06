@@ -92,7 +92,7 @@ export function DocActions({ title, slug, rawContent, className }: DocActionsPro
   }, [open]);
 
   const headerButtonClass =
-    'h-8 border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
+    'h-10 border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
 
   return (
     <div className={cn('relative flex items-center', className)} ref={menuRef}>
@@ -120,7 +120,7 @@ export function DocActions({ title, slug, rawContent, className }: DocActionsPro
         size="icon"
         className={cn(
           headerButtonClass,
-          '-ml-px h-8 w-8 rounded-none rounded-r-md',
+          '-ml-px h-10 w-10 rounded-none rounded-r-md',
         )}
         aria-label="More actions"
         aria-expanded={open}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
@@ -143,7 +143,7 @@ function NavContent({
           <>
             <div className="mb-6">
               {mainNav.map((item) => {
-                const active = pathname.startsWith(item.href);
+                const active = pathname === item.href;
                 return (
                   <Link
                     key={item.href}
@@ -151,11 +151,14 @@ function NavContent({
                     onClick={onNavigate}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "group relative flex h-[36px] mb-[2px] w-full items-center rounded-md px-6 text-base text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                      "relative group filter-pixel-noise flex h-[42px] mb-[2px] w-full items-center rounded-md px-8 text-base md:text-sm text-muted-foreground transition-colors hover:bg-primary/10 dark:hover:bg-muted hover:text-foreground",
                       active &&
-                        "bg-primary text-primary-foreground hover:bg-primary/90",
+                        "bg-gradient-to-r from-primary/70 from-15% to-white/00 to-90% text-primary-foreground hover:text-white dark:hover:text-foreground",
                     )}
                   >
+                    {active && (
+                      <div className="w-[8px] h-[26px] absolute left-2 bg-muted rounded-[2px]" />
+                    )}
                     <span className="truncate">{item.label}</span>
                   </Link>
                 );
@@ -182,6 +185,17 @@ function NavContent({
 
 export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
   const { open, closeMenu } = useDocsSidebar();
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
     <>
@@ -226,7 +240,7 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
           <NavContent
             onNavigate={closeMenu}
             hasPadding={true}
-            showSiteNav={true}
+            showSiteNav={false}
           />
         </div>
       </aside>
