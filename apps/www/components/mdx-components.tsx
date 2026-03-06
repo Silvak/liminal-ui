@@ -120,15 +120,7 @@ function getAlignClass(align?: string) {
 }
 
 export const mdxComponents: MDXComponents = {
-  h1: ({ className, ...props }) => (
-    <h1
-      className={cn(
-        "scroll-m-20 text-3xl font-semibold tracking-tight",
-        className,
-      )}
-      {...props}
-    />
-  ),
+  h1: () => null,
   h2: ({ className, ...props }) => (
     (() => {
       const text = getTextContent(props.children);

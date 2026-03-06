@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Github, Menu, X } from "lucide-react";
+import { Github, Menu, Search, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
@@ -72,13 +72,30 @@ export function SiteHeader() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
+        <div className="flex items-center">
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Buscar"
+            className={cn(
+              "h-10 w-10 rounded-none rounded-l-md border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
+            )}
+          >
+            <Search className="h-4 w-4" />
+          </Button>
+          <ThemeToggle
+            className={cn(
+              "-ml-px h-10 w-10 rounded-none border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
+            )}
+          />
           <Button
             asChild
             variant="ghost"
             size="icon"
             aria-label="Open GitHub repository"
+            className={cn(
+              "-ml-px h-10 w-10 rounded-none rounded-r-md border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
+            )}
           >
             <Link
               href="https://github.com/silvak/liminal-ui"

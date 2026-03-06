@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { MoveLeft, MoveRight } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 type PagerItem = {
@@ -18,7 +18,10 @@ export function DocsPager({ prev, next }: DocsPagerProps) {
   }
 
   return (
-    <nav className="grid gap-3 border-t border-border pt-6 sm:grid-cols-2" aria-label="Page navigation">
+    <nav
+      className="grid gap-3 border-t border-border pt-6 sm:grid-cols-2"
+      aria-label="Page navigation"
+    >
       <PagerCard item={prev} direction="prev" />
       <PagerCard item={next} direction="next" />
     </nav>
@@ -40,12 +43,12 @@ function PagerCard({
     <Link
       href={item.href}
       className={cn(
-        "group rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted/50",
+        "group rounded-none border border-border bg-card p-4 transition-all hover:border-foreground",
         direction === "next" && "text-right",
       )}
     >
       <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        {direction === "prev" ? "Anterior" : "Siguiente"}
+        {direction === "prev" ? "Previous" : "Next"}
       </p>
       <p
         className={cn(
@@ -54,9 +57,9 @@ function PagerCard({
         )}
       >
         {direction === "prev" ? (
-          <ArrowLeft className="h-4 w-4" />
+          <MoveLeft className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1" />
         ) : (
-          <ArrowRight className="h-4 w-4" />
+          <MoveRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
         )}
         {item.title}
       </p>

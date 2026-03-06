@@ -93,6 +93,11 @@ export function CodeBlock({
 }: CodeBlockProps) {
   const [html, setHtml] = React.useState<string | null>(null);
 
+  const estimatedHeight = React.useMemo(() => {
+    const lines = code.split("\n").length;
+    return lines * 20 + 32;
+  }, [code]);
+
   React.useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -122,6 +127,7 @@ export function CodeBlock({
   const content = (
     <div
       className="overflow-auto p-4 text-[0.82rem]"
+      style={{ minHeight: estimatedHeight }}
       dangerouslySetInnerHTML={{
         __html:
           html ??

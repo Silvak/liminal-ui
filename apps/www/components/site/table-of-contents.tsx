@@ -10,7 +10,11 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents({ headings }: TableOfContentsProps) {
-  const [activeId, setActiveId] = React.useState<string>("");
+  const [activeId, setActiveId] = React.useState<string>(
+    headings[0]?.id ?? "",
+  );
+  const [transitionsEnabled, setTransitionsEnabled] = React.useState(false);
+  const hasMounted = React.useRef(false);
 
   React.useEffect(() => {
     if (!headings.length) {
@@ -29,6 +33,10 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
         if (visible[0]?.target?.id) {
           setActiveId(visible[0].target.id);
+          if (!hasMounted.current) {
+            hasMounted.current = true;
+            requestAnimationFrame(() => setTransitionsEnabled(true));
+          }
         }
       },
       {
@@ -44,7 +52,20 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       }
     }
 
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 10;
+      if (atBottom && headings.length > 0) {
+        setActiveId(headings[headings.length - 1].id);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [headings]);
 
   if (!headings.length) {
@@ -53,11 +74,11 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
   return (
     <aside
-      className="sticky top-20 hidden h-[calc(100vh-6rem)] overflow-y-auto xl:block"
+      className="hidden xl:block xl:fixed xl:top-14 xl:right-0 xl:z-30 xl:h-[calc(100vh-3.5rem)] xl:w-[220px] xl:pt-8 xl:pr-8"
       aria-label="Table of contents"
     >
       <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        En esta pagina
+        On this page
       </p>
       <nav className="space-y-0.5">
         {headings.map((heading) => {
@@ -67,9 +88,11 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
               key={heading.id}
               href={`#${heading.id}`}
               className={cn(
-                "block rounded-md px-2 py-1.5 text-sm font-normal text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground",
-                heading.level === 3 && "ml-3 text-[13px]",
-                isActive && "text-foreground",
+                "relative block py-1.5 pl-3 text-sm font-normal text-muted-foreground hover:text-foreground before:absolute before:left-0 before:top-1/2 before:h-[26px] before:w-0.5 before:-translate-y-1/2 before:rounded-full before:bg-transparent before:content-['']",
+                transitionsEnabled &&
+                  "transition-colors duration-200 before:transition-[background-color] before:duration-200",
+                heading.level === 3 && "pl-6 text-[13px]",
+                isActive && "text-foreground before:bg-foreground",
               )}
             >
               {heading.title}
