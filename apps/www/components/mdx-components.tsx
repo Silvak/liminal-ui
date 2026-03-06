@@ -11,6 +11,25 @@ import { Callout } from "./docs/callout";
 import { Step, Steps } from "./docs/steps";
 import { ApiTable } from "./docs/api-table";
 import { MdxImage } from "./docs/mdx-image";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
+import {
+  Checkbox,
+  CheckboxRoot,
+  CheckboxControl,
+  CheckboxLabel,
+  CheckboxHiddenInput,
+} from "./ui/checkbox";
+import {
+  Switch,
+  SwitchRoot,
+  SwitchControl,
+  SwitchThumb,
+  SwitchLabel,
+  SwitchHiddenInput,
+} from "./ui/switch";
 
 type MDXComponent = React.ComponentType<any>;
 
@@ -272,5 +291,20 @@ export const mdxComponents: MDXComponents = {
   ApiTable,
   CodeTabs,
   PkgManTabs,
+  Button,
+  Input,
+  Label,
+  Textarea,
+  Checkbox,
+  CheckboxRoot,
+  CheckboxControl,
+  CheckboxLabel,
+  CheckboxHiddenInput,
+  Switch,
+  SwitchRoot,
+  SwitchControl,
+  SwitchThumb,
+  SwitchLabel,
+  SwitchHiddenInput,
 };
 

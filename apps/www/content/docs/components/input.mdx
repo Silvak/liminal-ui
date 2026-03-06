@@ -8,6 +8,19 @@ component: true
 
 A text input component with focus styles and support for error states via `aria-invalid`.
 
+<Preview>
+  <Input placeholder="Email" type="email" />
+
+```tsx title="input-basic.tsx" {3} showLineNumbers
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return <Input placeholder="Email" type="email" />;
+}
+```
+
+</Preview>
+
 ## Installation
 
 ```bash
@@ -16,7 +29,10 @@ liminal add input
 
 ## Usage
 
-```tsx
+<Preview>
+  <Input placeholder="Email" type="email" />
+
+```tsx title="input-basic.tsx" {3} showLineNumbers
 import { Input } from "@/components/ui/input";
 
 export default function Example() {
@@ -24,9 +40,16 @@ export default function Example() {
 }
 ```
 
-## Error state
+</Preview>
 
-```tsx
+## Examples
+
+### Error state
+
+<Preview>
+  <Input placeholder="Email" type="email" aria-invalid="true" />
+
+```tsx title="input-error.tsx" showLineNumbers
 <Input
   placeholder="Email"
   type="email"
@@ -34,3 +57,4 @@ export default function Example() {
 />
 ```
 
+</Preview>

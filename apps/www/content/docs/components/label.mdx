@@ -8,15 +8,13 @@ component: true
 
 A simple label component that pairs well with form controls like `Input` and `Textarea`.
 
-## Installation
+<Preview>
+  <div className="space-y-2">
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="you@example.com" />
+  </div>
 
-```bash
-liminal add label
-```
-
-## Usage
-
-```tsx
+```tsx title="label-with-input.tsx" {3} showLineNumbers
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
@@ -30,3 +28,34 @@ export default function Example() {
 }
 ```
 
+</Preview>
+
+## Installation
+
+```bash
+liminal add label
+```
+
+## Usage
+
+<Preview>
+  <div className="space-y-2">
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="you@example.com" />
+  </div>
+
+```tsx title="label-with-input.tsx" {3} showLineNumbers
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="email">Email</Label>
+      <Input id="email" type="email" placeholder="you@example.com" />
+    </div>
+  );
+}
+```
+
+</Preview>

@@ -21,6 +21,7 @@ export const docNavSections: NavSection[] = [
   {
     title: "Components / Forms",
     items: [
+      { title: "Button", href: "/docs/components/button" },
       { title: "Input", href: "/docs/components/input" },
       { title: "Textarea", href: "/docs/components/textarea" },
       { title: "Checkbox", href: "/docs/components/checkbox" },

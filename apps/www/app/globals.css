@@ -409,7 +409,8 @@ article :is(h2, h3) {
 
 pre.shiki .line {
   display: block;
-  min-height: 1.4em;
+  min-height: 1.25em;
+  line-height: 1.5;
   border-radius: 0.25rem;
 }
 pre.shiki .line--highlighted {

@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from "react";
+import { Terminal } from "lucide-react";
 import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { CodeBlock } from "./code-block";
 import { CopyButton } from "./copy-button";
@@ -35,13 +36,14 @@ export function PkgManTabs({
       )}
     >
       <TabsRoot value={activeValue} onValueChange={(e) => setActiveValue(e.value)}>
-        <div className="flex items-center justify-between border-b border-white/10 px-4 py-2">
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-2">
+          <Terminal className="h-3.5 w-3.5 shrink-0 text-slate-400" />
           <TabsList className="h-auto gap-0 rounded-md border-0 bg-transparent p-0 text-[0.7rem] text-slate-300">
             {(Object.keys(labels) as Array<keyof typeof labels>).map((key) => (
               <TabsTrigger
                 key={key}
                 value={key}
-                className="relative rounded-sm border-0 bg-transparent px-3 py-1.5 text-sm font-medium tracking-wide text-slate-400 transition-colors data-[selected]:bg-transparent data-[selected]:font-semibold data-[selected]:text-white data-[selected]:after:absolute data-[selected]:after:bottom-0 data-[selected]:after:left-0 data-[selected]:after:right-0 data-[selected]:after:h-0.5 data-[selected]:after:bg-orange-500"
+                className="relative rounded-sm border-0 bg-transparent px-3 py-1.5 text-sm font-medium tracking-wide text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200 data-selected:bg-transparent data-selected:font-semibold data-selected:text-white data-selected:after:absolute data-selected:after:bottom-0 data-selected:after:left-0 data-selected:after:right-0 data-selected:after:h-0.5 data-selected:after:bg-primary data-selected:after:rounded-full"
               >
                 {labels[key]}
               </TabsTrigger>

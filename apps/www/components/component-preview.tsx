@@ -1,14 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { Eye, Code2 } from "lucide-react";
-import { Card, CardContent } from "./ui/card";
 import { cn } from "../lib/utils";
-import { TabsList, TabsRoot, TabsTrigger, TabsContent } from "./ui/tabs";
+import { CopyButton } from "./copy-button";
 
 interface ComponentPreviewProps {
   className?: string;
   children?: React.ReactNode;
+}
+
+function getCodeFromChild(node: React.ReactNode): string {
+  if (React.isValidElement(node) && node.props && "code" in node.props) {
+    return String((node.props as { code?: string }).code ?? "");
+  }
+  return "";
 }
 
 export function ComponentPreview({
@@ -19,40 +24,69 @@ export function ComponentPreview({
   const hasPreviewAndCode = items.length >= 2;
   const previewNode = items[0];
   const codeNode = items[1];
+  const [expanded, setExpanded] = React.useState(false);
+
+  const codeString = React.useMemo(
+    () => getCodeFromChild(codeNode),
+    [codeNode],
+  );
+
+  const codeNodeWithHideHeader = React.isValidElement(codeNode)
+    ? React.cloneElement(codeNode as React.ReactElement<{ hideHeader?: boolean }>, {
+        hideHeader: true,
+      })
+    : codeNode;
 
   if (!hasPreviewAndCode) {
     return <div className={cn("my-6", className)}>{children}</div>;
   }
 
   return (
-    <Card className={cn("my-6 overflow-hidden border border-border bg-card", className)}>
-      <TabsRoot defaultValue="preview">
-        <div className="border-b border-border px-4 pt-3">
-          <TabsList className="h-auto gap-1 bg-transparent p-0">
-            <TabsTrigger
-              value="preview"
-              className="gap-1 border-0 bg-transparent px-3 py-1.5 data-selected:bg-muted"
-            >
-              <Eye className="h-3.5 w-3.5" />
-              Preview
-            </TabsTrigger>
-            <TabsTrigger
-              value="code"
-              className="gap-1 border-0 bg-transparent px-3 py-1.5 data-selected:bg-muted"
-            >
-              <Code2 className="h-3.5 w-3.5" />
-              Code
-            </TabsTrigger>
-          </TabsList>
+    <div
+      className={cn(
+        "my-6 overflow-hidden rounded-xl border border-border bg-card",
+        className,
+      )}
+    >
+      {/* Preview area */}
+      <div className="flex min-h-[200px] items-center justify-center p-8 bg-background">
+        {previewNode}
+      </div>
+
+      {/* Code section: always visible, collapsed or expanded */}
+      <div className="relative bg-[#282c34]">
+        {expanded && (
+          <div className="absolute right-3 top-2 z-10">
+            <CopyButton value={codeString} />
+          </div>
+        )}
+        <div
+          className={cn(
+            "overflow-hidden",
+            expanded ? "max-h-[400px] overflow-auto" : "max-h-[150px]",
+          )}
+        >
+          {codeNodeWithHideHeader}
         </div>
-        <TabsContent value="preview" className="m-0 border-0">
-          <CardContent className="p-6">{previewNode}</CardContent>
-        </TabsContent>
-        <TabsContent value="code" className="m-0 border-0">
-          {codeNode}
-        </TabsContent>
-      </TabsRoot>
-    </Card>
+        {!expanded && (
+          <div
+            className="pointer-events-none absolute inset-0 flex items-end justify-center pb-4"
+            style={{
+              background:
+                "linear-gradient(to top, #282c34, color-mix(in oklab, #282c34 60%, transparent), transparent)",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setExpanded(true)}
+              className="pointer-events-auto rounded-md border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-200 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              aria-expanded={false}
+            >
+              View Code
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
-

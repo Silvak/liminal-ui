@@ -8,6 +8,19 @@ component: true
 
 A toggle switch component built with Ark UI that supports both a convenience API and a full compound API.
 
+<Preview>
+  <Switch label="Enable notifications" />
+
+```tsx title="switch-convenience.tsx" {3} showLineNumbers
+import { Switch } from "@/components/ui/switch";
+
+export default function Example() {
+  return <Switch label="Enable notifications" />;
+}
+```
+
+</Preview>
+
 ## Installation
 
 ```bash
@@ -16,7 +29,10 @@ liminal add switch
 
 ## Usage (convenience)
 
-```tsx
+<Preview>
+  <Switch label="Enable notifications" />
+
+```tsx title="switch-convenience.tsx" {3} showLineNumbers
 import { Switch } from "@/components/ui/switch";
 
 export default function Example() {
@@ -24,9 +40,22 @@ export default function Example() {
 }
 ```
 
-## Compound API
+</Preview>
 
-```tsx
+## Examples
+
+### Compound API
+
+<Preview>
+  <SwitchRoot className="inline-flex items-center gap-2">
+    <SwitchHiddenInput />
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchLabel>Dark mode</SwitchLabel>
+  </SwitchRoot>
+
+```tsx title="switch-compound.tsx" showLineNumbers
 import {
   SwitchRoot,
   SwitchControl,
@@ -48,3 +77,4 @@ export default function Example() {
 }
 ```
 
+</Preview>

@@ -8,6 +8,19 @@ component: true
 
 A checkbox component built with Ark UI that supports both a convenience API and a full compound API.
 
+<Preview>
+  <Checkbox label="I accept the terms and conditions" />
+
+```tsx title="checkbox-convenience.tsx" {3} showLineNumbers
+import { Checkbox } from "@/components/ui/checkbox";
+
+export default function Example() {
+  return <Checkbox label="I accept the terms and conditions" />;
+}
+```
+
+</Preview>
+
 ## Installation
 
 ```bash
@@ -16,7 +29,10 @@ liminal add checkbox
 
 ## Usage (convenience)
 
-```tsx
+<Preview>
+  <Checkbox label="I accept the terms and conditions" />
+
+```tsx title="checkbox-convenience.tsx" {3} showLineNumbers
 import { Checkbox } from "@/components/ui/checkbox";
 
 export default function Example() {
@@ -24,9 +40,20 @@ export default function Example() {
 }
 ```
 
-## Compound API
+</Preview>
 
-```tsx
+## Examples
+
+### Compound API
+
+<Preview>
+  <CheckboxRoot className="inline-flex items-center gap-2">
+    <CheckboxHiddenInput />
+    <CheckboxControl />
+    <CheckboxLabel>Subscribe to newsletter</CheckboxLabel>
+  </CheckboxRoot>
+
+```tsx title="checkbox-compound.tsx" showLineNumbers
 import {
   CheckboxRoot,
   CheckboxControl,
@@ -45,3 +72,4 @@ export default function Example() {
 }
 ```
 
+</Preview>

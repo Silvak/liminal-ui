@@ -8,15 +8,10 @@ component: true
 
 A textarea component for multiline text input, visually aligned with the `Input` component.
 
-## Installation
+<Preview>
+  <Textarea placeholder="Write your message here" rows={4} />
 
-```bash
-liminal add textarea
-```
-
-## Usage
-
-```tsx
+```tsx title="textarea-basic.tsx" {3} showLineNumbers
 import { Textarea } from "@/components/ui/textarea";
 
 export default function Example() {
@@ -29,12 +24,46 @@ export default function Example() {
 }
 ```
 
-## Error state
+</Preview>
 
-```tsx
+## Installation
+
+```bash
+liminal add textarea
+```
+
+## Usage
+
+<Preview>
+  <Textarea placeholder="Write your message here" rows={4} />
+
+```tsx title="textarea-basic.tsx" {3} showLineNumbers
+import { Textarea } from "@/components/ui/textarea";
+
+export default function Example() {
+  return (
+    <Textarea
+      placeholder="Write your message here"
+      rows={4}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### Error state
+
+<Preview>
+  <Textarea placeholder="Write your message here" aria-invalid="true" />
+
+```tsx title="textarea-error.tsx" showLineNumbers
 <Textarea
   placeholder="Write your message here"
   aria-invalid="true"
 />
 ```
 
+</Preview>

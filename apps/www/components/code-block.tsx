@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from "react";
+import { Terminal } from "lucide-react";
 import { getHighlighter, type Highlighter } from "shiki";
 import { cn } from "../lib/utils";
 import { CopyButton } from "./copy-button";
@@ -95,7 +96,7 @@ export function CodeBlock({
 
   const estimatedHeight = React.useMemo(() => {
     const lines = code.split("\n").length;
-    return lines * 20 + 32;
+    return lines * 18 + 24;
   }, [code]);
 
   React.useEffect(() => {
@@ -126,7 +127,7 @@ export function CodeBlock({
 
   const content = (
     <div
-      className="overflow-auto p-4 text-[0.82rem]"
+      className="overflow-auto p-3 text-[0.82rem] leading-relaxed"
       style={{ minHeight: estimatedHeight }}
       dangerouslySetInnerHTML={{
         __html:
@@ -148,7 +149,10 @@ export function CodeBlock({
       )}
     >
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-2 text-[0.7rem] uppercase tracking-wide text-slate-300">
-        <div className="flex min-w-0 items-center gap-3">
+        <div className="flex min-w-0 items-center gap-2">
+          {language === "bash" && (
+            <Terminal className="h-3.5 w-3.5 shrink-0 text-slate-400" />
+          )}
           {filename ? (
             <span className="truncate font-medium normal-case tracking-normal text-white/90">
               {filename}
