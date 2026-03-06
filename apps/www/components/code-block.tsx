@@ -98,7 +98,7 @@ export function CodeBlock({
   const effectiveShowLineNumbers = showLineNumbers || lineCount > 2;
 
   const estimatedHeight = React.useMemo(() => {
-    return lineCount * 18 + 24;
+    return lineCount * 26 + 20;
   }, [lineCount]);
 
   React.useEffect(() => {
@@ -130,7 +130,7 @@ export function CodeBlock({
 
   const content = (
     <div
-      className="overflow-auto p-3 text-[0.82rem] leading-tight"
+      className="overflow-auto px-4 py-2.5 text-[0.82rem]"
       style={{ minHeight: estimatedHeight }}
       dangerouslySetInnerHTML={{
         __html:

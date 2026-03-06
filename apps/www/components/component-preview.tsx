@@ -65,8 +65,8 @@ export function ComponentPreview({
         <div
           className={cn(
             expanded
-              ? "max-h-[400px] overflow-auto scrollbar-hide py-4"
-              : "max-h-[100px] overflow-hidden py-4",
+              ? "max-h-[400px] overflow-auto scrollbar-hide pt-4"
+              : "max-h-[100px] overflow-hidden pt-4",
           )}
         >
           {codeNodeWithHideHeader}
@@ -87,7 +87,7 @@ export function ComponentPreview({
             aria-expanded={false}
             aria-label="Expand code"
           >
-            <span className="rounded-md border border-border bg-background/80 px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <span className="rounded-md h-[40px] flex items-center justify-center border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:border-primary">
               View Code
             </span>
           </div>
