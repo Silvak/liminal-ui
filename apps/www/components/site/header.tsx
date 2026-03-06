@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageToggle } from "./language-toggle";
 
 export const mainNav = [
   { label: "Docs", href: "/docs/introduction" },
@@ -83,6 +84,11 @@ export function SiteHeader() {
           >
             <Search className="h-4 w-4" />
           </Button>
+          <LanguageToggle
+            className={cn(
+              "-ml-px h-10 w-10 rounded-none border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
+            )}
+          />
           <ThemeToggle
             className={cn(
               "-ml-px h-10 w-10 rounded-none border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
