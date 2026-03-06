@@ -67,7 +67,11 @@ export function LanguageToggle({ className }: LanguageToggleProps) {
   }
 
   return (
-    <PopoverRoot open={open} onOpenChange={(e) => setOpen(e.open)}>
+    <PopoverRoot
+      open={open}
+      onOpenChange={(e) => setOpen(e.open)}
+      positioning={{ placement: "bottom-end" }}
+    >
       <PopoverTrigger
         className={cn(
           "inline-flex h-10 w-10 items-center justify-center rounded-none border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -81,7 +85,6 @@ export function LanguageToggle({ className }: LanguageToggleProps) {
       </PopoverTrigger>
       <PopoverContent
         className="min-w-[180px] w-auto p-0 rounded-md border border-border bg-popover text-popover-foreground shadow-md"
-        align="end"
         role="menu"
       >
         {LANGUAGES.map((lang) => (
