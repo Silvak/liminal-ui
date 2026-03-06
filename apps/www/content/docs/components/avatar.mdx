@@ -6,17 +6,16 @@ component: true
 
 # Avatar
 
-A simple avatar component built with Ark UI, supporting both image and fallback content.
+An avatar component built with Ark UI that supports both image and fallback content. Use the convenience API for a single image + fallback, or the compound API for full control.
 
-## Installation
+<Preview>
+  <Avatar
+    src="https://avatars.githubusercontent.com/u/000000?v=4"
+    alt="User avatar"
+    fallback="JD"
+  />
 
-```bash
-liminal add avatar
-```
-
-## Usage
-
-```tsx
+```tsx title="avatar-basic.tsx" {3,4,5,6} showLineNumbers
 import { Avatar } from "@/components/ui/avatar";
 
 export default function Example() {
@@ -30,9 +29,88 @@ export default function Example() {
 }
 ```
 
-## Compound API
+</Preview>
 
-```tsx
+## Installation
+
+```bash
+liminal add avatar
+```
+
+## Usage
+
+<Preview>
+  <Avatar
+    src="https://avatars.githubusercontent.com/u/000000?v=4"
+    alt="User avatar"
+    fallback="JD"
+  />
+
+```tsx title="avatar-basic.tsx" {3,4,5,6} showLineNumbers
+import { Avatar } from "@/components/ui/avatar";
+
+export default function Example() {
+  return (
+    <Avatar
+      src="https://avatars.githubusercontent.com/u/000000?v=4"
+      alt="User avatar"
+      fallback="JD"
+    />
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### With image
+
+<Preview>
+  <Avatar
+    src="https://avatars.githubusercontent.com/u/000000?v=4"
+    alt="User"
+    fallback="U"
+  />
+
+```tsx title="avatar-with-image.tsx" showLineNumbers
+<Avatar
+  src="https://avatars.githubusercontent.com/u/000000?v=4"
+  alt="User"
+  fallback="U"
+/>
+```
+
+</Preview>
+
+### Fallback only
+
+When there is no image or it fails to load, the fallback text or content is shown.
+
+<Preview>
+  <Avatar fallback="AB" />
+
+```tsx title="avatar-fallback.tsx" {3} showLineNumbers
+import { Avatar } from "@/components/ui/avatar";
+
+export default function Example() {
+  return <Avatar fallback="AB" />;
+}
+```
+
+</Preview>
+
+### Compound API
+
+For custom layout or multiple elements, use `AvatarRoot`, `AvatarImage`, and `AvatarFallback`.
+
+<Preview>
+  <AvatarRoot className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+    <AvatarImage src="https://avatars.githubusercontent.com/u/000000?v=4" alt="User" />
+    <AvatarFallback>JD</AvatarFallback>
+  </AvatarRoot>
+
+```tsx title="avatar-compound.tsx" showLineNumbers
 import {
   AvatarRoot,
   AvatarImage,
@@ -41,7 +119,7 @@ import {
 
 export default function Example() {
   return (
-    <AvatarRoot>
+    <AvatarRoot className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
       <AvatarImage src="/avatar.png" alt="User avatar" />
       <AvatarFallback>JD</AvatarFallback>
     </AvatarRoot>
@@ -49,3 +127,29 @@ export default function Example() {
 }
 ```
 
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "src",
+      type: "string",
+      default: "-",
+      description: "Image URL for the avatar.",
+    },
+    {
+      prop: "alt",
+      type: "string",
+      default: "-",
+      description: "Accessible description of the image.",
+    },
+    {
+      prop: "fallback",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Content shown when there is no image or it fails to load.",
+    },
+  ]}
+/>

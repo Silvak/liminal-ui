@@ -6,7 +6,33 @@ component: true
 
 # Toast (sonner)
 
-Toast notifications built on top of the [`sonner`](https://sonner.emilkowal.dev/) library.
+Toast notifications built on top of the [`sonner`](https://sonner.emilkowal.dev/) library. Render `Toaster` once (e.g. in your layout) and call `toast()` from anywhere.
+
+<Preview>
+  <SonnerDemo />
+</Preview>
+
+```tsx title="sonner-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Toaster, toast } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <>
+      <Toaster />
+      <Button
+        onClick={() =>
+          toast("Settings saved", {
+            description: "Your preferences have been updated.",
+          })
+        }
+      >
+        Show toast
+      </Button>
+    </>
+  );
+}
+```
 
 ## Installation
 
@@ -16,7 +42,11 @@ liminal add sonner
 
 ## Usage
 
-```tsx
+<Preview>
+  <SonnerDemo />
+</Preview>
+
+```tsx title="sonner-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
 import { Toaster, toast } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
 
@@ -25,9 +55,11 @@ export default function Example() {
     <>
       <Toaster />
       <Button
-        onClick={() => toast("Settings saved", {
-          description: "Your preferences have been updated.",
-        })}
+        onClick={() =>
+          toast("Settings saved", {
+            description: "Your preferences have been updated.",
+          })
+        }
       >
         Show toast
       </Button>
@@ -36,3 +68,70 @@ export default function Example() {
 }
 ```
 
+## Examples
+
+### Basic message
+
+<Preview>
+  <SonnerDemoSimple />
+</Preview>
+
+```tsx title="sonner-simple.tsx" showLineNumbers
+toast("Hello!");
+```
+
+### With description
+
+<Preview>
+  <SonnerDemoDescription />
+</Preview>
+
+```tsx title="sonner-description.tsx" showLineNumbers
+toast("Update ready", {
+  description: "Restart the app to apply changes.",
+});
+```
+
+### Variants
+
+Use `success`, `error`, `warning`, or `info` for semantic styling.
+
+<Preview>
+  <SonnerDemoVariants />
+</Preview>
+
+```tsx title="sonner-variants.tsx" showLineNumbers
+toast.success("Saved!");
+toast.error("Something failed");
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "toast(message, options)",
+      type: "function",
+      default: "-",
+      description: "Shows a toast. message: string. options: description, duration, variant, etc.",
+    },
+    {
+      prop: "Toaster",
+      type: "component",
+      default: "-",
+      description: "Render once in your app (e.g. layout). Renders toasts in a portal.",
+    },
+    {
+      prop: "options.description",
+      type: "string",
+      default: "-",
+      description: "Secondary text below the message.",
+    },
+    {
+      prop: "options.duration",
+      type: "number",
+      default: "4000",
+      description: "Duration in ms before the toast closes.",
+    },
+  ]}
+/>

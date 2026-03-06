@@ -27,7 +27,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
-      <body>
+      <body suppressHydrationWarning>
         {isTweakcnEnabled && (
           <Script
             async

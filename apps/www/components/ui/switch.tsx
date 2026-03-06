@@ -54,13 +54,16 @@ SwitchLabel.displayName = "SwitchLabel";
 
 type SwitchRootProps = React.ComponentPropsWithoutRef<typeof SwitchRoot>;
 
-interface SwitchProps extends Omit<SwitchRootProps, "children"> {
+interface SwitchProps extends Omit<SwitchRootProps, "children" | "label"> {
   label?: React.ReactNode;
   className?: string;
   children?: React.ReactNode;
 }
 
-const Switch = React.forwardRef<HTMLDivElement, SwitchProps>(
+const Switch = React.forwardRef<
+  React.ComponentRef<typeof SwitchRoot>,
+  SwitchProps
+>(
   ({ label, className, children, ...props }, ref) => {
     return (
       <SwitchRoot

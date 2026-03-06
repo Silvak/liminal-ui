@@ -6,7 +6,34 @@ component: true
 
 # Tabs
 
-A tabs component built with Ark UI, with both a convenience API and a compound API.
+A tabs component built with Ark UI, with both a convenience API (pass `items`) and a compound API for full control over markup.
+
+<Preview>
+  <Tabs
+    defaultValue="account"
+    items={[
+      { value: "account", label: "Account", content: <p>Make changes to your account here.</p> },
+      { value: "password", label: "Password", content: <p>Change your password here.</p> },
+    ]}
+  />
+
+```tsx title="tabs-convenience.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Tabs } from "@/components/ui/tabs";
+
+export default function Example() {
+  return (
+    <Tabs
+      defaultValue="account"
+      items={[
+        { value: "account", label: "Account", content: <p>Make changes to your account here.</p> },
+        { value: "password", label: "Password", content: <p>Change your password here.</p> },
+      ]}
+    />
+  );
+}
+```
+
+</Preview>
 
 ## Installation
 
@@ -14,32 +41,81 @@ A tabs component built with Ark UI, with both a convenience API and a compound A
 liminal add tabs
 ```
 
-## Usage (convenience)
+## Usage
 
-```tsx
+<Preview>
+  <Tabs
+    defaultValue="account"
+    items={[
+      { value: "account", label: "Account", content: <p>Make changes to your account here.</p> },
+      { value: "password", label: "Password", content: <p>Change your password here.</p> },
+    ]}
+  />
+
+```tsx title="tabs-convenience.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
 import { Tabs } from "@/components/ui/tabs";
 
-const items = [
-  {
-    value: "account",
-    label: "Account",
-    content: <p>Make changes to your account here.</p>,
-  },
-  {
-    value: "password",
-    label: "Password",
-    content: <p>Change your password here.</p>,
-  },
-];
-
 export default function Example() {
-  return <Tabs defaultValue="account" items={items} />;
+  return (
+    <Tabs
+      defaultValue="account"
+      items={[
+        { value: "account", label: "Account", content: <p>Make changes to your account here.</p> },
+        { value: "password", label: "Password", content: <p>Change your password here.</p> },
+      ]}
+    />
+  );
 }
 ```
 
-## Compound API
+</Preview>
 
-```tsx
+## Examples
+
+### Convenience API
+
+Pass an `items` array with `value`, `label`, and `content`. One open tab at a time by default.
+
+<Preview>
+  <Tabs
+    defaultValue="account"
+    items={[
+      { value: "account", label: "Account", content: <p>Make changes to your account here.</p> },
+      { value: "password", label: "Password", content: <p>Change your password here.</p> },
+    ]}
+  />
+
+```tsx title="tabs-convenience.tsx" showLineNumbers
+<Tabs
+  defaultValue="account"
+  items={[
+    { value: "account", label: "Account", content: <p>Make changes to your account here.</p> },
+    { value: "password", label: "Password", content: <p>Change your password here.</p> },
+  ]}
+/>
+```
+
+</Preview>
+
+### Compound API
+
+Use `TabsRoot`, `TabsList`, `TabsTrigger`, and `TabsContent` for custom layout or styling.
+
+<Preview>
+  <TabsRoot defaultValue="account">
+    <TabsList>
+      <TabsTrigger value="account">Account</TabsTrigger>
+      <TabsTrigger value="password">Password</TabsTrigger>
+    </TabsList>
+    <TabsContent value="account">
+      Make changes to your account here.
+    </TabsContent>
+    <TabsContent value="password">
+      Change your password here.
+    </TabsContent>
+  </TabsRoot>
+
+```tsx title="tabs-compound.tsx" showLineNumbers
 import {
   TabsRoot,
   TabsList,
@@ -65,3 +141,35 @@ export default function Example() {
 }
 ```
 
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "items",
+      type: "TabsItem[]",
+      default: "-",
+      description: "Array of { value, label, content, disabled? }. Used by convenience API.",
+    },
+    {
+      prop: "defaultValue",
+      type: "string",
+      default: "-",
+      description: "Initial active tab value (uncontrolled).",
+    },
+    {
+      prop: "value",
+      type: "string",
+      default: "-",
+      description: "Active tab value (controlled).",
+    },
+    {
+      prop: "onValueChange",
+      type: "(details: { value: string }) => void",
+      default: "-",
+      description: "Callback when the active tab changes.",
+    },
+  ]}
+/>

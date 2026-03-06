@@ -56,14 +56,47 @@ export default function Example() {
 
 ### Error state
 
+Use `aria-invalid="true"` to show error styling, consistent with `Input`.
+
 <Preview>
   <Textarea placeholder="Write your message here" aria-invalid="true" />
 
-```tsx title="textarea-error.tsx" showLineNumbers
-<Textarea
-  placeholder="Write your message here"
-  aria-invalid="true"
-/>
+```tsx title="textarea-error.tsx" {3} showLineNumbers
+import { Textarea } from "@/components/ui/textarea";
+
+export default function Example() {
+  return (
+    <Textarea
+      placeholder="Write your message here"
+      aria-invalid="true"
+    />
+  );
+}
 ```
 
 </Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "rows",
+      type: "number",
+      default: "-",
+      description: "Number of visible text rows.",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: "-",
+      description: "Placeholder text when empty.",
+    },
+    {
+      prop: "aria-invalid",
+      type: "boolean",
+      default: "-",
+      description: "Set to true to show error border and styling.",
+    },
+  ]}
+/>

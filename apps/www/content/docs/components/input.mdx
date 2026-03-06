@@ -46,15 +46,48 @@ export default function Example() {
 
 ### Error state
 
+Use `aria-invalid="true"` to show error styling. Pair with `Label` and error text for accessibility.
+
 <Preview>
   <Input placeholder="Email" type="email" aria-invalid="true" />
 
-```tsx title="input-error.tsx" showLineNumbers
-<Input
-  placeholder="Email"
-  type="email"
-  aria-invalid="true"
-/>
+```tsx title="input-error.tsx" {3} showLineNumbers
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return (
+    <Input
+      placeholder="Email"
+      type="email"
+      aria-invalid="true"
+    />
+  );
+}
 ```
 
 </Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "type",
+      type: "string",
+      default: '"text"',
+      description: "Native input type (text, email, password, etc.).",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: "-",
+      description: "Placeholder text when empty.",
+    },
+    {
+      prop: "aria-invalid",
+      type: "boolean",
+      default: "-",
+      description: "Set to true to show error border and styling.",
+    },
+  ]}
+/>

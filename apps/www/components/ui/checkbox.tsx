@@ -54,7 +54,10 @@ interface CheckboxProps extends Omit<CheckboxRootProps, "children"> {
   children?: React.ReactNode;
 }
 
-const Checkbox = React.forwardRef<HTMLDivElement, CheckboxProps>(
+const Checkbox = React.forwardRef<
+  React.ComponentRef<typeof CheckboxRoot>,
+  CheckboxProps
+>(
   ({ label, className, children, ...props }, ref) => {
     return (
       <CheckboxRoot ref={ref} className={cn("inline-flex items-center gap-2", className)} {...props}>

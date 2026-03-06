@@ -6,22 +6,30 @@ component: true
 
 # Dialog
 
-A modal dialog component built with Ark UI.
+A modal dialog component built with Ark UI. Use it for confirmations, forms, or any content that should focus the user and block interaction with the rest of the page.
 
-<Callout type="warning" title="Destructive actions">
-  For irreversible actions use `variant="destructive"` and a clear description
-  inside `DialogDescription`.
-</Callout>
+<Preview>
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button>Open Dialog</Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogDescription>
+          This action cannot be undone.
+        </DialogDescription>
+      </DialogHeader>
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button variant="outline">Cancel</Button>
+        </DialogClose>
+        <Button variant="destructive">Delete</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 
-## Installation
-
-```bash
-liminal add dialog
-```
-
-## Usage
-
-```tsx title="dialog-basic.tsx" {15-16,24} showLineNumbers
+```tsx title="dialog-basic.tsx" {15,16,24} showLineNumbers
 import {
   Dialog,
   DialogTrigger,
@@ -58,6 +66,88 @@ export default function Example() {
   );
 }
 ```
+
+</Preview>
+
+<Callout type="warning" title="Destructive actions">
+  For irreversible actions use `variant="destructive"` on the primary button and a clear description
+  inside `DialogDescription`.
+</Callout>
+
+## Installation
+
+```bash
+liminal add dialog
+```
+
+## Usage
+
+<Preview>
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button>Open Dialog</Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogDescription>
+          This action cannot be undone.
+        </DialogDescription>
+      </DialogHeader>
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button variant="outline">Cancel</Button>
+        </DialogClose>
+        <Button variant="destructive">Delete</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+
+```tsx title="dialog-basic.tsx" {15,16,24} showLineNumbers
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open Dialog</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Are you sure?</DialogTitle>
+          <DialogDescription>
+            This action cannot be undone.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DialogClose>
+          <Button variant="destructive">Delete</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### Basic
+
+The example above shows the typical structure: `Dialog` > `DialogTrigger` + `DialogContent`. Use `DialogClose` with `asChild` to close from a custom button.
 
 ## API
 

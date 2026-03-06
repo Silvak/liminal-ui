@@ -27,7 +27,7 @@ export default function Example() {
 liminal add switch
 ```
 
-## Usage (convenience)
+## Usage
 
 <Preview>
   <Switch label="Enable notifications" />
@@ -78,3 +78,34 @@ export default function Example() {
 ```
 
 </Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Label text shown next to the switch.",
+    },
+    {
+      prop: "checked",
+      type: "boolean",
+      default: "-",
+      description: "Controlled checked state.",
+    },
+    {
+      prop: "defaultChecked",
+      type: "boolean",
+      default: "-",
+      description: "Initial checked state when uncontrolled.",
+    },
+    {
+      prop: "onCheckedChange",
+      type: "(details: { checked: boolean }) => void",
+      default: "-",
+      description: "Callback when checked state changes.",
+    },
+  ]}
+/>

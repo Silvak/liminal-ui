@@ -6,17 +6,16 @@ component: true
 
 # Popover
 
-A popover component built with Ark UI, rendered in a portal and positioned relative to a trigger.
+A popover component built with Ark UI, rendered in a portal and positioned relative to a trigger. Use it for contextual info, menus, or small forms. Supports a convenience API (trigger + children) or the compound API for full control.
 
-## Installation
+<Preview>
+  <Popover trigger={<Button>Open popover</Button>}>
+    <p className="text-sm">
+      This is some content inside the popover.
+    </p>
+  </Popover>
 
-```bash
-liminal add popover
-```
-
-## Usage (convenience)
-
-```tsx
+```tsx title="popover-convenience.tsx" {3,4,5,6,7,8,9} showLineNumbers
 import { Popover } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
@@ -31,9 +30,80 @@ export default function Example() {
 }
 ```
 
-## Compound API
+</Preview>
 
-```tsx
+## Installation
+
+```bash
+liminal add popover
+```
+
+## Usage
+
+<Preview>
+  <Popover trigger={<Button>Open popover</Button>}>
+    <p className="text-sm">
+      This is some content inside the popover.
+    </p>
+  </Popover>
+
+```tsx title="popover-convenience.tsx" {3,4,5,6,7,8,9} showLineNumbers
+import { Popover } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Popover trigger={<Button>Open popover</Button>}>
+      <p className="text-sm">
+        This is some content inside the popover.
+      </p>
+    </Popover>
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### Convenience API
+
+Pass `trigger` (the element that opens the popover) and `children` (the popover content).
+
+<Preview>
+  <Popover trigger={<Button>Open popover</Button>}>
+    <p className="text-sm">Content inside the popover.</p>
+  </Popover>
+
+```tsx title="popover-convenience.tsx" showLineNumbers
+<Popover trigger={<Button>Open popover</Button>}>
+  <p className="text-sm">Content inside the popover.</p>
+</Popover>
+```
+
+</Preview>
+
+### Compound API
+
+Use `PopoverRoot`, `PopoverTrigger`, `PopoverContent`, and optionally `PopoverTitle`, `PopoverDescription`, `PopoverCloseTrigger` for custom layout.
+
+<Preview>
+  <PopoverRoot>
+    <PopoverTrigger asChild>
+      <Button>Details</Button>
+    </PopoverTrigger>
+    <PopoverContent>
+      <PopoverTitle>Popover title</PopoverTitle>
+      <PopoverDescription>
+        Additional information about this action.
+      </PopoverDescription>
+      <PopoverCloseTrigger className="mt-2 text-sm underline">
+        Close
+      </PopoverCloseTrigger>
+    </PopoverContent>
+  </PopoverRoot>
+
+```tsx title="popover-compound.tsx" showLineNumbers
 import {
   PopoverRoot,
   PopoverTrigger,
@@ -64,3 +134,29 @@ export default function Example() {
 }
 ```
 
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "trigger",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Element that opens the popover (convenience API).",
+    },
+    {
+      prop: "open",
+      type: "boolean",
+      default: "uncontrolled",
+      description: "Controlled open state (PopoverRoot).",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(details) => void",
+      default: "-",
+      description: "Callback when open state changes (PopoverRoot).",
+    },
+  ]}
+/>

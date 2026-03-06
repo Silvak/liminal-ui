@@ -30,6 +30,68 @@ import {
   SwitchLabel,
   SwitchHiddenInput,
 } from "./ui/switch";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./ui/accordion";
+import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
+import {
+  Avatar,
+  AvatarRoot,
+  AvatarImage,
+  AvatarFallback,
+} from "./ui/avatar";
+import { Badge } from "./ui/badge";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "./ui/card";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "./ui/dialog";
+import {
+  Popover,
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverTitle,
+  PopoverDescription,
+  PopoverCloseTrigger,
+} from "./ui/popover";
+import { Select } from "./ui/select";
+import { Toaster, toast } from "./ui/sonner";
+import {
+  Tabs,
+  TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "./ui/tabs";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+} from "./ui/tooltip";
+import {
+  SonnerDemo,
+  SonnerDemoSimple,
+  SonnerDemoDescription,
+  SonnerDemoVariants,
+} from "./docs/sonner-demo";
 
 type MDXComponent = React.ComponentType<any>;
 
@@ -291,6 +353,7 @@ export const mdxComponents: MDXComponents = {
   ApiTable,
   CodeTabs,
   PkgManTabs,
+  Separator,
   Button,
   Input,
   Label,
@@ -306,5 +369,54 @@ export const mdxComponents: MDXComponents = {
   SwitchThumb,
   SwitchLabel,
   SwitchHiddenInput,
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  Avatar,
+  AvatarRoot,
+  AvatarImage,
+  AvatarFallback,
+  Badge,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+  Popover,
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverTitle,
+  PopoverDescription,
+  PopoverCloseTrigger,
+  Select,
+  Toaster,
+  toast,
+  Tabs,
+  TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  Tooltip,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+  SonnerDemo,
+  SonnerDemoSimple,
+  SonnerDemoDescription,
+  SonnerDemoVariants,
 };
 

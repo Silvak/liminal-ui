@@ -6,19 +6,25 @@ component: true
 
 # Card
 
-A card component for grouping related content with header, body, and footer sections.
-
-## Installation
-
-```bash
-liminal add card
-```
-
-## Usage
+A card component for grouping related content with header, body, and footer sections. Compose `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, and `CardFooter` as needed.
 
 <Preview>
+  <Card>
+    <CardHeader>
+      <CardTitle>Card title</CardTitle>
+      <CardDescription>
+        This is a short description of the card content.
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Here goes the main content of your card.</p>
+    </CardContent>
+    <CardFooter>
+      <Button>Action</Button>
+    </CardFooter>
+  </Card>
 
-```tsx
+```tsx title="card-example.tsx" {3,4,5,6,7} showLineNumbers
 import {
   Card,
   CardHeader,
@@ -51,3 +57,95 @@ export default function Example() {
 
 </Preview>
 
+## Installation
+
+```bash
+liminal add card
+```
+
+## Usage
+
+<Preview>
+  <Card>
+    <CardHeader>
+      <CardTitle>Card title</CardTitle>
+      <CardDescription>
+        This is a short description of the card content.
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Here goes the main content of your card.</p>
+    </CardContent>
+    <CardFooter>
+      <Button>Action</Button>
+    </CardFooter>
+  </Card>
+
+```tsx title="card-example.tsx" {3,4,5,6,7} showLineNumbers
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card title</CardTitle>
+        <CardDescription>
+          This is a short description of the card content.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Here goes the main content of your card.</p>
+      </CardContent>
+      <CardFooter>
+        <Button>Action</Button>
+      </CardFooter>
+    </Card>
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### With header and footer
+
+The example above shows the full composition. You can omit `CardHeader` or `CardFooter` if you only need content.
+
+### Content only
+
+<Preview>
+  <Card>
+    <CardContent>
+      <p className="text-sm text-muted-foreground">Minimal card with just content.</p>
+    </CardContent>
+  </Card>
+
+```tsx title="card-content-only.tsx" showLineNumbers
+<Card>
+  <CardContent>
+    <p>Minimal card with just content.</p>
+  </CardContent>
+</Card>
+```
+
+</Preview>
+
+## API
+
+Card and its parts accept standard HTML div props. Use these subcomponents to structure content:
+
+- **Card** — Container
+- **CardHeader** — Wraps title and description
+- **CardTitle** — Heading
+- **CardDescription** — Subtitle or caption
+- **CardContent** — Main body
+- **CardFooter** — Actions or footer content

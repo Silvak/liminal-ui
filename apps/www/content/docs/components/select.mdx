@@ -6,17 +6,19 @@ component: true
 
 # Select
 
-A select component built with Ark UI.
+A select component built with Ark UI. Use the convenience API with an `items` array for most cases, or the compound API for custom markup and grouping.
 
-## Installation
+<Preview>
+  <Select
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+    placeholder="Select a framework"
+  />
 
-```bash
-liminal add select
-```
-
-## Usage
-
-```tsx
+```tsx title="select-convenience.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
 import { Select } from "@/components/ui/select";
 
 const items = [
@@ -30,11 +32,87 @@ export default function Example() {
 }
 ```
 
-## Compound API
+</Preview>
 
-For more control, you can use the underlying Ark UI parts:
+## Installation
 
-```tsx
+```bash
+liminal add select
+```
+
+## Usage
+
+<Preview>
+  <Select
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+    placeholder="Select a framework"
+  />
+
+```tsx title="select-convenience.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Select } from "@/components/ui/select";
+
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Svelte", value: "svelte" },
+];
+
+export default function Example() {
+  return <Select items={items} placeholder="Select a framework" />;
+}
+```
+
+</Preview>
+
+## Examples
+
+### Convenience API
+
+Pass `items` (array of `{ label, value, disabled? }`) and optional `placeholder`. The select renders trigger and dropdown for you.
+
+<Preview>
+  <Select
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+    placeholder="Select a framework"
+  />
+
+```tsx title="select-convenience.tsx" showLineNumbers
+<Select
+  items={[
+    { label: "React", value: "react" },
+    { label: "Vue", value: "vue" },
+    { label: "Svelte", value: "svelte" },
+  ]}
+  placeholder="Select a framework"
+/>
+```
+
+</Preview>
+
+### Compound API
+
+For grouped options or custom styling, use `SelectRoot`, `SelectControl`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectGroup`, and `SelectItem`. You must create a collection with `ArkSelect.createCollection` (or use the convenience component internally).
+
+<Preview>
+  <Select
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+    placeholder="Select a framework"
+  />
+</Preview>
+
+```tsx title="select-compound.tsx" showLineNumbers
 import {
   SelectRoot,
   SelectControl,
@@ -78,3 +156,36 @@ export default function Example() {
   );
 }
 ```
+
+For most use cases, the convenience `<Select items={...} />` is enough; use the compound API when you need groups or custom item rendering.
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "items",
+      type: "{ label: string; value: string; disabled?: boolean }[]",
+      default: "-",
+      description: "Options for the select (convenience API).",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: '"Select an option"',
+      description: "Text shown when no value is selected.",
+    },
+    {
+      prop: "value",
+      type: "string",
+      default: "-",
+      description: "Controlled selected value.",
+    },
+    {
+      prop: "onValueChange",
+      type: "(details: { value: string }) => void",
+      default: "-",
+      description: "Callback when selection changes.",
+    },
+  ]}
+/>

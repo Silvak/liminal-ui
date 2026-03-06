@@ -10,8 +10,11 @@ interface ComponentPreviewProps {
 }
 
 function getCodeFromChild(node: React.ReactNode): string {
-  if (React.isValidElement(node) && node.props && "code" in node.props) {
-    return String((node.props as { code?: string }).code ?? "");
+  if (React.isValidElement(node)) {
+    const props = node.props as Record<string, unknown>;
+    if ("code" in props) {
+      return String((props.code as string | undefined) ?? "");
+    }
   }
   return "";
 }

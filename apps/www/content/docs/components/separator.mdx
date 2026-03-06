@@ -6,17 +6,16 @@ component: true
 
 # Separator
 
-A simple separator component for visually dividing content.
+A simple separator component for visually dividing content. Use it horizontally between blocks or vertically inside flex layouts.
 
-## Installation
+<Preview>
+  <div className="space-y-4">
+    <div>Section one</div>
+    <Separator />
+    <div>Section two</div>
+  </div>
 
-```bash
-liminal add separator
-```
-
-## Usage
-
-```tsx
+```tsx title="separator-basic.tsx" {5} showLineNumbers
 import { Separator } from "@/components/ui/separator";
 
 export default function Example() {
@@ -30,13 +29,90 @@ export default function Example() {
 }
 ```
 
-## Orientation
+</Preview>
 
-```tsx
-<div className="flex h-10 items-center space-x-4">
+## Installation
+
+```bash
+liminal add separator
+```
+
+## Usage
+
+<Preview>
+  <div className="space-y-4">
+    <div>Section one</div>
+    <Separator />
+    <div>Section two</div>
+  </div>
+
+```tsx title="separator-basic.tsx" {5} showLineNumbers
+import { Separator } from "@/components/ui/separator";
+
+export default function Example() {
+  return (
+    <div className="space-y-4">
+      <div>Section one</div>
+      <Separator />
+      <div>Section two</div>
+    </div>
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### Horizontal (default)
+
+<Preview>
+  <div className="space-y-4">
+    <div>Section one</div>
+    <Separator />
+    <div>Section two</div>
+  </div>
+
+```tsx title="separator-horizontal.tsx" showLineNumbers
+<Separator />
+```
+
+</Preview>
+
+### Vertical
+
+<Preview>
+  <div className="flex h-10 items-center gap-4">
+    <span>Item A</span>
+    <Separator orientation="vertical" />
+    <span>Item B</span>
+  </div>
+
+```tsx title="separator-vertical.tsx" {3} showLineNumbers
+<div className="flex h-10 items-center gap-4">
   <span>Item A</span>
   <Separator orientation="vertical" />
   <span>Item B</span>
 </div>
 ```
 
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "orientation",
+      type: '"horizontal" | "vertical"',
+      default: '"horizontal"',
+      description: "Layout direction of the separator.",
+    },
+    {
+      prop: "decorative",
+      type: "boolean",
+      default: "false",
+      description: "When true, the separator is purely visual (no accessibility role).",
+    },
+  ]}
+/>

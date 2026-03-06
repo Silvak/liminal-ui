@@ -6,17 +6,21 @@ component: true
 
 # Tooltip
 
-A tooltip component built with Ark UI for showing additional information on hover or focus.
+A tooltip component built with Ark UI for showing additional information on hover or focus. Use it for short labels on icons or controls.
 
-## Installation
+<Preview>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Button variant="outline">Hover me</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        Additional information about this action.
+      </TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
 
-```bash
-liminal add tooltip
-```
-
-## Usage
-
-```tsx
+```tsx title="tooltip-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
 import {
   Tooltip,
   TooltipTrigger,
@@ -41,3 +45,99 @@ export default function Example() {
 }
 ```
 
+</Preview>
+
+## Installation
+
+```bash
+liminal add tooltip
+```
+
+## Usage
+
+<Preview>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Button variant="outline">Hover me</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        Additional information about this action.
+      </TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
+
+```tsx title="tooltip-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Hover me</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          Additional information about this action.
+        </TooltipContent>
+      </TooltipPositioner>
+    </Tooltip>
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### With link
+
+Wrap any focusable element with `TooltipTrigger asChild`; the tooltip appears on hover or focus.
+
+<Preview>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <a href="#" className="text-sm underline">Learn more</a>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>Opens the documentation.</TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
+
+```tsx title="tooltip-link.tsx" showLineNumbers
+<Tooltip>
+  <TooltipTrigger asChild>
+    <a href="#">Learn more</a>
+  </TooltipTrigger>
+  <TooltipPositioner>
+    <TooltipContent>Opens the documentation.</TooltipContent>
+  </TooltipPositioner>
+</Tooltip>
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "open",
+      type: "boolean",
+      default: "uncontrolled",
+      description: "Controlled open state.",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(details) => void",
+      default: "-",
+      description: "Callback when tooltip visibility changes.",
+    },
+  ]}
+/>

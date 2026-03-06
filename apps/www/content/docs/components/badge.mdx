@@ -6,7 +6,20 @@ component: true
 
 # Badge
 
-A badge component for showing statuses, categories, or counts.
+A badge component for showing statuses, categories, or counts. Use it for tags, labels, or small numeric indicators.
+
+<Preview>
+  <Badge>New</Badge>
+
+```tsx title="badge-basic.tsx" {3} showLineNumbers
+import { Badge } from "@/components/ui/badge";
+
+export default function Example() {
+  return <Badge>New</Badge>;
+}
+```
+
+</Preview>
 
 ## Installation
 
@@ -16,7 +29,10 @@ liminal add badge
 
 ## Usage
 
-```tsx
+<Preview>
+  <Badge>New</Badge>
+
+```tsx title="badge-basic.tsx" {3} showLineNumbers
 import { Badge } from "@/components/ui/badge";
 
 export default function Example() {
@@ -24,12 +40,38 @@ export default function Example() {
 }
 ```
 
-## Variants
+</Preview>
 
-```tsx
+## Examples
+
+### Variants
+
+<Preview>
+  <div className="flex flex-wrap gap-2">
+    <Badge variant="default">Default</Badge>
+    <Badge variant="secondary">Secondary</Badge>
+    <Badge variant="destructive">Destructive</Badge>
+    <Badge variant="outline">Outline</Badge>
+  </div>
+
+```tsx title="badge-variants.tsx" {1,2,3,4} showLineNumbers
 <Badge variant="default">Default</Badge>
 <Badge variant="secondary">Secondary</Badge>
 <Badge variant="destructive">Destructive</Badge>
 <Badge variant="outline">Outline</Badge>
 ```
 
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "variant",
+      type: '"default" | "secondary" | "destructive" | "outline"',
+      default: '"default"',
+      description: "Visual style of the badge.",
+    },
+  ]}
+/>

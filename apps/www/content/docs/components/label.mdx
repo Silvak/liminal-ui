@@ -59,3 +59,66 @@ export default function Example() {
 ```
 
 </Preview>
+
+## Examples
+
+### With Input
+
+<Preview>
+  <div className="space-y-2">
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="you@example.com" />
+  </div>
+
+```tsx title="label-with-input.tsx" showLineNumbers
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="email">Email</Label>
+      <Input id="email" type="email" placeholder="you@example.com" />
+    </div>
+  );
+}
+```
+
+</Preview>
+
+### With Checkbox
+
+<Preview>
+  <div className="flex items-center space-x-2">
+    <Checkbox id="terms" />
+    <Label htmlFor="terms">Accept terms and conditions</Label>
+  </div>
+
+```tsx title="label-with-checkbox.tsx" showLineNumbers
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+
+export default function Example() {
+  return (
+    <div className="flex items-center space-x-2">
+      <Checkbox id="terms" />
+      <Label htmlFor="terms">Accept terms and conditions</Label>
+    </div>
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "htmlFor",
+      type: "string",
+      default: "-",
+      description: "ID of the form control this label describes. Use for accessibility.",
+    },
+  ]}
+/>
