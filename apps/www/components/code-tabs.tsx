@@ -36,22 +36,22 @@ export function CodeTabs({
   return (
     <div
       className={cn(
-        "relative my-4 overflow-hidden rounded-lg border bg-[#282c34] text-xs",
+        "code-block-glass relative my-4 overflow-hidden border border-(--code-border) text-xs",
         className,
       )}
     >
       <TabsRoot value={activeValue} onValueChange={(e) => setActiveValue(e.value)}>
-        <div className="flex items-center justify-between border-b border-white/10 px-4 py-2">
-          <TabsList className="h-auto gap-0 rounded-md border-0 bg-transparent p-0 text-[0.7rem] text-slate-300">
+        <div className="flex items-center justify-between border-b border-border px-4 py-2 text-(--code-header-text)">
+          <TabsList className="h-auto gap-0 rounded-md border-0 bg-transparent p-0 text-[0.7rem] text-(--code-header-text)">
             <TabsTrigger
               value="ts"
-              className="rounded-sm border-0 bg-transparent px-3 py-1 uppercase tracking-wide data-selected:bg-white/10 data-selected:text-white data-selected:font-semibold"
+              className="rounded-sm border-0 bg-transparent px-3 py-1 uppercase tracking-wide data-selected:bg-white/10 data-selected:text-foreground data-selected:font-semibold"
             >
               TypeScript
             </TabsTrigger>
             <TabsTrigger
               value="js"
-              className="rounded-sm border-0 bg-transparent px-3 py-1 uppercase tracking-wide data-selected:bg-white/10 data-selected:text-white data-selected:font-semibold"
+              className="rounded-sm border-0 bg-transparent px-3 py-1 uppercase tracking-wide data-selected:bg-white/10 data-selected:text-foreground data-selected:font-semibold"
             >
               JavaScript
             </TabsTrigger>

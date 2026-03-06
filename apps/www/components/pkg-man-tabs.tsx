@@ -31,19 +31,19 @@ export function PkgManTabs({
   return (
     <div
       className={cn(
-        "relative my-4 overflow-hidden rounded-lg border bg-[#282c34] text-xs",
+        "code-block-glass relative my-4 overflow-hidden border border-(--code-border) text-xs",
         className,
       )}
     >
       <TabsRoot value={activeValue} onValueChange={(e) => setActiveValue(e.value)}>
-        <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-2">
-          <Terminal className="h-3.5 w-3.5 shrink-0 text-slate-400" />
-          <TabsList className="h-auto gap-0 rounded-md border-0 bg-transparent p-0 text-[0.7rem] text-slate-300">
+        <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2 text-(--code-header-text)">
+          <Terminal className="h-3.5 w-3.5 shrink-0 text-(--code-header-text)" />
+          <TabsList className="h-auto gap-0 rounded-md border-0 bg-transparent p-0 text-[0.7rem] text-(--code-header-text)">
             {(Object.keys(labels) as Array<keyof typeof labels>).map((key) => (
               <TabsTrigger
                 key={key}
                 value={key}
-                className="relative rounded-sm border-0 bg-transparent px-3 py-1.5 text-sm font-medium tracking-wide text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200 data-selected:bg-transparent data-selected:font-semibold data-selected:text-white data-selected:after:absolute data-selected:after:bottom-0 data-selected:after:left-0 data-selected:after:right-0 data-selected:after:h-0.5 data-selected:after:bg-primary data-selected:after:rounded-full"
+                className="relative rounded-sm border-0 bg-transparent px-3 py-1.5 text-sm font-medium tracking-wide text-(--code-header-text) transition-colors hover:bg-white/5 hover:text-foreground/80 data-selected:bg-transparent data-selected:font-semibold data-selected:text-foreground data-selected:after:absolute data-selected:after:bottom-0 data-selected:after:left-0 data-selected:after:right-0 data-selected:after:h-0.5 data-selected:after:bg-primary data-selected:after:rounded-full"
               >
                 {labels[key]}
               </TabsTrigger>

@@ -32,9 +32,12 @@ export function ComponentPreview({
   );
 
   const codeNodeWithHideHeader = React.isValidElement(codeNode)
-    ? React.cloneElement(codeNode as React.ReactElement<{ hideHeader?: boolean }>, {
-        hideHeader: true,
-      })
+    ? React.cloneElement(
+        codeNode as React.ReactElement<{ hideHeader?: boolean }>,
+        {
+          hideHeader: true,
+        },
+      )
     : codeNode;
 
   if (!hasPreviewAndCode) {
@@ -44,46 +47,49 @@ export function ComponentPreview({
   return (
     <div
       className={cn(
-        "my-6 overflow-hidden rounded-xl border border-border bg-card",
+        "my-6 overflow-hidden border border-border bg-card relative",
         className,
       )}
     >
       {/* Preview area */}
-      <div className="flex min-h-[200px] items-center justify-center p-8 bg-background">
+      <div className="flex min-h-[220px] items-center justify-center p-8 ">
         {previewNode}
       </div>
 
-      {/* Code section: always visible, collapsed or expanded */}
-      <div className="relative bg-[#282c34]">
-        {expanded && (
-          <div className="absolute right-3 top-2 z-10">
-            <CopyButton value={codeString} />
-          </div>
-        )}
+      {/* Code section: always shows code; collapsed = 100px + gradient, expanded = scroll */}
+      <div className="relative w-full h-full code-block-glass border-t border-(--code-border)">
+        <div className="fixed right-1 top-1 z-20">
+          <CopyButton value={codeString} className="" />
+        </div>
+
         <div
           className={cn(
-            "overflow-hidden",
-            expanded ? "max-h-[400px] overflow-auto" : "max-h-[150px]",
+            expanded
+              ? "max-h-[400px] overflow-auto scrollbar-hide py-4"
+              : "max-h-[100px] overflow-hidden py-4",
           )}
         >
           {codeNodeWithHideHeader}
         </div>
+
         {!expanded && (
           <div
-            className="pointer-events-none absolute inset-0 flex items-end justify-center pb-4"
-            style={{
-              background:
-                "linear-gradient(to top, #282c34, color-mix(in oklab, #282c34 60%, transparent), transparent)",
+            role="button"
+            tabIndex={0}
+            onClick={() => setExpanded(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setExpanded(true);
+              }
             }}
+            className="absolute inset-0 cursor-pointer flex items-center justify-center bg-linear-to-t from-(--code-bg) to-transparent"
+            aria-expanded={false}
+            aria-label="Expand code"
           >
-            <button
-              type="button"
-              onClick={() => setExpanded(true)}
-              className="pointer-events-auto rounded-md border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-slate-200 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              aria-expanded={false}
-            >
+            <span className="rounded-md border border-border bg-background/80 px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               View Code
-            </button>
+            </span>
           </div>
         )}
       </div>

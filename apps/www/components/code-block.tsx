@@ -22,7 +22,7 @@ let highlighterPromise: Promise<Highlighter> | null = null;
 function getClientHighlighter() {
   if (!highlighterPromise) {
     highlighterPromise = getHighlighter({
-      themes: ["one-dark-pro"],
+      themes: ["one-dark-pro", "github-light"],
       langs: [
         "tsx",
         "ts",
@@ -94,10 +94,12 @@ export function CodeBlock({
 }: CodeBlockProps) {
   const [html, setHtml] = React.useState<string | null>(null);
 
+  const lineCount = code.split("\n").length;
+  const effectiveShowLineNumbers = showLineNumbers || lineCount > 2;
+
   const estimatedHeight = React.useMemo(() => {
-    const lines = code.split("\n").length;
-    return lines * 18 + 24;
-  }, [code]);
+    return lineCount * 18 + 24;
+  }, [lineCount]);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -106,10 +108,11 @@ export function CodeBlock({
         const highlighter = await getClientHighlighter();
         const highlighted = highlighter.codeToHtml(code.trimEnd(), {
           lang: language,
-          theme: "one-dark-pro",
+          themes: { light: "github-light", dark: "one-dark-pro" },
+          defaultColor: false,
         });
         if (!cancelled) {
-          setHtml(enhanceShikiHtml(highlighted, highlightLines, showLineNumbers));
+          setHtml(enhanceShikiHtml(highlighted, highlightLines, effectiveShowLineNumbers));
         }
       } catch {
         if (!cancelled) {
@@ -123,11 +126,11 @@ export function CodeBlock({
     return () => {
       cancelled = true;
     };
-  }, [code, language, highlightLines, showLineNumbers]);
+  }, [code, language, highlightLines, effectiveShowLineNumbers]);
 
   const content = (
     <div
-      className="overflow-auto p-3 text-[0.82rem] leading-relaxed"
+      className="overflow-auto p-3 text-[0.82rem] leading-tight"
       style={{ minHeight: estimatedHeight }}
       dangerouslySetInnerHTML={{
         __html:
@@ -144,17 +147,17 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "relative my-4 overflow-hidden rounded-xl border border-white/10 bg-[#282c34] text-xs shadow-sm",
+        "code-block-glass relative my-4 overflow-hidden border border-(--code-border) text-xs",
         className,
       )}
     >
-      <div className="flex items-center justify-between border-b border-white/10 px-4 py-2 text-[0.7rem] uppercase tracking-wide text-slate-300">
+      <div className="flex items-center justify-between border-b border-border px-4 py-2 text-[0.7rem] uppercase tracking-wide text-(--code-header-text)">
         <div className="flex min-w-0 items-center gap-2">
           {language === "bash" && (
-            <Terminal className="h-3.5 w-3.5 shrink-0 text-slate-400" />
+            <Terminal className="h-3.5 w-3.5 shrink-0 text-(--code-header-text)" />
           )}
           {filename ? (
-            <span className="truncate font-medium normal-case tracking-normal text-white/90">
+            <span className="truncate font-medium normal-case tracking-normal text-foreground/90">
               {filename}
             </span>
           ) : null}
