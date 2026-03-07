@@ -4,12 +4,19 @@ import * as React from "react";
 import Link from "next/link";
 import { cn } from "../../lib/utils";
 import type { DocHeading } from "../../lib/docs";
+import { useLocaleOptional } from "../../components/locale-provider";
+
+const TOC_LABELS = {
+  en: { heading: "On this page", aria: "Table of contents" },
+  es: { heading: "En esta página", aria: "Tabla de contenidos" },
+} as const;
 
 interface TableOfContentsProps {
   headings: DocHeading[];
 }
 
 export function TableOfContents({ headings }: TableOfContentsProps) {
+  const locale = useLocaleOptional() ?? "en";
   const [activeId, setActiveId] = React.useState<string>(
     headings[0]?.id ?? "",
   );
@@ -75,10 +82,10 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <aside
       className="hidden xl:block xl:fixed xl:top-14 xl:right-0 xl:z-30 xl:h-[calc(100vh-3.5rem)] xl:w-[220px] xl:pt-8 xl:pr-8"
-      aria-label="Table of contents"
+      aria-label={TOC_LABELS[locale].aria}
     >
       <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        On this page
+        {TOC_LABELS[locale].heading}
       </p>
       <nav className="space-y-0.5">
         {headings.map((heading) => {
