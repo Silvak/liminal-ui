@@ -39,9 +39,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(newPath, request.url));
   }
 
+  const requestHeaders = new Headers(request.headers);
+  if (pathname.startsWith("/en")) {
+    requestHeaders.set("x-locale", "en");
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
+  if (pathname.startsWith("/es")) {
+    requestHeaders.set("x-locale", "es");
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/((?!_next|api|en|es).*)"],
+  matcher: ["/", "/((?!_next|api).*)"],
 };

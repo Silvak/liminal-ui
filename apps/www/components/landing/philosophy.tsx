@@ -1,29 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { LandingDictionary } from "../../lib/landing-dictionary";
 
-const PILLARS = [
-  {
-    index: "01",
-    title: "THRESHOLD DESIGN",
-    body: "We operate in the space between raw utility and refined aesthetics. Liminal UI inhabits the threshold — not quite framework, not quite library. Code you copy, adapt, and truly own.",
-    tag: "// PHILOSOPHY",
-  },
-  {
-    index: "02",
-    title: "ZERO BLACK BOXES",
-    body: "Every component lives in your repository. There is no runtime dependency to version bump. No proprietary opinions buried in node_modules. Just source code — transparent, hackable, yours.",
-    tag: "// OWNERSHIP",
-  },
-  {
-    index: "03",
-    title: "STRUCTURED FREEDOM",
-    body: "Ark UI handles the logic. Tailwind handles the aesthetics. You handle the vision. The primitives are invisible — only the geometry of your interface remains.",
-    tag: "// ARCHITECTURE",
-  },
-];
+type PhilosophyTranslations = LandingDictionary["philosophy"];
 
-export function PhilosophySection() {
+export function PhilosophySection({ t }: { t: PhilosophyTranslations }) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -58,10 +40,10 @@ export function PhilosophySection() {
         {/* Header */}
         <div className="mb-16 max-w-3xl" data-reveal style={{ opacity: 0 }}>
           <p className="font-ibm text-xs font-bold tracking-[0.3em] uppercase mb-5 text-acid-label">
-            § CORE DOCTRINE
+            {t.overline}
           </p>
           <h2 className="font-display text-[clamp(3rem,9vw,6.5rem)] leading-none tracking-tight text-l-primary">
-            THE LIMINAL<br />DOCTRINE
+            {t.titleLine1}<br />{t.titleLine2}
           </h2>
         </div>
 
@@ -70,7 +52,7 @@ export function PhilosophySection() {
           className="grid md:grid-cols-3 gap-0"
           style={{ border: "1px solid hsl(var(--l-border))" }}
         >
-          {PILLARS.map((pillar, i) => (
+          {t.pillars.map((pillar, i) => (
             <div
               key={pillar.index}
               data-reveal
@@ -78,7 +60,7 @@ export function PhilosophySection() {
                 opacity: 0,
                 borderRight: i < 2 ? "1px solid hsl(var(--l-border))" : undefined,
               }}
-              className="relative p-8 md:p-10 group bg-l-card hover:bg-l-card-alt transition-colors duration-300"
+              className="relative p-8 md:p-10 group bg-l-card hover:bg-l-card-alt transition-colors duration-300 min-h-[280px] flex flex-col"
             >
               {/* Hover corner accents */}
               <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-acid opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ borderColor: "hsl(var(--acid-label))" }} />
@@ -93,7 +75,7 @@ export function PhilosophySection() {
               <h3 className="font-display text-3xl md:text-[2rem] tracking-wider mb-4 text-l-primary">
                 {pillar.title}
               </h3>
-              <p className="font-ibm text-[14px] leading-relaxed text-l-muted">
+              <p className="font-ibm text-[14px] leading-[1.65] text-l-muted flex-1">
                 {pillar.body}
               </p>
 
@@ -113,11 +95,11 @@ export function PhilosophySection() {
           className="mt-12 flex flex-wrap items-center justify-between gap-4 pt-8"
         >
           <p className="font-ibm text-[13px] max-w-lg text-l-muted">
-            {">"} Designed for developers who believe that the gap between idea and interface should be as thin as possible.
+            {t.footerQuote}
           </p>
           <div className="flex items-center gap-2 font-ibm text-[12px] text-acid-label">
             <span className="w-2 h-2" style={{ backgroundColor: "hsl(var(--acid-label))" }} />
-            <span>THRESHOLD STATE ACTIVE</span>
+            <span>{t.footerBadge}</span>
           </div>
         </div>
       </div>

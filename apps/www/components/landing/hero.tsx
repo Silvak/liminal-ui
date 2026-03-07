@@ -3,11 +3,16 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { useLocale } from "../locale-provider";
+import type { LandingDictionary } from "../../lib/landing-dictionary";
 
-export function LandingHero() {
+type HeroTranslations = LandingDictionary["hero"];
+
+export function LandingHero({ t }: { t: HeroTranslations }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const locale = useLocale();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -124,30 +129,30 @@ export function LandingHero() {
         className="relative z-10 flex items-center justify-between px-6 md:px-12 pt-8 font-ibm text-[10px] tracking-[0.25em] uppercase"
         style={{ color: "hsl(var(--hero-text-faint))" }}
       >
-        <span style={{ color: "hsl(var(--hero-accent))" }}>SYS.v0.15.0</span>
+        <span style={{ color: "hsl(var(--hero-accent))" }}>{t.sysVersion}</span>
         <div className="flex items-center gap-6">
-          <span>ARK UI / TW CSS</span>
+          <span>{t.arkTw}</span>
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ backgroundColor: "hsl(var(--hero-accent))" }} />
-            ONLINE
+            {t.online}
           </span>
         </div>
-        <span>LIMINAL.UI</span>
+        <span>{t.liminalUi}</span>
       </div>
 
       {/* Main content */}
       <div className="relative z-10 flex-1 flex flex-col items-start justify-center px-6 md:px-12 lg:px-20 pt-8 pb-24">
         {/* Label pill */}
         <div
-          className="mb-8 inline-flex items-center gap-3 px-4 py-2 font-ibm text-[11px] tracking-[0.25em] uppercase"
+          className="mb-8 inline-flex items-center gap-3 px-4 py-2 font-ibm text-[11px] tracking-[0.25em] uppercase max-w-full sm:max-w-none"
           style={{
             border: "1px solid hsl(var(--hero-accent) / 0.35)",
             backgroundColor: "hsl(var(--hero-accent) / 0.07)",
             color: "hsl(var(--hero-accent))",
           }}
         >
-          <span className="w-2 h-2 rounded-none animate-pulse" style={{ backgroundColor: "hsl(var(--hero-accent))" }} />
-          Component Library — Own Your UI
+          <span className="w-2 h-2 shrink-0 rounded-none animate-pulse" style={{ backgroundColor: "hsl(var(--hero-accent))" }} />
+          <span className="min-w-0 break-words">{t.pillLabel}</span>
         </div>
 
         {/* Giant heading with glitch */}
@@ -156,21 +161,21 @@ export function LandingHero() {
             className="font-display leading-[0.9] tracking-tight select-none"
             style={{ fontSize: "clamp(5.5rem,17vw,14rem)", color: "hsl(var(--hero-text))", textShadow: `0 0 80px hsl(var(--hero-accent-glow) / 0.12)` }}
           >
-            LIMINAL
+            {t.title1}
           </h1>
           <span
             aria-hidden
             className="font-display absolute inset-0 leading-[0.9] tracking-tight animate-glitch-1 pointer-events-none"
             style={{ fontSize: "clamp(5.5rem,17vw,14rem)", color: "hsl(var(--hero-accent) / 0.28)", textShadow: "none" }}
           >
-            LIMINAL
+            {t.title1}
           </span>
           <span
             aria-hidden
             className="font-display absolute inset-0 leading-[0.9] tracking-tight animate-glitch-2 pointer-events-none"
             style={{ fontSize: "clamp(5.5rem,17vw,14rem)", color: "rgba(255,80,0,0.15)" }}
           >
-            LIMINAL
+            {t.title1}
           </span>
         </div>
         <div className="relative mb-10 overflow-hidden">
@@ -178,7 +183,7 @@ export function LandingHero() {
             className="font-display leading-[0.9] tracking-tight select-none"
             style={{ fontSize: "clamp(2.8rem,8.5vw,7rem)", color: "hsl(var(--hero-text-sub))" }}
           >
-            UI SYSTEM
+            {t.title2}
           </h1>
           <div className="absolute left-0 top-1/2 w-full h-px pointer-events-none" style={{ backgroundColor: "hsl(var(--hero-accent) / 0.22)" }} />
         </div>
@@ -186,40 +191,40 @@ export function LandingHero() {
         {/* Descriptors */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10 mb-12 font-ibm text-[13px]" style={{ color: "hsl(var(--hero-text-faint))" }}>
           <span style={{ borderLeft: "2px solid hsl(var(--hero-accent) / 0.55)", paddingLeft: "0.75rem" }}>
-            Copy-paste React components.<br />No black boxes.
+            {t.descriptor1Line1}<br />{t.descriptor1Line2}
           </span>
           <div className="hidden sm:block w-px h-10" style={{ backgroundColor: "hsl(var(--hero-text-faint) / 0.2)" }} />
           <span style={{ borderLeft: "2px solid hsl(var(--hero-accent) / 0.3)", paddingLeft: "0.75rem" }}>
-            Built on Ark UI primitives.<br />Styled with Tailwind v4.
+            {t.descriptor2Line1}<br />{t.descriptor2Line2}
           </span>
         </div>
 
         {/* CTAs */}
         <div className="flex flex-wrap items-center gap-4">
           <Link
-            href="/docs/introduction"
+            href={`/${locale}/docs/introduction`}
             className="inline-flex items-center gap-2 px-8 h-12 font-ibm text-[13px] font-bold tracking-[0.15em] uppercase transition-opacity duration-200 hover:opacity-85"
             style={{ backgroundColor: "hsl(var(--hero-cta-bg))", color: "hsl(var(--hero-cta-text))" }}
           >
-            Initialize <span className="opacity-60">→</span>
+            {t.ctaInit} <span className="opacity-60">→</span>
           </Link>
           <Link
-            href="/docs/components/button"
+            href={`/${locale}/docs/components/button`}
             className="inline-flex items-center px-8 h-12 font-ibm text-[13px] font-semibold tracking-[0.15em] uppercase transition-all duration-200"
             style={{ border: "1px solid hsl(var(--hero-outline-border) / 0.22)", color: "hsl(var(--hero-text))", backgroundColor: "transparent" }}
           >
-            Browse Components
+            {t.ctaBrowse}
           </Link>
         </div>
 
         {/* Bottom strip */}
         <div className="absolute bottom-8 left-6 md:left-12 right-6 md:right-12 flex items-end justify-between">
           <div className="font-ibm text-[10px] tracking-[0.25em] space-y-1" style={{ color: "hsl(var(--hero-text-faint) / 0.5)" }}>
-            <div>COORD: 40.7128°N / 74.0060°W</div>
-            <div style={{ color: "hsl(var(--hero-accent) / 0.5)" }}>// THRESHOLD STATE</div>
+            <div>{t.coord}</div>
+            <div style={{ color: "hsl(var(--hero-accent) / 0.5)" }}>{t.thresholdState}</div>
           </div>
           <div className="hidden md:flex items-center gap-2 font-ibm text-[10px] tracking-[0.25em]" style={{ color: "hsl(var(--hero-text-faint) / 0.4)" }}>
-            <span>SCROLL</span>
+            <span>{t.scroll}</span>
             <div className="flex flex-col items-center gap-0.5">
               <div className="w-px h-6" style={{ backgroundColor: "hsl(var(--hero-accent) / 0.35)" }} />
               <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "hsl(var(--hero-accent) / 0.5)" }} />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Script from "next/script";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -16,14 +17,15 @@ export const metadata: Metadata = {
     "Copy-paste React components built with Ark UI and Tailwind CSS. No black boxes, just source code you control.",
 };
 
-//TODO: remove this after testing
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const headersList = await headers();
+  const locale = headersList.get("x-locale") === "es" ? "es" : "en";
+
   return (
     <html
-      lang="en"
+      lang={locale}
       suppressHydrationWarning
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >

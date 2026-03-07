@@ -2,13 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useLocale } from "../locale-provider";
+import type { LandingDictionary } from "../../lib/landing-dictionary";
 
-type ComponentDef = {
-  name: string;
-  category: string;
-  count: string;
-  preview: React.FC;
-};
+type ShowcaseTranslations = LandingDictionary["showcase"];
 
 function ButtonPreview() {
   const [variant, setVariant] = useState<"primary" | "outline" | "ghost">("primary");
@@ -305,18 +302,19 @@ function SeparatorPreview() {
   );
 }
 
-const COMPONENTS: ComponentDef[] = [
-  { name: "Button", category: "Action", count: "5 variants", preview: ButtonPreview },
-  { name: "Alert", category: "Feedback", count: "4 variants", preview: AlertPreview },
-  { name: "Card", category: "Layout", count: "composable", preview: CardPreview },
-  { name: "Badge", category: "Label", count: "3 variants", preview: BadgePreview },
-  { name: "Tabs", category: "Navigation", count: "animated", preview: TabsPreview },
-  { name: "Separator", category: "Layout", count: "decorative", preview: SeparatorPreview },
-];
+const PREVIEW_COMPONENTS = [
+  ButtonPreview,
+  AlertPreview,
+  CardPreview,
+  BadgePreview,
+  TabsPreview,
+  SeparatorPreview,
+] as const;
 
-export function ShowcaseSection() {
+export function ShowcaseSection({ t }: { t: ShowcaseTranslations }) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const locale = useLocale();
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -337,7 +335,7 @@ export function ShowcaseSection() {
     return () => obs.disconnect();
   }, []);
 
-  const ActivePreview = COMPONENTS[active].preview;
+  const ActivePreview = PREVIEW_COMPONENTS[active];
 
   return (
     <section
@@ -352,14 +350,14 @@ export function ShowcaseSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
           <div data-reveal style={{ opacity: 0 }}>
             <p className="font-ibm text-xs font-bold tracking-[0.3em] uppercase mb-4 text-acid-label">
-              § COMPONENT LAB
+              {t.overline}
             </p>
             <h2 className="font-display leading-none tracking-tight text-l-primary" style={{ fontSize: "clamp(2.5rem,7vw,5.5rem)" }}>
-              WHAT&apos;S IN<br />THE SYSTEM
+              {t.titleLine1}<br />{t.titleLine2}
             </h2>
           </div>
-          <p data-reveal style={{ opacity: 0 }} className="font-ibm text-[14px] max-w-xs leading-relaxed md:text-right text-l-muted">
-            Select a component. Tweak its props. See the result live.
+          <p data-reveal style={{ opacity: 0 }} className="font-ibm text-[14px] max-w-sm leading-[1.6] md:text-right text-l-muted">
+            {t.subtitle}
           </p>
         </div>
 
@@ -367,14 +365,14 @@ export function ShowcaseSection() {
         <div className="grid lg:grid-cols-5 gap-0" style={{ border: "1px solid hsl(var(--l-border))" }}>
           {/* Component list */}
           <div className="lg:col-span-2 bg-l-card" style={{ borderRight: "1px solid hsl(var(--l-border))" }}>
-            {COMPONENTS.map((comp, i) => (
+            {t.components.map((comp, i) => (
               <button
                 key={comp.name}
                 data-reveal
                 onClick={() => setActive(i)}
                 style={{
                   opacity: 0,
-                  borderBottom: i < COMPONENTS.length - 1 ? "1px solid hsl(var(--l-border-sub))" : undefined,
+                  borderBottom: i < t.components.length - 1 ? "1px solid hsl(var(--l-border-sub))" : undefined,
                   backgroundColor: active === i ? "hsl(var(--l-bg-card-alt))" : undefined,
                 }}
                 className="flex items-center justify-between w-full text-left px-6 py-5 group hover:bg-l-card-alt transition-colors duration-200 cursor-pointer"
@@ -417,11 +415,11 @@ export function ShowcaseSection() {
 
             <div className="flex items-center justify-between mb-8">
               <p className="font-ibm text-[11px] font-bold tracking-[0.25em] uppercase text-l-faint">
-                // LIVE PREVIEW
+                {t.livePreview}
               </p>
               <span className="flex items-center gap-1.5 font-ibm text-[10px] tracking-[0.2em] uppercase text-acid-label">
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "hsl(var(--acid-label))" }} />
-                INTERACTIVE
+                {t.interactive}
               </span>
             </div>
 
@@ -429,9 +427,9 @@ export function ShowcaseSection() {
 
             {/* Footer */}
             <div className="mt-8 pt-6 flex items-center justify-between" style={{ borderTop: "1px solid hsl(var(--l-border-sub))" }}>
-              <span className="font-ibm text-[12px] text-l-muted">All components accessible by default</span>
-              <Link href="/docs/components/button" className="font-ibm text-[13px] font-bold text-acid-label hover:opacity-75 transition-opacity">
-                View all →
+              <span className="font-ibm text-[12px] text-l-muted">{t.footerText}</span>
+              <Link href={`/${locale}/docs/components/button`} className="font-ibm text-[13px] font-bold text-acid-label hover:opacity-75 transition-opacity">
+                {t.viewAll}
               </Link>
             </div>
           </div>

@@ -1,31 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { LandingDictionary } from "../../lib/landing-dictionary";
 
-const STACK = [
-  {
-    layer: "L1", name: "YOUR CODEBASE",
-    description: "Components live in your repo. Fully visible, editable, deletable.",
-    accent: "hsl(var(--acid-label))", width: "100%",
-  },
-  {
-    layer: "L2", name: "TAILWIND CSS v4",
-    description: "CSS-first configuration. Design tokens as CSS variables.",
-    accent: "hsl(200 75% 45%)", width: "82%",
-  },
-  {
-    layer: "L3", name: "ARK UI PRIMITIVES",
-    description: "Headless logic. ARIA-compliant. Framework-agnostic.",
-    accent: "hsl(266 60% 55%)", width: "65%",
-  },
-  {
-    layer: "L4", name: "REACT / NEXT.JS",
-    description: "First-class support. Server & client components.",
-    accent: "hsl(200 80% 50%)", width: "50%",
-  },
-];
+const STACK_ACCENTS = [
+  "hsl(var(--acid-label))",
+  "hsl(200 75% 45%)",
+  "hsl(266 60% 55%)",
+  "hsl(200 80% 50%)",
+] as const;
 
-export function ArchitectureSection() {
+type ArchitectureTranslations = LandingDictionary["architecture"];
+
+export function ArchitectureSection({ t }: { t: ArchitectureTranslations }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -65,21 +52,16 @@ export function ArchitectureSection() {
           {/* Left text */}
           <div>
             <p className="font-ibm text-xs font-bold tracking-[0.3em] uppercase mb-4 text-acid-label">
-              § SYSTEM ARCHITECTURE
+              {t.overline}
             </p>
             <h2 className="font-display leading-none tracking-tight mb-6 text-l-primary" style={{ fontSize: "clamp(2.5rem,5.5vw,4.8rem)" }}>
-              THE STACK<br />BLUEPRINT
+              {t.titleLine1}<br />{t.titleLine2}
             </h2>
-            <p className="font-ibm text-[14px] leading-relaxed mb-10 max-w-md text-l-muted">
-              Liminal UI is not a runtime dependency — it&apos;s a layered architecture that respects your ownership at every level. From the rendering layer down to the raw CSS substrate.
+            <p className="font-ibm text-[14px] leading-[1.65] mb-10 max-w-md text-l-muted">
+              {t.intro}
             </p>
             <div className="space-y-3" style={{ borderLeft: "2px solid hsl(var(--acid-label) / 0.3)", paddingLeft: "1rem" }}>
-              {[
-                "No proprietary runtime required",
-                "Tree-shaking friendly",
-                "Zero config to get started",
-                "Works with any Tailwind project",
-              ].map((note) => (
+              {t.notes.map((note) => (
                 <p key={note} className="font-ibm text-[13px] text-l-muted">
                   <span className="text-acid-label">→</span> {note}
                 </p>
@@ -89,7 +71,7 @@ export function ArchitectureSection() {
 
           {/* Right: layer diagram */}
           <div className="space-y-3">
-            {STACK.map((layer, i) => (
+            {t.stack.map((layer, i) => (
               <div
                 key={layer.layer}
                 data-bar
@@ -103,17 +85,17 @@ export function ArchitectureSection() {
                 }}
               >
                 {/* Colored left accent */}
-                <div className="absolute left-0 top-0 bottom-0 w-0.5" style={{ background: layer.accent }} />
+                <div className="absolute left-0 top-0 bottom-0 w-0.5" style={{ background: STACK_ACCENTS[i] }} />
                 <div className="px-5 py-4 pl-6">
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-display text-2xl tracking-wider" style={{ color: layer.accent }}>
+                    <span className="font-display text-2xl tracking-wider" style={{ color: STACK_ACCENTS[i] }}>
                       {layer.name}
                     </span>
                     <span className="font-ibm text-[11px] font-bold tracking-[0.25em] text-l-faint">{layer.layer}</span>
                   </div>
                   <p className="font-ibm text-[13px] text-l-muted">{layer.description}</p>
                 </div>
-                {i < STACK.length - 1 && (
+                {i < t.stack.length - 1 && (
                   <div className="absolute -bottom-2 left-6 w-px h-2" style={{ backgroundColor: "hsl(var(--l-border))" }} />
                 )}
               </div>
@@ -121,8 +103,8 @@ export function ArchitectureSection() {
             {/* Note */}
             <div className="mt-4 p-4" style={{ border: "1px dashed hsl(var(--l-border))" }}>
               <p className="font-ibm text-[12px] text-l-muted">
-                <span className="text-acid-label font-bold">NOTE:</span>{" "}
-                Only L1 exists in your project. Layers 2–4 are peer deps.
+                <span className="text-acid-label font-bold">{t.noteLabel}</span>{" "}
+                {t.noteText}
               </p>
             </div>
           </div>

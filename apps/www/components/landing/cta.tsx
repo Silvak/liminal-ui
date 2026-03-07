@@ -1,8 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale } from "../locale-provider";
+import type { LandingDictionary } from "../../lib/landing-dictionary";
 
-export function CtaSection() {
+type CtaTranslations = LandingDictionary["cta"];
+
+export function CtaSection({ t }: { t: CtaTranslations }) {
+  const locale = useLocale();
   return (
     <section
       className="relative overflow-hidden py-24 lg:py-36 bg-l-bg-alt"
@@ -24,7 +29,7 @@ export function CtaSection() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 text-center">
         {/* Overline */}
         <p className="font-ibm text-[11px] font-bold tracking-[0.35em] uppercase mb-6 text-acid-label">
-          § INITIALIZATION PROTOCOL
+          {t.overline}
         </p>
 
         {/* Headline */}
@@ -32,12 +37,12 @@ export function CtaSection() {
           className="font-display leading-none tracking-tight mb-8 text-l-primary"
           style={{ fontSize: "clamp(4.5rem,13vw,10rem)" }}
         >
-          START<br />BUILDING.
+          {t.titleLine1}<br />{t.titleLine2}
         </h2>
 
         {/* Sub */}
-        <p className="font-ibm text-[16px] max-w-xl mx-auto mb-12 leading-relaxed text-l-muted">
-          Two commands. Full ownership. Components that respect your architecture.
+        <p className="font-ibm text-[16px] max-w-xl mx-auto mb-12 leading-[1.65] text-l-muted">
+          {t.sub}
         </p>
 
         {/* Terminal */}
@@ -65,14 +70,14 @@ export function CtaSection() {
         {/* CTA buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Link
-            href="/docs/introduction"
+            href={`/${locale}/docs/introduction`}
             className="inline-flex items-center px-10 h-14 font-ibm text-[13px] font-bold tracking-[0.15em] uppercase transition-opacity hover:opacity-85"
             style={{
               backgroundColor: "hsl(var(--l-text))",
               color: "hsl(var(--l-bg))",
             }}
           >
-            Get Started
+            {t.ctaGetStarted}
           </Link>
           <Link
             href="https://github.com/silvak/liminal-ui"
@@ -85,12 +90,12 @@ export function CtaSection() {
               backgroundColor: "transparent",
             }}
           >
-            GitHub ↗
+            {t.ctaGitHub}
           </Link>
         </div>
 
         <p className="mt-14 font-ibm text-[11px] tracking-[0.25em] uppercase text-l-faint">
-          Open source · MIT License · No account required
+          {t.footer}
         </p>
       </div>
     </section>

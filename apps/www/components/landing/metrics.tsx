@@ -1,15 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { LandingDictionary } from "../../lib/landing-dictionary";
 
-const STATS = [
-  { value: "15+", label: "Components", sub: "production-ready" },
-  { value: "0",   label: "Black Boxes", sub: "everything visible" },
-  { value: "100%",label: "Ownership",   sub: "copy into your repo" },
-  { value: "∞",   label: "Adaptable",   sub: "no runtime dep" },
-];
+type MetricsTranslations = LandingDictionary["metrics"];
 
-export function MetricsSection() {
+export function MetricsSection({ t }: { t: MetricsTranslations }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -41,7 +37,7 @@ export function MetricsSection() {
         className="absolute inset-0 flex items-center justify-center font-display leading-none select-none pointer-events-none overflow-hidden"
         style={{ fontSize: "clamp(8rem,20vw,18rem)", color: "hsl(var(--m-accent) / 0.07)" }}
       >
-        DATA
+        {t.watermark}
       </div>
 
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
@@ -49,14 +45,14 @@ export function MetricsSection() {
           className="font-ibm text-xs font-bold tracking-[0.3em] uppercase mb-12"
           style={{ color: "hsl(var(--m-text-muted))" }}
         >
-          § TELEMETRY
+          {t.overline}
         </p>
 
         <div
           className="grid grid-cols-2 lg:grid-cols-4 gap-0"
           style={{ border: "1px solid hsl(var(--m-border))" }}
         >
-          {STATS.map((stat, i) => (
+          {t.stats.map((stat, i) => (
             <div
               key={stat.label}
               className={`relative p-8 md:p-12 group ${visible ? "animate-counter-in" : "opacity-0"}`}
@@ -108,17 +104,17 @@ export function MetricsSection() {
               className="ml-2 font-ibm text-[10px] tracking-[0.25em] uppercase font-bold"
               style={{ color: "hsl(var(--m-text-faint))" }}
             >
-              TERMINAL — liminal-ui v0.15.0
+              {t.terminalTitle}
             </span>
           </div>
           <p style={{ color: "hsl(var(--m-text))" }}>
             $ <span style={{ color: "hsl(var(--m-text-muted))" }}>npx liminal-ui</span>{" "}
-            <span style={{ fontWeight: 700 }}>init</span>
+            <span style={{ fontWeight: 700 }}>{t.terminalLine1}</span>
           </p>
           <div className="mt-1" style={{ color: "hsl(var(--m-text-muted))" }}>
-            <p>✓ Resolved dependencies</p>
-            <p>✓ Copied to ./components/ui/button.tsx</p>
-            <p>✓ Ready. No lock-in.</p>
+            <p>✓ {t.terminalOutput1}</p>
+            <p>✓ {t.terminalOutput2}</p>
+            <p>✓ {t.terminalOutput3}</p>
           </div>
           <p className="mt-2" style={{ color: "hsl(var(--m-text))" }}>
             $ <span className="animate-terminal-blink" style={{ color: "hsl(var(--m-accent))" }}>_</span>
