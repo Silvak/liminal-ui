@@ -1,0 +1,111 @@
+---
+title: Switch
+description: Componente de interruptor con API conveniente y compuesta
+component: true
+---
+
+# Switch
+
+Componente switch construido con Ark UI que admite API conveniente y API compuesta completa.
+
+<Preview>
+  <Switch label="Activar notificaciones" />
+
+```tsx title="switch-convenience.tsx" {3} showLineNumbers
+import { Switch } from "@/components/ui/switch";
+
+export default function Example() {
+  return <Switch label="Activar notificaciones" />;
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add switch
+```
+
+## Uso
+
+<Preview>
+  <Switch label="Activar notificaciones" />
+
+```tsx title="switch-convenience.tsx" {3} showLineNumbers
+import { Switch } from "@/components/ui/switch";
+
+export default function Example() {
+  return <Switch label="Activar notificaciones" />;
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### API compuesta
+
+<Preview>
+  <SwitchRoot className="inline-flex items-center gap-2">
+    <SwitchHiddenInput />
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchLabel>Modo oscuro</SwitchLabel>
+  </SwitchRoot>
+
+```tsx title="switch-compound.tsx" showLineNumbers
+import {
+  SwitchRoot,
+  SwitchControl,
+  SwitchThumb,
+  SwitchLabel,
+  SwitchHiddenInput,
+} from "@/components/ui/switch";
+
+export default function Example() {
+  return (
+    <SwitchRoot className="inline-flex items-center gap-2">
+      <SwitchHiddenInput />
+      <SwitchControl>
+        <SwitchThumb />
+      </SwitchControl>
+      <SwitchLabel>Modo oscuro</SwitchLabel>
+    </SwitchRoot>
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Texto del label que se muestra junto al switch.",
+    },
+    {
+      prop: "checked",
+      type: "boolean",
+      default: "-",
+      description: "Estado checked controlado.",
+    },
+    {
+      prop: "defaultChecked",
+      type: "boolean",
+      default: "-",
+      description: "Estado checked inicial cuando no está controlado.",
+    },
+    {
+      prop: "onCheckedChange",
+      type: "(details: { checked: boolean }) => void",
+      default: "-",
+      description: "Callback cuando cambia el estado checked.",
+    },
+  ]}
+/>

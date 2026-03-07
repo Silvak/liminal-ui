@@ -1,0 +1,106 @@
+---
+title: Checkbox
+description: Componente checkbox con API conveniente y compuesta
+component: true
+---
+
+# Checkbox
+
+Componente checkbox construido con Ark UI que admite tanto una API conveniente como una API compuesta completa.
+
+<Preview>
+  <Checkbox label="Acepto los términos y condiciones" />
+
+```tsx title="checkbox-convenience.tsx" {3} showLineNumbers
+import { Checkbox } from "@/components/ui/checkbox";
+
+export default function Example() {
+  return <Checkbox label="Acepto los términos y condiciones" />;
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add checkbox
+```
+
+## Uso
+
+<Preview>
+  <Checkbox label="Acepto los términos y condiciones" />
+
+```tsx title="checkbox-convenience.tsx" {3} showLineNumbers
+import { Checkbox } from "@/components/ui/checkbox";
+
+export default function Example() {
+  return <Checkbox label="Acepto los términos y condiciones" />;
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### API compuesta
+
+<Preview>
+  <CheckboxRoot className="inline-flex items-center gap-2">
+    <CheckboxHiddenInput />
+    <CheckboxControl />
+    <CheckboxLabel>Suscribirse al boletín</CheckboxLabel>
+  </CheckboxRoot>
+
+```tsx title="checkbox-compound.tsx" showLineNumbers
+import {
+  CheckboxRoot,
+  CheckboxControl,
+  CheckboxLabel,
+  CheckboxHiddenInput,
+} from "@/components/ui/checkbox";
+
+export default function Example() {
+  return (
+    <CheckboxRoot className="inline-flex items-center gap-2">
+      <CheckboxHiddenInput />
+      <CheckboxControl />
+      <CheckboxLabel>Suscribirse al boletín</CheckboxLabel>
+    </CheckboxRoot>
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Texto del label que se muestra junto al checkbox.",
+    },
+    {
+      prop: "checked",
+      type: "boolean",
+      default: "-",
+      description: "Estado checked controlado.",
+    },
+    {
+      prop: "defaultChecked",
+      type: "boolean",
+      default: "-",
+      description: "Estado checked inicial cuando no está controlado.",
+    },
+    {
+      prop: "onCheckedChange",
+      type: "(details: { checked: boolean }) => void",
+      default: "-",
+      description: "Callback cuando cambia el estado checked.",
+    },
+  ]}
+/>

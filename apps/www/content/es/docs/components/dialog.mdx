@@ -1,0 +1,174 @@
+---
+title: Dialog
+description: Componente de diálogo modal para mostrar contenido
+component: true
+---
+
+# Dialog
+
+Componente de diálogo modal construido con Ark UI. Úsalo para confirmaciones, formularios o cualquier contenido que deba centrar al usuario y bloquear la interacción con el resto de la página.
+
+<Preview>
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button>Open Dialog</Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>¿Estás seguro?</DialogTitle>
+        <DialogDescription>
+          Esta acción no se puede deshacer.
+        </DialogDescription>
+      </DialogHeader>
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button variant="outline">Cancelar</Button>
+        </DialogClose>
+        <Button variant="destructive">Eliminar</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+
+```tsx title="dialog-basic.tsx" {15,16,24} showLineNumbers
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open Dialog</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>¿Estás seguro?</DialogTitle>
+          <DialogDescription>
+            Esta acción no se puede deshacer.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">Cancelar</Button>
+          </DialogClose>
+          <Button variant="destructive">Eliminar</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
+
+</Preview>
+
+<Callout type="warning" title="Acciones destructivas">
+  Para acciones irreversibles usa variant="destructive" en el botón principal y una descripción clara dentro de DialogDescription.
+</Callout>
+
+## Instalación
+
+```bash
+liminal add dialog
+```
+
+## Uso
+
+<Preview>
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button>Open Dialog</Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>¿Estás seguro?</DialogTitle>
+        <DialogDescription>
+          Esta acción no se puede deshacer.
+        </DialogDescription>
+      </DialogHeader>
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button variant="outline">Cancelar</Button>
+        </DialogClose>
+        <Button variant="destructive">Eliminar</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+
+```tsx title="dialog-basic.tsx" {15,16,24} showLineNumbers
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open Dialog</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>¿Estás seguro?</DialogTitle>
+          <DialogDescription>
+            Esta acción no se puede deshacer.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">Cancelar</Button>
+          </DialogClose>
+          <Button variant="destructive">Eliminar</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Básico
+
+El ejemplo anterior muestra la estructura típica: Dialog > DialogTrigger + DialogContent. Usa DialogClose con asChild para cerrar desde un botón personalizado.
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "open",
+      type: "boolean",
+      default: "uncontrolled",
+      description: "Permite controlar manualmente el estado abierto/cerrado.",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(details) => void",
+      default: "-",
+      description: "Callback que se ejecuta cuando cambia el estado de apertura del diálogo.",
+    },
+    {
+      prop: "DialogClose asChild",
+      type: "boolean",
+      default: "false",
+      description: "Renderiza un botón/enlace personalizado para cerrar el diálogo.",
+    },
+  ]}
+/>

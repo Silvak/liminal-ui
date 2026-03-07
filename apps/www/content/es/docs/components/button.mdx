@@ -1,0 +1,120 @@
+---
+title: Button
+description: Un componente de botón versátil con varias variantes y tamaños
+component: true
+---
+
+# Button
+
+Componente de botón construido con Ark UI que admite varias variantes y tamaños.
+
+<Preview>
+  <Button>Click me</Button>
+
+```tsx title="button-basic.tsx" {3} showLineNumbers
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return <Button>Click me</Button>;
+}
+```
+
+</Preview>
+
+<Callout type="tip" title="Cuándo usar Button">
+  Usa `variant="default"` para acciones principales y `variant="outline"` para acciones secundarias. Mantener esta jerarquía mejora la legibilidad de la UI.
+</Callout>
+
+## Instalación
+
+```bash
+liminal add button
+```
+
+## Uso
+
+<Preview>
+  <Button>Click me</Button>
+
+```tsx title="button-basic.tsx" {3} showLineNumbers
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return <Button>Click me</Button>;
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Variantes
+
+<Preview>
+  <div className="flex flex-wrap gap-2">
+    <Button variant="default">Default</Button>
+    <Button variant="destructive">Destructive</Button>
+    <Button variant="outline">Outline</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="link">Link</Button>
+  </div>
+
+```tsx title="button-variants.tsx" {1,3,5} showLineNumbers
+<Button variant="default">Default</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>
+```
+
+</Preview>
+
+### Tamaños
+
+<Preview>
+  <div className="flex flex-wrap items-center gap-2">
+    <Button size="sm">Small</Button>
+    <Button size="default">Default</Button>
+    <Button size="lg">Large</Button>
+    <Button size="icon" aria-label="Icon button">
+      <span className="i-lucide-settings" />
+    </Button>
+  </div>
+
+```tsx title="button-sizes.tsx" {1,3,4} showLineNumbers
+<Button size="sm">Small</Button>
+<Button size="default">Default</Button>
+<Button size="lg">Large</Button>
+<Button size="icon" aria-label="Icon button">
+  <span className="i-lucide-settings" />
+</Button>
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "variant",
+      type: '"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"',
+      default: '"default"',
+      description: "Estilo visual del botón.",
+    },
+    {
+      prop: "size",
+      type: '"sm" | "default" | "lg" | "icon"',
+      default: '"default"',
+      description: "Controla la altura y el padding del botón.",
+    },
+    {
+      prop: "asChild",
+      type: "boolean",
+      default: "false",
+      description: "Se renderiza como otro elemento (Link, a, etc.) manteniendo los estilos.",
+    },
+  ]}
+/>

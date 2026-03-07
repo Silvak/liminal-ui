@@ -4,7 +4,7 @@ import { extractHeadingsFromRawMdx } from './lib/docs';
 
 export const Doc = defineDocumentType(() => ({
   name: 'Doc',
-  filePathPattern: `docs/**/*.mdx`,
+  filePathPattern: `{en,es}/docs/**/*.mdx`,
   contentType: 'mdx',
   fields: {
     title: {
@@ -22,13 +22,24 @@ export const Doc = defineDocumentType(() => ({
     },
   },
   computedFields: {
+    locale: {
+      type: 'string',
+      resolve: (doc) => doc._raw.flattenedPath.split('/')[0] as 'en' | 'es',
+    },
     slug: {
       type: 'string',
-      resolve: (doc) => `/${doc._raw.flattenedPath}`,
+      resolve: (doc) => {
+        const parts = doc._raw.flattenedPath.split('/');
+        const withoutLocale = parts.slice(1).join('/');
+        return `/${withoutLocale}`;
+      },
     },
     slugAsParams: {
       type: 'string',
-      resolve: (doc) => doc._raw.flattenedPath.split('/').slice(1).join('/'),
+      resolve: (doc) => {
+        const parts = doc._raw.flattenedPath.split('/');
+        return parts.slice(2).join('/');
+      },
     },
     isComponent: {
       type: 'boolean',
@@ -43,7 +54,7 @@ export const Doc = defineDocumentType(() => ({
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: `blog/**/*.mdx`,
+  filePathPattern: `{en,es}/blog/**/*.mdx`,
   contentType: 'mdx',
   fields: {
     title: {
@@ -73,13 +84,24 @@ export const Post = defineDocumentType(() => ({
     },
   },
   computedFields: {
+    locale: {
+      type: 'string',
+      resolve: (doc) => doc._raw.flattenedPath.split('/')[0] as 'en' | 'es',
+    },
     slug: {
       type: 'string',
-      resolve: (doc) => `/blog/${doc._raw.flattenedPath.replace(/^blog\//, '')}`,
+      resolve: (doc) => {
+        const parts = doc._raw.flattenedPath.split('/');
+        const withoutLocale = parts.slice(1).join('/');
+        return `/${withoutLocale}`;
+      },
     },
     slugAsParams: {
       type: 'string',
-      resolve: (doc) => doc._raw.flattenedPath.replace(/^blog\//, ''),
+      resolve: (doc) => {
+        const parts = doc._raw.flattenedPath.split('/');
+        return parts.slice(2).join('/');
+      },
     },
     readingTime: {
       type: 'number',

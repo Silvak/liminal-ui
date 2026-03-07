@@ -1,0 +1,175 @@
+---
+title: Tabs
+description: Interfaz de pestañas para cambiar entre vistas
+component: true
+---
+
+# Tabs
+
+Componente tabs construido con Ark UI, con API conveniente (pasar `items`) y API compuesta para control total del marcado.
+
+<Preview>
+  <Tabs
+    defaultValue="account"
+    items={[
+      { value: "account", label: "Cuenta", content: <p>Cambia la configuración de tu cuenta aquí.</p> },
+      { value: "password", label: "Contraseña", content: <p>Cambia tu contraseña aquí.</p> },
+    ]}
+  />
+
+```tsx title="tabs-convenience.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Tabs } from "@/components/ui/tabs";
+
+export default function Example() {
+  return (
+    <Tabs
+      defaultValue="account"
+      items={[
+        { value: "account", label: "Cuenta", content: <p>Cambia la configuración de tu cuenta aquí.</p> },
+        { value: "password", label: "Contraseña", content: <p>Cambia tu contraseña aquí.</p> },
+      ]}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add tabs
+```
+
+## Uso
+
+<Preview>
+  <Tabs
+    defaultValue="account"
+    items={[
+      { value: "account", label: "Cuenta", content: <p>Cambia la configuración de tu cuenta aquí.</p> },
+      { value: "password", label: "Contraseña", content: <p>Cambia tu contraseña aquí.</p> },
+    ]}
+  />
+
+```tsx title="tabs-convenience.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Tabs } from "@/components/ui/tabs";
+
+export default function Example() {
+  return (
+    <Tabs
+      defaultValue="account"
+      items={[
+        { value: "account", label: "Cuenta", content: <p>Cambia la configuración de tu cuenta aquí.</p> },
+        { value: "password", label: "Contraseña", content: <p>Cambia tu contraseña aquí.</p> },
+      ]}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### API conveniente
+
+Pasa un array `items` con `value`, `label` y `content`. Por defecto una pestaña abierta a la vez.
+
+<Preview>
+  <Tabs
+    defaultValue="account"
+    items={[
+      { value: "account", label: "Cuenta", content: <p>Cambia la configuración de tu cuenta aquí.</p> },
+      { value: "password", label: "Contraseña", content: <p>Cambia tu contraseña aquí.</p> },
+    ]}
+  />
+
+```tsx title="tabs-convenience.tsx" showLineNumbers
+<Tabs
+  defaultValue="account"
+  items={[
+    { value: "account", label: "Cuenta", content: <p>Cambia la configuración de tu cuenta aquí.</p> },
+    { value: "password", label: "Contraseña", content: <p>Cambia tu contraseña aquí.</p> },
+  ]}
+/>
+```
+
+</Preview>
+
+### API compuesta
+
+Usa TabsRoot, TabsList, TabsTrigger y TabsContent para layout o estilos personalizados.
+
+<Preview>
+  <TabsRoot defaultValue="account">
+    <TabsList>
+      <TabsTrigger value="account">Cuenta</TabsTrigger>
+      <TabsTrigger value="password">Contraseña</TabsTrigger>
+    </TabsList>
+    <TabsContent value="account">
+      Cambia la configuración de tu cuenta aquí.
+    </TabsContent>
+    <TabsContent value="password">
+      Cambia tu contraseña aquí.
+    </TabsContent>
+  </TabsRoot>
+
+```tsx title="tabs-compound.tsx" showLineNumbers
+import {
+  TabsRoot,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs";
+
+export default function Example() {
+  return (
+    <TabsRoot defaultValue="account">
+      <TabsList>
+        <TabsTrigger value="account">Cuenta</TabsTrigger>
+        <TabsTrigger value="password">Contraseña</TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">
+        Cambia la configuración de tu cuenta aquí.
+      </TabsContent>
+      <TabsContent value="password">
+        Cambia tu contraseña aquí.
+      </TabsContent>
+    </TabsRoot>
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "items",
+      type: "TabsItem[]",
+      default: "-",
+      description: "Array de { value, label, content, disabled? }. Usado por la API conveniente.",
+    },
+    {
+      prop: "defaultValue",
+      type: "string",
+      default: "-",
+      description: "Valor de la pestaña activa inicial (no controlado).",
+    },
+    {
+      prop: "value",
+      type: "string",
+      default: "-",
+      description: "Valor de la pestaña activa (controlado).",
+    },
+    {
+      prop: "onValueChange",
+      type: "(details: { value: string }) => void",
+      default: "-",
+      description: "Callback cuando cambia la pestaña activa.",
+    },
+  ]}
+/>

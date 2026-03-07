@@ -1,0 +1,49 @@
+---
+title: Crear componentes accesibles con Ark UI
+description: Cómo Ark UI nos permite crear interfaces accesibles por defecto sin sacrificar la personalización.
+date: 2025-03-05
+author: Liminal UI Team
+tags:
+  - accessibility
+  - ark-ui
+  - a11y
+---
+
+# Crear componentes accesibles con Ark UI
+
+La accesibilidad no debería ser una idea tardía: debe estar en la base de cada componente. En Liminal UI usamos **Ark UI** como capa de primitivos sin estilos; Ark UI se encarga de la semántica, teclado y ARIA, y nosotros añadimos el estilo con Tailwind.
+
+## Por qué Ark UI
+
+Ark UI proporciona componentes "headless": solo lógica y estructura accesible, sin CSS. Eso nos da:
+
+- **ARIA correcto**: roles, estados y relaciones se gestionan automáticamente.
+- **Navegación por teclado**: foco, Escape, flechas y atajos ya están resueltos.
+- **Comportamiento coherente**: diálogos, popovers y pestañas se comportan como los usuarios esperan.
+
+Nos centramos en la capa visual y la API de uso; la capa de accesibilidad viene resuelta.
+
+## Ejemplos en la práctica
+
+Un **Dialog** en Ark UI ya incluye:
+
+- Foco atrapado dentro del modal.
+- Cierre con Escape.
+- Restauración del foco al elemento que abrió el diálogo.
+- `role="dialog"`, `aria-modal`, `aria-labelledby` y `aria-describedby` cuando hace falta.
+
+Las **Tabs** ya tienen:
+
+- Navegación entre pestañas con flechas.
+- Asociación correcta entre pestaña y panel (`aria-controls`, `aria-labelledby`).
+- Soporte de teclado en la lista de pestañas.
+
+Nosotros solo definimos el marcado y los estilos; el resto está cubierto.
+
+## Cómo lo usamos en Liminal UI
+
+Cada componente de Liminal UI basado en Ark UI hereda esa base accesible. Cuando ejecutas `liminal add dialog`, obtienes el código del diálogo con nuestro estilo, pero la lógica de foco, teclado y ARIA sigue siendo la de Ark UI.
+
+Si necesitas ajustar el comportamiento, puedes editar el código del componente directamente: está en tu repo. Si solo quieres cambiar el aspecto, Tailwind y tus variables CSS son suficientes.
+
+Para más contexto sobre el proyecto, consulta [Presentando Liminal UI](/blog/introducing-liminal-ui).

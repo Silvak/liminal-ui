@@ -1,0 +1,162 @@
+---
+title: Popover
+description: Pequeño overlay posicionado respecto a un elemento disparador
+component: true
+---
+
+# Popover
+
+Componente popover construido con Ark UI, renderizado en un portal y posicionado respecto a un disparador. Úsalo para información contextual, menús o formularios pequeños. Admite API conveniente (trigger + children) o API compuesta para control total.
+
+<Preview>
+  <Popover trigger={<Button>Abrir popover</Button>}>
+    <p className="text-sm">
+      Este es el contenido dentro del popover.
+    </p>
+  </Popover>
+
+```tsx title="popover-convenience.tsx" {3,4,5,6,7,8,9} showLineNumbers
+import { Popover } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Popover trigger={<Button>Abrir popover</Button>}>
+      <p className="text-sm">
+        Este es el contenido dentro del popover.
+      </p>
+    </Popover>
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add popover
+```
+
+## Uso
+
+<Preview>
+  <Popover trigger={<Button>Abrir popover</Button>}>
+    <p className="text-sm">
+      Este es el contenido dentro del popover.
+    </p>
+  </Popover>
+
+```tsx title="popover-convenience.tsx" {3,4,5,6,7,8,9} showLineNumbers
+import { Popover } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Popover trigger={<Button>Abrir popover</Button>}>
+      <p className="text-sm">
+        Este es el contenido dentro del popover.
+      </p>
+    </Popover>
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### API conveniente
+
+Pasa `trigger` (el elemento que abre el popover) y `children` (el contenido del popover).
+
+<Preview>
+  <Popover trigger={<Button>Abrir popover</Button>}>
+    <p className="text-sm">Contenido dentro del popover.</p>
+  </Popover>
+
+```tsx title="popover-convenience.tsx" showLineNumbers
+<Popover trigger={<Button>Abrir popover</Button>}>
+  <p className="text-sm">Contenido dentro del popover.</p>
+</Popover>
+```
+
+</Preview>
+
+### API compuesta
+
+Usa PopoverRoot, PopoverTrigger, PopoverContent y opcionalmente PopoverTitle, PopoverDescription, PopoverCloseTrigger para un layout personalizado.
+
+<Preview>
+  <PopoverRoot>
+    <PopoverTrigger asChild>
+      <Button>Detalles</Button>
+    </PopoverTrigger>
+    <PopoverContent>
+      <PopoverTitle>Título del popover</PopoverTitle>
+      <PopoverDescription>
+        Información adicional sobre esta acción.
+      </PopoverDescription>
+      <PopoverCloseTrigger className="mt-2 text-sm underline">
+        Cerrar
+      </PopoverCloseTrigger>
+    </PopoverContent>
+  </PopoverRoot>
+
+```tsx title="popover-compound.tsx" showLineNumbers
+import {
+  PopoverRoot,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverTitle,
+  PopoverDescription,
+  PopoverCloseTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <PopoverRoot>
+      <PopoverTrigger asChild>
+        <Button>Detalles</Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverTitle>Título del popover</PopoverTitle>
+        <PopoverDescription>
+          Información adicional sobre esta acción.
+        </PopoverDescription>
+        <PopoverCloseTrigger className="mt-2 text-sm underline">
+          Cerrar
+        </PopoverCloseTrigger>
+      </PopoverContent>
+    </PopoverRoot>
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "trigger",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Elemento que abre el popover (API conveniente).",
+    },
+    {
+      prop: "open",
+      type: "boolean",
+      default: "uncontrolled",
+      description: "Estado abierto controlado (PopoverRoot).",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(details) => void",
+      default: "-",
+      description: "Callback cuando cambia el estado abierto (PopoverRoot).",
+    },
+  ]}
+/>

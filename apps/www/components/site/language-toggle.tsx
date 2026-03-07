@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import {
   PopoverRoot,
@@ -11,6 +12,8 @@ import { cn } from "../../lib/utils";
 import { Check } from "lucide-react";
 
 const LOCALE_KEY = "liminal-ui-locale";
+export const LOCALE_COOKIE = "liminal-ui-locale";
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
 const LANGUAGES = [
   { value: "es", label: "Español" },
@@ -19,33 +22,57 @@ const LANGUAGES = [
 
 type Locale = (typeof LANGUAGES)[number]["value"];
 
-interface LanguageToggleProps {
-  className?: string;
+function getLocaleFromNavigator(): Locale {
+  if (typeof navigator === "undefined") return "en";
+  const lang = navigator.language.toLowerCase();
+  if (lang.startsWith("es")) return "es";
+  if (lang.startsWith("en")) return "en";
+  return "en";
 }
 
 function getInitialLocale(): Locale {
-  if (typeof window === "undefined") return "es";
+  if (typeof window === "undefined") return "en";
   const stored = window.localStorage.getItem(LOCALE_KEY);
   if (stored === "es" || stored === "en") return stored;
-  return "es";
+  return getLocaleFromNavigator();
 }
 
-export function LanguageToggle({ className }: LanguageToggleProps) {
-  const [locale, setLocale] = useState<Locale>("es");
+function setLocaleCookie(value: Locale) {
+  document.cookie = `${LOCALE_COOKIE}=${value};path=/;max-age=${COOKIE_MAX_AGE};SameSite=Lax`;
+}
+
+interface LanguageToggleProps {
+  className?: string;
+  currentLocale?: Locale;
+}
+
+export function LanguageToggle({ className, currentLocale }: LanguageToggleProps) {
+  const [locale, setLocale] = useState<Locale>(currentLocale ?? "en");
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
-    setLocale(getInitialLocale());
-  }, []);
+    setLocale(currentLocale ?? getInitialLocale());
+  }, [currentLocale]);
 
   const handleSelect = (value: Locale) => {
     setLocale(value);
     if (typeof window !== "undefined") {
       window.localStorage.setItem(LOCALE_KEY, value);
+      setLocaleCookie(value);
     }
     setOpen(false);
+
+    const newPath =
+      pathname === "/" || !/^\/(en|es)(\/|$)/.test(pathname)
+        ? `/${value}`
+        : pathname.replace(/^\/(en|es)/, `/${value}`);
+    if (newPath !== pathname) {
+      router.push(newPath);
+    }
   };
 
   const buttonClassName = cn(className);

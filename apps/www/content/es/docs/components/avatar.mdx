@@ -1,0 +1,155 @@
+---
+title: Avatar
+description: Componente de avatar de usuario con imagen y fallback
+component: true
+---
+
+# Avatar
+
+Componente avatar construido con Ark UI que admite imagen y contenido de respaldo. Usa la API conveniente para una sola imagen + fallback, o la API compuesta para control total.
+
+<Preview>
+  <Avatar
+    src="https://avatars.githubusercontent.com/u/000000?v=4"
+    alt="User avatar"
+    fallback="JD"
+  />
+
+```tsx title="avatar-basic.tsx" {3,4,5,6} showLineNumbers
+import { Avatar } from "@/components/ui/avatar";
+
+export default function Example() {
+  return (
+    <Avatar
+      src="https://avatars.githubusercontent.com/u/000000?v=4"
+      alt="User avatar"
+      fallback="JD"
+    />
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add avatar
+```
+
+## Uso
+
+<Preview>
+  <Avatar
+    src="https://avatars.githubusercontent.com/u/000000?v=4"
+    alt="User avatar"
+    fallback="JD"
+  />
+
+```tsx title="avatar-basic.tsx" {3,4,5,6} showLineNumbers
+import { Avatar } from "@/components/ui/avatar";
+
+export default function Example() {
+  return (
+    <Avatar
+      src="https://avatars.githubusercontent.com/u/000000?v=4"
+      alt="User avatar"
+      fallback="JD"
+    />
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Con imagen
+
+<Preview>
+  <Avatar
+    src="https://avatars.githubusercontent.com/u/000000?v=4"
+    alt="User"
+    fallback="U"
+  />
+
+```tsx title="avatar-with-image.tsx" showLineNumbers
+<Avatar
+  src="https://avatars.githubusercontent.com/u/000000?v=4"
+  alt="User"
+  fallback="U"
+/>
+```
+
+</Preview>
+
+### Solo fallback
+
+Cuando no hay imagen o falla la carga, se muestra el texto o contenido de respaldo.
+
+<Preview>
+  <Avatar fallback="AB" />
+
+```tsx title="avatar-fallback.tsx" {3} showLineNumbers
+import { Avatar } from "@/components/ui/avatar";
+
+export default function Example() {
+  return <Avatar fallback="AB" />;
+}
+```
+
+</Preview>
+
+### API compuesta
+
+Para layout personalizado o varios elementos, usa AvatarRoot, AvatarImage y AvatarFallback.
+
+<Preview>
+  <AvatarRoot className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+    <AvatarImage src="https://avatars.githubusercontent.com/u/000000?v=4" alt="User" />
+    <AvatarFallback>JD</AvatarFallback>
+  </AvatarRoot>
+
+```tsx title="avatar-compound.tsx" showLineNumbers
+import {
+  AvatarRoot,
+  AvatarImage,
+  AvatarFallback,
+} from "@/components/ui/avatar";
+
+export default function Example() {
+  return (
+    <AvatarRoot className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+      <AvatarImage src="/avatar.png" alt="User avatar" />
+      <AvatarFallback>JD</AvatarFallback>
+    </AvatarRoot>
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "src",
+      type: "string",
+      default: "-",
+      description: "URL de la imagen del avatar.",
+    },
+    {
+      prop: "alt",
+      type: "string",
+      default: "-",
+      description: "Descripción accesible de la imagen.",
+    },
+    {
+      prop: "fallback",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Contenido mostrado cuando no hay imagen o falla la carga.",
+    },
+  ]}
+/>

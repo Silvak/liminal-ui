@@ -1,0 +1,93 @@
+---
+title: Input
+description: Campo de entrada de texto con estados de foco y error
+component: true
+---
+
+# Input
+
+Componente de entrada de texto con estilos de foco y soporte para estados de error vía `aria-invalid`.
+
+<Preview>
+  <Input placeholder="Email" type="email" />
+
+```tsx title="input-basic.tsx" {3} showLineNumbers
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return <Input placeholder="Email" type="email" />;
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add input
+```
+
+## Uso
+
+<Preview>
+  <Input placeholder="Email" type="email" />
+
+```tsx title="input-basic.tsx" {3} showLineNumbers
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return <Input placeholder="Email" type="email" />;
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Estado de error
+
+Usa `aria-invalid="true"` para mostrar el estilo de error. Combínalo con Label y texto de error para accesibilidad.
+
+<Preview>
+  <Input placeholder="Email" type="email" aria-invalid="true" />
+
+```tsx title="input-error.tsx" {3} showLineNumbers
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return (
+    <Input
+      placeholder="Email"
+      type="email"
+      aria-invalid="true"
+    />
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "type",
+      type: "string",
+      default: '"text"',
+      description: "Tipo nativo del input (text, email, password, etc.).",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: "-",
+      description: "Texto placeholder cuando está vacío.",
+    },
+    {
+      prop: "aria-invalid",
+      type: "boolean",
+      default: "-",
+      description: "Ponlo a true para mostrar borde y estilo de error.",
+    },
+  ]}
+/>

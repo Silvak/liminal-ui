@@ -1,0 +1,151 @@
+---
+title: Card
+description: Contenedor de contenido flexible con slots de cabecera, cuerpo y pie
+component: true
+---
+
+# Card
+
+Componente card para agrupar contenido relacionado con secciones de cabecera, cuerpo y pie. Compón CardHeader, CardTitle, CardDescription, CardContent y CardFooter según necesites.
+
+<Preview>
+  <Card>
+    <CardHeader>
+      <CardTitle>Card title</CardTitle>
+      <CardDescription>
+        Descripción breve del contenido de la card.
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Aquí va el contenido principal de tu card.</p>
+    </CardContent>
+    <CardFooter>
+      <Button>Action</Button>
+    </CardFooter>
+  </Card>
+
+```tsx title="card-example.tsx" {3,4,5,6,7} showLineNumbers
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card title</CardTitle>
+        <CardDescription>
+          Descripción breve del contenido de la card.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Aquí va el contenido principal de tu card.</p>
+      </CardContent>
+      <CardFooter>
+        <Button>Action</Button>
+      </CardFooter>
+    </Card>
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add card
+```
+
+## Uso
+
+<Preview>
+  <Card>
+    <CardHeader>
+      <CardTitle>Card title</CardTitle>
+      <CardDescription>
+        Descripción breve del contenido de la card.
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Aquí va el contenido principal de tu card.</p>
+    </CardContent>
+    <CardFooter>
+      <Button>Action</Button>
+    </CardFooter>
+  </Card>
+
+```tsx title="card-example.tsx" {3,4,5,6,7} showLineNumbers
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card title</CardTitle>
+        <CardDescription>
+          Descripción breve del contenido de la card.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Aquí va el contenido principal de tu card.</p>
+      </CardContent>
+      <CardFooter>
+        <Button>Action</Button>
+      </CardFooter>
+    </Card>
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Con cabecera y pie
+
+El ejemplo anterior muestra la composición completa. Puedes omitir CardHeader o CardFooter si solo necesitas contenido.
+
+### Solo contenido
+
+<Preview>
+  <Card>
+    <CardContent>
+      <p className="text-sm text-muted-foreground">Card mínima solo con contenido.</p>
+    </CardContent>
+  </Card>
+
+```tsx title="card-content-only.tsx" showLineNumbers
+<Card>
+  <CardContent>
+    <p>Card mínima solo con contenido.</p>
+  </CardContent>
+</Card>
+```
+
+</Preview>
+
+## API
+
+Card y sus partes aceptan las props estándar de div HTML. Usa estos subcomponentes para estructurar el contenido:
+
+- **Card** — Contenedor
+- **CardHeader** — Envuelve título y descripción
+- **CardTitle** — Encabezado
+- **CardDescription** — Subtítulo o leyenda
+- **CardContent** — Cuerpo principal
+- **CardFooter** — Acciones o contenido del pie

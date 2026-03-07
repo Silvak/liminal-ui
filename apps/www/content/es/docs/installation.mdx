@@ -1,0 +1,198 @@
+---
+title: Instalación
+description: Cómo instalar y configurar Liminal UI en tu proyecto React
+---
+
+# Instalación
+
+Esta guía te lleva por la instalación de la CLI de Liminal UI, la inicialización de tu proyecto y la incorporación de tus primeros componentes. Puedes usar **npm**, **pnpm**, **yarn** o **bun**.
+
+## Requisitos previos
+
+- **Node.js 18+**
+- Un proyecto **React 18+** (Next.js, Vite, Remix, Create React App, etc.)
+- **Tailwind CSS** ya configurado (consulta [configuración de Tailwind](https://tailwindcss.com/docs/installation) si hace falta)
+
+<Callout type="info" title="Recomendación">
+  Si partes de cero, configura antes los alias (`@/*`) y Tailwind. Así evitas errores al ejecutar `liminal init` por primera vez.
+</Callout>
+
+## Instalar la CLI
+
+Instala la CLI de Liminal UI globalmente para poder ejecutar `liminal` desde cualquier directorio:
+
+<PkgManTabs
+  npm="npm install -g @liminal-ui/cli"
+  pnpm="pnpm add -g @liminal-ui/cli"
+  yarn="yarn global add @liminal-ui/cli"
+  bun="bun add -g @liminal-ui/cli"
+/>
+
+O ejecuta comandos sin instalación global usando `npx` o `pnpm dlx`:
+
+```bash
+npx @liminal-ui/cli init
+```
+
+## Inicializar el proyecto
+
+Desde la raíz de tu proyecto React, ejecuta:
+
+<PkgManTabs
+  npm="npx @liminal-ui/cli init"
+  pnpm="pnpm dlx @liminal-ui/cli init"
+  yarn="yarn dlx @liminal-ui/cli init"
+  bun="bunx @liminal-ui/cli init"
+/>
+
+Si instalaste la CLI globalmente, puedes ejecutar:
+
+```bash
+liminal init
+```
+
+El asistente preguntará:
+
+<Steps>
+  <Step title="TypeScript">
+    Si tu proyecto usa TypeScript para generar los componentes con tipos.
+  </Step>
+  <Step title="React Server Components">
+    Si usas App Router o una configuración RSC para que la CLI añada `"use client"` cuando haga falta.
+  </Step>
+  <Step title="Ruta de componentes">
+    Ruta de salida para los componentes de UI, p. ej. `src/components/ui`.
+  </Step>
+  <Step title="Ruta de utilidades">
+    Ruta para utilidades compartidas, p. ej. `src/lib`.
+  </Step>
+</Steps>
+
+Después tendrás un archivo de config `components.json` y la estructura de carpetas lista para los componentes.
+
+## Ejemplo: `components.json`
+
+La inicialización crea un archivo `components.json` en la raíz del proyecto. Puede verse así:
+
+```json title="components.json" {2,6-7} showLineNumbers
+{
+  "$schema": "https://liminal-ui.com/schema.json",
+  "style": "default",
+  "tsx": true,
+  "rsc": false,
+  "components": "src/components/ui",
+  "utils": "src/lib",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib"
+  }
+}
+```
+
+Puedes editar este archivo para cambiar rutas u opciones; la CLI lo lee al ejecutar `liminal add`.
+
+## Estructura del proyecto tras init
+
+Una estructura típica después de ejecutar `liminal init` y añadir algunos componentes:
+
+```
+tu-app/
+├── components.json
+├── src/
+│   ├── components/
+│   │   └── ui/          # Componentes añadidos con `liminal add`
+│   │       ├── button.tsx
+│   │       └── ...
+│   └── lib/
+│       └── utils.ts     # cn() y otros helpers
+```
+
+Los alias de rutas (p. ej. `@/components/ui`) deben estar configurados en tu herramienta de build (ver secciones por framework más abajo).
+
+## Añadir componentes
+
+Añade componentes uno a uno con:
+
+<PkgManTabs
+  npm="npx @liminal-ui/cli add button"
+  pnpm="pnpm dlx @liminal-ui/cli add button"
+  yarn="yarn dlx @liminal-ui/cli add button"
+  bun="bunx @liminal-ui/cli add button"
+/>
+
+Con la CLI instalada globalmente:
+
+```bash
+liminal add button
+```
+
+La CLI copiará el código del componente a la ruta configurada en `components` e instalará las dependencias necesarias (p. ej. Ark UI). Luego puedes importarlo y usarlo:
+
+<CodeTabs
+  ts={`import { Button } from "@/components/ui/button";
+
+export default function Page() {
+  return (
+    <Button variant="outline" size="lg">
+      Empezar
+    </Button>
+  );
+}`}
+  js={`import { Button } from "@/components/ui/button";
+
+export default function Page() {
+  return (
+    <Button variant="outline" size="lg">
+      Empezar
+    </Button>
+  );
+}`}
+/>
+
+Sustituye `button` por cualquier componente de la [lista de componentes](/docs/components/button) (p. ej. `liminal add dialog`, `liminal add tabs`).
+
+## Configuración por framework
+
+### Next.js
+
+- **App Router**: Asegúrate de que `tsconfig.json` (o `jsconfig.json`) tenga los alias de rutas, p. ej. `"@/*": ["./src/*"]`. Next.js los usa para `@/components` y `@/lib`.
+- **Tailwind**: Si usas `tailwind.config.ts`, asegúrate de que `content` incluya la ruta de tus componentes para que Tailwind vea las clases usadas en los componentes de Liminal UI.
+
+### Vite
+
+- En `vite.config.ts`, añade el alias de resolución si no está ya, por ejemplo:
+  `resolve: { alias: { "@": path.resolve(__dirname, "./src") } }`
+- Asegúrate de que `tsconfig.json` tenga `"paths": { "@/*": ["./src/*"] }` para que los tipos se resuelvan.
+
+### Remix
+
+- Usa el soporte de alias de Remix (p. ej. `~` o `@`) y apunta al directorio de tu app. Configura la misma ruta en `components.json` (p. ej. `app/components/ui`) para que la CLI escriba los archivos donde esperan tus alias.
+
+## Instalación manual
+
+Si prefieres no usar la CLI, puedes copiar los archivos fuente de los componentes desde el [repositorio de Liminal UI](https://github.com/liminal-ui/liminal-ui) a tu proyecto. Necesitarás:
+
+1. Copiar el/los archivo(s) del componente (p. ej. `button.tsx`) en tu carpeta de UI.
+2. Asegurarte de que `cn` y el resto de utilidades de `@/lib/utils` existan.
+3. Instalar Ark UI y las demás dependencias indicadas en el componente o en el `package.json` del repo.
+
+La CLI automatiza esto y mantiene las rutas coherentes con tu `components.json`.
+
+## Resolución de problemas
+
+**"Command not found: liminal"**  
+Instala la CLI globalmente (ver Instalar la CLI arriba) o usa `npx @liminal-ui/cli` / `pnpm dlx` / `bunx` en lugar de `liminal`.
+
+**Errores de alias de ruta (p. ej. `@/components/ui` no encontrado)**  
+Comprueba que tu herramienta de build y `tsconfig.json` (o `jsconfig.json`) definan el mismo alias que usas en los imports. Por ejemplo, si usas `@/*`, debe resolver al directorio que contiene `components` y `lib`.
+
+**Las clases de Tailwind no se aplican**  
+Asegúrate de que la opción `content` de Tailwind (o equivalente) incluya las rutas donde viven los componentes de Liminal UI (p. ej. `src/components/**/*.{ts,tsx}`). Si no, Tailwind no verá las clases y las eliminará.
+
+**Problemas con RSC / "use client"**  
+Si usas React Server Components (p. ej. Next.js App Router), los componentes que usan hooks o APIs del navegador deben tener `"use client"` al inicio. La CLI puede añadirlo si respondes "Sí" a RSC durante `liminal init`. Si añadiste componentes antes de activar RSC, añade `"use client"` manualmente en esos archivos si usan características solo de cliente.
+
+## Próximos pasos
+
+- Explora los [componentes](/docs/components/button) para uso y variantes.
+- Lee la [Introducción](/docs/introduction) para filosofía y stack técnico.

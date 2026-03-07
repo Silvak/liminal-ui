@@ -1,0 +1,102 @@
+---
+title: Textarea
+description: Campo de texto multilínea
+component: true
+---
+
+# Textarea
+
+Componente textarea para entrada de texto multilínea, alineado visualmente con el componente Input.
+
+<Preview>
+  <Textarea placeholder="Escribe tu mensaje aquí" rows={4} />
+
+```tsx title="textarea-basic.tsx" {3} showLineNumbers
+import { Textarea } from "@/components/ui/textarea";
+
+export default function Example() {
+  return (
+    <Textarea
+      placeholder="Escribe tu mensaje aquí"
+      rows={4}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add textarea
+```
+
+## Uso
+
+<Preview>
+  <Textarea placeholder="Escribe tu mensaje aquí" rows={4} />
+
+```tsx title="textarea-basic.tsx" {3} showLineNumbers
+import { Textarea } from "@/components/ui/textarea";
+
+export default function Example() {
+  return (
+    <Textarea
+      placeholder="Escribe tu mensaje aquí"
+      rows={4}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Estado de error
+
+Usa `aria-invalid="true"` para mostrar el estilo de error, igual que en Input.
+
+<Preview>
+  <Textarea placeholder="Escribe tu mensaje aquí" aria-invalid="true" />
+
+```tsx title="textarea-error.tsx" {3} showLineNumbers
+import { Textarea } from "@/components/ui/textarea";
+
+export default function Example() {
+  return (
+    <Textarea
+      placeholder="Escribe tu mensaje aquí"
+      aria-invalid="true"
+    />
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "rows",
+      type: "number",
+      default: "-",
+      description: "Número de filas de texto visibles.",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: "-",
+      description: "Texto placeholder cuando está vacío.",
+    },
+    {
+      prop: "aria-invalid",
+      type: "boolean",
+      default: "-",
+      description: "Ponlo a true para mostrar borde y estilo de error.",
+    },
+  ]}
+/>

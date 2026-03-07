@@ -7,6 +7,7 @@ import { Github, Menu, Search, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
+import { useLocaleOptional } from "../../components/locale-provider";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { SearchCommand } from "./search-command";
@@ -19,12 +20,15 @@ export const mainNav = [
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const isLanding = pathname === "/";
+  const locale = useLocaleOptional();
+  const isLanding =
+    pathname === "/" || (locale && new RegExp(`^/${locale}/?$`).test(pathname));
   const [landingMenuOpen, setLandingMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const docsSidebarOpen = useDocsSidebar((s) => s.open);
   const toggleDocsSidebar = useDocsSidebar((s) => s.toggle);
 
+  const prefix = locale ? `/${locale}` : "";
   const mobileOpen = isLanding ? landingMenuOpen : docsSidebarOpen;
   const toggleMobile = isLanding
     ? () => setLandingMenuOpen((v) => !v)
@@ -51,7 +55,7 @@ export function SiteHeader() {
             )}
           </Button>
 
-          <Link href="/" className="flex items-center gap-2">
+          <Link href={prefix || "/"} className="flex items-center gap-2">
             <span className="text-sm font-semibold tracking-tight">
               Liminal UI
             </span>
@@ -59,11 +63,12 @@ export function SiteHeader() {
 
           <nav className="hidden items-center gap-4 text-sm md:flex">
             {mainNav.map((item) => {
-              const active = pathname.startsWith(item.href);
+              const href = prefix ? `${prefix}${item.href}` : item.href;
+              const active = pathname === href || pathname.startsWith(href + "/");
               return (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={href}
                   className={cn(
                     "transition-colors text-muted-foreground hover:text-foreground",
                     active && "text-foreground font-medium",
@@ -92,6 +97,7 @@ export function SiteHeader() {
           </Button>
           <SearchCommand open={searchOpen} onOpenChange={setSearchOpen} />
           <LanguageToggle
+            currentLocale={locale ?? undefined}
             className={cn(
               "-ml-px h-10 w-10 rounded-none border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
             )}
@@ -131,16 +137,19 @@ export function SiteHeader() {
           )}
         >
           <nav className="flex flex-col px-6 py-4 gap-1">
-            {mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setLandingMenuOpen(false)}
-                className="flex h-10 items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {mainNav.map((item) => {
+              const href = prefix ? `${prefix}${item.href}` : item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={href}
+                  onClick={() => setLandingMenuOpen(false)}
+                  className="flex h-10 items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <Link
               href="https://github.com/silvak/liminal-ui"
               target="_blank"

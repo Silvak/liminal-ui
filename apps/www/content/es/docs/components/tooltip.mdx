@@ -1,0 +1,143 @@
+---
+title: Tooltip
+description: Pequeño popup que muestra información adicional
+component: true
+---
+
+# Tooltip
+
+Componente tooltip construido con Ark UI para mostrar información adicional al pasar el ratón o al enfocar. Úsalo para etiquetas cortas en iconos o controles.
+
+<Preview>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Button variant="outline">Pasa el ratón</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        Información adicional sobre esta acción.
+      </TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
+
+```tsx title="tooltip-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Pasa el ratón</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          Información adicional sobre esta acción.
+        </TooltipContent>
+      </TooltipPositioner>
+    </Tooltip>
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add tooltip
+```
+
+## Uso
+
+<Preview>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Button variant="outline">Pasa el ratón</Button>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        Información adicional sobre esta acción.
+      </TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
+
+```tsx title="tooltip-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Pasa el ratón</Button>
+      </TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>
+          Información adicional sobre esta acción.
+        </TooltipContent>
+      </TooltipPositioner>
+    </Tooltip>
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Con enlace
+
+Envuelve cualquier elemento enfocable con TooltipTrigger asChild; el tooltip aparece al pasar el ratón o al enfocar.
+
+<Preview>
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <a href="#" className="text-sm underline">Saber más</a>
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>Abre la documentación.</TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
+
+```tsx title="tooltip-link.tsx" showLineNumbers
+<Tooltip>
+  <TooltipTrigger asChild>
+    <a href="#">Saber más</a>
+  </TooltipTrigger>
+  <TooltipPositioner>
+    <TooltipContent>Abre la documentación.</TooltipContent>
+  </TooltipPositioner>
+</Tooltip>
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "open",
+      type: "boolean",
+      default: "uncontrolled",
+      description: "Estado abierto controlado.",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(details) => void",
+      default: "-",
+      description: "Callback cuando cambia la visibilidad del tooltip.",
+    },
+  ]}
+/>

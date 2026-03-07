@@ -1,0 +1,104 @@
+---
+title: Introducción
+description: Bienvenido a Liminal UI. Una biblioteca de componentes React moderna que posees y controlas.
+---
+
+# Introducción
+
+Liminal UI es una biblioteca de componentes React moderna construida con **Ark UI** y **Tailwind CSS**. En lugar de instalar una dependencia cerrada, añades componentes copiando su código fuente a tu proyecto. El código es tuyo, controlas los estilos y puedes cambiar lo que quieras.
+
+![Nuevo diseño de documentación](/docs/docs-layout.svg "Diseño de documentación moderno con barra lateral, contenido y tabla de contenidos")
+
+<Callout type="tip" title="Enfoque recomendado">
+  Empieza por la sección de instalación y luego revisa una familia de componentes a la vez.
+  Así aceleras la adopción sin forzar una migración completa.
+</Callout>
+
+## ¿Por qué Liminal UI?
+
+Las bibliotecas tradicionales se distribuyen como paquetes npm: obtienes componentes compilados y una API pública, pero la implementación vive en `node_modules`. Personalizar suele significar luchar con props, variables CSS o hacer fork del paquete. Liminal UI invierte esto: la CLI copia el **código fuente** de cada componente en tu app. No hay caja negra.
+
+- **Control total**: Edita los componentes directamente para adaptarlos a tu sistema de diseño o producto.
+- **Sin ataduras**: No dependes de un runtime nuestro; solo React, Ark UI y Tailwind.
+- **Type-safe**: Los componentes están escritos en TypeScript con tipos claros.
+- **Accesibles**: Construidos sobre primitivos de [Ark UI](https://ark-ui.com) con ARIA y soporte de teclado.
+
+## Cómo funciona
+
+Liminal UI sigue la misma idea que [shadcn/ui](https://ui.shadcn.com): copiar y pegar en lugar de instalar e importar.
+
+1. Ejecutas la CLI (`liminal add button`) en tu proyecto.
+2. La CLI copia los archivos del componente (p. ej. `button.tsx`) y utilidades en tu repo.
+3. Importas desde tus rutas (p. ej. `@/components/ui/button`) y los usas como cualquier componente React.
+4. Puedes editar, refactorizar o eliminar el código en cualquier momento.
+
+No existe un "runtime de Liminal UI". Una vez el código está en tu proyecto, es solo tu código.
+
+## Liminal UI frente a bibliotecas tradicionales
+
+| Aspecto | Liminal UI | Tradicional (p. ej. MUI, Chakra) |
+|--------|------------|----------------------------------|
+| **Ubicación del código** | Vive en tu repo | Vive en `node_modules` |
+| **Personalización** | Edita el código directamente | Sobrescribe vía props/temas o fork |
+| **Tamaño del bundle** | Solo lo que añades | A menudo toda la biblioteca o bloques grandes |
+| **Actualizaciones** | Tú eliges cuándo re-ejecutar la CLI y fusionar | Actualizas la dependencia y esperas que no se rompa nada |
+| **Estilos** | Tailwind, tus tokens de diseño | Sistema de diseño de la biblioteca o CSS-in-JS |
+
+<ApiTable
+  data={[
+    {
+      prop: "style",
+      type: '"default" | "custom"',
+      default: '"default"',
+      description: "Perfil de estilo aplicado por la CLI en components.json.",
+    },
+    {
+      prop: "tsx",
+      type: "boolean",
+      default: "true",
+      description: "Si los componentes se generan como archivos TypeScript.",
+    },
+    {
+      prop: "rsc",
+      type: "boolean",
+      default: "false",
+      description: "Activa ajustes para React Server Components.",
+    },
+  ]}
+/>
+
+## Stack técnico
+
+- **[Ark UI](https://ark-ui.com)**: Primitivos headless y accesibles (acordeón, diálogo, pestañas, etc.). Liminal UI se construye sobre ellos y añade estilo y composición.
+- **Tailwind CSS**: CSS utility-first. Todos los componentes se estilizan con clases de Tailwind, así que puedes ajustar o extender con tu config.
+- **TypeScript**: Los componentes están escritos en TypeScript. Tienes type safety completo y soporte en el editor.
+
+## Compatibilidad con frameworks
+
+Liminal UI funciona en cualquier entorno React 18+:
+
+- **Next.js** (App Router o Pages Router)
+- **Vite** (plantilla React)
+- **Remix**
+- **Create React App** (o similar)
+
+Solo necesitas React, Tailwind y una forma de resolver el alias de rutas que configures (p. ej. `@/components/ui`). La guía de [Instalación](/docs/installation) cubre la configuración por framework.
+
+## Ejemplo rápido
+
+Después de añadir el componente Button, lo usas así:
+
+<CodeTabs
+  ts={`import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return <Button>Click me</Button>;
+}`}
+  js={`import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return <Button>Click me</Button>;
+}`}
+/>
+
+No hace falta ningún provider ni wrapper de tema. Instala la CLI, ejecuta `liminal init`, y añade componentes según los necesites. Consulta la guía de [Instalación](/docs/installation) para la configuración paso a paso y la sección [Componentes](/docs/components/button) para uso y variantes.

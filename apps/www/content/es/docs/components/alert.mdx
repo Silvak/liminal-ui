@@ -1,0 +1,113 @@
+---
+title: Alert
+description: Componente de alerta tipo banner para mensajes importantes
+component: true
+---
+
+# Alert
+
+Componente de alerta tipo banner construido con Tailwind CSS y class-variance-authority. Úsalo para avisos importantes, errores o advertencias.
+
+<Preview>
+  <Alert>
+    <AlertTitle>¡Atención!</AlertTitle>
+    <AlertDescription>
+      Puedes usar este componente para resaltar información importante.
+    </AlertDescription>
+  </Alert>
+
+```tsx title="alert-basic.tsx" {3,4,5,6,7} showLineNumbers
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+
+export default function Example() {
+  return (
+    <Alert>
+      <AlertTitle>¡Atención!</AlertTitle>
+      <AlertDescription>
+        Puedes usar este componente para resaltar información importante.
+      </AlertDescription>
+    </Alert>
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add alert
+```
+
+## Uso
+
+<Preview>
+  <Alert>
+    <AlertTitle>¡Atención!</AlertTitle>
+    <AlertDescription>
+      Puedes usar este componente para resaltar información importante.
+    </AlertDescription>
+  </Alert>
+
+```tsx title="alert-basic.tsx" {3,4,5,6,7} showLineNumbers
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+
+export default function Example() {
+  return (
+    <Alert>
+      <AlertTitle>¡Atención!</AlertTitle>
+      <AlertDescription>
+        Puedes usar este componente para resaltar información importante.
+      </AlertDescription>
+    </Alert>
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Variantes
+
+<Preview>
+  <div className="flex flex-col gap-4">
+    <Alert variant="default">
+      <AlertTitle>Alerta por defecto</AlertTitle>
+      <AlertDescription>
+        Esta es una alerta neutra que usa los colores de tu tema.
+      </AlertDescription>
+    </Alert>
+    <Alert variant="destructive">
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>
+        Algo salió mal. Por favor, inténtalo de nuevo.
+      </AlertDescription>
+    </Alert>
+  </div>
+
+```tsx title="alert-variants.tsx" {1,2,7} showLineNumbers
+<Alert variant="default">
+  <AlertTitle>Alerta por defecto</AlertTitle>
+  <AlertDescription>Alerta neutra con los colores de tu tema.</AlertDescription>
+</Alert>
+<Alert variant="destructive">
+  <AlertTitle>Error</AlertTitle>
+  <AlertDescription>Algo salió mal. Por favor, inténtalo de nuevo.</AlertDescription>
+</Alert>
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "variant",
+      type: '"default" | "destructive"',
+      default: '"default"',
+      description: "Estilo visual. Usa destructive para errores o mensajes críticos.",
+    },
+  ]}
+/>

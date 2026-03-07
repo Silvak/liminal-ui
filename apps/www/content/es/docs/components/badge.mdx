@@ -1,0 +1,77 @@
+---
+title: Badge
+description: Una etiqueta pequeña tipo pill para estados y conteos
+component: true
+---
+
+# Badge
+
+Componente badge para mostrar estados, categorías o conteos. Úsalo para etiquetas, rótulos o indicadores numéricos pequeños.
+
+<Preview>
+  <Badge>New</Badge>
+
+```tsx title="badge-basic.tsx" {3} showLineNumbers
+import { Badge } from "@/components/ui/badge";
+
+export default function Example() {
+  return <Badge>New</Badge>;
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add badge
+```
+
+## Uso
+
+<Preview>
+  <Badge>New</Badge>
+
+```tsx title="badge-basic.tsx" {3} showLineNumbers
+import { Badge } from "@/components/ui/badge";
+
+export default function Example() {
+  return <Badge>New</Badge>;
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Variantes
+
+<Preview>
+  <div className="flex flex-wrap gap-2">
+    <Badge variant="default">Default</Badge>
+    <Badge variant="secondary">Secondary</Badge>
+    <Badge variant="destructive">Destructive</Badge>
+    <Badge variant="outline">Outline</Badge>
+  </div>
+
+```tsx title="badge-variants.tsx" {1,2,3,4} showLineNumbers
+<Badge variant="default">Default</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="destructive">Destructive</Badge>
+<Badge variant="outline">Outline</Badge>
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "variant",
+      type: '"default" | "secondary" | "destructive" | "outline"',
+      default: '"default"',
+      description: "Estilo visual del badge.",
+    },
+  ]}
+/>

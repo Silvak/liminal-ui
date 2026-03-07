@@ -18,6 +18,8 @@ export interface BlogCardProps {
   slug: string;
   image?: string | null;
   tags?: string[] | null;
+  /** When provided, links use /{locale}/blog/{slug} */
+  locale?: string;
 }
 
 function formatDate(dateStr: string): string {
@@ -36,8 +38,9 @@ export function BlogCard({
   author,
   slug,
   tags,
+  locale,
 }: BlogCardProps) {
-  const href = `/blog/${slug}`;
+  const href = locale ? `/${locale}/blog/${slug}` : `/blog/${slug}`;
 
   return (
     <Link href={href} className="group block h-full">

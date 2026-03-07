@@ -1,40 +1,50 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { allPosts } from "contentlayer/generated";
-import { MdxContent } from "../../../components/blog/mdx-content";
-import { DocsPager } from "../../../components/site/docs-pager";
+import { MdxContent } from "../../../../components/blog/mdx-content";
+import { DocsPager } from "../../../../components/site/docs-pager";
 
 interface BlogArticlePageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
-function getPostFromSlug(slug: string) {
-  return allPosts.find((post) => post.slugAsParams === slug) ?? null;
+function getPostFromSlug(locale: string, slug: string) {
+  return allPosts.find(
+    (p) => (p as { locale?: string }).locale === locale && p.slugAsParams === slug,
+  ) ?? null;
 }
 
 function sortPostsByDate(
-  posts: Array<{ date: string; slugAsParams: string; title: string }>,
+  posts: Array<{ date: string; slugAsParams: string; title: string; locale?: string }>,
+  locale: string,
 ) {
-  return [...posts].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  return [...posts]
+    .filter((p) => p.locale === locale)
+    .sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
 }
 
-function formatDate(dateStr: string): string {
-  return new Intl.DateTimeFormat("en-US", {
+function formatDate(dateStr: string, locale: string): string {
+  return new Intl.DateTimeFormat(locale === "es" ? "es-ES" : "en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
   }).format(new Date(dateStr));
 }
 
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  return allPosts.map((post) => ({ slug: post.slugAsParams }));
+export async function generateStaticParams(): Promise<
+  { locale: string; slug: string }[]
+> {
+  return allPosts.map((post) => ({
+    locale: (post as { locale: string }).locale,
+    slug: post.slugAsParams,
+  }));
 }
 
 export async function generateMetadata({ params }: BlogArticlePageProps) {
-  const resolvedParams = await params;
-  const post = getPostFromSlug(resolvedParams.slug);
+  const resolved = await params;
+  const post = getPostFromSlug(resolved.locale, resolved.slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -43,14 +53,15 @@ export async function generateMetadata({ params }: BlogArticlePageProps) {
 }
 
 export default async function BlogArticlePage({ params }: BlogArticlePageProps) {
-  const resolvedParams = await params;
-  const post = getPostFromSlug(resolvedParams.slug);
+  const resolved = await params;
+  const { locale, slug } = resolved;
+  const post = getPostFromSlug(locale, slug);
 
   if (!post) {
     notFound();
   }
 
-  const sorted = sortPostsByDate(allPosts);
+  const sorted = sortPostsByDate(allPosts as Array<{ date: string; slugAsParams: string; title: string; locale?: string }>, locale);
   const currentIndex = sorted.findIndex((p) => p.slugAsParams === post.slugAsParams);
   const prevPost = currentIndex > 0 ? sorted[currentIndex - 1] : undefined;
   const nextPost =
@@ -58,18 +69,19 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
       ? sorted[currentIndex + 1]
       : undefined;
 
+  const prefix = `/${locale}`;
   const prev = prevPost
-    ? { title: prevPost.title, href: `/blog/${prevPost.slugAsParams}` }
+    ? { title: prevPost.title, href: `${prefix}/blog/${prevPost.slugAsParams}` }
     : undefined;
   const next = nextPost
-    ? { title: nextPost.title, href: `/blog/${nextPost.slugAsParams}` }
+    ? { title: nextPost.title, href: `${prefix}/blog/${nextPost.slugAsParams}` }
     : undefined;
 
   return (
     <article className="space-y-8 min-w-0">
       <header className="space-y-4 border-b border-border pb-6">
         <Link
-          href="/blog"
+          href={`${prefix}/blog`}
           className="text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           Back to Blog
@@ -83,7 +95,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
           </p>
         )}
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
           <span>{post.author}</span>
           <span>{post.readingTime} min read</span>
         </div>

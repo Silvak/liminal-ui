@@ -1,0 +1,47 @@
+import { NextRequest, NextResponse } from "next/server";
+
+const LOCALE_COOKIE = "liminal-ui-locale";
+const LOCALES = ["en", "es"] as const;
+type Locale = (typeof LOCALES)[number];
+
+function getPreferredLocale(request: NextRequest): Locale {
+  const cookie = request.cookies.get(LOCALE_COOKIE)?.value;
+  if (cookie === "es" || cookie === "en") return cookie;
+
+  const acceptLanguage = request.headers.get("accept-language");
+  if (!acceptLanguage) return "en";
+
+  const preferred = acceptLanguage
+    .split(",")
+    .map((s) => s.split(";")[0].trim().toLowerCase());
+  for (const lang of preferred) {
+    if (lang.startsWith("es")) return "es";
+    if (lang.startsWith("en")) return "en";
+  }
+  return "en";
+}
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (pathname === "/") {
+    const locale = getPreferredLocale(request);
+    return NextResponse.redirect(new URL(`/${locale}`, request.url));
+  }
+
+  if (pathname.startsWith("/docs") || pathname.startsWith("/blog")) {
+    const locale = getPreferredLocale(request);
+    const newPath = pathname === "/docs" || pathname === "/docs/"
+      ? `/${locale}/docs/introduction`
+      : pathname === "/blog" || pathname === "/blog/"
+        ? `/${locale}/blog`
+        : `/${locale}${pathname}`;
+    return NextResponse.redirect(new URL(newPath, request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/", "/((?!_next|api|en|es).*)"],
+};

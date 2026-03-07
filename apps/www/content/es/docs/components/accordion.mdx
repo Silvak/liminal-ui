@@ -1,0 +1,186 @@
+---
+title: Accordion
+description: Conjunto vertical de encabezados interactivos
+component: true
+---
+
+# Accordion
+
+Componente acordeón construido con Ark UI. Úsalo para FAQs, secciones de configuración o cualquier contenido expandible. Elige `type="single"` para un solo ítem abierto o `type="multiple"` para varios.
+
+<Preview>
+  <Accordion defaultValue={["item-1"]} type="multiple">
+    <AccordionItem value="item-1">
+      <AccordionTrigger>¿Es accesible?</AccordionTrigger>
+      <AccordionContent>
+        Sí. Sigue el patrón de diseño WAI-ARIA.
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      <AccordionTrigger>¿Tiene estilos?</AccordionTrigger>
+      <AccordionContent>
+        Sí. Usa los tokens de Tailwind CSS de tu tema.
+      </AccordionContent>
+    </AccordionItem>
+  </Accordion>
+
+```tsx title="accordion-example.tsx" {10,17} showLineNumbers
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+
+export default function Example() {
+  return (
+    <Accordion defaultValue={["item-1"]} type="multiple">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>¿Es accesible?</AccordionTrigger>
+        <AccordionContent>
+          Sí. Sigue el patrón de diseño WAI-ARIA.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>¿Tiene estilos?</AccordionTrigger>
+        <AccordionContent>
+          Sí. Usa los tokens de Tailwind CSS de tu tema.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+```
+
+</Preview>
+
+<Callout type="info" title="Buenas prácticas">
+  Usa títulos cortos en AccordionTrigger y contenido claro en AccordionContent para una mejor escaneabilidad.
+</Callout>
+
+## Instalación
+
+```bash
+liminal add accordion
+```
+
+## Uso
+
+<Preview>
+  <Accordion defaultValue={["item-1"]} type="multiple">
+    <AccordionItem value="item-1">
+      <AccordionTrigger>¿Es accesible?</AccordionTrigger>
+      <AccordionContent>
+        Sí. Sigue el patrón de diseño WAI-ARIA.
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      <AccordionTrigger>¿Tiene estilos?</AccordionTrigger>
+      <AccordionContent>
+        Sí. Usa los tokens de Tailwind CSS de tu tema.
+      </AccordionContent>
+    </AccordionItem>
+  </Accordion>
+
+```tsx title="accordion-example.tsx" {10,17} showLineNumbers
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+
+export default function Example() {
+  return (
+    <Accordion defaultValue={["item-1"]} type="multiple">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>¿Es accesible?</AccordionTrigger>
+        <AccordionContent>
+          Sí. Sigue el patrón de diseño WAI-ARIA.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>¿Tiene estilos?</AccordionTrigger>
+        <AccordionContent>
+          Sí. Usa los tokens de Tailwind CSS de tu tema.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Single (un ítem abierto)
+
+<Preview>
+  <Accordion type="single" defaultValue={["item-1"]}>
+    <AccordionItem value="item-1">
+      <AccordionTrigger>Primera sección</AccordionTrigger>
+      <AccordionContent>Contenido de la primera sección.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      <AccordionTrigger>Segunda sección</AccordionTrigger>
+      <AccordionContent>Contenido de la segunda sección.</AccordionContent>
+    </AccordionItem>
+  </Accordion>
+
+```tsx title="accordion-single.tsx" {3} showLineNumbers
+<Accordion type="single" defaultValue={["item-1"]}>
+  <AccordionItem value="item-1">...</AccordionItem>
+  <AccordionItem value="item-2">...</AccordionItem>
+</Accordion>
+```
+
+</Preview>
+
+### Multiple (varios ítems abiertos)
+
+<Preview>
+  <Accordion type="multiple" defaultValue={["item-1", "item-2"]}>
+    <AccordionItem value="item-1">
+      <AccordionTrigger>Sección A</AccordionTrigger>
+      <AccordionContent>Contenido A.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      <AccordionTrigger>Sección B</AccordionTrigger>
+      <AccordionContent>Contenido B.</AccordionContent>
+    </AccordionItem>
+  </Accordion>
+
+```tsx title="accordion-multiple.tsx" {3} showLineNumbers
+<Accordion type="multiple" defaultValue={["item-1", "item-2"]}>
+  <AccordionItem value="item-1">...</AccordionItem>
+  <AccordionItem value="item-2">...</AccordionItem>
+</Accordion>
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "type",
+      type: '"single" | "multiple"',
+      default: '"single"',
+      description: "Si puede estar abierto un ítem o varios a la vez.",
+    },
+    {
+      prop: "defaultValue",
+      type: "string[]",
+      default: "[]",
+      description: "Valores abiertos por defecto en modo no controlado.",
+    },
+    {
+      prop: "value",
+      type: "string[]",
+      default: "-",
+      description: "Valores controlados desde un estado externo.",
+    },
+  ]}
+/>

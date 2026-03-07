@@ -12,6 +12,7 @@ import {
   CommandList,
 } from "../ui/command";
 import { cn } from "../../lib/utils";
+import { useLocaleOptional } from "../../components/locale-provider";
 
 const searchGroups = [
   {
@@ -142,13 +143,15 @@ export function SearchCommand({
   className,
 }: SearchCommandProps) {
   const router = useRouter();
+  const locale = useLocaleOptional();
+  const prefix = locale ? `/${locale}` : "";
 
   const runCommand = useCallback(
     (href: string) => {
       onOpenChange(false);
-      router.push(href);
+      router.push(prefix ? `${prefix}${href}` : href);
     },
-    [router, onOpenChange],
+    [router, onOpenChange, prefix],
   );
 
   useEffect(() => {

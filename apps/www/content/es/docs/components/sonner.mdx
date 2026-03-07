@@ -1,0 +1,137 @@
+---
+title: Toast
+description: Notificaciones toast con sonner
+component: true
+---
+
+# Toast (sonner)
+
+Notificaciones toast basadas en la biblioteca [`sonner`](https://sonner.emilkowal.dev/). Renderiza `Toaster` una vez (p. ej. en tu layout) y llama a `toast()` desde cualquier sitio.
+
+<Preview>
+  <SonnerDemo />
+</Preview>
+
+```tsx title="sonner-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Toaster, toast } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <>
+      <Toaster />
+      <Button
+        onClick={() =>
+          toast("Ajustes guardados", {
+            description: "Tus preferencias se han actualizado.",
+          })
+        }
+      >
+        Mostrar toast
+      </Button>
+    </>
+  );
+}
+```
+
+## Instalación
+
+```bash
+liminal add sonner
+```
+
+## Uso
+
+<Preview>
+  <SonnerDemo />
+</Preview>
+
+```tsx title="sonner-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Toaster, toast } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <>
+      <Toaster />
+      <Button
+        onClick={() =>
+          toast("Ajustes guardados", {
+            description: "Tus preferencias se han actualizado.",
+          })
+        }
+      >
+        Mostrar toast
+      </Button>
+    </>
+  );
+}
+```
+
+## Ejemplos
+
+### Mensaje básico
+
+<Preview>
+  <SonnerDemoSimple />
+</Preview>
+
+```tsx title="sonner-simple.tsx" showLineNumbers
+toast("¡Hola!");
+```
+
+### Con descripción
+
+<Preview>
+  <SonnerDemoDescription />
+</Preview>
+
+```tsx title="sonner-description.tsx" showLineNumbers
+toast("Actualización lista", {
+  description: "Reinicia la app para aplicar los cambios.",
+});
+```
+
+### Variantes
+
+Usa `success`, `error`, `warning` o `info` para estilos semánticos.
+
+<Preview>
+  <SonnerDemoVariants />
+</Preview>
+
+```tsx title="sonner-variants.tsx" showLineNumbers
+toast.success("¡Guardado!");
+toast.error("Algo falló");
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "toast(message, options)",
+      type: "function",
+      default: "-",
+      description: "Muestra un toast. message: string. options: description, duration, variant, etc.",
+    },
+    {
+      prop: "Toaster",
+      type: "component",
+      default: "-",
+      description: "Renderiza una vez en tu app (p. ej. layout). Renderiza toasts en un portal.",
+    },
+    {
+      prop: "options.description",
+      type: "string",
+      default: "-",
+      description: "Texto secundario debajo del mensaje.",
+    },
+    {
+      prop: "options.duration",
+      type: "number",
+      default: "4000",
+      description: "Duración en ms antes de que se cierre el toast.",
+    },
+  ]}
+/>

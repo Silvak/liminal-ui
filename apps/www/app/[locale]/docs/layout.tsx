@@ -1,5 +1,5 @@
-import { SiteHeader } from "../../components/site/header";
-import { SidebarNav } from "../../components/site/sidebar-nav";
+import { SiteHeader } from "../../../components/site/header";
+import { SidebarNav } from "../../../components/site/sidebar-nav";
 
 export default function DocsLayout({
   children,

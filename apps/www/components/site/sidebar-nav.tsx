@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
+import { useLocaleOptional } from "../../components/locale-provider";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 import { mainNav } from "./header";
@@ -23,12 +24,14 @@ function CollapsibleSection({
   onNavigate,
   isOpen,
   onToggle,
+  prefix,
 }: {
   section: NavSection;
   pathname: string;
   onNavigate?: () => void;
   isOpen: boolean;
   onToggle: () => void;
+  prefix: string;
 }) {
   return (
     <div key={section.title} className="mb-5">
@@ -56,7 +59,8 @@ function CollapsibleSection({
       >
         <div className="flex flex-col text-base md:text-sm">
           {section.items.map((item) => {
-            const active = pathname === item.href;
+            const href = prefix ? `${prefix}${item.href}` : item.href;
+            const active = pathname === href || pathname.startsWith(href + "/");
             const content = (
               <>
                 <span className="truncate">{item.title}</span>
@@ -88,7 +92,7 @@ function CollapsibleSection({
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={href}
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cn(
@@ -123,6 +127,8 @@ function NavContent({
   showSiteNav?: boolean;
 }) {
   const pathname = usePathname();
+  const locale = useLocaleOptional();
+  const prefix = locale ? `/${locale}` : "";
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(
     () => Object.fromEntries(docNavSections.map((s) => [s.title, true])),
   );
@@ -143,11 +149,12 @@ function NavContent({
           <>
             <div className="mb-6">
               {mainNav.map((item) => {
-                const active = pathname === item.href;
+                const href = prefix ? `${prefix}${item.href}` : item.href;
+                const active = pathname === href || pathname.startsWith(href + "/");
                 return (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={href}
                     onClick={onNavigate}
                     aria-current={active ? "page" : undefined}
                     className={cn(
@@ -176,6 +183,7 @@ function NavContent({
             onNavigate={onNavigate}
             isOpen={openSections[section.title] ?? true}
             onToggle={() => toggleSection(section.title)}
+            prefix={prefix}
           />
         ))}
       </div>

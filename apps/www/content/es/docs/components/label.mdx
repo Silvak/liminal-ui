@@ -1,0 +1,124 @@
+---
+title: Label
+description: Etiqueta de texto para controles de formulario
+component: true
+---
+
+# Label
+
+Componente label que se combina bien con controles de formulario como Input y Textarea.
+
+<Preview>
+  <div className="space-y-2">
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="you@example.com" />
+  </div>
+
+```tsx title="label-with-input.tsx" {3} showLineNumbers
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="email">Email</Label>
+      <Input id="email" type="email" placeholder="you@example.com" />
+    </div>
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add label
+```
+
+## Uso
+
+<Preview>
+  <div className="space-y-2">
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="you@example.com" />
+  </div>
+
+```tsx title="label-with-input.tsx" {3} showLineNumbers
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="email">Email</Label>
+      <Input id="email" type="email" placeholder="you@example.com" />
+    </div>
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### Con Input
+
+<Preview>
+  <div className="space-y-2">
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="you@example.com" />
+  </div>
+
+```tsx title="label-with-input.tsx" showLineNumbers
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
+export default function Example() {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="email">Email</Label>
+      <Input id="email" type="email" placeholder="you@example.com" />
+    </div>
+  );
+}
+```
+
+</Preview>
+
+### Con Checkbox
+
+<Preview>
+  <div className="flex items-center space-x-2">
+    <Checkbox id="terms" />
+    <Label htmlFor="terms">Aceptar términos y condiciones</Label>
+  </div>
+
+```tsx title="label-with-checkbox.tsx" showLineNumbers
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+
+export default function Example() {
+  return (
+    <div className="flex items-center space-x-2">
+      <Checkbox id="terms" />
+      <Label htmlFor="terms">Aceptar términos y condiciones</Label>
+    </div>
+  );
+}
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "htmlFor",
+      type: "string",
+      default: "-",
+      description: "ID del control de formulario que describe esta etiqueta. Úsalo para accesibilidad.",
+    },
+  ]}
+/>

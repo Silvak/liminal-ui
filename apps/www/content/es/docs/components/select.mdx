@@ -1,0 +1,191 @@
+---
+title: Select
+description: Componente de selección desplegable
+component: true
+---
+
+# Select
+
+Componente select construido con Ark UI. Usa la API conveniente con un array `items` en la mayoría de casos, o la API compuesta para marcado y agrupación personalizados.
+
+<Preview>
+  <Select
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+    placeholder="Selecciona un framework"
+  />
+
+```tsx title="select-convenience.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Select } from "@/components/ui/select";
+
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Svelte", value: "svelte" },
+];
+
+export default function Example() {
+  return <Select items={items} placeholder="Selecciona un framework" />;
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add select
+```
+
+## Uso
+
+<Preview>
+  <Select
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+    placeholder="Selecciona un framework"
+  />
+
+```tsx title="select-convenience.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+import { Select } from "@/components/ui/select";
+
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Svelte", value: "svelte" },
+];
+
+export default function Example() {
+  return <Select items={items} placeholder="Selecciona un framework" />;
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### API conveniente
+
+Pasa `items` (array de `{ label, value, disabled? }`) y opcionalmente `placeholder`. El select renderiza el disparador y el desplegable por ti.
+
+<Preview>
+  <Select
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+    placeholder="Selecciona un framework"
+  />
+
+```tsx title="select-convenience.tsx" showLineNumbers
+<Select
+  items={[
+    { label: "React", value: "react" },
+    { label: "Vue", value: "vue" },
+    { label: "Svelte", value: "svelte" },
+  ]}
+  placeholder="Selecciona un framework"
+/>
+```
+
+</Preview>
+
+### API compuesta
+
+Para opciones agrupadas o estilos personalizados, usa SelectRoot, SelectControl, SelectTrigger, SelectValue, SelectContent, SelectGroup y SelectItem. Debes crear una colección con `ArkSelect.createCollection` (o usar el componente conveniente internamente).
+
+<Preview>
+  <Select
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+    placeholder="Selecciona un framework"
+  />
+</Preview>
+
+```tsx title="select-compound.tsx" showLineNumbers
+import {
+  SelectRoot,
+  SelectControl,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+} from "@/components/ui/select";
+
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Svelte", value: "svelte" },
+];
+
+export default function Example() {
+  return (
+    <SelectRoot
+      collection={ArkSelect.createCollection({
+        items,
+        itemToString: (item) => item.label,
+        itemToValue: (item) => item.value,
+      })}
+    >
+      <SelectControl>
+        <SelectTrigger>
+          <SelectValue placeholder="Selecciona un framework" />
+        </SelectTrigger>
+      </SelectControl>
+      <SelectContent>
+        <SelectGroup>
+          {items.map((item) => (
+            <SelectItem key={item.value} item={item}>
+              {item.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </SelectRoot>
+  );
+}
+```
+
+En la mayoría de casos basta con el componente conveniente `<Select items={...} />`; usa la API compuesta cuando necesites grupos o renderizado personalizado de ítems.
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "items",
+      type: "{ label: string; value: string; disabled?: boolean }[]",
+      default: "-",
+      description: "Opciones del select (API conveniente).",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: '"Select an option"',
+      description: "Texto mostrado cuando no hay valor seleccionado.",
+    },
+    {
+      prop: "value",
+      type: "string",
+      default: "-",
+      description: "Valor seleccionado controlado.",
+    },
+    {
+      prop: "onValueChange",
+      type: "(details: { value: string }) => void",
+      default: "-",
+      description: "Callback cuando cambia la selección.",
+    },
+  ]}
+/>
