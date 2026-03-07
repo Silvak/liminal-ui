@@ -178,6 +178,7 @@
   }
   html {
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
   body {
     background-color: hsl(var(--background));

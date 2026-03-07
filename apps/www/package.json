@@ -14,6 +14,7 @@
     "@ark-ui/react": "^5.31.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.0.0",
     "contentlayer2": "^0.5.8",
     "geist": "^1.7.0",
     "liminal-ui": "^0.15.0",

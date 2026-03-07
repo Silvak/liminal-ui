@@ -23,10 +23,10 @@ const DialogOverlay = React.forwardRef<
   <ArkDialog.Backdrop
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/80",
+      "fixed inset-0 z-[110] bg-background/40 backdrop-blur-xs shadow-xl",
       "data-[state=open]:animate-in data-[state=closed]:animate-out",
       "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
+      className,
     )}
     {...props}
   />
@@ -41,15 +41,15 @@ const DialogContent = React.forwardRef<
 >(({ className, children, showCloseButton = true, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
-    <ArkDialog.Positioner className="fixed inset-0 z-50 flex items-center justify-center">
+    <ArkDialog.Positioner className="fixed inset-0 z-[110] flex items-center justify-center">
       <ArkDialog.Content
         ref={ref}
         className={cn(
-          "relative w-full max-w-lg gap-4 border bg-background p-6 shadow-lg sm:rounded-lg",
+          "relative w-full max-w-lg gap-4 border border-border bg-card p-6 shadow-lg sm:rounded-lg",
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-          className
+          className,
         )}
         {...props}
       >
@@ -80,7 +80,10 @@ const DialogHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)}
+    className={cn(
+      "flex flex-col space-y-1.5 text-center sm:text-left",
+      className,
+    )}
     {...props}
   />
 ));
@@ -92,7 +95,10 @@ const DialogFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
+    className={cn(
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      className,
+    )}
     {...props}
   />
 ));
@@ -104,7 +110,10 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ArkDialog.Title
     ref={ref}
-    className={cn("text-lg font-semibold leading-none tracking-tight", className)}
+    className={cn(
+      "text-lg font-semibold leading-none tracking-tight",
+      className,
+    )}
     {...props}
   />
 ));

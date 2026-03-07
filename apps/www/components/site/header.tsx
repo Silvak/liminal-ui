@@ -9,6 +9,7 @@ import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
+import { SearchCommand } from "./search-command";
 
 export const mainNav = [
   { label: "Docs", href: "/docs/introduction" },
@@ -20,6 +21,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const isLanding = pathname === "/";
   const [landingMenuOpen, setLandingMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const docsSidebarOpen = useDocsSidebar((s) => s.open);
   const toggleDocsSidebar = useDocsSidebar((s) => s.toggle);
 
@@ -29,7 +31,7 @@ export function SiteHeader() {
     : toggleDocsSidebar;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background md:bg-background/80 backdrop-blur">
+    <header className="sticky top-0 z-100 border-b border-border bg-background/70 backdrop-blur-md">
       <div className="flex h-14 w-full items-center justify-between pl-0 pr-4 md:px-4">
         <div className="flex items-center gap-6">
           <Button
@@ -76,15 +78,19 @@ export function SiteHeader() {
 
         <div className="flex items-center">
           <Button
+            type="button"
             variant="ghost"
             size="icon"
             aria-label="Buscar"
+            title="Buscar (Ctrl+K)"
             className={cn(
               "h-10 w-10 rounded-none rounded-l-md border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
             )}
+            onClick={() => setSearchOpen(true)}
           >
             <Search className="h-4 w-4" />
           </Button>
+          <SearchCommand open={searchOpen} onOpenChange={setSearchOpen} />
           <LanguageToggle
             className={cn(
               "-ml-px h-10 w-10 rounded-none border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
