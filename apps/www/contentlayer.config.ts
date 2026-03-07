@@ -4,7 +4,7 @@ import { extractHeadingsFromRawMdx } from './lib/docs';
 
 export const Doc = defineDocumentType(() => ({
   name: 'Doc',
-  filePathPattern: `**/*.mdx`,
+  filePathPattern: `docs/**/*.mdx`,
   contentType: 'mdx',
   fields: {
     title: {
@@ -41,9 +41,60 @@ export const Doc = defineDocumentType(() => ({
   },
 }));
 
+export const Post = defineDocumentType(() => ({
+  name: 'Post',
+  filePathPattern: `blog/**/*.mdx`,
+  contentType: 'mdx',
+  fields: {
+    title: {
+      type: 'string',
+      required: true,
+    },
+    description: {
+      type: 'string',
+      required: true,
+    },
+    date: {
+      type: 'date',
+      required: true,
+    },
+    author: {
+      type: 'string',
+      required: true,
+    },
+    image: {
+      type: 'string',
+      required: false,
+    },
+    tags: {
+      type: 'list',
+      of: { type: 'string' },
+      required: false,
+    },
+  },
+  computedFields: {
+    slug: {
+      type: 'string',
+      resolve: (doc) => `/blog/${doc._raw.flattenedPath.replace(/^blog\//, '')}`,
+    },
+    slugAsParams: {
+      type: 'string',
+      resolve: (doc) => doc._raw.flattenedPath.replace(/^blog\//, ''),
+    },
+    readingTime: {
+      type: 'number',
+      resolve: (doc) => {
+        const raw = (doc as { body?: { raw?: string } }).body?.raw ?? '';
+        const words = raw.split(/\s+/).filter(Boolean).length;
+        return Math.max(1, Math.ceil(words / 200));
+      },
+    },
+  },
+}));
+
 export default makeSource({
   contentDirPath: './content',
-  documentTypes: [Doc],
+  documentTypes: [Doc, Post],
   disableImportAliasWarning: true,
   mdx: {
     remarkPlugins: [remarkGfm],

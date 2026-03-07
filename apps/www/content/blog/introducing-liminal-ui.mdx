@@ -1,0 +1,36 @@
+---
+title: Introducing Liminal UI
+description: Why we built a component library that lives in your code, not in node_modules.
+date: 2025-03-01
+author: Liminal UI Team
+tags:
+  - philosophy
+  - react
+  - components
+---
+
+# Introducing Liminal UI
+
+Liminal UI starts from a simple idea: **your code, your control**. Instead of installing closed packages that live in `node_modules`, you add components by copying their source code into your project. You own the code, you control the styles, and you can change anything.
+
+## The philosophy
+
+Traditional libraries ship as npm dependencies: you get compiled components and a public API, but the implementation stays hidden. Customization often means fighting props, CSS variables, or forking the package. Liminal UI inverts this: the CLI copies the **source code** of each component into your app. There is no black box.
+
+- **Full control**: Edit components directly to match your design system.
+- **No lock-in**: No dependency on a runtime from us; only React, Ark UI, and Tailwind.
+- **Type-safe**: Components are written in TypeScript with clear types.
+- **Accessible**: Built on [Ark UI](https://ark-ui.com) with ARIA and keyboard support.
+
+## How it works
+
+1. You run the CLI (`liminal add button`) in your project.
+2. The CLI copies the component files into your repo.
+3. You import from your own paths and use them like any React component.
+4. You can edit, refactor, or delete the code whenever you want.
+
+There is no "Liminal UI runtime". Once the code is in your project, it's simply your code.
+
+## Next steps
+
+Check the [documentation](/docs/introduction) to install the CLI and add your first component. To dive deeper into accessibility, read our article on [building accessible components](/blog/building-accessible-components).

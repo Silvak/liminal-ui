@@ -1,0 +1,49 @@
+---
+title: Building accessible components with Ark UI
+description: How Ark UI lets us create accessible interfaces by default without sacrificing customization.
+date: 2025-03-05
+author: Liminal UI Team
+tags:
+  - accessibility
+  - ark-ui
+  - a11y
+---
+
+# Building accessible components with Ark UI
+
+Accessibility shouldn't be an afterthought: it should be at the foundation of every component. In Liminal UI we use **Ark UI** as a headless primitives layer; Ark UI handles semantics, keyboard, and ARIA, and we add the styling with Tailwind.
+
+## Why Ark UI
+
+Ark UI provides "headless" components: logic and accessible structure only, no CSS. That gives us:
+
+- **Correct ARIA**: Roles, states, and relationships are managed automatically.
+- **Keyboard navigation**: Focus, Escape, arrows, and shortcuts are already handled.
+- **Consistent behavior**: Dialogs, popovers, and tabs behave the way users expect.
+
+We focus on the visual layer and the usage API; the accessibility layer comes solved.
+
+## Examples in practice
+
+A **Dialog** in Ark UI already has:
+
+- Focus trapped inside the modal.
+- Close on Escape.
+- Focus restored to the element that opened the dialog.
+- `role="dialog"`, `aria-modal`, `aria-labelledby`, and `aria-describedby` when needed.
+
+**Tabs** already have:
+
+- Arrow-key navigation between tabs.
+- Correct association between tab and panel (`aria-controls`, `aria-labelledby`).
+- Keyboard support in the tab list.
+
+We only define the markup and styles; the rest is covered.
+
+## How we use it in Liminal UI
+
+Every Liminal UI component built on Ark UI inherits that accessible base. When you run `liminal add dialog`, you get the dialog code with our styling, but the focus, keyboard, and ARIA logic remains Ark UI's.
+
+If you need to tweak behavior, you can edit the component code directly—it's in your repo. If you only want to change the look, Tailwind and your CSS variables are enough.
+
+For more context on the project, see [Introducing Liminal UI](/blog/introducing-liminal-ui).

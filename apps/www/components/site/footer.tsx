@@ -7,6 +7,12 @@ export function SiteFooter() {
         <p>© {new Date().getFullYear()} Liminal UI. MIT License.</p>
         <div className="flex items-center gap-4">
           <Link
+            href="/blog"
+            className="transition-colors hover:text-foreground"
+          >
+            Blog
+          </Link>
+          <Link
             href="https://github.com/silvak/liminal-ui"
             target="_blank"
             rel="noreferrer"

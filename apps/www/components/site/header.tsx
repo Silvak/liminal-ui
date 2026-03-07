@@ -13,6 +13,7 @@ import { LanguageToggle } from "./language-toggle";
 export const mainNav = [
   { label: "Docs", href: "/docs/introduction" },
   { label: "Components", href: "/docs/components/button" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export function SiteHeader() {
