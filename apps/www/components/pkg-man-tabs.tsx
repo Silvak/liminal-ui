@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import * as React from "react";
 import { Terminal } from "lucide-react";
-import { TabsRoot, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
+import { Tabs as ArkTabs } from "@ark-ui/react/tabs";
 import { CodeBlock } from "./code-block";
 import { CopyButton } from "./copy-button";
 import { cn } from "../lib/utils";
@@ -35,28 +35,35 @@ export function PkgManTabs({
         className,
       )}
     >
-      <TabsRoot value={activeValue} onValueChange={(e) => setActiveValue(e.value)}>
-        <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2 text-(--code-header-text)">
-          <Terminal className="h-3.5 w-3.5 shrink-0 text-(--code-header-text)" />
-          <TabsList className="h-auto gap-0 rounded-md border-0 bg-transparent p-0 text-[0.7rem] text-(--code-header-text)">
+      <ArkTabs.Root
+        value={activeValue}
+        onValueChange={(e) => setActiveValue(e.value)}
+      >
+        <div className="flex items-end text-(--code-header-text) h-[44px]">
+          <div className="flex items-center py-1.5 pb-3 pl-4 pr-2 shadow-[inset_0_-1px_0_var(--code-border)]">
+            <Terminal className="h-3.5 w-3.5 shrink-0 text-(--code-header-text)" />
+          </div>
+          <ArkTabs.List className="flex items-end gap-0 p-0">
             {(Object.keys(labels) as Array<keyof typeof labels>).map((key) => (
-              <TabsTrigger
+              <ArkTabs.Trigger
                 key={key}
                 value={key}
-                className="relative rounded-sm border-0 bg-transparent px-3 py-1.5 text-sm font-medium tracking-wide text-(--code-header-text) transition-colors hover:bg-white/5 hover:text-foreground/80 data-selected:bg-transparent data-selected:font-semibold data-selected:text-foreground data-selected:after:absolute data-selected:after:bottom-0 data-selected:after:left-0 data-selected:after:right-0 data-selected:after:h-0.5 data-selected:after:bg-primary data-selected:after:rounded-full"
+                className="h-[38px] px-3 py-1.5 text-sm font-normal tracking-wide text-(--code-header-text) transition-colors shadow-[inset_0_-1px_0_var(--code-border)] hover:text-foreground/80 data-selected:rounded-t-md data-selected:text-foreground data-selected:shadow-[inset_1px_0_0_var(--code-border),inset_-1px_0_0_var(--code-border),inset_0_1px_0_var(--code-border)]"
               >
                 {labels[key]}
-              </TabsTrigger>
+              </ArkTabs.Trigger>
             ))}
-          </TabsList>
-          <CopyButton value={codeToCopy} />
+          </ArkTabs.List>
+          <div className="flex flex-1 items-center justify-end py-1.5 pl-2 pr-4 shadow-[inset_0_-1px_0_var(--code-border)]">
+            <CopyButton value={codeToCopy} />
+          </div>
         </div>
         {(Object.keys(commands) as Array<keyof typeof commands>).map((key) => (
-          <TabsContent key={key} value={key} className="mt-0 border-0">
+          <ArkTabs.Content key={key} value={key} className="mt-0">
             <CodeBlock code={commands[key]} language="bash" hideHeader />
-          </TabsContent>
+          </ArkTabs.Content>
         ))}
-      </TabsRoot>
+      </ArkTabs.Root>
     </div>
   );
 }
