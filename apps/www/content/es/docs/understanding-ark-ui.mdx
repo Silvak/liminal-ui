@@ -1,0 +1,182 @@
+---
+title: Uso de componentes Ark UI
+description: Aprende cómo funcionan los componentes de Liminal UI con Ark UI (estados, controlado vs no controlado y estilos con Tailwind).
+---
+
+# Uso de componentes Ark UI
+
+Muchos componentes de Liminal UI se construyen sobre **Ark UI**, una biblioteca React headless. No necesitas leer toda la documentación de Ark UI para usar nuestros componentes. Esta guía resume las ideas principales: **estados**, uso **controlado vs no controlado** y **estilos según estado** con Tailwind.
+
+## ¿Qué es Ark UI?
+
+Ark UI ofrece primitivos **headless** y accesibles: la lógica y la semántica (teclado, ARIA, foco) viven en la biblioteca, y el aspecto visual lo defines tú. Liminal UI toma esos primitivos y añade estilos con Tailwind y una API coherente. Cuando usas nuestro Accordion, Switch, Dialog, Tabs o componentes similares, estás usando Ark UI por debajo — con estilos y patrones que ya aplicamos para que te centres en tu aplicación.
+
+<Callout type="tip" title="Por qué importa">
+Entender el modelo de **estado** de Ark UI te ayuda a usar bien nuestros componentes y a personalizar su apariencia con Tailwind.
+</Callout>
+
+## Estados (`data-state`)
+
+Los componentes de Ark UI exponen su estado actual mediante **atributos data** en el HTML. El más habitual es `data-state`. Los elementos del DOM que renderizan nuestros componentes (por ejemplo el trigger del acordeón o el control del switch) reciben atributos como `data-state="open"` o `data-state="checked"`. Así puedes estilizar o animar según el estado sin manejar estado en React tú mismo.
+
+Estos son los estados que verás en los componentes de Liminal UI:
+
+| Componente | Estados | Significado |
+|------------|--------|-------------|
+| Accordion (ítem) | `open`, `closed` | Ítem expandido o colapsado |
+| Switch / Checkbox | `checked`, `unchecked` | Activado o no |
+| Tabs (trigger) | `active`, `inactive` | Pestaña seleccionada o no |
+| Dialog, Popover, Tooltip, Select (contenido) | `open`, `closed` | Overlay visible u oculto |
+
+Tú no asignas `data-state`; Ark UI (y nuestros wrappers) lo establecen automáticamente. Solo lo **usas** para estilos o lógica condicional.
+
+## Controlado vs no controlado
+
+Como los elementos de formulario nativos, nuestros componentes basados en Ark pueden ser **no controlados** o **controlados**.
+
+- **No controlado**: Defines el estado inicial con `defaultValue` o `defaultChecked`; el componente gestiona el estado internamente. Útil cuando no necesitas leer ni cambiar ese estado desde fuera.
+- **Controlado**: Pasas `value` o `checked` y un callback `onOpenChange` / `onCheckedChange` (o similar). Guardas el estado en tu estado de React y lo pasas de vuelta. Úsalo cuando necesites sincronizar con otra UI o enviar el valor.
+
+### Ejemplo: Accordion (no controlado vs controlado)
+
+<Preview>
+  <Accordion type="single" defaultValue={["item-1"]}>
+    <AccordionItem value="item-1">
+      <AccordionTrigger>No controlado — abierto por defecto</AccordionTrigger>
+      <AccordionContent>Estado inicial con defaultValue.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      <AccordionTrigger>Segundo ítem</AccordionTrigger>
+      <AccordionContent>Contenido aquí.</AccordionContent>
+    </AccordionItem>
+  </Accordion>
+</Preview>
+
+```tsx title="No controlado"
+<Accordion type="single" defaultValue={["item-1"]}>
+  <AccordionItem value="item-1">...</AccordionItem>
+</Accordion>
+```
+
+```tsx title="Controlado"
+const [value, setValue] = useState<string[]>([]);
+return (
+  <Accordion type="single" value={value} onValueChange={(e) => setValue(e.value)}>
+    <AccordionItem value="item-1">...</AccordionItem>
+  </Accordion>
+);
+```
+
+### Ejemplo: Switch (no controlado vs controlado)
+
+<Preview>
+  <Switch label="Switch no controlado" defaultChecked />
+</Preview>
+
+```tsx title="No controlado"
+<Switch defaultChecked label="Activado por defecto" />
+```
+
+```tsx title="Controlado"
+const [checked, setChecked] = useState(false);
+return (
+  <Switch
+    checked={checked}
+    onCheckedChange={(e) => setChecked(e.checked)}
+    label="Controlado"
+  />
+);
+```
+
+## Estilos según estado
+
+Como los estados se exponen como `data-state="..."`, puedes atacarlos con los modificadores de **atributos data** de Tailwind. Nuestros componentes ya hacen esto internamente; puedes usar el mismo patrón al personalizar o crear los tuyos.
+
+- **Accordion**: el trigger rota el icono al abrir; el contenido anima entrada/salida.
+  - `[&[data-state=open]>svg]:rotate-180` en el trigger
+  - `data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down` en el contenido
+- **Switch**: el control y el thumb cambian de aspecto al estar checked.
+  - `data-[state=checked]:bg-primary data-[state=unchecked]:bg-input` en el control
+  - `data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0` en el thumb
+- **Dialog / Popover**: el overlay hace fade y zoom.
+  - `data-[state=open]:animate-in data-[state=closed]:animate-out` y `data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0`
+
+En tus propias clases (por ejemplo al envolver o extender un componente), usa el mismo patrón:
+
+```css
+data-[state=open]:tu-clase
+data-[state=checked]:bg-primary
+data-[state=active]:font-semibold
+```
+
+## Ejemplo completo: Accordion
+
+Un solo ejemplo que combina: uso por defecto (no controlado) y versión controlada donde guardamos el valor abierto en estado y opcionalmente reaccionamos a él.
+
+<Preview>
+  <Accordion type="single" defaultValue={["item-1"]}>
+    <AccordionItem value="item-1">
+      <AccordionTrigger>¿Es accesible?</AccordionTrigger>
+      <AccordionContent>
+        Sí. Usa Ark UI y sigue los patrones WAI-ARIA.
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      <AccordionTrigger>¿Puedo estilizar por estado?</AccordionTrigger>
+      <AccordionContent>
+        Sí. Usa data-[state=open] y data-[state=closed] en Tailwind.
+      </AccordionContent>
+    </AccordionItem>
+  </Accordion>
+</Preview>
+
+```tsx title="accordion-ejemplo.tsx" showLineNumbers
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+
+export default function Ejemplo() {
+  return (
+    <Accordion type="single" defaultValue={["item-1"]}>
+      <AccordionItem value="item-1">
+        <AccordionTrigger>¿Es accesible?</AccordionTrigger>
+        <AccordionContent>
+          Sí. Usa Ark UI y sigue los patrones WAI-ARIA.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>¿Puedo estilizar por estado?</AccordionTrigger>
+        <AccordionContent>
+          Sí. Usa data-[state=open] y data-[state=closed] en Tailwind.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+```
+
+Para manejarlo con tu propio estado (controlado):
+
+```tsx
+const [openValue, setOpenValue] = useState<string[]>([]);
+return (
+  <Accordion
+    type="single"
+    value={openValue}
+    onValueChange={(e) => setOpenValue(e.value)}
+  >
+    {/* mismos AccordionItem */}
+  </Accordion>
+);
+```
+
+## Saber más
+
+Esta guía cubre lo esencial para que puedas usar y estilizar los componentes de Liminal UI sin profundizar antes en Ark UI. Para la API completa, más componentes o patrones avanzados, consulta la documentación oficial:
+
+**[Documentación de Ark UI →](https://ark-ui.com)**
+
+Ahí encontrarás el conjunto completo de primitivos, props y patrones de composición sobre los que se construye nuestra biblioteca.
