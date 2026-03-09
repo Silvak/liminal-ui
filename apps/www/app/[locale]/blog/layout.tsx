@@ -1,4 +1,5 @@
 import { SiteHeader } from "../../../components/site/header";
+import { SidebarNav } from "../../../components/site/sidebar-nav";
 import { SiteFooter } from "../../../components/site/footer";
 
 export default function BlogLayout({
@@ -9,6 +10,7 @@ export default function BlogLayout({
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+      <SidebarNav mobileOnly={true} />
       <main className="mx-auto w-full max-w-4xl px-4 py-8 lg:py-12">
         {children}
       </main>

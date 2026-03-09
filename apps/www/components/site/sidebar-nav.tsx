@@ -98,7 +98,7 @@ function CollapsibleSection({
                 className={cn(
                   "relative group filter-pixel-noise flex h-[42px] w-full items-center rounded-md px-8 text-muted-foreground transition-colors hover:bg-primary/10 dark:hover:bg-muted  hover:text-foreground",
                   active &&
-                    "bg-gradient-to-r from-primary/70 from-15% to-white/00  to-90% text-primary-foreground hover:text-white dark:hover:text-foreground ",
+                    "bg-linear-to-r from-primary/70 from-15% to-white/00  to-90% text-primary-foreground hover:text-white dark:hover:text-foreground ",
                 )}
               >
                 {active && (
@@ -121,10 +121,12 @@ function NavContent({
   onNavigate,
   hasPadding = true,
   showSiteNav = false,
+  mobileMode = false,
 }: {
   onNavigate?: () => void;
   hasPadding?: boolean;
   showSiteNav?: boolean;
+  mobileMode?: boolean;
 }) {
   const pathname = usePathname();
   const locale = useLocaleOptional();
@@ -147,10 +149,17 @@ function NavContent({
       >
         {showSiteNav && (
           <>
+            {mobileMode && (
+              <div className="mb-3 px-6 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                Menu
+              </div>
+            )}
             <div className="mb-6">
               {mainNav.map((item) => {
                 const href = prefix ? `${prefix}${item.href}` : item.href;
-                const active = pathname === href || pathname.startsWith(href + "/");
+                const active =
+                  !mobileMode &&
+                  (pathname === href || pathname.startsWith(href + "/"));
                 return (
                   <Link
                     key={item.href}
@@ -160,7 +169,7 @@ function NavContent({
                     className={cn(
                       "relative group filter-pixel-noise flex h-[42px] mb-[2px] w-full items-center rounded-md px-8 text-base md:text-sm text-muted-foreground transition-colors hover:bg-primary/10 dark:hover:bg-muted hover:text-foreground",
                       active &&
-                        "bg-gradient-to-r from-primary/70 from-15% to-white/00 to-90% text-primary-foreground hover:text-white dark:hover:text-foreground",
+                        "bg-linear-to-r from-primary/70 from-15% to-white/00 to-90% text-primary-foreground hover:text-white dark:hover:text-foreground",
                     )}
                   >
                     {active && (
@@ -248,7 +257,8 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
           <NavContent
             onNavigate={closeMenu}
             hasPadding={true}
-            showSiteNav={false}
+            showSiteNav={true}
+            mobileMode={true}
           />
         </div>
       </aside>

@@ -21,18 +21,13 @@ export const mainNav = [
 export function SiteHeader() {
   const pathname = usePathname();
   const locale = useLocaleOptional();
-  const isLanding =
-    pathname === "/" || (locale && new RegExp(`^/${locale}/?$`).test(pathname));
-  const [landingMenuOpen, setLandingMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const docsSidebarOpen = useDocsSidebar((s) => s.open);
   const toggleDocsSidebar = useDocsSidebar((s) => s.toggle);
 
   const prefix = locale ? `/${locale}` : "";
-  const mobileOpen = isLanding ? landingMenuOpen : docsSidebarOpen;
-  const toggleMobile = isLanding
-    ? () => setLandingMenuOpen((v) => !v)
-    : toggleDocsSidebar;
+  const mobileOpen = docsSidebarOpen;
+  const toggleMobile = toggleDocsSidebar;
 
   return (
     <header className="sticky top-0 z-100 border-b border-border bg-background/70 backdrop-blur-md">
@@ -127,42 +122,6 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {isLanding && (
-        <div
-          className={cn(
-            "absolute top-full left-0 right-0 z-50 border-b border-border bg-background transition-all duration-200 md:hidden overflow-hidden",
-            landingMenuOpen
-              ? "max-h-[300px] opacity-100"
-              : "max-h-0 opacity-0 pointer-events-none border-b-0",
-          )}
-        >
-          <nav className="flex flex-col px-6 py-4 gap-1">
-            {mainNav.map((item) => {
-              const href = prefix ? `${prefix}${item.href}` : item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={href}
-                  onClick={() => setLandingMenuOpen(false)}
-                  className="flex h-10 items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-            <Link
-              href="https://github.com/silvak/liminal-ui"
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setLandingMenuOpen(false)}
-              className="flex h-10 items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <Github className="h-4 w-4" />
-              GitHub
-            </Link>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "../../components/site/header";
+import { SidebarNav } from "../../components/site/sidebar-nav";
 import { SiteFooter } from "../../components/site/footer";
 import { LandingHero } from "../../components/landing/hero";
 import { PhilosophySection } from "../../components/landing/philosophy";
@@ -67,6 +68,7 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+      <SidebarNav mobileOnly={true} />
 
       <main>
         <LandingHero t={dict.hero} />
