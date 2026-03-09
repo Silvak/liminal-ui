@@ -24,7 +24,7 @@ export function ArchitectureSection({ t }: { t: ArchitectureTranslations }) {
               setTimeout(() => {
                 const el = bar as HTMLElement;
                 el.style.opacity = "1";
-                el.style.transform = "translateX(0)";
+                el.style.transform = "translateY(0)";
               }, i * 150);
             });
           }
@@ -38,29 +38,39 @@ export function ArchitectureSection({ t }: { t: ArchitectureTranslations }) {
 
   return (
     <section
-      className="relative overflow-hidden py-24 lg:py-28 bg-l-bg"
+      className="relative overflow-hidden bg-l-bg py-24 lg:py-28"
       style={{ borderTop: "1px solid hsl(var(--l-border))" }}
     >
-      {/* Vertical center decoration */}
+      <div className="absolute inset-0 bg-grid opacity-25" />
       <div
-        className="absolute left-1/2 top-0 bottom-0 w-px pointer-events-none"
-        style={{ background: "linear-gradient(180deg, transparent, hsl(var(--acid-label) / 0.12) 30%, hsl(var(--acid-label) / 0.12) 70%, transparent)" }}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 25% 30%, hsl(var(--acid-label) / 0.08), transparent 42%), radial-gradient(circle at 75% 70%, hsl(var(--acid-label) / 0.06), transparent 38%)",
+        }}
       />
 
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-start">
-          {/* Left text */}
-          <div>
-            <p className="font-ibm text-xs font-bold tracking-[0.3em] uppercase mb-4 text-acid-label">
+        <div className="grid items-start gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="mb-4 font-ibm text-xs font-bold uppercase tracking-[0.3em] text-acid-label">
               {t.overline}
             </p>
-            <h2 className="font-display leading-none tracking-tight mb-6 text-l-primary" style={{ fontSize: "clamp(2.5rem,5.5vw,4.8rem)" }}>
-              {t.titleLine1}<br />{t.titleLine2}
+            <h2
+              className="mb-6 font-display leading-none tracking-tight text-l-primary"
+              style={{ fontSize: "clamp(2.5rem,5.5vw,4.8rem)" }}
+            >
+              {t.titleLine1}
+              <br />
+              {t.titleLine2}
             </h2>
-            <p className="font-ibm text-[14px] leading-[1.65] mb-10 max-w-md text-l-muted">
+            <p className="mb-10 max-w-md font-ibm text-[14px] leading-[1.72] text-l-muted">
               {t.intro}
             </p>
-            <div className="space-y-3" style={{ borderLeft: "2px solid hsl(var(--acid-label) / 0.3)", paddingLeft: "1rem" }}>
+            <div
+              className="space-y-3 border-l-2 pl-4"
+              style={{ borderColor: "hsl(var(--acid-label) / 0.3)" }}
+            >
               {t.notes.map((note) => (
                 <p key={note} className="font-ibm text-[13px] text-l-muted">
                   <span className="text-acid-label">→</span> {note}
@@ -69,25 +79,24 @@ export function ArchitectureSection({ t }: { t: ArchitectureTranslations }) {
             </div>
           </div>
 
-          {/* Right: layer diagram */}
-          <div className="space-y-3">
+          <div className="space-y-3 lg:col-span-7">
             {t.stack.map((layer, i) => (
               <div
                 key={layer.layer}
                 data-bar
-                className="relative bg-l-card transition-all duration-300"
+                className="relative overflow-hidden border bg-l-card transition-all duration-300"
                 style={{
                   opacity: 0,
-                  transform: "translateX(-20px)",
+                  transform: "translateY(20px)",
                   transition: "opacity 0.5s ease, transform 0.5s ease",
                   width: layer.width,
-                  border: "1px solid hsl(var(--l-border))",
+                  borderColor: "hsl(var(--l-border))",
                 }}
               >
-                {/* Colored left accent */}
+                <div className="pointer-events-none absolute inset-0 bg-grid opacity-10" />
                 <div className="absolute left-0 top-0 bottom-0 w-0.5" style={{ background: STACK_ACCENTS[i] }} />
-                <div className="px-5 py-4 pl-6">
-                  <div className="flex items-center justify-between mb-1.5">
+                <div className="relative z-10 px-5 py-4 pl-6">
+                  <div className="mb-1.5 flex items-center justify-between">
                     <span className="font-display text-2xl tracking-wider" style={{ color: STACK_ACCENTS[i] }}>
                       {layer.name}
                     </span>
@@ -100,8 +109,11 @@ export function ArchitectureSection({ t }: { t: ArchitectureTranslations }) {
                 )}
               </div>
             ))}
-            {/* Note */}
-            <div className="mt-4 p-4" style={{ border: "1px dashed hsl(var(--l-border))" }}>
+
+            <div
+              className="mt-4 border border-dashed p-4"
+              style={{ borderColor: "hsl(var(--l-border))", backgroundColor: "hsl(var(--l-bg-card-alt) / 0.45)" }}
+            >
               <p className="font-ibm text-[12px] text-l-muted">
                 <span className="text-acid-label font-bold">{t.noteLabel}</span>{" "}
                 {t.noteText}

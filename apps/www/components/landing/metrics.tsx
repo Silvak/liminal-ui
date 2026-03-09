@@ -26,12 +26,13 @@ export function MetricsSection({ t }: { t: MetricsTranslations }) {
         borderTop: "1px solid hsl(var(--m-border))",
       }}
     >
-      {/* Crosshatch */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ backgroundImage: "repeating-linear-gradient(45deg, hsl(var(--m-accent) / 0.06) 0px, hsl(var(--m-accent) / 0.06) 1px, transparent 1px, transparent 40px)" }}
+        style={{
+          background:
+            "radial-gradient(circle at 50% 10%, hsl(var(--m-accent) / 0.05) 0%, transparent 60%)",
+        }}
       />
-      {/* Ghost watermark */}
       <div
         aria-hidden
         className="absolute inset-0 flex items-center justify-center font-display leading-none select-none pointer-events-none overflow-hidden"
@@ -42,44 +43,44 @@ export function MetricsSection({ t }: { t: MetricsTranslations }) {
 
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
         <p
-          className="font-ibm text-xs font-bold tracking-[0.3em] uppercase mb-12"
+          className="mb-12 font-ibm text-xs font-bold uppercase tracking-[0.3em]"
           style={{ color: "hsl(var(--m-text-muted))" }}
         >
           {t.overline}
         </p>
 
         <div
-          className="grid grid-cols-2 lg:grid-cols-4 gap-0"
-          style={{ border: "1px solid hsl(var(--m-border))" }}
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
         >
           {t.stats.map((stat, i) => (
             <div
               key={stat.label}
-              className={`relative p-8 md:p-12 group ${visible ? "animate-counter-in" : "opacity-0"}`}
+              className={`group relative overflow-hidden border bg-l-card p-8 md:p-10 ${visible ? "animate-counter-in" : "opacity-0"}`}
               style={{
                 animationDelay: `${i * 0.1}s`,
                 animationFillMode: "forwards",
-                borderRight: "1px solid hsl(var(--m-border))",
+                borderColor: "hsl(var(--m-border))",
               }}
             >
+              <div className="pointer-events-none absolute inset-0 bg-grid opacity-10" />
               <div
                 className="absolute left-0 top-0 bottom-0 w-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ backgroundColor: "hsl(var(--m-accent))" }}
               />
               <div
-                className="font-display leading-none mb-2"
+                className="relative z-10 mb-2 font-display leading-none"
                 style={{ fontSize: "clamp(2.5rem,7vw,5.5rem)", color: "hsl(var(--m-text))" }}
               >
                 {stat.value}
               </div>
               <div
-                className="font-ibm text-[13px] font-bold uppercase tracking-[0.18em] mb-1"
+                className="relative z-10 mb-1 font-ibm text-[13px] font-bold uppercase tracking-[0.18em]"
                 style={{ color: "hsl(var(--m-text-muted))" }}
               >
                 {stat.label}
               </div>
               <div
-                className="font-ibm text-[11px] uppercase tracking-[0.22em]"
+                className="relative z-10 font-ibm text-[11px] uppercase tracking-[0.22em]"
                 style={{ color: "hsl(var(--m-text-faint))" }}
               >
                 {stat.sub}
@@ -88,15 +89,14 @@ export function MetricsSection({ t }: { t: MetricsTranslations }) {
           ))}
         </div>
 
-        {/* Terminal block */}
         <div
-          className="mt-10 p-5 font-ibm text-[13px]"
+          className="mt-8 border p-5 font-ibm text-[13px] code-block-glass"
           style={{
-            border: "1px solid hsl(var(--m-border))",
+            borderColor: "hsl(var(--m-border))",
             backgroundColor: "hsl(var(--m-terminal-bg))",
           }}
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="mb-4 flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "hsl(var(--m-text-faint))" }} />
             <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "hsl(var(--m-accent))" }} />
             <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "hsl(var(--m-text-faint))" }} />

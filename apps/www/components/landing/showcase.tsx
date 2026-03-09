@@ -340,31 +340,46 @@ export function ShowcaseSection({ t }: { t: ShowcaseTranslations }) {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-24 lg:py-28 bg-l-bg-alt"
+      className="relative overflow-hidden bg-l-bg-alt py-24 lg:py-28"
       style={{ borderTop: "1px solid hsl(var(--l-border))" }}
     >
-      <div className="absolute inset-0 bg-grid opacity-50" />
+      <div className="absolute inset-0 bg-grid opacity-30" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+        <div className="mb-14 grid gap-6 lg:grid-cols-12 lg:items-end">
           <div data-reveal style={{ opacity: 0 }}>
-            <p className="font-ibm text-xs font-bold tracking-[0.3em] uppercase mb-4 text-acid-label">
+            <p className="mb-4 font-ibm text-xs font-bold uppercase tracking-[0.3em] text-acid-label">
               {t.overline}
             </p>
-            <h2 className="font-display leading-none tracking-tight text-l-primary" style={{ fontSize: "clamp(2.5rem,7vw,5.5rem)" }}>
-              {t.titleLine1}<br />{t.titleLine2}
+            <h2
+              className="font-display leading-none tracking-tight text-l-primary"
+              style={{ fontSize: "clamp(2.5rem,7vw,5.5rem)" }}
+            >
+              {t.titleLine1}
+              <br />
+              {t.titleLine2}
             </h2>
           </div>
-          <p data-reveal style={{ opacity: 0 }} className="font-ibm text-[14px] max-w-sm leading-[1.6] md:text-right text-l-muted">
+          <p
+            data-reveal
+            style={{ opacity: 0 }}
+            className="font-ibm text-[14px] leading-[1.7] text-l-muted lg:col-span-4 lg:ml-auto lg:max-w-sm lg:text-right"
+          >
             {t.subtitle}
           </p>
         </div>
 
-        {/* Two-column layout */}
-        <div className="grid lg:grid-cols-5 gap-0" style={{ border: "1px solid hsl(var(--l-border))" }}>
-          {/* Component list */}
-          <div className="lg:col-span-2 bg-l-card" style={{ borderRight: "1px solid hsl(var(--l-border))" }}>
+        <div className="grid gap-6 lg:grid-cols-12">
+          <div
+            className="border bg-l-card lg:col-span-4"
+            style={{ borderColor: "hsl(var(--l-border))" }}
+          >
+            <div
+              className="border-b px-5 py-4 font-ibm text-[11px] font-bold uppercase tracking-[0.24em] text-l-faint"
+              style={{ borderColor: "hsl(var(--l-border-sub))" }}
+            >
+              Component Index
+            </div>
             {t.components.map((comp, i) => (
               <button
                 key={comp.name}
@@ -372,13 +387,16 @@ export function ShowcaseSection({ t }: { t: ShowcaseTranslations }) {
                 onClick={() => setActive(i)}
                 style={{
                   opacity: 0,
-                  borderBottom: i < t.components.length - 1 ? "1px solid hsl(var(--l-border-sub))" : undefined,
+                  borderBottom:
+                    i < t.components.length - 1
+                      ? "1px solid hsl(var(--l-border-sub))"
+                      : undefined,
                   backgroundColor: active === i ? "hsl(var(--l-bg-card-alt))" : undefined,
                 }}
-                className="flex items-center justify-between w-full text-left px-6 py-5 group hover:bg-l-card-alt transition-colors duration-200 cursor-pointer"
+                className="group flex w-full cursor-pointer items-center justify-between px-6 py-5 text-left transition-colors duration-200 hover:bg-l-card-alt"
               >
                 <div className="flex items-center gap-4">
-                  <span className="font-ibm text-[11px] font-bold w-6 text-l-faint">
+                  <span className="w-6 font-ibm text-[11px] font-bold text-l-faint">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
@@ -403,32 +421,44 @@ export function ShowcaseSection({ t }: { t: ShowcaseTranslations }) {
             ))}
           </div>
 
-          {/* Preview pane */}
           <div
             data-reveal
-            style={{ opacity: 0, backgroundColor: "hsl(var(--l-bg-card-alt))", borderLeft: "1px solid hsl(var(--l-border))" }}
-            className="lg:col-span-3 p-8 md:p-10 relative"
+            style={{ opacity: 0 }}
+            className="code-block-glass relative overflow-hidden border bg-l-card-alt p-8 md:p-10 lg:col-span-8"
           >
-            {/* Decorative corners */}
-            <div className="absolute top-4 right-4 w-5 h-5 border-t border-r" style={{ borderColor: "hsl(var(--acid-label) / 0.4)" }} />
-            <div className="absolute bottom-4 left-4 w-5 h-5 border-b border-l" style={{ borderColor: "hsl(var(--acid-label) / 0.4)" }} />
+            <div className="pointer-events-none absolute inset-0 bg-grid opacity-15" />
+            <div
+              className="absolute top-4 right-4 h-5 w-5 border-r border-t"
+              style={{ borderColor: "hsl(var(--acid-label) / 0.4)" }}
+            />
+            <div
+              className="absolute bottom-4 left-4 h-5 w-5 border-b border-l"
+              style={{ borderColor: "hsl(var(--acid-label) / 0.4)" }}
+            />
 
-            <div className="flex items-center justify-between mb-8">
-              <p className="font-ibm text-[11px] font-bold tracking-[0.25em] uppercase text-l-faint">
+            <div className="relative z-10 flex items-center justify-between mb-8">
+              <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.25em] text-l-faint">
                 {t.livePreview}
               </p>
-              <span className="flex items-center gap-1.5 font-ibm text-[10px] tracking-[0.2em] uppercase text-acid-label">
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "hsl(var(--acid-label))" }} />
+              <span className="flex items-center gap-1.5 font-ibm text-[10px] uppercase tracking-[0.2em] text-acid-label">
+                <span
+                  className="h-1.5 w-1.5 rounded-full animate-pulse"
+                  style={{ backgroundColor: "hsl(var(--acid-label))" }}
+                />
                 {t.interactive}
               </span>
             </div>
 
-            <ActivePreview />
+            <div className="relative z-10 rounded-none border p-5 md:p-6" style={{ borderColor: "hsl(var(--l-border-sub))", backgroundColor: "hsl(var(--l-bg-card) / 0.72)" }}>
+              <ActivePreview />
+            </div>
 
-            {/* Footer */}
-            <div className="mt-8 pt-6 flex items-center justify-between" style={{ borderTop: "1px solid hsl(var(--l-border-sub))" }}>
+            <div className="relative z-10 mt-8 flex items-center justify-between border-t pt-6" style={{ borderColor: "hsl(var(--l-border-sub))" }}>
               <span className="font-ibm text-[12px] text-l-muted">{t.footerText}</span>
-              <Link href={`/${locale}/docs/components/button`} className="font-ibm text-[13px] font-bold text-acid-label hover:opacity-75 transition-opacity">
+              <Link
+                href={`/${locale}/docs/components/button`}
+                className="font-ibm text-[13px] font-bold text-acid-label transition-opacity hover:opacity-75"
+              >
                 {t.viewAll}
               </Link>
             </div>
