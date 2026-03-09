@@ -15,6 +15,7 @@ import { SearchCommand } from "./search-command";
 export const mainNav = [
   { label: "Docs", href: "/docs/introduction" },
   { label: "Components", href: "/docs/components/button" },
+  { label: "Playground", href: "/playground" },
   { label: "Blog", href: "/blog" },
 ];
 

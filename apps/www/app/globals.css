@@ -180,6 +180,9 @@
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
   }
+  html.playground-no-gutter {
+    scrollbar-gutter: auto;
+  }
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
