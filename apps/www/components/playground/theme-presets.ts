@@ -49,6 +49,9 @@ export interface ThemePreset {
   spacing: number;
   letterSpacing: number;
   shadow: ShadowConfig;
+  fontSans: string;
+  fontSerif: string;
+  fontMono: string;
   light: ThemeVars;
   dark: ThemeVars;
 }
@@ -70,6 +73,9 @@ export const THEME_PRESETS: ThemePreset[] = [
     spacing: 0.25,
     letterSpacing: 0,
     shadow: defaultShadow,
+    fontSans: "Geist Sans",
+    fontSerif: "Georgia",
+    fontMono: "Geist Mono",
     light: {
       background: "oklch(0.9702 0 0)",
       foreground: "oklch(0.145 0 0)",
@@ -146,6 +152,9 @@ export const THEME_PRESETS: ThemePreset[] = [
     spacing: 0.25,
     letterSpacing: 0,
     shadow: defaultShadow,
+    fontSans: "Geist Sans",
+    fontSerif: "Georgia",
+    fontMono: "Geist Mono",
     light: {
       background: "oklch(0.97 0.01 220)",
       foreground: "oklch(0.15 0.04 220)",
@@ -222,6 +231,9 @@ export const THEME_PRESETS: ThemePreset[] = [
     spacing: 0.25,
     letterSpacing: 0,
     shadow: defaultShadow,
+    fontSans: "Geist Sans",
+    fontSerif: "Georgia",
+    fontMono: "Geist Mono",
     light: {
       background: "oklch(0.96 0.01 140)",
       foreground: "oklch(0.16 0.04 140)",
@@ -298,6 +310,9 @@ export const THEME_PRESETS: ThemePreset[] = [
     spacing: 0.25,
     letterSpacing: 0,
     shadow: defaultShadow,
+    fontSans: "Geist Sans",
+    fontSerif: "Georgia",
+    fontMono: "Geist Mono",
     light: {
       background: "oklch(0.97 0.01 50)",
       foreground: "oklch(0.16 0.04 30)",
@@ -374,6 +389,9 @@ export const THEME_PRESETS: ThemePreset[] = [
     spacing: 0.25,
     letterSpacing: 0,
     shadow: defaultShadow,
+    fontSans: "Geist Sans",
+    fontSerif: "Georgia",
+    fontMono: "Geist Mono",
     light: {
       background: "oklch(0.96 0.005 280)",
       foreground: "oklch(0.14 0.04 280)",

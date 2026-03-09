@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, ChevronDown } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { usePlaygroundStore } from "../../store/playground";
 import type { ThemeVars, ShadowConfig } from "./theme-presets";
@@ -255,8 +255,77 @@ function ColorsPanel() {
   );
 }
 
+const SANS_FONTS = [
+  "Geist Sans",
+  "Inter",
+  "Space Grotesk",
+  "Outfit",
+  "Plus Jakarta Sans",
+  "DM Sans",
+  "Sora",
+  "Nunito Sans",
+];
+
+const SERIF_FONTS = [
+  "Georgia",
+  "Playfair Display",
+  "Merriweather",
+  "Lora",
+  "Source Serif 4",
+  "Libre Baskerville",
+  "Crimson Text",
+];
+
+const MONO_FONTS = [
+  "Geist Mono",
+  "JetBrains Mono",
+  "Fira Code",
+  "Source Code Pro",
+  "IBM Plex Mono",
+  "Space Mono",
+  "Roboto Mono",
+];
+
+interface FontSelectProps {
+  label: string;
+  value: string;
+  options: string[];
+  onChange: (v: string) => void;
+}
+
+function FontSelect({ label, value, options, onChange }: FontSelectProps) {
+  return (
+    <div className="space-y-1">
+      <span className="text-[11px] text-muted-foreground">{label}</span>
+      <div className="relative">
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full h-8 pl-2 pr-6 border border-input bg-background text-xs text-foreground appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
+        >
+          {options.map((f) => (
+            <option key={f} value={f}>
+              {f}
+            </option>
+          ))}
+        </select>
+        <ChevronDown className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+      </div>
+    </div>
+  );
+}
+
 function TypographyPanel() {
-  const { letterSpacing, setLetterSpacing } = usePlaygroundStore();
+  const {
+    letterSpacing,
+    setLetterSpacing,
+    fontSans,
+    fontSerif,
+    fontMono,
+    setFontSans,
+    setFontSerif,
+    setFontMono,
+  } = usePlaygroundStore();
 
   return (
     <div className="p-4 space-y-5">
@@ -264,28 +333,28 @@ function TypographyPanel() {
         Typography
       </p>
 
-      {/* Font Family — read-only display */}
+      {/* Font Family selectors */}
       <div className="pb-4 border-b border-border space-y-3">
         <p className="text-xs font-semibold text-foreground">Font Family</p>
         <div className="space-y-2">
-          <div className="space-y-1">
-            <span className="text-[11px] text-muted-foreground">Sans-serif</span>
-            <div className="h-8 flex items-center px-2 border border-input bg-muted/30 text-xs font-mono text-muted-foreground select-all">
-              Geist Sans
-            </div>
-          </div>
-          <div className="space-y-1">
-            <span className="text-[11px] text-muted-foreground">Serif</span>
-            <div className="h-8 flex items-center px-2 border border-input bg-muted/30 text-xs font-mono text-muted-foreground select-all">
-              ui-serif, Georgia
-            </div>
-          </div>
-          <div className="space-y-1">
-            <span className="text-[11px] text-muted-foreground">Monospace</span>
-            <div className="h-8 flex items-center px-2 border border-input bg-muted/30 text-xs font-mono text-muted-foreground select-all">
-              Geist Mono
-            </div>
-          </div>
+          <FontSelect
+            label="Sans-serif"
+            value={fontSans}
+            options={SANS_FONTS}
+            onChange={setFontSans}
+          />
+          <FontSelect
+            label="Serif"
+            value={fontSerif}
+            options={SERIF_FONTS}
+            onChange={setFontSerif}
+          />
+          <FontSelect
+            label="Monospace"
+            value={fontMono}
+            options={MONO_FONTS}
+            onChange={setFontMono}
+          />
         </div>
       </div>
 

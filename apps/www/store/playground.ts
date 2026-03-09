@@ -18,6 +18,9 @@ type PlaygroundState = {
   spacing: number;
   letterSpacing: number;
   shadow: ShadowConfig;
+  fontSans: string;
+  fontSerif: string;
+  fontMono: string;
   mode: PlaygroundMode;
   activeToolTab: PlaygroundToolTab;
 
@@ -28,6 +31,9 @@ type PlaygroundState = {
   setSpacing: (s: number) => void;
   setLetterSpacing: (ls: number) => void;
   setShadowProp: (key: keyof ShadowConfig, value: number | string) => void;
+  setFontSans: (f: string) => void;
+  setFontSerif: (f: string) => void;
+  setFontMono: (f: string) => void;
   setMode: (m: PlaygroundMode) => void;
   setActiveToolTab: (tab: PlaygroundToolTab) => void;
   resetToPreset: () => void;
@@ -47,6 +53,9 @@ export const usePlaygroundStore = create<PlaygroundState>((set, get) => ({
   spacing: defaultPreset.spacing,
   letterSpacing: defaultPreset.letterSpacing,
   shadow: { ...defaultPreset.shadow },
+  fontSans: defaultPreset.fontSans,
+  fontSerif: defaultPreset.fontSerif,
+  fontMono: defaultPreset.fontMono,
   mode: "light",
   activeToolTab: "colors",
 
@@ -63,6 +72,9 @@ export const usePlaygroundStore = create<PlaygroundState>((set, get) => ({
       spacing: preset.spacing,
       letterSpacing: preset.letterSpacing,
       shadow: { ...preset.shadow },
+      fontSans: preset.fontSans,
+      fontSerif: preset.fontSerif,
+      fontMono: preset.fontMono,
     });
   },
 
@@ -79,6 +91,10 @@ export const usePlaygroundStore = create<PlaygroundState>((set, get) => ({
     set((state) => ({
       shadow: { ...state.shadow, [key]: value },
     })),
+
+  setFontSans: (f) => set({ fontSans: f }),
+  setFontSerif: (f) => set({ fontSerif: f }),
+  setFontMono: (f) => set({ fontMono: f }),
 
   setMode: (m) => {
     const { activePreset } = get();
@@ -102,6 +118,9 @@ export const usePlaygroundStore = create<PlaygroundState>((set, get) => ({
       spacing: preset.spacing,
       letterSpacing: preset.letterSpacing,
       shadow: { ...preset.shadow },
+      fontSans: preset.fontSans,
+      fontSerif: preset.fontSerif,
+      fontMono: preset.fontMono,
     });
   },
 }));

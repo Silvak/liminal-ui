@@ -9,6 +9,8 @@ import {
   ChevronUp,
   ChevronDown,
   SlidersHorizontal,
+  Copy,
+  Check,
 } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { usePlaygroundStore } from "../../store/playground";
@@ -102,12 +104,94 @@ function DarkModeSwitch() {
   );
 }
 
+// ─── Copy config button ───────────────────────────────────────────────────────
+
+function CopyConfigButton() {
+  const [copied, setCopied] = React.useState(false);
+  const store = usePlaygroundStore();
+
+  const handleCopy = async () => {
+    const {
+      themeVars,
+      radius,
+      spacing,
+      letterSpacing,
+      shadow,
+      fontSans,
+      fontSerif,
+      fontMono,
+    } = store;
+
+    const fontSansValue =
+      fontSans === "Geist Sans"
+        ? "var(--font-geist-sans), ui-sans-serif, sans-serif"
+        : `"${fontSans}", ui-sans-serif, sans-serif`;
+    const fontSerifValue =
+      fontSerif === "Georgia"
+        ? "ui-serif, Georgia, Cambria, serif"
+        : `"${fontSerif}", ui-serif, Georgia, serif`;
+    const fontMonoValue =
+      fontMono === "Geist Mono"
+        ? "var(--font-geist-mono), ui-monospace, monospace"
+        : `"${fontMono}", ui-monospace, monospace`;
+
+    const { color, x, y, blur, spread, opacity } = shadow;
+    const shadowValue = `${x}px ${y}px ${blur}px ${spread}px ${color.replace("oklch(", "oklch(").replace(")", ` / ${opacity})`)}`;
+
+    const colorLines = Object.entries(themeVars)
+      .map(([k, v]) => `  --${k}: ${v};`)
+      .join("\n");
+
+    const css = `:root {
+${colorLines}
+  --radius: ${radius}rem;
+  --spacing: ${spacing}rem;
+  --tracking-normal: ${letterSpacing}em;
+  --font-sans: ${fontSansValue};
+  --font-serif: ${fontSerifValue};
+  --font-mono: ${fontMonoValue};
+  --shadow-color: ${color};
+  --shadow-opacity: ${opacity};
+  --shadow-sm: ${shadowValue};
+  --shadow: ${shadowValue};
+  --shadow-md: ${shadowValue};
+  --shadow-lg: ${shadowValue};
+}`;
+
+    try {
+      await navigator.clipboard.writeText(css);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback: do nothing silently
+    }
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      title="Copy CSS config"
+      className="flex items-center gap-1.5 h-8 px-2.5 border border-input bg-background/50 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+    >
+      {copied ? (
+        <Check className="h-3.5 w-3.5 text-primary" />
+      ) : (
+        <Copy className="h-3.5 w-3.5" />
+      )}
+      <span className="hidden lg:inline">{copied ? "Copied!" : "Copy CSS"}</span>
+    </button>
+  );
+}
+
 // ─── Desktop top bar ──────────────────────────────────────────────────────────
 
 function DesktopTopBar() {
   return (
     <div className="hidden md:flex items-center justify-between px-3 py-2 border-b border-border bg-background/70 backdrop-blur-md shrink-0">
-      <PresetSelect />
+      <div className="flex items-center gap-2">
+        <PresetSelect />
+        <CopyConfigButton />
+      </div>
       <div className="flex items-center gap-3">
         <LayoutTabs />
         <DarkModeSwitch />
