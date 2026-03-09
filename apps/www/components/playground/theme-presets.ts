@@ -18,21 +18,58 @@ export interface ThemeVars {
   border: string;
   input: string;
   ring: string;
+  "chart-1": string;
+  "chart-2": string;
+  "chart-3": string;
+  "chart-4": string;
+  "chart-5": string;
+  sidebar: string;
+  "sidebar-foreground": string;
+  "sidebar-primary": string;
+  "sidebar-primary-foreground": string;
+  "sidebar-accent": string;
+  "sidebar-accent-foreground": string;
+  "sidebar-border": string;
+  "sidebar-ring": string;
+}
+
+export interface ShadowConfig {
+  color: string;
+  x: number;
+  y: number;
+  blur: number;
+  spread: number;
+  opacity: number;
 }
 
 export interface ThemePreset {
   name: string;
   label: string;
   radius: number;
+  spacing: number;
+  letterSpacing: number;
+  shadow: ShadowConfig;
   light: ThemeVars;
   dark: ThemeVars;
 }
+
+const defaultShadow: ShadowConfig = {
+  color: "oklch(0 0 0)",
+  x: 0,
+  y: 1,
+  blur: 0,
+  spread: 0,
+  opacity: 0,
+};
 
 export const THEME_PRESETS: ThemePreset[] = [
   {
     name: "default",
     label: "Default",
     radius: 0,
+    spacing: 0.25,
+    letterSpacing: 0,
+    shadow: defaultShadow,
     light: {
       background: "oklch(0.9702 0 0)",
       foreground: "oklch(0.145 0 0)",
@@ -53,6 +90,19 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.8754 0.0033 17.2208)",
       input: "oklch(0.922 0 0)",
       ring: "oklch(0.708 0 0)",
+      "chart-1": "oklch(0.81 0.1 252)",
+      "chart-2": "oklch(0.62 0.19 260)",
+      "chart-3": "oklch(0.55 0.22 263)",
+      "chart-4": "oklch(0.49 0.22 264)",
+      "chart-5": "oklch(0.42 0.18 266)",
+      sidebar: "oklch(0.985 0 0)",
+      "sidebar-foreground": "oklch(0.145 0 0)",
+      "sidebar-primary": "oklch(0.205 0 0)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.97 0 0)",
+      "sidebar-accent-foreground": "oklch(0.205 0 0)",
+      "sidebar-border": "oklch(0.8754 0.0033 17.2208)",
+      "sidebar-ring": "oklch(0.708 0 0)",
     },
     dark: {
       background: "oklch(0.0383 0.0265 264.052)",
@@ -74,12 +124,28 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.275 0 0)",
       input: "oklch(0.325 0 0)",
       ring: "oklch(0.556 0 0)",
+      "chart-1": "oklch(0.81 0.1 252)",
+      "chart-2": "oklch(0.62 0.19 260)",
+      "chart-3": "oklch(0.55 0.22 263)",
+      "chart-4": "oklch(0.49 0.22 264)",
+      "chart-5": "oklch(0.42 0.18 266)",
+      sidebar: "oklch(0.205 0 0)",
+      "sidebar-foreground": "oklch(0.985 0 0)",
+      "sidebar-primary": "oklch(0.488 0.243 264.376)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.269 0 0)",
+      "sidebar-accent-foreground": "oklch(0.985 0 0)",
+      "sidebar-border": "oklch(0.275 0 0)",
+      "sidebar-ring": "oklch(0.439 0 0)",
     },
   },
   {
     name: "ocean",
     label: "Ocean",
     radius: 0.5,
+    spacing: 0.25,
+    letterSpacing: 0,
+    shadow: defaultShadow,
     light: {
       background: "oklch(0.97 0.01 220)",
       foreground: "oklch(0.15 0.04 220)",
@@ -100,6 +166,19 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.85 0.03 220)",
       input: "oklch(0.9 0.02 220)",
       ring: "oklch(0.6 0.1 220)",
+      "chart-1": "oklch(0.72 0.15 200)",
+      "chart-2": "oklch(0.62 0.18 215)",
+      "chart-3": "oklch(0.52 0.2 225)",
+      "chart-4": "oklch(0.45 0.18 235)",
+      "chart-5": "oklch(0.38 0.15 245)",
+      sidebar: "oklch(0.97 0.01 220)",
+      "sidebar-foreground": "oklch(0.15 0.04 220)",
+      "sidebar-primary": "oklch(0.48 0.18 220)",
+      "sidebar-primary-foreground": "oklch(0.98 0 0)",
+      "sidebar-accent": "oklch(0.93 0.02 220)",
+      "sidebar-accent-foreground": "oklch(0.15 0.04 220)",
+      "sidebar-border": "oklch(0.85 0.03 220)",
+      "sidebar-ring": "oklch(0.6 0.1 220)",
     },
     dark: {
       background: "oklch(0.12 0.04 230)",
@@ -121,12 +200,28 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.28 0.04 230)",
       input: "oklch(0.32 0.04 230)",
       ring: "oklch(0.5 0.1 220)",
+      "chart-1": "oklch(0.72 0.15 200)",
+      "chart-2": "oklch(0.62 0.18 215)",
+      "chart-3": "oklch(0.52 0.2 225)",
+      "chart-4": "oklch(0.45 0.18 235)",
+      "chart-5": "oklch(0.38 0.15 245)",
+      sidebar: "oklch(0.18 0.04 230)",
+      "sidebar-foreground": "oklch(0.93 0.02 220)",
+      "sidebar-primary": "oklch(0.72 0.15 200)",
+      "sidebar-primary-foreground": "oklch(0.12 0.04 230)",
+      "sidebar-accent": "oklch(0.25 0.04 230)",
+      "sidebar-accent-foreground": "oklch(0.93 0.02 220)",
+      "sidebar-border": "oklch(0.28 0.04 230)",
+      "sidebar-ring": "oklch(0.5 0.1 220)",
     },
   },
   {
     name: "forest",
     label: "Forest",
     radius: 0.375,
+    spacing: 0.25,
+    letterSpacing: 0,
+    shadow: defaultShadow,
     light: {
       background: "oklch(0.96 0.01 140)",
       foreground: "oklch(0.16 0.04 140)",
@@ -147,6 +242,19 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.84 0.03 140)",
       input: "oklch(0.89 0.02 140)",
       ring: "oklch(0.55 0.1 145)",
+      "chart-1": "oklch(0.68 0.16 140)",
+      "chart-2": "oklch(0.58 0.15 130)",
+      "chart-3": "oklch(0.5 0.14 120)",
+      "chart-4": "oklch(0.42 0.13 110)",
+      "chart-5": "oklch(0.35 0.12 100)",
+      sidebar: "oklch(0.96 0.01 140)",
+      "sidebar-foreground": "oklch(0.16 0.04 140)",
+      "sidebar-primary": "oklch(0.42 0.16 145)",
+      "sidebar-primary-foreground": "oklch(0.98 0 0)",
+      "sidebar-accent": "oklch(0.92 0.02 140)",
+      "sidebar-accent-foreground": "oklch(0.16 0.04 140)",
+      "sidebar-border": "oklch(0.84 0.03 140)",
+      "sidebar-ring": "oklch(0.55 0.1 145)",
     },
     dark: {
       background: "oklch(0.1 0.03 145)",
@@ -168,12 +276,28 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.26 0.03 145)",
       input: "oklch(0.3 0.03 145)",
       ring: "oklch(0.48 0.1 145)",
+      "chart-1": "oklch(0.68 0.16 140)",
+      "chart-2": "oklch(0.58 0.15 130)",
+      "chart-3": "oklch(0.5 0.14 120)",
+      "chart-4": "oklch(0.42 0.13 110)",
+      "chart-5": "oklch(0.35 0.12 100)",
+      sidebar: "oklch(0.16 0.03 145)",
+      "sidebar-foreground": "oklch(0.92 0.02 140)",
+      "sidebar-primary": "oklch(0.68 0.16 140)",
+      "sidebar-primary-foreground": "oklch(0.1 0.03 145)",
+      "sidebar-accent": "oklch(0.22 0.03 145)",
+      "sidebar-accent-foreground": "oklch(0.92 0.02 140)",
+      "sidebar-border": "oklch(0.26 0.03 145)",
+      "sidebar-ring": "oklch(0.48 0.1 145)",
     },
   },
   {
     name: "sunset",
     label: "Sunset",
     radius: 0.75,
+    spacing: 0.25,
+    letterSpacing: 0,
+    shadow: defaultShadow,
     light: {
       background: "oklch(0.97 0.01 50)",
       foreground: "oklch(0.16 0.04 30)",
@@ -194,6 +318,19 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.86 0.04 50)",
       input: "oklch(0.91 0.02 50)",
       ring: "oklch(0.65 0.15 30)",
+      "chart-1": "oklch(0.72 0.2 40)",
+      "chart-2": "oklch(0.65 0.2 55)",
+      "chart-3": "oklch(0.58 0.18 70)",
+      "chart-4": "oklch(0.5 0.16 85)",
+      "chart-5": "oklch(0.42 0.14 100)",
+      sidebar: "oklch(0.97 0.01 50)",
+      "sidebar-foreground": "oklch(0.16 0.04 30)",
+      "sidebar-primary": "oklch(0.58 0.22 30)",
+      "sidebar-primary-foreground": "oklch(0.98 0 0)",
+      "sidebar-accent": "oklch(0.93 0.02 50)",
+      "sidebar-accent-foreground": "oklch(0.16 0.04 30)",
+      "sidebar-border": "oklch(0.86 0.04 50)",
+      "sidebar-ring": "oklch(0.65 0.15 30)",
     },
     dark: {
       background: "oklch(0.11 0.03 30)",
@@ -215,12 +352,28 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.27 0.03 30)",
       input: "oklch(0.31 0.03 30)",
       ring: "oklch(0.52 0.12 40)",
+      "chart-1": "oklch(0.72 0.2 40)",
+      "chart-2": "oklch(0.65 0.2 55)",
+      "chart-3": "oklch(0.58 0.18 70)",
+      "chart-4": "oklch(0.5 0.16 85)",
+      "chart-5": "oklch(0.42 0.14 100)",
+      sidebar: "oklch(0.17 0.03 30)",
+      "sidebar-foreground": "oklch(0.93 0.02 50)",
+      "sidebar-primary": "oklch(0.72 0.2 40)",
+      "sidebar-primary-foreground": "oklch(0.11 0.03 30)",
+      "sidebar-accent": "oklch(0.23 0.03 30)",
+      "sidebar-accent-foreground": "oklch(0.93 0.02 50)",
+      "sidebar-border": "oklch(0.27 0.03 30)",
+      "sidebar-ring": "oklch(0.52 0.12 40)",
     },
   },
   {
     name: "midnight",
     label: "Midnight",
     radius: 0.5,
+    spacing: 0.25,
+    letterSpacing: 0,
+    shadow: defaultShadow,
     light: {
       background: "oklch(0.96 0.005 280)",
       foreground: "oklch(0.14 0.04 280)",
@@ -241,6 +394,19 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.84 0.02 280)",
       input: "oklch(0.89 0.01 280)",
       ring: "oklch(0.58 0.14 290)",
+      "chart-1": "oklch(0.75 0.2 295)",
+      "chart-2": "oklch(0.65 0.18 305)",
+      "chart-3": "oklch(0.55 0.16 315)",
+      "chart-4": "oklch(0.48 0.14 325)",
+      "chart-5": "oklch(0.4 0.12 335)",
+      sidebar: "oklch(0.96 0.005 280)",
+      "sidebar-foreground": "oklch(0.14 0.04 280)",
+      "sidebar-primary": "oklch(0.45 0.22 290)",
+      "sidebar-primary-foreground": "oklch(0.98 0 0)",
+      "sidebar-accent": "oklch(0.92 0.01 280)",
+      "sidebar-accent-foreground": "oklch(0.14 0.04 280)",
+      "sidebar-border": "oklch(0.84 0.02 280)",
+      "sidebar-ring": "oklch(0.58 0.14 290)",
     },
     dark: {
       background: "oklch(0.08 0.04 285)",
@@ -262,6 +428,19 @@ export const THEME_PRESETS: ThemePreset[] = [
       border: "oklch(0.24 0.04 285)",
       input: "oklch(0.28 0.04 285)",
       ring: "oklch(0.5 0.14 290)",
+      "chart-1": "oklch(0.75 0.2 295)",
+      "chart-2": "oklch(0.65 0.18 305)",
+      "chart-3": "oklch(0.55 0.16 315)",
+      "chart-4": "oklch(0.48 0.14 325)",
+      "chart-5": "oklch(0.4 0.12 335)",
+      sidebar: "oklch(0.14 0.04 285)",
+      "sidebar-foreground": "oklch(0.93 0.01 280)",
+      "sidebar-primary": "oklch(0.75 0.2 295)",
+      "sidebar-primary-foreground": "oklch(0.08 0.04 285)",
+      "sidebar-accent": "oklch(0.2 0.04 285)",
+      "sidebar-accent-foreground": "oklch(0.93 0.01 280)",
+      "sidebar-border": "oklch(0.24 0.04 285)",
+      "sidebar-ring": "oklch(0.5 0.14 290)",
     },
   },
 ];

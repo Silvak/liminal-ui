@@ -1,226 +1,464 @@
 "use client";
 
 import * as React from "react";
-import { RotateCcw, Sun, Moon, LayoutDashboard, LayoutGrid } from "lucide-react";
-import { Button } from "../ui/button";
+import { RotateCcw } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { usePlaygroundStore, type PlaygroundLayout, type PlaygroundMode } from "../../store/playground";
-import { THEME_PRESETS, type ThemeVars } from "./theme-presets";
+import { usePlaygroundStore } from "../../store/playground";
+import type { ThemeVars, ShadowConfig } from "./theme-presets";
 
-function oklchToHex(oklch: string): string {
-  // Fallback: return a neutral hex if we can't parse
-  // Color pickers show hex; we store oklch. We use a simple mapping for display.
-  return "#888888";
-}
+// ─── Editable color row: swatch + text input ──────────────────────────────────
 
-interface ColorSwatchProps {
-  label: string;
-  varKey: keyof ThemeVars;
+interface ColorRowProps {
   value: string;
+  varKey: keyof ThemeVars;
   onChange: (key: keyof ThemeVars, value: string) => void;
 }
 
-function ColorSwatch({ label, varKey, value, onChange }: ColorSwatchProps) {
+function ColorRow({ value, varKey, onChange }: ColorRowProps) {
+  const [localValue, setLocalValue] = React.useState(value);
+
+  // Sync when external value changes (e.g. preset switch)
+  React.useEffect(() => {
+    setLocalValue(value);
+  }, [value]);
+
+  const commit = () => {
+    const trimmed = localValue.trim();
+    if (trimmed && trimmed !== value) {
+      onChange(varKey, trimmed);
+    }
+  };
+
   return (
-    <div className="flex items-center justify-between gap-2">
-      <span className="text-xs text-muted-foreground truncate flex-1">{label}</span>
+    <div className="flex items-center gap-2">
+      {/* Color swatch — opens native color picker */}
       <div
-        className="h-6 w-6 rounded border border-border cursor-pointer shrink-0 overflow-hidden relative"
-        title={value}
+        className="h-8 w-8 shrink-0 border border-border cursor-pointer overflow-hidden relative"
         style={{ backgroundColor: value }}
+        title={value}
       >
         <input
           type="color"
           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-          onChange={(e) => {
-            // Convert hex to oklch approximation via CSS
-            onChange(varKey, e.target.value);
-          }}
+          onChange={(e) => onChange(varKey, e.target.value)}
         />
+      </div>
+      {/* Editable text field */}
+      <input
+        type="text"
+        value={localValue}
+        onChange={(e) => setLocalValue(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => e.key === "Enter" && commit()}
+        className="flex-1 h-7 px-2 border border-input bg-background text-xs font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-ring min-w-0"
+      />
+    </div>
+  );
+}
+
+// ─── Color group with bottom separator ───────────────────────────────────────
+
+interface ColorGroupProps {
+  title: string;
+  entries: { key: keyof ThemeVars; label: string }[];
+  themeVars: ThemeVars;
+  onChange: (key: keyof ThemeVars, value: string) => void;
+  isLast?: boolean;
+}
+
+function ColorGroup({ title, entries, themeVars, onChange, isLast }: ColorGroupProps) {
+  return (
+    <div className={cn("space-y-2.5", !isLast && "pb-4 border-b border-border")}>
+      <p className="text-xs font-semibold text-foreground">{title}</p>
+      <div className="space-y-2">
+        {entries.map(({ key, label }) => (
+          <div key={key} className="space-y-1">
+            <span className="text-[11px] text-muted-foreground">{label}</span>
+            <ColorRow
+              value={themeVars[key] ?? "oklch(0.5 0 0)"}
+              varKey={key}
+              onChange={onChange}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-const COLOR_VARS: { label: string; key: keyof ThemeVars }[] = [
-  { label: "Background", key: "background" },
-  { label: "Foreground", key: "foreground" },
-  { label: "Primary", key: "primary" },
-  { label: "Primary FG", key: "primary-foreground" },
-  { label: "Secondary", key: "secondary" },
-  { label: "Accent", key: "accent" },
-  { label: "Muted", key: "muted" },
-  { label: "Card", key: "card" },
-  { label: "Border", key: "border" },
-  { label: "Destructive", key: "destructive" },
-];
+// ─── Slider + numeric field combo ────────────────────────────────────────────
 
-export function PlaygroundTools() {
-  const {
-    activeLayout,
-    activePreset,
-    themeVars,
-    radius,
-    mode,
-    setActiveLayout,
-    setPreset,
-    setThemeVar,
-    setRadius,
-    setMode,
-    resetToPreset,
-  } = usePlaygroundStore();
+interface SliderFieldProps {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  min: number;
+  max: number;
+  step: number;
+  unit: string;
+}
 
+function SliderField({ label, value, onChange, min, max, step, unit }: SliderFieldProps) {
   return (
-    <div className="flex flex-col h-full bg-background border-border">
-      {/* Layout tabs */}
-      <div className="p-4 border-b border-border">
-        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
-          Layout
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => setActiveLayout("dashboard")}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-md text-sm border transition-colors",
-              activeLayout === "dashboard"
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-background text-muted-foreground border-border hover:border-primary hover:text-foreground"
-            )}
-          >
-            <LayoutDashboard className="h-3.5 w-3.5" />
-            Dashboard
-          </button>
-          <button
-            onClick={() => setActiveLayout("cards")}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-md text-sm border transition-colors",
-              activeLayout === "cards"
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-background text-muted-foreground border-border hover:border-primary hover:text-foreground"
-            )}
-          >
-            <LayoutGrid className="h-3.5 w-3.5" />
-            Cards
-          </button>
-        </div>
-      </div>
-
-      {/* Mode toggle */}
-      <div className="p-4 border-b border-border">
-        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
-          Mode
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => setMode("light")}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-md text-sm border transition-colors",
-              mode === "light"
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-background text-muted-foreground border-border hover:border-primary hover:text-foreground"
-            )}
-          >
-            <Sun className="h-3.5 w-3.5" />
-            Light
-          </button>
-          <button
-            onClick={() => setMode("dark")}
-            className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-md text-sm border transition-colors",
-              mode === "dark"
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-background text-muted-foreground border-border hover:border-primary hover:text-foreground"
-            )}
-          >
-            <Moon className="h-3.5 w-3.5" />
-            Dark
-          </button>
-        </div>
-      </div>
-
-      {/* Preset selector */}
-      <div className="p-4 border-b border-border">
-        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
-          Theme Preset
-        </p>
-        <div className="flex flex-col gap-1.5">
-          {THEME_PRESETS.map((preset) => (
-            <button
-              key={preset.name}
-              onClick={() => setPreset(preset.name)}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-md text-sm border transition-colors text-left",
-                activePreset === preset.name
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-background text-muted-foreground border-border hover:border-primary hover:text-foreground"
-              )}
-            >
-              <span
-                className="h-3.5 w-3.5 rounded-full shrink-0 border border-white/20"
-                style={{
-                  backgroundColor:
-                    mode === "light"
-                      ? preset.light.primary
-                      : preset.dark.primary,
-                }}
-              />
-              {preset.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Border radius */}
-      <div className="p-4 border-b border-border">
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            Border Radius
-          </p>
-          <span className="text-xs text-muted-foreground font-mono">
-            {radius.toFixed(2)}rem
-          </span>
-        </div>
+    <div className="space-y-2">
+      <p className="text-xs font-semibold text-foreground">{label}</p>
+      <div className="flex items-center gap-2">
         <input
           type="range"
-          min={0}
-          max={1.5}
-          step={0.125}
-          value={radius}
-          onChange={(e) => setRadius(parseFloat(e.target.value))}
-          className="w-full accent-primary"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(e) => onChange(parseFloat(e.target.value))}
+          className="flex-1 accent-primary h-1.5 cursor-pointer"
         />
-        <div className="flex justify-between mt-1">
-          <span className="text-xs text-muted-foreground">0</span>
-          <span className="text-xs text-muted-foreground">1.5rem</span>
+        <div className="flex items-center gap-1 shrink-0">
+          <input
+            type="number"
+            min={min}
+            max={max}
+            step={step}
+            value={value}
+            onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
+            className="w-16 h-7 border border-input bg-background px-1.5 text-xs font-mono text-foreground text-right focus:outline-none focus:ring-1 focus:ring-ring"
+          />
+          <span className="text-xs text-muted-foreground w-7 shrink-0">{unit}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Color groups config ──────────────────────────────────────────────────────
+
+const COLOR_GROUPS: { title: string; entries: { key: keyof ThemeVars; label: string }[] }[] = [
+  {
+    title: "Primary Colors",
+    entries: [
+      { key: "primary", label: "Primary" },
+      { key: "primary-foreground", label: "Primary Foreground" },
+    ],
+  },
+  {
+    title: "Secondary Colors",
+    entries: [
+      { key: "secondary", label: "Secondary" },
+      { key: "secondary-foreground", label: "Secondary Foreground" },
+    ],
+  },
+  {
+    title: "Accent Colors",
+    entries: [
+      { key: "accent", label: "Accent" },
+      { key: "accent-foreground", label: "Accent Foreground" },
+    ],
+  },
+  {
+    title: "Base Colors",
+    entries: [
+      { key: "background", label: "Background" },
+      { key: "foreground", label: "Foreground" },
+    ],
+  },
+  {
+    title: "Card Colors",
+    entries: [
+      { key: "card", label: "Card Background" },
+      { key: "card-foreground", label: "Card Foreground" },
+    ],
+  },
+  {
+    title: "Popover Colors",
+    entries: [
+      { key: "popover", label: "Popover Background" },
+      { key: "popover-foreground", label: "Popover Foreground" },
+    ],
+  },
+  {
+    title: "Muted Colors",
+    entries: [
+      { key: "muted", label: "Muted" },
+      { key: "muted-foreground", label: "Muted Foreground" },
+    ],
+  },
+  {
+    title: "Destructive Colors",
+    entries: [
+      { key: "destructive", label: "Destructive" },
+      { key: "destructive-foreground", label: "Destructive Foreground" },
+    ],
+  },
+  {
+    title: "Border & Input Colors",
+    entries: [
+      { key: "border", label: "Border" },
+      { key: "input", label: "Input" },
+      { key: "ring", label: "Ring" },
+    ],
+  },
+  {
+    title: "Chart Colors",
+    entries: [
+      { key: "chart-1", label: "Chart 1" },
+      { key: "chart-2", label: "Chart 2" },
+      { key: "chart-3", label: "Chart 3" },
+      { key: "chart-4", label: "Chart 4" },
+      { key: "chart-5", label: "Chart 5" },
+    ],
+  },
+  {
+    title: "Sidebar Colors",
+    entries: [
+      { key: "sidebar", label: "Sidebar Background" },
+      { key: "sidebar-foreground", label: "Sidebar Foreground" },
+      { key: "sidebar-primary", label: "Sidebar Primary" },
+      { key: "sidebar-primary-foreground", label: "Sidebar Primary FG" },
+      { key: "sidebar-accent", label: "Sidebar Accent" },
+      { key: "sidebar-accent-foreground", label: "Sidebar Accent FG" },
+      { key: "sidebar-border", label: "Sidebar Border" },
+      { key: "sidebar-ring", label: "Sidebar Ring" },
+    ],
+  },
+];
+
+// ─── Tab panels ───────────────────────────────────────────────────────────────
+
+function ColorsPanel() {
+  const { themeVars, setThemeVar, resetToPreset } = usePlaygroundStore();
+
+  return (
+    <div className="p-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+          Colors
+        </p>
+        <button
+          onClick={resetToPreset}
+          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+          title="Reset to preset"
+        >
+          <RotateCcw className="h-3 w-3" />
+          Reset
+        </button>
+      </div>
+      {COLOR_GROUPS.map((group, i) => (
+        <ColorGroup
+          key={group.title}
+          title={group.title}
+          entries={group.entries}
+          themeVars={themeVars}
+          onChange={setThemeVar}
+          isLast={i === COLOR_GROUPS.length - 1}
+        />
+      ))}
+    </div>
+  );
+}
+
+function TypographyPanel() {
+  const { letterSpacing, setLetterSpacing } = usePlaygroundStore();
+
+  return (
+    <div className="p-4 space-y-5">
+      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        Typography
+      </p>
+
+      {/* Font Family — read-only display */}
+      <div className="pb-4 border-b border-border space-y-3">
+        <p className="text-xs font-semibold text-foreground">Font Family</p>
+        <div className="space-y-2">
+          <div className="space-y-1">
+            <span className="text-[11px] text-muted-foreground">Sans-serif</span>
+            <div className="h-8 flex items-center px-2 border border-input bg-muted/30 text-xs font-mono text-muted-foreground select-all">
+              Geist Sans
+            </div>
+          </div>
+          <div className="space-y-1">
+            <span className="text-[11px] text-muted-foreground">Serif</span>
+            <div className="h-8 flex items-center px-2 border border-input bg-muted/30 text-xs font-mono text-muted-foreground select-all">
+              ui-serif, Georgia
+            </div>
+          </div>
+          <div className="space-y-1">
+            <span className="text-[11px] text-muted-foreground">Monospace</span>
+            <div className="h-8 flex items-center px-2 border border-input bg-muted/30 text-xs font-mono text-muted-foreground select-all">
+              Geist Mono
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Colors */}
-      <div className="p-4 flex-1 overflow-y-auto">
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            Colors
-          </p>
-          <button
-            onClick={resetToPreset}
-            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-            title="Reset to preset"
-          >
-            <RotateCcw className="h-3 w-3" />
-            Reset
-          </button>
+      {/* Letter Spacing */}
+      <SliderField
+        label="Letter Spacing"
+        value={letterSpacing}
+        onChange={setLetterSpacing}
+        min={-0.1}
+        max={0.5}
+        step={0.01}
+        unit="em"
+      />
+    </div>
+  );
+}
+
+function OtherPanel() {
+  const { radius, spacing, shadow, setRadius, setSpacing, setShadowProp } =
+    usePlaygroundStore();
+
+  const shadowNumericFields: {
+    key: keyof ShadowConfig;
+    label: string;
+    unit: string;
+    min: number;
+    max: number;
+    step: number;
+  }[] = [
+    { key: "x", label: "X", unit: "px", min: -50, max: 50, step: 1 },
+    { key: "y", label: "Y", unit: "px", min: -50, max: 50, step: 1 },
+    { key: "blur", label: "Blur", unit: "px", min: 0, max: 100, step: 1 },
+    { key: "spread", label: "Spread", unit: "px", min: -50, max: 50, step: 1 },
+    { key: "opacity", label: "Opacity", unit: "", min: 0, max: 1, step: 0.01 },
+  ];
+
+  return (
+    <div className="p-4 space-y-5">
+      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        Other
+      </p>
+
+      {/* Radius */}
+      <div className="pb-4 border-b border-border">
+        <SliderField
+          label="Radius"
+          value={radius}
+          onChange={setRadius}
+          min={0}
+          max={2}
+          step={0.125}
+          unit="rem"
+        />
+      </div>
+
+      {/* Spacing */}
+      <div className="pb-4 border-b border-border">
+        <SliderField
+          label="Spacing"
+          value={spacing}
+          onChange={setSpacing}
+          min={0}
+          max={1}
+          step={0.05}
+          unit="rem"
+        />
+      </div>
+
+      {/* Shadow */}
+      <div className="space-y-3">
+        <p className="text-xs font-semibold text-foreground">Shadow</p>
+
+        {/* Shadow color swatch */}
+        <div className="space-y-1">
+          <span className="text-[11px] text-muted-foreground">Color</span>
+          <div className="flex items-center gap-2">
+            <div
+              className="h-8 w-8 shrink-0 border border-border cursor-pointer overflow-hidden relative"
+              style={{ backgroundColor: shadow.color }}
+              title={shadow.color}
+            >
+              <input
+                type="color"
+                className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                onChange={(e) => setShadowProp("color", e.target.value)}
+              />
+            </div>
+            <span className="text-xs font-mono text-muted-foreground truncate flex-1">
+              {shadow.color}
+            </span>
+          </div>
         </div>
-        <div className="flex flex-col gap-2">
-          {COLOR_VARS.map(({ label, key }) => (
-            <ColorSwatch
-              key={key}
-              label={label}
-              varKey={key}
-              value={themeVars[key] ?? "oklch(0.5 0 0)"}
-              onChange={(k, v) => setThemeVar(k, v)}
-            />
+
+        {/* Shadow sliders */}
+        <div className="space-y-3">
+          {shadowNumericFields.map(({ key, label, unit, min, max, step }) => (
+            <div key={key} className="space-y-1.5">
+              <span className="text-[11px] text-muted-foreground">{label}</span>
+              <div className="flex items-center gap-2">
+                <input
+                  type="range"
+                  min={min}
+                  max={max}
+                  step={step}
+                  value={shadow[key] as number}
+                  onChange={(e) =>
+                    setShadowProp(key, parseFloat(e.target.value))
+                  }
+                  className="flex-1 accent-primary h-1.5 cursor-pointer"
+                />
+                <div className="flex items-center gap-1 shrink-0">
+                  <input
+                    type="number"
+                    min={min}
+                    max={max}
+                    step={step}
+                    value={shadow[key] as number}
+                    onChange={(e) =>
+                      setShadowProp(key, parseFloat(e.target.value) || 0)
+                    }
+                    className="w-14 h-7 border border-input bg-background px-1.5 text-xs font-mono text-foreground text-right focus:outline-none focus:ring-1 focus:ring-ring"
+                  />
+                  {unit && (
+                    <span className="text-[11px] text-muted-foreground w-5 shrink-0">
+                      {unit}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main export ──────────────────────────────────────────────────────────────
+
+export function PlaygroundTools() {
+  const { activeToolTab, setActiveToolTab } = usePlaygroundStore();
+
+  const tabs = [
+    { id: "colors" as const, label: "Colors" },
+    { id: "typography" as const, label: "Typography" },
+    { id: "other" as const, label: "Other" },
+  ];
+
+  return (
+    <div className="flex flex-col h-full bg-background">
+      {/* Tab bar */}
+      <div className="flex border-b border-border shrink-0">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveToolTab(tab.id)}
+            className={cn(
+              "flex-1 py-2.5 text-xs font-medium transition-colors border-b-2 -mb-px",
+              activeToolTab === tab.id
+                ? "border-primary text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        {activeToolTab === "colors" && <ColorsPanel />}
+        {activeToolTab === "typography" && <TypographyPanel />}
+        {activeToolTab === "other" && <OtherPanel />}
       </div>
     </div>
   );
