@@ -1,5 +1,11 @@
 ## [0.11.1](https://github.com/Silvak/liminal-ui/compare/v0.11.0...v0.11.1) (2025-12-19)
 
+## 0.16.0
+
+### Minor Changes
+
+- [`ad4abf6`](https://github.com/Silvak/liminal-ui/commit/ad4abf6d2281d2daf73919ee3a2e1a11357ab7d8) Thanks [@Silvak](https://github.com/Silvak)! - add new components to the registry
+
 ## 0.15.0
 
 ### Minor Changes
