@@ -1,0 +1,171 @@
+---
+title: Dropdown Menu
+description: Menú desplegable que se abre desde un disparador con lista de opciones
+component: true
+---
+
+# Dropdown Menu
+
+Componente de menú desplegable construido con Ark UI. Usa la API de conveniencia con `trigger` e `items` para menús simples, o la API compuesta para layout personalizado, grupos y separadores.
+
+<Preview>
+  <DropdownMenu
+    trigger="Opciones"
+    items={[
+      { value: "profile", label: "Perfil" },
+      { value: "settings", label: "Ajustes" },
+      { value: "logout", label: "Cerrar sesión" },
+    ]}
+  />
+
+```tsx title="dropdown-menu-convenience.tsx" showLineNumbers
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
+
+const items = [
+  { value: "profile", label: "Perfil" },
+  { value: "settings", label: "Ajustes" },
+  { value: "logout", label: "Cerrar sesión" },
+];
+
+export default function Example() {
+  return <DropdownMenu trigger="Opciones" items={items} />;
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add dropdown-menu
+```
+
+## Uso
+
+Pasa `trigger` (contenido o elemento del botón) e `items` (array de `{ value, label, disabled? }`). Usa `onSelect` para manejar la selección.
+
+<Preview>
+  <DropdownMenu
+    trigger="Opciones"
+    items={[
+      { value: "a", label: "Opción A" },
+      { value: "b", label: "Opción B" },
+    ]}
+  />
+
+```tsx title="dropdown-menu-usage.tsx" showLineNumbers
+<DropdownMenu
+  trigger="Opciones"
+  items={[
+    { value: "a", label: "Opción A" },
+    { value: "b", label: "Opción B" },
+  ]}
+  onSelect={({ value }) => console.log(value)}
+/>
+```
+
+</Preview>
+
+## Ejemplos
+
+### API de conveniencia
+
+<Preview>
+  <DropdownMenu
+    trigger={<Button variant="outline">Abrir menú</Button>}
+    items={[
+      { value: "edit", label: "Editar" },
+      { value: "duplicate", label: "Duplicar" },
+      { value: "delete", label: "Eliminar", disabled: true },
+    ]}
+  />
+
+```tsx title="dropdown-menu-convenience.tsx" showLineNumbers
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+
+<DropdownMenu
+  trigger={<Button variant="outline">Abrir menú</Button>}
+  items={[
+    { value: "edit", label: "Editar" },
+    { value: "duplicate", label: "Duplicar" },
+    { value: "delete", label: "Eliminar", disabled: true },
+  ]}
+/>
+```
+
+</Preview>
+
+### API compuesta
+
+Usa `MenuRoot`, `MenuTrigger`, `MenuContent`, `MenuItem`, `MenuItemText` y opcionalmente `MenuItemGroup`, `MenuItemGroupLabel` y `MenuSeparator` para control total.
+
+```tsx title="dropdown-menu-compound.tsx" showLineNumbers
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuContent,
+  MenuItemGroup,
+  MenuItem,
+  MenuItemText,
+  MenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <MenuRoot>
+      <MenuTrigger asChild>
+        <Button variant="outline">Acciones</Button>
+      </MenuTrigger>
+      <MenuContent>
+        <MenuItemGroup>
+          <MenuItem value="new">Nuevo archivo</MenuItem>
+          <MenuItem value="open">Abrir</MenuItem>
+        </MenuItemGroup>
+        <MenuSeparator />
+        <MenuItemGroup>
+          <MenuItem value="logout">Cerrar sesión</MenuItem>
+        </MenuItemGroup>
+      </MenuContent>
+    </MenuRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "trigger",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Contenido o elemento que abre el menú (API de conveniencia).",
+    },
+    {
+      prop: "items",
+      type: "{ value: string; label: React.ReactNode; disabled?: boolean }[]",
+      default: "-",
+      description: "Opciones del menú (API de conveniencia).",
+    },
+    {
+      prop: "onSelect",
+      type: "(details: { value: string }) => void",
+      default: "-",
+      description: "Callback al seleccionar un ítem.",
+    },
+    {
+      prop: "open",
+      type: "boolean",
+      default: "uncontrolled",
+      description: "Estado abierto controlado (MenuRoot).",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(details) => void",
+      default: "-",
+      description: "Callback cuando cambia el estado abierto (MenuRoot).",
+    },
+  ]}
+/>

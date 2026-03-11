@@ -1,0 +1,135 @@
+---
+title: Slider
+description: Control deslizante para seleccionar un valor o rango
+component: true
+---
+
+# Slider
+
+Componente slider construido con Ark UI. Usa la API de conveniencia con `defaultValue` (array para valor único o rango) o la API compuesta para layout personalizado y varios thumbs.
+
+<Preview>
+  <Slider defaultValue={[50]} min={0} max={100} label="Volumen" />
+
+```tsx title="slider-convenience.tsx" showLineNumbers
+import { Slider } from "@/components/ui/slider";
+
+export default function Example() {
+  return (
+    <Slider defaultValue={[50]} min={0} max={100} label="Volumen" />
+  );
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add slider
+```
+
+## Uso
+
+Pasa `defaultValue` como array (ej. `[50]` para un valor, `[20, 80]` para rango), además de `min`, `max` y opcionalmente `step` y `label`.
+
+<Preview>
+  <Slider defaultValue={[30]} min={0} max={100} />
+
+```tsx title="slider-usage.tsx" showLineNumbers
+<Slider defaultValue={[30]} min={0} max={100} />
+```
+
+</Preview>
+
+## Ejemplos
+
+### Con etiqueta
+
+<Preview>
+  <Slider defaultValue={[60]} min={0} max={100} label="Brillo" />
+
+```tsx title="slider-label.tsx" showLineNumbers
+<Slider defaultValue={[60]} min={0} max={100} label="Brillo" />
+```
+
+</Preview>
+
+### Slider de rango (API compuesta)
+
+Para un rango (dos thumbs), usa la API compuesta con dos `SliderThumb` (index 0 y 1).
+
+```tsx title="slider-range.tsx" showLineNumbers
+import {
+  SliderRoot,
+  SliderLabel,
+  SliderControl,
+  SliderTrack,
+  SliderRange,
+  SliderThumb,
+} from "@/components/ui/slider";
+
+export default function Example() {
+  return (
+    <SliderRoot defaultValue={[25, 75]} min={0} max={100}>
+      <SliderLabel>Rango</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0} />
+        <SliderThumb index={1} />
+      </SliderControl>
+    </SliderRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "defaultValue",
+      type: "number[]",
+      default: "-",
+      description: "Valor(es) inicial(es), ej. [50] o [20, 80] para rango.",
+    },
+    {
+      prop: "value",
+      type: "number[]",
+      default: "-",
+      description: "Valor(es) controlado(s).",
+    },
+    {
+      prop: "min",
+      type: "number",
+      default: "0",
+      description: "Valor mínimo.",
+    },
+    {
+      prop: "max",
+      type: "number",
+      default: "100",
+      description: "Valor máximo.",
+    },
+    {
+      prop: "step",
+      type: "number",
+      default: "1",
+      description: "Incremento por paso.",
+    },
+    {
+      prop: "label",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Etiqueta accesible (API de conveniencia).",
+    },
+    {
+      prop: "onValueChange",
+      type: "(details: { value: number[] }) => void",
+      default: "-",
+      description: "Callback cuando cambia el valor.",
+    },
+  ]}
+/>

@@ -87,6 +87,45 @@ import {
   TooltipContent,
 } from "./ui/tooltip";
 import {
+  DropdownMenu,
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuItemText,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuSeparator,
+} from "./ui/dropdown-menu";
+import {
+  Progress,
+  ProgressRoot,
+  ProgressLabel,
+  ProgressValueText,
+  ProgressTrack,
+  ProgressRange,
+} from "./ui/progress";
+import {
+  Slider,
+  SliderRoot,
+  SliderLabel,
+  SliderControl,
+  SliderTrack,
+  SliderRange,
+  SliderThumb,
+} from "./ui/slider";
+import {
+  RadioGroup,
+  RadioGroupRoot,
+  RadioGroupLabel,
+  RadioGroupItem,
+  RadioGroupItemText,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+} from "./ui/radio-group";
+import { Skeleton } from "./ui/skeleton";
+import {
   SonnerDemo,
   SonnerDemoSimple,
   SonnerDemoDescription,
@@ -295,7 +334,7 @@ export const mdxComponents: MDXComponents = {
   th: ({ className, align, ...props }) => (
     <th
       className={cn(
-        "sticky top-0 z-[1] border-b border-border bg-muted px-4 py-2 font-medium text-foreground",
+        "sticky top-0 z-1 border-b border-border bg-muted px-4 py-2 font-medium text-foreground",
         getAlignClass(align),
         className,
       )}
@@ -414,6 +453,37 @@ export const mdxComponents: MDXComponents = {
   TooltipTrigger,
   TooltipPositioner,
   TooltipContent,
+  DropdownMenu,
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuItemText,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuSeparator,
+  Progress,
+  ProgressRoot,
+  ProgressLabel,
+  ProgressValueText,
+  ProgressTrack,
+  ProgressRange,
+  Slider,
+  SliderRoot,
+  SliderLabel,
+  SliderControl,
+  SliderTrack,
+  SliderRange,
+  SliderThumb,
+  RadioGroup,
+  RadioGroupRoot,
+  RadioGroupLabel,
+  RadioGroupItem,
+  RadioGroupItemText,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  Skeleton,
   SonnerDemo,
   SonnerDemoSimple,
   SonnerDemoDescription,

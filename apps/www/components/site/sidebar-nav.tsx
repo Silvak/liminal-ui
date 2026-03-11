@@ -10,7 +10,18 @@ import { useLocaleOptional } from "../../components/locale-provider";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 import { mainNav } from "./header";
-import { docNavSections, type NavSection } from "./docs-nav";
+import { docNavSections, type NavSection, type NavItem } from "./docs-nav";
+
+const NEW_BADGE_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+
+function getEffectiveBadge(item: NavItem): NavItem["badge"] {
+  if (item.badge) return item.badge;
+  if (item.addedDate) {
+    const added = new Date(item.addedDate).getTime();
+    if (Date.now() - added < NEW_BADGE_DURATION_MS) return "new";
+  }
+  return undefined;
+}
 
 const badgeVariantMap = {
   new: "default",
@@ -61,20 +72,21 @@ function CollapsibleSection({
           {section.items.map((item) => {
             const href = prefix ? `${prefix}${item.href}` : item.href;
             const active = pathname === href || pathname.startsWith(href + "/");
+            const effectiveBadge = getEffectiveBadge(item);
             const content = (
               <>
                 <span className="truncate">{item.title}</span>
-                {item.badge && (
+                {effectiveBadge && (
                   <Badge
                     variant={
-                      badgeVariantMap[item.badge] as
+                      badgeVariantMap[effectiveBadge] as
                         | "default"
                         | "secondary"
                         | "outline"
                     }
                     className="ml-auto shrink-0 text-[10px]"
                   >
-                    {item.badge}
+                    {effectiveBadge}
                   </Badge>
                 )}
               </>

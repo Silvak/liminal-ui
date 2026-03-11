@@ -1,0 +1,172 @@
+---
+title: Radio Group
+description: A group of radio buttons for single selection
+component: true
+---
+
+# Radio Group
+
+A radio group component built with Ark UI. Use the convenience API with `options` and optional `label`, or the compound API for custom layout.
+
+<Preview>
+  <RadioGroup
+    label="Framework"
+    options={[
+      { value: "react", label: "React" },
+      { value: "vue", label: "Vue" },
+      { value: "svelte", label: "Svelte" },
+    ]}
+    defaultValue="react"
+  />
+
+```tsx title="radio-group-convenience.tsx" showLineNumbers
+import { RadioGroup } from "@/components/ui/radio-group";
+
+const options = [
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue" },
+  { value: "svelte", label: "Svelte" },
+];
+
+export default function Example() {
+  return (
+    <RadioGroup
+      label="Framework"
+      options={options}
+      defaultValue="react"
+    />
+  );
+}
+```
+
+</Preview>
+
+## Installation
+
+```bash
+liminal add radio-group
+```
+
+## Usage
+
+Pass `options` (array of `{ value, label, disabled? }`), optional `label`, and `defaultValue` or controlled `value` and `onValueChange`.
+
+<Preview>
+  <RadioGroup
+    options={[
+      { value: "a", label: "Option A" },
+      { value: "b", label: "Option B" },
+    ]}
+    defaultValue="a"
+  />
+
+```tsx title="radio-group-usage.tsx" showLineNumbers
+<RadioGroup
+  options={[
+    { value: "a", label: "Option A" },
+    { value: "b", label: "Option B" },
+  ]}
+  defaultValue="a"
+/>
+```
+
+</Preview>
+
+## Examples
+
+### With label and disabled option
+
+<Preview>
+  <RadioGroup
+    label="Choose one"
+    options={[
+      { value: "yes", label: "Yes" },
+      { value: "no", label: "No" },
+      { value: "maybe", label: "Maybe", disabled: true },
+    ]}
+    defaultValue="yes"
+  />
+
+```tsx title="radio-group-disabled.tsx" showLineNumbers
+<RadioGroup
+  label="Choose one"
+  options={[
+    { value: "yes", label: "Yes" },
+    { value: "no", label: "No" },
+    { value: "maybe", label: "Maybe", disabled: true },
+  ]}
+  defaultValue="yes"
+/>
+```
+
+</Preview>
+
+### Compound API
+
+Use `RadioGroupRoot`, `RadioGroupLabel`, `RadioGroupItem`, `RadioGroupItemText`, `RadioGroupItemControl`, and `RadioGroupItemHiddenInput` for full control.
+
+```tsx title="radio-group-compound.tsx" showLineNumbers
+import {
+  RadioGroupRoot,
+  RadioGroupLabel,
+  RadioGroupItem,
+  RadioGroupItemText,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+} from "@/components/ui/radio-group";
+
+export default function Example() {
+  return (
+    <RadioGroupRoot defaultValue="react">
+      <RadioGroupLabel>Framework</RadioGroupLabel>
+      <RadioGroupItem value="react">
+        <RadioGroupItemHiddenInput />
+        <RadioGroupItemControl />
+        <RadioGroupItemText>React</RadioGroupItemText>
+      </RadioGroupItem>
+      <RadioGroupItem value="vue">
+        <RadioGroupItemHiddenInput />
+        <RadioGroupItemControl />
+        <RadioGroupItemText>Vue</RadioGroupItemText>
+      </RadioGroupItem>
+    </RadioGroupRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "options",
+      type: "{ value: string; label: React.ReactNode; disabled?: boolean }[]",
+      default: "-",
+      description: "Radio options (convenience API).",
+    },
+    {
+      prop: "label",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Group label (convenience API).",
+    },
+    {
+      prop: "defaultValue",
+      type: "string",
+      default: "-",
+      description: "Initial selected value.",
+    },
+    {
+      prop: "value",
+      type: "string",
+      default: "-",
+      description: "Controlled selected value.",
+    },
+    {
+      prop: "onValueChange",
+      type: "(details: { value: string }) => void",
+      default: "-",
+      description: "Callback when selection changes.",
+    },
+  ]}
+/>

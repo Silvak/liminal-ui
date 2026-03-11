@@ -1,0 +1,135 @@
+---
+title: Slider
+description: A slider to select a value or range
+component: true
+---
+
+# Slider
+
+A slider component built with Ark UI. Use the convenience API with `defaultValue` (array for single or range) or the compound API for custom layout and multiple thumbs.
+
+<Preview>
+  <Slider defaultValue={[50]} min={0} max={100} label="Volume" />
+
+```tsx title="slider-convenience.tsx" showLineNumbers
+import { Slider } from "@/components/ui/slider";
+
+export default function Example() {
+  return (
+    <Slider defaultValue={[50]} min={0} max={100} label="Volume" />
+  );
+}
+```
+
+</Preview>
+
+## Installation
+
+```bash
+liminal add slider
+```
+
+## Usage
+
+Pass `defaultValue` as an array (e.g. `[50]` for single value, `[20, 80]` for range), plus `min`, `max`, and optional `step` and `label`.
+
+<Preview>
+  <Slider defaultValue={[30]} min={0} max={100} />
+
+```tsx title="slider-usage.tsx" showLineNumbers
+<Slider defaultValue={[30]} min={0} max={100} />
+```
+
+</Preview>
+
+## Examples
+
+### With label
+
+<Preview>
+  <Slider defaultValue={[60]} min={0} max={100} label="Brightness" />
+
+```tsx title="slider-label.tsx" showLineNumbers
+<Slider defaultValue={[60]} min={0} max={100} label="Brightness" />
+```
+
+</Preview>
+
+### Range slider (compound API)
+
+For a range (two thumbs), use the compound API with two `SliderThumb` components (index 0 and 1).
+
+```tsx title="slider-range.tsx" showLineNumbers
+import {
+  SliderRoot,
+  SliderLabel,
+  SliderControl,
+  SliderTrack,
+  SliderRange,
+  SliderThumb,
+} from "@/components/ui/slider";
+
+export default function Example() {
+  return (
+    <SliderRoot defaultValue={[25, 75]} min={0} max={100}>
+      <SliderLabel>Range</SliderLabel>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb index={0} />
+        <SliderThumb index={1} />
+      </SliderControl>
+    </SliderRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "defaultValue",
+      type: "number[]",
+      default: "-",
+      description: "Initial value(s), e.g. [50] or [20, 80] for range.",
+    },
+    {
+      prop: "value",
+      type: "number[]",
+      default: "-",
+      description: "Controlled value(s).",
+    },
+    {
+      prop: "min",
+      type: "number",
+      default: "0",
+      description: "Minimum value.",
+    },
+    {
+      prop: "max",
+      type: "number",
+      default: "100",
+      description: "Maximum value.",
+    },
+    {
+      prop: "step",
+      type: "number",
+      default: "1",
+      description: "Step increment.",
+    },
+    {
+      prop: "label",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Accessible label (convenience API).",
+    },
+    {
+      prop: "onValueChange",
+      type: "(details: { value: number[] }) => void",
+      default: "-",
+      description: "Callback when value changes.",
+    },
+  ]}
+/>

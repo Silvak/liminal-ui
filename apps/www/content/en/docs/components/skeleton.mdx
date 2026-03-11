@@ -1,0 +1,126 @@
+---
+title: Skeleton
+description: A placeholder for loading content
+component: true
+---
+
+# Skeleton
+
+A skeleton component for loading placeholders. No Ark UI dependency; uses CVA for size variants (default, sm, lg, icon).
+
+<Preview>
+  <div className="space-y-2">
+    <Skeleton className="h-4 w-full" />
+    <Skeleton className="h-4 w-3/4" />
+    <Skeleton className="h-4 w-1/2" />
+  </div>
+
+```tsx title="skeleton-basic.tsx" showLineNumbers
+import { Skeleton } from "@/components/ui/skeleton";
+
+export default function Example() {
+  return (
+    <div className="space-y-2">
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-3/4" />
+      <Skeleton className="h-4 w-1/2" />
+    </div>
+  );
+}
+```
+
+</Preview>
+
+## Installation
+
+```bash
+liminal add skeleton
+```
+
+## Usage
+
+Use `<Skeleton />` with optional `size` prop or custom `className` for dimensions. By default it has `rounded-md`, `bg-muted`, and `animate-pulse`.
+
+<Preview>
+  <div className="space-y-2 w-full max-w-xs">
+    <Skeleton className="h-4 w-full" />
+    <Skeleton className="h-4 w-3/4" />
+    <Skeleton className="h-4 w-1/2" />
+  </div>
+
+```tsx title="skeleton-usage.tsx" showLineNumbers
+import { Skeleton } from "@/components/ui/skeleton";
+
+<div className="space-y-2 w-full max-w-xs">
+  <Skeleton className="h-4 w-full" />
+  <Skeleton className="h-4 w-3/4" />
+  <Skeleton className="h-4 w-1/2" />
+</div>
+```
+
+</Preview>
+
+## Examples
+
+### Size variants
+
+<Preview>
+  <div className="space-y-4">
+    <Skeleton size="sm" />
+    <Skeleton size="default" />
+    <Skeleton size="lg" />
+    <Skeleton size="icon" />
+  </div>
+
+```tsx title="skeleton-sizes.tsx" showLineNumbers
+import { Skeleton } from "@/components/ui/skeleton";
+
+<Skeleton size="sm" />
+<Skeleton size="default" />
+<Skeleton size="lg" />
+<Skeleton size="icon" />
+```
+
+</Preview>
+
+### Card placeholder
+
+<Preview>
+  <div className="rounded-lg border p-4 space-y-3">
+    <Skeleton className="h-5 w-1/3" />
+    <Skeleton className="h-4 w-full" />
+    <Skeleton className="h-4 w-full" />
+    <Skeleton className="h-4 w-2/3" />
+  </div>
+
+```tsx title="skeleton-card.tsx" showLineNumbers
+import { Skeleton } from "@/components/ui/skeleton";
+
+<div className="rounded-lg border p-4 space-y-3">
+  <Skeleton className="h-5 w-1/3" />
+  <Skeleton className="h-4 w-full" />
+  <Skeleton className="h-4 w-full" />
+  <Skeleton className="h-4 w-2/3" />
+</div>
+```
+
+</Preview>
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "size",
+      type: '"default" | "sm" | "lg" | "icon"',
+      default: '"default"',
+      description: "Preset size. default: h-4 w-full; sm: h-3 w-20; lg: h-6 w-full; icon: h-10 w-10.",
+    },
+    {
+      prop: "className",
+      type: "string",
+      default: "-",
+      description: "Additional classes for custom dimensions and layout.",
+    },
+  ]}
+/>

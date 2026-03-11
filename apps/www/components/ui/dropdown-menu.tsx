@@ -1,16 +1,13 @@
+"use client";
+
 import * as React from "react";
 import { Menu as ArkMenu } from "@ark-ui/react/menu";
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 import { ChevronDown } from "lucide-react";
 
-// ============================================================================
-// ROOT
-// ============================================================================
 const MenuRoot = ArkMenu.Root;
+const MenuPositioner = ArkMenu.Positioner;
 
-// ============================================================================
-// TRIGGER
-// ============================================================================
 const MenuTrigger = React.forwardRef<
   React.ElementRef<typeof ArkMenu.Trigger>,
   React.ComponentPropsWithoutRef<typeof ArkMenu.Trigger>
@@ -34,41 +31,30 @@ const MenuTrigger = React.forwardRef<
 ));
 MenuTrigger.displayName = "MenuTrigger";
 
-// ============================================================================
-// POSITIONER
-// ============================================================================
-const MenuPositioner = ArkMenu.Positioner;
-
-// ============================================================================
-// CONTENT
-// ============================================================================
 const MenuContent = React.forwardRef<
   React.ElementRef<typeof ArkMenu.Content>,
   React.ComponentPropsWithoutRef<typeof ArkMenu.Content>
 >(({ className, children, ...props }, ref) => (
   <MenuPositioner>
     <ArkMenu.Content
-        ref={ref}
-        className={cn(
-          "z-50 min-w-32 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
-          "data-[state=open]:animate-in data-[state=closed]:animate-out",
-          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-          "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
-          "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </ArkMenu.Content>
+      ref={ref}
+      className={cn(
+        "z-50 min-w-32 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+        "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </ArkMenu.Content>
   </MenuPositioner>
 ));
 MenuContent.displayName = "MenuContent";
 
-// ============================================================================
-// ITEM
-// ============================================================================
 const MenuItem = React.forwardRef<
   React.ElementRef<typeof ArkMenu.Item>,
   React.ComponentPropsWithoutRef<typeof ArkMenu.Item>
@@ -87,9 +73,6 @@ const MenuItem = React.forwardRef<
 ));
 MenuItem.displayName = "MenuItem";
 
-// ============================================================================
-// ITEM TEXT
-// ============================================================================
 const MenuItemText = React.forwardRef<
   React.ElementRef<typeof ArkMenu.ItemText>,
   React.ComponentPropsWithoutRef<typeof ArkMenu.ItemText>
@@ -98,9 +81,6 @@ const MenuItemText = React.forwardRef<
 ));
 MenuItemText.displayName = "MenuItemText";
 
-// ============================================================================
-// ITEM GROUP
-// ============================================================================
 const MenuItemGroup = React.forwardRef<
   React.ElementRef<typeof ArkMenu.ItemGroup>,
   React.ComponentPropsWithoutRef<typeof ArkMenu.ItemGroup>
@@ -109,9 +89,6 @@ const MenuItemGroup = React.forwardRef<
 ));
 MenuItemGroup.displayName = "MenuItemGroup";
 
-// ============================================================================
-// ITEM GROUP LABEL
-// ============================================================================
 const MenuItemGroupLabel = React.forwardRef<
   React.ElementRef<typeof ArkMenu.ItemGroupLabel>,
   React.ComponentPropsWithoutRef<typeof ArkMenu.ItemGroupLabel>
@@ -127,9 +104,6 @@ const MenuItemGroupLabel = React.forwardRef<
 ));
 MenuItemGroupLabel.displayName = "MenuItemGroupLabel";
 
-// ============================================================================
-// SEPARATOR
-// ============================================================================
 const MenuSeparator = React.forwardRef<
   React.ElementRef<typeof ArkMenu.Separator>,
   React.ComponentPropsWithoutRef<typeof ArkMenu.Separator>
@@ -142,9 +116,6 @@ const MenuSeparator = React.forwardRef<
 ));
 MenuSeparator.displayName = "MenuSeparator";
 
-// ============================================================================
-// CONVENIENCE COMPONENT
-// ============================================================================
 export interface DropdownMenuItem {
   value: string;
   label: React.ReactNode;
@@ -193,6 +164,4 @@ export {
   MenuItemGroup,
   MenuItemGroupLabel,
   MenuSeparator,
-  type DropdownMenuProps,
-  type DropdownMenuItem,
 };

@@ -2,6 +2,7 @@ export type NavItem = {
   title: string;
   href: string;
   badge?: "new" | "beta" | "updated";
+  addedDate?: string; // ISO date, badge "new" shown for 30 days
   disabled?: boolean;
 };
 
@@ -27,6 +28,8 @@ export const docNavSections: NavSection[] = [
       { title: "Textarea", href: "/docs/components/textarea" },
       { title: "Checkbox", href: "/docs/components/checkbox" },
       { title: "Switch", href: "/docs/components/switch" },
+      { title: "Radio Group", href: "/docs/components/radio-group", addedDate: "2026-03-11" },
+      { title: "Slider", href: "/docs/components/slider", addedDate: "2026-03-11" },
       { title: "Label", href: "/docs/components/label" },
     ],
   },
@@ -37,6 +40,8 @@ export const docNavSections: NavSection[] = [
       { title: "Badge", href: "/docs/components/badge" },
       { title: "Separator", href: "/docs/components/separator" },
       { title: "Avatar", href: "/docs/components/avatar" },
+      { title: "Progress", href: "/docs/components/progress", addedDate: "2026-03-11" },
+      { title: "Skeleton", href: "/docs/components/skeleton", addedDate: "2026-03-11" },
     ],
   },
   {
@@ -45,6 +50,7 @@ export const docNavSections: NavSection[] = [
       { title: "Alert", href: "/docs/components/alert" },
       { title: "Dialog", href: "/docs/components/dialog" },
       { title: "Popover", href: "/docs/components/popover" },
+      { title: "Dropdown Menu", href: "/docs/components/dropdown-menu", addedDate: "2026-03-11" },
       { title: "Tooltip", href: "/docs/components/tooltip" },
       { title: "Toast", href: "/docs/components/sonner" },
     ],

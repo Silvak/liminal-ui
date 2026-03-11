@@ -1,15 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { RadioGroup as ArkRadioGroup } from "@ark-ui/react/radio-group";
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 
-// ============================================================================
-// ROOT
-// ============================================================================
 const RadioGroupRoot = ArkRadioGroup.Root;
 
-// ============================================================================
-// LABEL
-// ============================================================================
 const RadioGroupLabel = React.forwardRef<
   React.ElementRef<typeof ArkRadioGroup.Label>,
   React.ComponentPropsWithoutRef<typeof ArkRadioGroup.Label>
@@ -25,9 +21,6 @@ const RadioGroupLabel = React.forwardRef<
 ));
 RadioGroupLabel.displayName = "RadioGroupLabel";
 
-// ============================================================================
-// ITEM
-// ============================================================================
 const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof ArkRadioGroup.Item>,
   React.ComponentPropsWithoutRef<typeof ArkRadioGroup.Item>
@@ -43,9 +36,6 @@ const RadioGroupItem = React.forwardRef<
 ));
 RadioGroupItem.displayName = "RadioGroupItem";
 
-// ============================================================================
-// ITEM TEXT
-// ============================================================================
 const RadioGroupItemText = React.forwardRef<
   React.ElementRef<typeof ArkRadioGroup.ItemText>,
   React.ComponentPropsWithoutRef<typeof ArkRadioGroup.ItemText>
@@ -54,9 +44,6 @@ const RadioGroupItemText = React.forwardRef<
 ));
 RadioGroupItemText.displayName = "RadioGroupItemText";
 
-// ============================================================================
-// ITEM CONTROL
-// ============================================================================
 const RadioGroupItemControl = React.forwardRef<
   React.ElementRef<typeof ArkRadioGroup.ItemControl>,
   React.ComponentPropsWithoutRef<typeof ArkRadioGroup.ItemControl>
@@ -78,14 +65,8 @@ const RadioGroupItemControl = React.forwardRef<
 ));
 RadioGroupItemControl.displayName = "RadioGroupItemControl";
 
-// ============================================================================
-// ITEM HIDDEN INPUT
-// ============================================================================
 const RadioGroupItemHiddenInput = ArkRadioGroup.ItemHiddenInput;
 
-// ============================================================================
-// CONVENIENCE COMPONENT
-// ============================================================================
 export interface RadioGroupOption {
   value: string;
   label: React.ReactNode;
@@ -132,6 +113,4 @@ export {
   RadioGroupItemText,
   RadioGroupItemControl,
   RadioGroupItemHiddenInput,
-  type RadioGroupProps,
-  type RadioGroupOption,
 };

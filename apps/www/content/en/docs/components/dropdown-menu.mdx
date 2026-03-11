@@ -1,0 +1,171 @@
+---
+title: Dropdown Menu
+description: A menu that opens from a trigger with a list of options
+component: true
+---
+
+# Dropdown Menu
+
+A dropdown menu component built with Ark UI. Use the convenience API with `trigger` and `items` for simple menus, or the compound API for custom layout, groups, and separators.
+
+<Preview>
+  <DropdownMenu
+    trigger="Options"
+    items={[
+      { value: "profile", label: "Profile" },
+      { value: "settings", label: "Settings" },
+      { value: "logout", label: "Log out" },
+    ]}
+  />
+
+```tsx title="dropdown-menu-convenience.tsx" showLineNumbers
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
+
+const items = [
+  { value: "profile", label: "Profile" },
+  { value: "settings", label: "Settings" },
+  { value: "logout", label: "Log out" },
+];
+
+export default function Example() {
+  return <DropdownMenu trigger="Options" items={items} />;
+}
+```
+
+</Preview>
+
+## Installation
+
+```bash
+liminal add dropdown-menu
+```
+
+## Usage
+
+Pass `trigger` (button content or element) and `items` (array of `{ value, label, disabled? }`). Use `onSelect` to handle item selection.
+
+<Preview>
+  <DropdownMenu
+    trigger="Options"
+    items={[
+      { value: "a", label: "Option A" },
+      { value: "b", label: "Option B" },
+    ]}
+  />
+
+```tsx title="dropdown-menu-usage.tsx" showLineNumbers
+<DropdownMenu
+  trigger="Options"
+  items={[
+    { value: "a", label: "Option A" },
+    { value: "b", label: "Option B" },
+  ]}
+  onSelect={({ value }) => console.log(value)}
+/>
+```
+
+</Preview>
+
+## Examples
+
+### Convenience API
+
+<Preview>
+  <DropdownMenu
+    trigger={<Button variant="outline">Open menu</Button>}
+    items={[
+      { value: "edit", label: "Edit" },
+      { value: "duplicate", label: "Duplicate" },
+      { value: "delete", label: "Delete", disabled: true },
+    ]}
+  />
+
+```tsx title="dropdown-menu-convenience.tsx" showLineNumbers
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+
+<DropdownMenu
+  trigger={<Button variant="outline">Open menu</Button>}
+  items={[
+    { value: "edit", label: "Edit" },
+    { value: "duplicate", label: "Duplicate" },
+    { value: "delete", label: "Delete", disabled: true },
+  ]}
+/>
+```
+
+</Preview>
+
+### Compound API
+
+Use `MenuRoot`, `MenuTrigger`, `MenuContent`, `MenuItem`, `MenuItemText`, and optionally `MenuItemGroup`, `MenuItemGroupLabel`, and `MenuSeparator` for full control.
+
+```tsx title="dropdown-menu-compound.tsx" showLineNumbers
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuContent,
+  MenuItemGroup,
+  MenuItem,
+  MenuItemText,
+  MenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <MenuRoot>
+      <MenuTrigger asChild>
+        <Button variant="outline">Actions</Button>
+      </MenuTrigger>
+      <MenuContent>
+        <MenuItemGroup>
+          <MenuItem value="new">New file</MenuItem>
+          <MenuItem value="open">Open</MenuItem>
+        </MenuItemGroup>
+        <MenuSeparator />
+        <MenuItemGroup>
+          <MenuItem value="logout">Log out</MenuItem>
+        </MenuItemGroup>
+      </MenuContent>
+    </MenuRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "trigger",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Content or element that opens the menu (convenience API).",
+    },
+    {
+      prop: "items",
+      type: "{ value: string; label: React.ReactNode; disabled?: boolean }[]",
+      default: "-",
+      description: "Menu options (convenience API).",
+    },
+    {
+      prop: "onSelect",
+      type: "(details: { value: string }) => void",
+      default: "-",
+      description: "Callback when an item is selected.",
+    },
+    {
+      prop: "open",
+      type: "boolean",
+      default: "uncontrolled",
+      description: "Controlled open state (MenuRoot).",
+    },
+    {
+      prop: "onOpenChange",
+      type: "(details) => void",
+      default: "-",
+      description: "Callback when open state changes (MenuRoot).",
+    },
+  ]}
+/>

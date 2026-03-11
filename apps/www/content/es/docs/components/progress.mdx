@@ -1,0 +1,130 @@
+---
+title: Progress
+description: Barra de progreso para estado de completado o carga
+component: true
+---
+
+# Progress
+
+Componente de barra de progreso construido con Ark UI. Usa la API de conveniencia con `value` (y opcional `showLabel`) o la API compuesta para layout personalizado.
+
+<Preview>
+  <Progress value={60} showLabel />
+
+```tsx title="progress-convenience.tsx" showLineNumbers
+import { Progress } from "@/components/ui/progress";
+
+export default function Example() {
+  return <Progress value={60} showLabel />;
+}
+```
+
+</Preview>
+
+## Instalación
+
+```bash
+liminal add progress
+```
+
+## Uso
+
+Pasa `value` (0–100 por defecto) y opcionalmente `min`, `max` y `showLabel` para mostrar el porcentaje.
+
+<Preview>
+  <div className="w-full space-y-4">
+    <Progress value={33} showLabel />
+    <Progress value={80} showLabel />
+  </div>
+
+```tsx title="progress-usage.tsx" showLineNumbers
+import { Progress } from "@/components/ui/progress";
+
+<Progress value={33} showLabel />
+<Progress value={80} showLabel />
+```
+
+</Preview>
+
+## Ejemplos
+
+### Con etiqueta
+
+<Preview>
+  <Progress value={75} showLabel />
+
+```tsx title="progress-label.tsx" showLineNumbers
+<Progress value={75} showLabel />
+```
+
+</Preview>
+
+### Rango personalizado (min / max)
+
+<Preview>
+  <Progress value={25} min={0} max={50} showLabel />
+
+```tsx title="progress-minmax.tsx" showLineNumbers
+<Progress value={25} min={0} max={50} showLabel />
+```
+
+</Preview>
+
+### API compuesta
+
+Usa `ProgressRoot`, `ProgressLabel`, `ProgressValueText`, `ProgressTrack` y `ProgressRange` para layout personalizado.
+
+```tsx title="progress-compound.tsx" showLineNumbers
+import {
+  ProgressRoot,
+  ProgressLabel,
+  ProgressValueText,
+  ProgressTrack,
+  ProgressRange,
+} from "@/components/ui/progress";
+
+export default function Example() {
+  return (
+    <ProgressRoot value={50} min={0} max={100}>
+      <div className="mb-2 flex justify-between">
+        <ProgressLabel>Subida</ProgressLabel>
+        <ProgressValueText />
+      </div>
+      <ProgressTrack>
+        <ProgressRange />
+      </ProgressTrack>
+    </ProgressRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "value",
+      type: "number",
+      default: "-",
+      description: "Valor actual de progreso (controlado).",
+    },
+    {
+      prop: "min",
+      type: "number",
+      default: "0",
+      description: "Valor mínimo.",
+    },
+    {
+      prop: "max",
+      type: "number",
+      default: "100",
+      description: "Valor máximo.",
+    },
+    {
+      prop: "showLabel",
+      type: "boolean",
+      default: "false",
+      description: "Mostrar texto de valor sobre la barra (API de conveniencia).",
+    },
+  ]}
+/>
