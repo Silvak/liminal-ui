@@ -37,12 +37,12 @@ Mantener la identidad del proyecto (code ownership, CLI copy-paste) pero que cad
 - [ ] Crear página `/docs/theming`
 - [x] Pulir landing `apps/www/app/page.tsx`
 - [x] Mejorar CLI `init`: preguntar si copiar CSS de tokens
-- [ ] Verificar `liminal add` con todos los componentes nuevos
+- [ ] Verificar `liminal add` con todos los componentes nuevos (incl. `dropdown-menu`, `progress`, `slider`, `radio-group`, `skeleton`)
 
 ### Semana 7-8: Pulido y release
 
-- [ ] Revisión de diseño: consistencia (radius, colores, animaciones, espaciados)
-- [ ] Componentes extra si da tiempo: `dropdown-menu`, `progress`, `slider`
+- [ ] Revisión de diseño: consistencia (radius, colores, animaciones, espaciados), incluyendo los 5 componentes nuevos (`dropdown-menu`, `progress`, `slider`, `radio-group`, `skeleton`)
+- [x] Componentes extra (lote 1): `dropdown-menu`, `progress`, `slider`, `radio-group`, `skeleton` — añadidos; verificar en proyecto limpio con `liminal add`
 - [ ] Testing local: proyecto Next.js limpio con `init` + `add` de varios componentes
 - [ ] Release final: changeset, push, merge "Version Packages"
 - [ ] Actualizar README con lista completa de componentes y features
@@ -127,11 +127,23 @@ El sitio ya tiene estructura funcional (`app/docs/layout.tsx` con sidebar). Hay 
 
 ## Semana 7-8: Pulido, consistencia y release
 
-1. **Revisión de diseño:** Pasar por todos los componentes y verificar consistencia visual: mismos border-radius (`--radius`), mismos colores semánticos, mismas animaciones, mismos espaciados.
-2. **Componentes extra si da tiempo:** `dropdown-menu`, `progress`, `slider`.
+1. **Revisión de diseño:** Pasar por todos los componentes y verificar consistencia visual: mismos border-radius (`--radius`), mismos colores semánticos, mismas animaciones, mismos espaciados. Incluir en la revisión los 5 componentes nuevos.
+2. **Componentes extra (lote 1):** `dropdown-menu`, `progress`, `slider`, `radio-group`, `skeleton` — ya añadidos al registry (23 componentes en total).
 3. **Testing local:** En un proyecto Next.js limpio, ejecutar `npx liminal-ui init` + `npx liminal-ui add button dialog tabs input` y verificar que todo funciona.
 4. **Release final:** Changeset con bump minor, push, merge "Version Packages".
 5. **README y docs finales:** Actualizar `README.md` con la lista completa de componentes y features.
+
+---
+
+## Componentes añadidos (lote 1 — post core)
+
+- `dropdown-menu` — Ark Menu (Root, Trigger, Positioner, Content, Item). Conveniencia: `<DropdownMenu trigger="Opciones" items={[...]} onSelect={...} />`.
+- `progress` — Ark Progress (Root, Label, ValueText, Track, Range). Conveniencia: `<Progress value={60} showLabel />`.
+- `slider` — Ark Slider (Root, Label, Control, Track, Range, Thumb). Conveniencia: `<Slider defaultValue={[50]} />`.
+- `radio-group` — Ark RadioGroup (Root, Label, Item, ItemText, ItemControl). Conveniencia: `<RadioGroup options={[...]} defaultValue="a" />`.
+- `skeleton` — Sin Ark. Placeholder de carga (animate-pulse). Variantes de tamaño (default, sm, lg, icon).
+
+**Total en registry:** 23 componentes. Tras añadirlos, ejecutar `npm run build:registry` y verificar `liminal add <nombre>` para cada uno.
 
 ---
 
