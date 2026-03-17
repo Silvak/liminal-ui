@@ -11,6 +11,7 @@ import { useLocaleOptional } from "../../components/locale-provider";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { SearchCommand } from "./search-command";
+import Image from "next/image";
 
 export const mainNav = [
   { label: "Docs", href: "/docs/introduction" },
@@ -31,8 +32,8 @@ export function SiteHeader() {
   const toggleMobile = toggleDocsSidebar;
 
   return (
-    <header className="sticky top-0 z-100 border-b border-border bg-background/70 backdrop-blur-md">
-      <div className="flex h-14 w-full items-center justify-between pl-0 pr-4 md:px-4">
+    <header className="sticky top-0 z-100 border-b border-border bg-background/70 backdrop-blur-md  px-6 md:px-8">
+      <div className="flex h-14 w-full items-center justify-between pl-0 pr-2 max-w-[1440px] mx-auto border-x">
         <div className="flex items-center gap-6">
           <Button
             type="button"
@@ -51,16 +52,17 @@ export function SiteHeader() {
             )}
           </Button>
 
-          <Link href={prefix || "/"} className="flex items-center gap-2">
+          <Link href={prefix || "/"} className="flex items-center gap-2 pl-2">
             <span className="text-sm font-semibold tracking-tight">
-              Liminal UI
+              <Image src="/logo.png" alt="Liminal UI" width={34} height={34} />
             </span>
           </Link>
 
           <nav className="hidden items-center gap-4 text-sm md:flex">
             {mainNav.map((item) => {
               const href = prefix ? `${prefix}${item.href}` : item.href;
-              const active = pathname === href || pathname.startsWith(href + "/");
+              const active =
+                pathname === href || pathname.startsWith(href + "/");
               return (
                 <Link
                   key={item.href}
@@ -122,7 +124,6 @@ export function SiteHeader() {
           </Button>
         </div>
       </div>
-
     </header>
   );
 }
