@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/site/header";
 import { SidebarNav } from "@/components/site/sidebar-nav";
 import { cn } from "@/lib/utils";
+import { ThemingSection } from "@/components/land/theming-section";
+import { ComponentsSection } from "@/components/land/components-section";
+import { ComingSoonSection } from "@/components/land/coming-soon-section";
 
-export const Container = ({
+const Container = ({
   children,
   className,
 }: {
@@ -14,7 +17,7 @@ export const Container = ({
   return (
     <div
       className={cn(
-        "relative flex max-w-6xl xl:max-w-[1440px] mx-auto h-min-content",
+        "relative flex mx-auto h-min-content max-w-[1440px]",
         className,
       )}
     >
@@ -23,21 +26,26 @@ export const Container = ({
   );
 };
 
-export default function Page() {
+type PageProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function Page({ params }: PageProps) {
+  const { locale } = await params;
   return (
     <main className="min-h-screen">
       <SiteHeader />
       <SidebarNav mobileOnly />
       <div
         id="hero"
-        className="relative h-[80vh] min-h-[480px] md:min-h-[560px] w-full overflow-hidden px-6 md:px-8"
+        className="relative h-[80vh] min-h-[480px] md:min-h-[560px] w-full overflow-hidden px-6 md:px-8 "
       >
         <Container className="relative z-10 flex flex-col md:flex-row h-full border-x">
           {/* Main content */}
           <div className="flex flex-col justify-between p-6 w-full md:w-[50%] md:border-r h-full relative">
             <div className="">
               <h1 className="font-display text-7xl sm:text-7xl md:text-7xl lg:text-9xl xl:text-9xl font-semibold leading-[0.95] tracking-tight">
-                <span className="block text-primary">LIMINAL UI</span>
+                <span className="block">LIMINAL UI</span>
                 <span className="block">DESIGN</span>
                 <span className="block">SYSTEM</span>
               </h1>
@@ -105,8 +113,23 @@ export default function Page() {
       </div>
 
       {/* ABOUT */}
-      <div id="about" className="w-full h-[400px] px-6 md:px-8">
+      <div id="about" className="w-full min-h-[400px] px-6 md:px-8">
         <Container className="border-x h-full">About</Container>
+      </div>
+
+      {/* theming */}
+      <div id="theming" className="w-full border-y">
+        <ThemingSection locale={locale} />
+      </div>
+
+      {/* components */}
+      <div id="components" className="w-full border-b">
+        <ComponentsSection locale={locale} />
+      </div>
+
+      {/* coming soon: dashboards & complex components */}
+      <div id="coming-soon" className="w-full border-b">
+        <ComingSoonSection />
       </div>
     </main>
   );

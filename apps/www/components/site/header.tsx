@@ -52,24 +52,29 @@ export function SiteHeader() {
             )}
           </Button>
 
-          <Link href={prefix || "/"} className="flex items-center gap-2 pl-2">
+          <Link href={prefix || "/"} className="flex items-center gap-2 pl-4">
             <span className="text-sm font-semibold tracking-tight">
               <Image src="/logo.png" alt="Liminal UI" width={34} height={34} />
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-4 text-sm md:flex">
-            {mainNav.map((item) => {
+          <nav className="hidden items-center text-sm md:flex">
+            {mainNav.map((item, index) => {
               const href = prefix ? `${prefix}${item.href}` : item.href;
               const active =
                 pathname === href || pathname.startsWith(href + "/");
+              const isFirst = index === 0;
+              const isLast = index === mainNav.length - 1;
               return (
                 <Link
                   key={item.href}
                   href={href}
                   className={cn(
-                    "transition-colors text-muted-foreground hover:text-foreground",
-                    active && "text-foreground font-medium",
+                    "h-10 px-4 flex items-center justify-center rounded-none border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
+                    isFirst && "rounded-l-md rounded-r-none",
+                    !isFirst && "-ml-px",
+                    isLast && "rounded-r-md rounded-l-none",
+                    active && "text-foreground",
                   )}
                 >
                   {item.label}
