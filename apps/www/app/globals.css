@@ -391,6 +391,15 @@
   }
 }
 
+@keyframes words-carousel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-glitch-1 {
   animation: glitch-1 8s infinite;
 }

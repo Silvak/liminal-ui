@@ -81,6 +81,9 @@ export type LandingDictionary = {
     ctaGitHub: string;
     footer: string;
   };
+  carousel: {
+    items: Array<{ iconKey: string; label: string }>;
+  };
 };
 
 export async function getLandingDictionary(

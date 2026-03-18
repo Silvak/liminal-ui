@@ -73,6 +73,7 @@ const config: Config = {
         'reveal-right': 'reveal-right 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards',
         'pulse-glow': 'pulse-glow 2.5s ease-in-out infinite',
         'counter-in': 'counter-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        'words-carousel': 'words-carousel 40s linear infinite',
       },
     },
   },

@@ -7,7 +7,9 @@ import { cn } from "@/lib/utils";
 import { ThemingSection } from "@/components/land/theming-section";
 import { ComponentsSection } from "@/components/land/components-section";
 import { ComingSoonSection } from "@/components/land/coming-soon-section";
+import { WordsCarousel } from "@/components/land/words-carousel";
 import { getLandingDictionary, type Locale } from "@/lib/landing-dictionary";
+import Image from "next/image";
 
 const LOCALES: Locale[] = ["en", "es"];
 function isValidLocale(value: string): value is Locale {
@@ -64,7 +66,9 @@ export async function generateMetadata({
       url: metadataBase ? new URL(canonicalPath, metadataBase) : undefined,
     },
     alternates: {
-      canonical: metadataBase ? new URL(canonicalPath, metadataBase) : canonicalPath,
+      canonical: metadataBase
+        ? new URL(canonicalPath, metadataBase)
+        : canonicalPath,
       languages: {
         en: metadataBase ? new URL("/en", metadataBase) : "/en",
         es: metadataBase ? new URL("/es", metadataBase) : "/es",
@@ -77,40 +81,42 @@ export default async function Page({ params }: PageProps) {
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
+  const dict = await getLandingDictionary(locale);
+
   return (
     <main className="min-h-screen">
       <SiteHeader />
       <SidebarNav mobileOnly />
       <div
         id="hero"
-        className="relative h-[80vh] min-h-[480px] md:min-h-[560px] w-full overflow-hidden px-6 md:px-8 "
+        className="relative h-[80vh] min-h-[480px] md:min-h-[560px] w-full  px-6 md:px-8 "
       >
-        <Container className="relative z-10 flex flex-col md:flex-row h-full border-x">
+        <Container className="relative z-10 flex flex-col md:flex-row h-full border-x overflow-hidden">
           {/* Main content */}
-          <div className="flex flex-col justify-between p-6 w-full md:w-[50%] md:border-r h-full relative">
-            <div className="">
-              <h1 className="font-display text-7xl sm:text-7xl md:text-7xl lg:text-9xl xl:text-9xl font-semibold leading-[0.95] tracking-tight">
+          <div className="flex flex-col justify-between p-6 w-full md:w-[50%] md:border-r h-full">
+            <div className="z-20 md:z-0">
+              <h1 className="font-display  text-7xl sm:text-7xl md:text-7xl lg:text-9xl xl:text-9xl font-semibold leading-[0.95] tracking-tight">
                 <span className="block">LIMINAL UI</span>
                 <span className="block">DESIGN</span>
                 <span className="block">SYSTEM</span>
               </h1>
             </div>
 
-            <div>
+            <div className="z-20">
               <h2 className="font-ibm text-base md:text-lg text-muted-foreground tracking-wide">
                 Own every line. Ship with confidence.
               </h2>
-              <p className="my-4 text-sm md:text-base text-muted-foreground/70 ">
+              <p className="my-4 text-sm md:text-base text-muted-foreground/70 pr-12 ">
                 Copy-paste React components built on Ark UI primitives and
                 styled with Tailwind v4. No wrappers, no lock-in — just clean,
                 composable code you fully control.
               </p>
 
-              <div className="flex flex-col sm:flex-row w-full ">
+              <div className="flex flex-col sm:flex-row w-full">
                 <Button
                   variant="ghost"
                   className={cn(
-                    "h-[40px] w-full  sm:px-6 rounded-none border border-border bg-background/70 backdrop-blur-md text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-background hover:z-10 relative",
+                    " h-[44px] w-full  sm:px-6 rounded-none border border-border bg-background/70 backdrop-blur-md text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-background hover:z-10 relative",
                     "rounded-t-md rounded-b-none sm:rounded-b-none sm:rounded-l-md sm:rounded-r-none",
                   )}
                 >
@@ -119,13 +125,23 @@ export default async function Page({ params }: PageProps) {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "h-[40px] w-full  sm:px-6 rounded-none border border-border bg-background/70 backdrop-blur-md text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-background hover:z-10 relative",
+                    " h-[44px] w-full  sm:px-6 rounded-none border border-border bg-background/70 backdrop-blur-md text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-background hover:z-10 relative",
                     "-mt-px sm:mt-0 sm:-ml-px rounded-b-md rounded-t-none sm:rounded-t-none sm:rounded-l-none sm:rounded-r-md",
                   )}
                 >
                   VIEW COMPONENTS
                 </Button>
               </div>
+            </div>
+
+            <div className="absolute  -bottom-[320px] -right-[100%] md:-right-[60%] lg:-right-[180px] w-[1200px] h-[900px] text-4xl text-red-700 z-10">
+              <Image
+                src="/cloud1.png"
+                alt="Hero Image"
+                fill
+                className="object-contain opacity-80 sm:opacity-100"
+                sizes="100vw"
+              />
             </div>
           </div>
 
@@ -153,8 +169,10 @@ export default async function Page({ params }: PageProps) {
       </div>
 
       {/* CARROUSEL OF WORDS */}
-      <div id="carrusel" className="w-full  h-[100px] border-y px-6 md:px-8">
-        <Container className="border-x h-full">carrusel de palabras</Container>
+      <div id="carrusel" className="w-full h-[80px] border-y px-6 md:px-8">
+        <Container className="border-x h-full px-0">
+          <WordsCarousel items={dict.carousel.items} />
+        </Container>
       </div>
 
       {/* ABOUT */}

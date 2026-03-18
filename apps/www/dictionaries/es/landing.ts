@@ -138,4 +138,17 @@ export const landingEs: LandingDictionary = {
     ctaGitHub: "GitHub ↗",
     footer: "Open source · Licencia MIT · No requiere cuenta",
   },
+  carousel: {
+    items: [
+      { iconKey: "Terminal", label: "REACT 19" },
+      { iconKey: "Layers", label: "ARK UI" },
+      { iconKey: "Wind", label: "TAILWIND V4" },
+      { iconKey: "Clipboard", label: "COPY-PASTE" },
+      { iconKey: "Box", label: "COMPOSABLE" },
+      { iconKey: "Lock", label: "ZERO LOCK-IN" },
+      { iconKey: "Cpu", label: "HEADLESS" },
+      { iconKey: "FileCode", label: "SOURCE OWNED" },
+      { iconKey: "GitBranch", label: "OPEN SOURCE" },
+    ],
+  },
 };
