@@ -182,13 +182,13 @@ export default async function Page({ params }: PageProps) {
         <ThemingSection locale={locale} />
       </div>
 
-      <div id="carrusel" className="w-full h-[80px] border-y px-6 md:px-8">
-        <Container className="border-x h-full px-0">as</Container>
-      </div>
-
       {/* components */}
       <div id="components" className="w-full border-b">
         <ComponentsSection locale={locale} />
+      </div>
+
+      <div id="carrusel" className="w-full h-[100px] border-b px-6 md:px-8">
+        <Container className="border-x h-full px-0">as</Container>
       </div>
 
       {/* coming soon: dashboards & complex components */}
