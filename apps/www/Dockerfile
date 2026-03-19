@@ -52,8 +52,8 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar archivos públicos (carpeta public creada en builder si no existía)
-COPY --from=builder /app/apps/www/public ./public/
+# Copiar archivos públicos junto al proyecto standalone (apps/www)
+COPY --from=builder --chown=nextjs:nodejs /app/apps/www/public ./apps/www/public/
 
 # Configurar permisos para el directorio de cache
 RUN mkdir .next
