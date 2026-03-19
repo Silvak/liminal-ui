@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { ThemingSection } from "@/components/land/theming-section";
 import { ComponentsSection } from "@/components/land/components-section";
 import { ComingSoonSection } from "@/components/land/coming-soon-section";
+import { PkgManTabs } from "@/components/pkg-man-tabs";
 
 const Container = ({
   children,
@@ -113,8 +114,28 @@ export default async function Page({ params }: PageProps) {
       </div>
 
       {/* ABOUT */}
-      <div id="about" className="w-full min-h-[400px] px-6 md:px-8">
-        <Container className="border-x h-full">About</Container>
+      <div
+        id="about"
+        className="flex w-full min-h-[400px] flex-col px-6 md:px-8"
+      >
+        <Container className="flex h-full min-h-0 flex-1 flex-col border-x">
+          <div className="flex w-full flex-1 flex-col items-center justify-center gap-5 px-6 py-8 md:gap-6 md:px-10 md:py-12">
+            <h2 className="text-center font-display text-3xl leading-tight tracking-tight md:text-5xl">
+              Build clean UIs faster.
+            </h2>
+            <p className="mx-auto max-w-2xl text-center font-ibm text-sm text-muted-foreground md:text-base">
+              Start with a minimal setup and ship reusable components with full
+              control over your design system.
+            </p>
+            <PkgManTabs
+              className="mx-auto my-0 w-full max-w-xl"
+              npm="npm i liminal-ui"
+              pnpm="pnpm add liminal-ui"
+              yarn="yarn add liminal-ui"
+              bun="bun add liminal-ui"
+            />
+          </div>
+        </Container>
       </div>
 
       {/* theming */}
