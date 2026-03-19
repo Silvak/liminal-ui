@@ -16,6 +16,18 @@ const THEME_ACCENT_COLORS: Record<string, string> = {
   midnight: "oklch(0.45 0.22 290)",
 };
 
+const CARD_SHADOWS: Record<string, string> = {
+  default: "none",
+  ocean: "0 4px 24px -4px oklch(0.48 0.18 220 / 0.18)",
+  forest: "0 4px 20px -4px oklch(0.42 0.16 145 / 0.16)",
+  sunset: "0 6px 28px -4px oklch(0.58 0.22 30 / 0.2)",
+  midnight: "0 6px 32px -6px oklch(0.45 0.22 290 / 0.25)",
+};
+
+const CARD_RADIUS_OVERRIDE: Record<string, number> = {
+  midnight: 1.25,
+};
+
 const CSS_KEYS = [
   "background",
   "foreground",
@@ -75,12 +87,22 @@ const lampGlowFlickerStyle: React.CSSProperties = {
 function CardDemo({
   vars,
   heroBackground,
+  radius,
+  shadow,
 }: {
   vars: React.CSSProperties;
   /** `preset.dark.background`: ocean, forest, sunset, midnight, default */
   heroBackground: string;
+  radius: number;
+  shadow: string;
 }) {
   const [liked, setLiked] = useState(false);
+
+  const isPill = radius >= 1;
+  const cardRadius = `${radius}rem`;
+  const cardTopRadius = `${radius}rem ${radius}rem 0 0`;
+  const badgeRadius = isPill ? "9999px" : `${radius * 0.5}rem`;
+  const buttonRadius = isPill ? "9999px" : `${radius * 0.75}rem`;
 
   return (
     <div
@@ -97,12 +119,18 @@ function CardDemo({
         }
       `}</style>
       <div className="relative w-full max-w-[340px] overflow-visible">
-        <div className="relative overflow-visible rounded-xl border border-border bg-card text-card-foreground shadow-sm">
+        <div
+          className="relative overflow-visible border border-border bg-card text-card-foreground transition-all duration-500"
+          style={{ borderRadius: cardRadius, boxShadow: shadow }}
+        >
           {/* Lámpara */}
-          <div className="relative h-[200px] overflow-hidden rounded-t-xl">
+          <div
+            className="relative h-[200px] overflow-hidden transition-all duration-500"
+            style={{ borderRadius: cardTopRadius }}
+          >
             <div
-              className="absolute top-0 left-0 z-10 h-[175px] w-full rounded-t-xl transition-[background-color] duration-500 ease-out"
-              style={{ backgroundColor: heroBackground }}
+              className="absolute top-0 left-0 z-10 h-[175px] w-full transition-all duration-500 ease-out"
+              style={{ backgroundColor: heroBackground, borderRadius: cardTopRadius }}
             />
             {/* Glow radial difuso (sin clip-path) */}
             <div
@@ -138,7 +166,10 @@ function CardDemo({
               <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
                 COMPONENT
               </p>
-              <span className="shrink-0 rounded-md bg-primary px-2 py-0.5 font-ibm text-[10px] font-bold uppercase tracking-[0.2em] text-primary-foreground">
+              <span
+                className="shrink-0 bg-primary px-2 py-0.5 font-ibm text-[10px] font-bold uppercase tracking-[0.2em] text-primary-foreground transition-all duration-500"
+                style={{ borderRadius: badgeRadius }}
+              >
                 v2.4
               </span>
             </div>
@@ -156,7 +187,8 @@ function CardDemo({
               {["Accessible", "Themeable", "Composable"].map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-md border border-border px-2 py-0.5 font-ibm text-[9px] uppercase tracking-[0.15em] text-muted-foreground"
+                  className="border border-border px-2 py-0.5 font-ibm text-[9px] uppercase tracking-[0.15em] text-muted-foreground transition-all duration-500"
+                  style={{ borderRadius: badgeRadius }}
                 >
                   {tag}
                 </span>
@@ -178,7 +210,8 @@ function CardDemo({
               </button>
               <button
                 type="button"
-                className="rounded-lg bg-primary px-3 py-1.5 font-ibm text-[11px] font-bold uppercase tracking-[0.15em] text-primary-foreground transition-opacity hover:opacity-80"
+                className="bg-primary px-3 py-1.5 font-ibm text-[11px] font-bold uppercase tracking-[0.15em] text-primary-foreground transition-all duration-500 hover:opacity-80"
+                style={{ borderRadius: buttonRadius }}
               >
                 View Docs
               </button>
@@ -262,7 +295,12 @@ export function ThemingSection({ locale }: { locale: string }) {
                 </div>
               </div>
 
-              <CardDemo vars={previewVars} heroBackground={heroBackground} />
+              <CardDemo
+                vars={previewVars}
+                heroBackground={heroBackground}
+                radius={CARD_RADIUS_OVERRIDE[activePreset.name] ?? activePreset.radius}
+                shadow={CARD_SHADOWS[activePreset.name] ?? "none"}
+              />
             </div>
           </div>
 
