@@ -9,7 +9,8 @@ import { useDocsSidebar } from "../../store/docs-sidebar";
 import { useLocaleOptional } from "../../components/locale-provider";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
-import { mainNav } from "./header";
+import { useSiteCopy } from "../../components/site-copy-provider";
+import { mainNavRoutes } from "../../lib/site-nav";
 import { docNavSections, type NavSection, type NavItem } from "./docs-nav";
 
 const NEW_BADGE_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
@@ -142,6 +143,7 @@ function NavContent({
 }) {
   const pathname = usePathname();
   const locale = useLocaleOptional();
+  const site = useSiteCopy();
   const prefix = locale ? `/${locale}` : "";
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(
     () => Object.fromEntries(docNavSections.map((s) => [s.title, true])),
@@ -163,15 +165,16 @@ function NavContent({
           <>
             {mobileMode && (
               <div className="mb-3 px-6 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                Menu
+                {site.header.mobileMenuHeading}
               </div>
             )}
             <div className="mb-6">
-              {mainNav.map((item) => {
+              {mainNavRoutes.map((item) => {
                 const href = prefix ? `${prefix}${item.href}` : item.href;
                 const active =
                   !mobileMode &&
                   (pathname === href || pathname.startsWith(href + "/"));
+                const label = site.header.nav[item.key];
                 return (
                   <Link
                     key={item.href}
@@ -187,7 +190,7 @@ function NavContent({
                     {active && (
                       <div className="w-[8px] h-[26px] absolute left-2 bg-muted rounded-[2px]" />
                     )}
-                    <span className="truncate">{item.label}</span>
+                    <span className="truncate">{label}</span>
                   </Link>
                 );
               })}
@@ -214,6 +217,7 @@ function NavContent({
 
 export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
   const { open, closeMenu } = useDocsSidebar();
+  const site = useSiteCopy();
 
   useEffect(() => {
     if (open) {
@@ -232,7 +236,7 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
       {!mobileOnly && (
         <aside
           className="fixed top-14 left-0 z-30 hidden h-[calc(100vh-3.5rem)] w-[288px] shrink-0 overflow-hidden border-r border-border bg-background md:block"
-          aria-label="Documentation"
+          aria-label={site.header.sidebarDocsAria}
         >
           <NavContent />
         </aside>
@@ -254,7 +258,7 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
 
       {/* Mobile */}
       <aside
-        aria-label="Navigation menu"
+        aria-label={site.header.mobileMenuAria}
         aria-modal="true"
         role="dialog"
         onKeyDown={(e) => e.key === "Escape" && closeMenu()}

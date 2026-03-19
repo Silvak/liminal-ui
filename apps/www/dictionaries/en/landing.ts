@@ -1,4 +1,11 @@
 import type { LandingDictionary } from "../../lib/landing-dictionary";
+import {
+  landingAboutEn,
+  landingComingSoonEn,
+  landingComponentsEn,
+  landingPageHeroEn,
+  landingThemingEn,
+} from "./landing-main-en";
 
 export const landingEn: LandingDictionary = {
   meta: {
@@ -6,6 +13,11 @@ export const landingEn: LandingDictionary = {
     description:
       "Copy-paste React components built with Ark UI and Tailwind CSS. No black boxes, just source code you control.",
   },
+  pageHero: landingPageHeroEn,
+  about: landingAboutEn,
+  theming: landingThemingEn,
+  components: landingComponentsEn,
+  comingSoon: landingComingSoonEn,
   hero: {
     sysVersion: "SYS.v0.15.0",
     arkTw: "ARK UI / TW CSS",

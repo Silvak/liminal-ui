@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Github, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLocaleOptional } from "@/components/locale-provider";
+import { useSiteCopy } from "@/components/site-copy-provider";
+import { mainNavRoutes } from "@/lib/site-nav";
 
 const REPO = "https://github.com/silvak/liminal-ui";
 const CONTACT_EMAIL = "sivak.jeg@gmail.com";
@@ -48,25 +50,28 @@ function FooterColumn({
 export function SiteFooter() {
   const locale = useLocaleOptional();
   const prefix = locale ? `/${locale}` : "";
+  const site = useSiteCopy();
+  const L = site.footer.links;
 
-  const productLinks: FooterLink[] = [
-    { label: "Docs", href: "/docs/introduction" },
-    { label: "Components", href: "/docs/components/button" },
-    { label: "Playground", href: "/playground" },
-    { label: "Blog", href: "/blog" },
-  ];
+  const productLinks: FooterLink[] = mainNavRoutes.map((r) => ({
+    label: L[r.key],
+    href: r.href,
+  }));
 
   const resourceLinks: FooterLink[] = [
-    { label: "GitHub", href: REPO, external: true },
-    { label: "Changelog", href: `${REPO}/releases`, external: true },
-    { label: "MIT License", href: `${REPO}/blob/main/LICENSE`, external: true },
+    { label: L.github, href: REPO, external: true },
+    { label: L.changelog, href: `${REPO}/releases`, external: true },
+    { label: L.mitLicense, href: `${REPO}/blob/main/LICENSE`, external: true },
   ];
 
   const communityLinks: FooterLink[] = [
-    { label: "Discussions", href: `${REPO}/discussions`, external: true },
-    { label: "Issues", href: `${REPO}/issues`, external: true },
-    { label: "Pull requests", href: `${REPO}/pulls`, external: true },
+    { label: L.discussions, href: `${REPO}/discussions`, external: true },
+    { label: L.issues, href: `${REPO}/issues`, external: true },
+    { label: L.pullRequests, href: `${REPO}/pulls`, external: true },
   ];
+
+  const year = new Date().getFullYear();
+  const copyright = site.footer.copyright.replace("{year}", String(year));
 
   return (
     <footer className="border-t border-border bg-background">
@@ -80,7 +85,7 @@ export function SiteFooter() {
               >
                 <Image
                   src="/logo.png"
-                  alt="Liminal UI"
+                  alt={site.footer.logoAlt}
                   width={34}
                   height={34}
                 />
@@ -89,15 +94,14 @@ export function SiteFooter() {
                 </span>
               </Link>
               <p className="max-w-sm font-ibm text-sm text-muted-foreground">
-                Copy-paste React components on Ark UI and Tailwind. Own every
-                line — no lock-in.
+                {site.footer.tagline}
               </p>
               <div className="flex items-center gap-2">
                 <Link
                   href={REPO}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="GitHub"
+                  aria-label={site.footer.githubAria}
                   className={cn(
                     "flex h-10 w-10 items-center justify-center border border-border bg-background text-muted-foreground transition-colors",
                     "hover:z-10 hover:border-primary hover:text-foreground",
@@ -107,7 +111,7 @@ export function SiteFooter() {
                 </Link>
                 <a
                   href={MAILTO_HREF}
-                  aria-label={`Enviar correo a ${CONTACT_EMAIL}`}
+                  aria-label={`${site.footer.emailAriaPrefix} ${CONTACT_EMAIL}`}
                   title={CONTACT_EMAIL}
                   className={cn(
                     "flex h-10 w-10 items-center justify-center border border-border bg-background text-muted-foreground transition-colors",
@@ -121,17 +125,17 @@ export function SiteFooter() {
 
             <div className="grid gap-10 sm:grid-cols-3 lg:col-span-8 lg:gap-8">
               <FooterColumn
-                title="Product"
+                title={site.footer.productColumn}
                 links={productLinks}
                 prefix={prefix}
               />
               <FooterColumn
-                title="Resources"
+                title={site.footer.resourcesColumn}
                 links={resourceLinks}
                 prefix={prefix}
               />
               <FooterColumn
-                title="Community"
+                title={site.footer.communityColumn}
                 links={communityLinks}
                 prefix={prefix}
               />
@@ -139,9 +143,9 @@ export function SiteFooter() {
           </div>
 
           <div className="flex flex-col gap-4 border-t border-border px-6 py-6 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between lg:px-8">
-            <p>© {new Date().getFullYear()} Liminal UI. MIT License.</p>
+            <p>{copyright}</p>
             <p className="font-ibm text-xs uppercase tracking-widest text-muted-foreground/80 md:text-right">
-              Built with{" "}
+              {site.footer.builtWith}{" "}
               <a
                 href="https://ark-ui.com"
                 target="_blank"

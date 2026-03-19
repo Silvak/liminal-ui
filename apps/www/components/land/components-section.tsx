@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
+import type { LandingComponentsCopy } from "@/lib/landing-dictionary";
 
-// ─── Component Previews ────────────────────────────────────────────────────
-
-function ButtonPreview() {
+function ButtonPreview({ b }: { b: LandingComponentsCopy["button"] }) {
   const [size, setSize] = useState<"sm" | "default" | "lg">("default");
 
   const sizeClasses = {
@@ -16,18 +15,19 @@ function ButtonPreview() {
 
   return (
     <div className="space-y-6">
-      {/* Show all 3 variants side by side */}
       <div className="flex flex-wrap items-center gap-3 min-h-[60px]">
         <button
+          type="button"
           className={`${sizeClasses[size]} font-ibm font-bold tracking-[0.12em] uppercase transition-opacity hover:opacity-80`}
           style={{
             backgroundColor: "var(--foreground)",
             color: "var(--background)",
           }}
         >
-          Execute
+          {b.execute}
         </button>
         <button
+          type="button"
           className={`${sizeClasses[size]} font-ibm font-semibold tracking-[0.12em] uppercase transition-colors`}
           style={{
             border: "1px solid var(--border)",
@@ -35,24 +35,26 @@ function ButtonPreview() {
             backgroundColor: "transparent",
           }}
         >
-          Inspect
+          {b.inspect}
         </button>
         <button
+          type="button"
           className={`${sizeClasses[size]} font-ibm tracking-[0.12em] uppercase transition-colors`}
           style={{ color: "var(--muted-foreground)" }}
         >
-          Clone
+          {b.clone}
         </button>
       </div>
 
       <div>
         <p className="font-ibm text-[10px] uppercase tracking-[0.25em] mb-2 text-muted-foreground">
-          Size
+          {b.size}
         </p>
         <div className="flex gap-1.5">
           {(["sm", "default", "lg"] as const).map((s) => (
             <button
               key={s}
+              type="button"
               onClick={() => setSize(s)}
               className="px-3 py-1.5 font-ibm text-[10px] uppercase tracking-[0.15em] transition-all"
               style={{
@@ -74,32 +76,16 @@ function ButtonPreview() {
   );
 }
 
-function AlertPreview() {
+function AlertPreview({ a }: { a: LandingComponentsCopy["alert"] }) {
   const [type, setType] = useState<"info" | "success" | "warning" | "error">(
     "info",
   );
 
   const config = {
-    info: {
-      color: "var(--primary)",
-      label: "SYSTEM.INFO",
-      msg: "Component ready. Source in ./components/ui/alert.tsx",
-    },
-    success: {
-      color: "oklch(0.55 0.18 145)",
-      label: "SYSTEM.OK",
-      msg: "All checks passed. Build successful.",
-    },
-    warning: {
-      color: "oklch(0.7 0.18 85)",
-      label: "SYSTEM.WARN",
-      msg: "Deprecated prop detected. See migration guide.",
-    },
-    error: {
-      color: "oklch(0.6 0.22 27)",
-      label: "SYSTEM.ERR",
-      msg: "Failed to resolve dependency. Check config.",
-    },
+    info: { color: "var(--primary)", ...a.info },
+    success: { color: "oklch(0.55 0.18 145)", ...a.success },
+    warning: { color: "oklch(0.7 0.18 85)", ...a.warning },
+    error: { color: "oklch(0.6 0.22 27)", ...a.error },
   };
 
   const c = config[type];
@@ -132,12 +118,13 @@ function AlertPreview() {
 
       <div>
         <p className="font-ibm text-[10px] uppercase tracking-[0.25em] mb-2 text-muted-foreground">
-          Type
+          {a.typeLabel}
         </p>
         <div className="flex gap-1.5 flex-wrap">
           {(["info", "success", "warning", "error"] as const).map((t) => (
             <button
               key={t}
+              type="button"
               onClick={() => setType(t)}
               className="px-3 py-1.5 font-ibm text-[10px] uppercase tracking-[0.15em] transition-all"
               style={{
@@ -159,7 +146,7 @@ function AlertPreview() {
   );
 }
 
-function CardPreview() {
+function CardPreview({ c }: { c: LandingComponentsCopy["card"] }) {
   const [showHeader, setShowHeader] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
 
@@ -178,17 +165,16 @@ function CardPreview() {
             style={{ borderBottom: "1px solid var(--border)" }}
           >
             <p className="font-display text-xl tracking-wider text-foreground">
-              Card Title
+              {c.title}
             </p>
             <p className="font-ibm text-[11px] text-muted-foreground uppercase tracking-[0.2em] mt-0.5">
-              Composable
+              {c.subtitle}
             </p>
           </div>
         )}
         <div className="px-5 py-5">
           <p className="font-ibm text-[13px] leading-relaxed text-muted-foreground">
-            Card body content goes here. Fully composable — add or remove
-            sections as needed.
+            {c.body}
           </p>
         </div>
         {showFooter && (
@@ -196,17 +182,21 @@ function CardPreview() {
             className="px-5 py-3 flex justify-end gap-2"
             style={{ borderTop: "1px solid var(--border)" }}
           >
-            <button className="px-3 py-1.5 font-ibm text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-              Cancel
+            <button
+              type="button"
+              className="px-3 py-1.5 font-ibm text-[11px] uppercase tracking-[0.12em] text-muted-foreground"
+            >
+              {c.cancel}
             </button>
             <button
+              type="button"
               className="px-3 py-1.5 font-ibm text-[11px] font-bold uppercase tracking-[0.12em]"
               style={{
                 backgroundColor: "var(--foreground)",
                 color: "var(--background)",
               }}
             >
-              Save
+              {c.save}
             </button>
           </div>
         )}
@@ -221,7 +211,7 @@ function CardPreview() {
             className="accent-current"
           />
           <span className="font-ibm text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-            Header
+            {c.headerToggle}
           </span>
         </label>
         <label className="flex items-center gap-2 cursor-pointer">
@@ -232,7 +222,7 @@ function CardPreview() {
             className="accent-current"
           />
           <span className="font-ibm text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-            Footer
+            {c.footerToggle}
           </span>
         </label>
       </div>
@@ -240,10 +230,16 @@ function CardPreview() {
   );
 }
 
-function BadgePreview() {
+function BadgePreview({ b }: { b: LandingComponentsCopy["badge"] }) {
   const [variant, setVariant] = useState<"solid" | "outline" | "accent">(
     "solid",
   );
+
+  const variantLabel: Record<typeof variant, string> = {
+    solid: b.solid,
+    outline: b.outline,
+    accent: b.accent,
+  };
 
   return (
     <div className="space-y-6">
@@ -286,19 +282,19 @@ function BadgePreview() {
                 className="px-3 py-1.5 font-ibm text-[11px] tracking-[0.2em] uppercase text-muted-foreground"
                 style={{ border: "1px solid var(--border)" }}
               >
-                Tailwind v4
+                {b.outline1}
               </span>
               <span
                 className="px-3 py-1.5 font-ibm text-[11px] tracking-[0.2em] uppercase text-muted-foreground"
                 style={{ border: "1px solid var(--border)" }}
               >
-                Next.js
+                {b.outline2}
               </span>
               <span
                 className="px-3 py-1.5 font-ibm text-[11px] tracking-[0.2em] uppercase text-muted-foreground"
                 style={{ border: "1px solid var(--border)" }}
               >
-                TypeScript
+                {b.outline3}
               </span>
             </>
           )}
@@ -312,7 +308,7 @@ function BadgePreview() {
                   border: "1px solid var(--border)",
                 }}
               >
-                Open Source
+                {b.accent1}
               </span>
               <span
                 className="px-3 py-1.5 font-ibm text-[11px] font-bold tracking-[0.2em] uppercase"
@@ -322,7 +318,7 @@ function BadgePreview() {
                   border: "1px solid var(--border)",
                 }}
               >
-                MIT License
+                {b.accent2}
               </span>
             </>
           )}
@@ -331,12 +327,13 @@ function BadgePreview() {
 
       <div>
         <p className="font-ibm text-[10px] uppercase tracking-[0.25em] mb-2 text-muted-foreground">
-          Variant
+          {b.variant}
         </p>
         <div className="flex gap-1.5">
           {(["solid", "outline", "accent"] as const).map((v) => (
             <button
               key={v}
+              type="button"
               onClick={() => setVariant(v)}
               className="px-3 py-1.5 font-ibm text-[10px] uppercase tracking-[0.15em] transition-all"
               style={{
@@ -351,7 +348,7 @@ function BadgePreview() {
                 }`,
               }}
             >
-              {v}
+              {variantLabel[v]}
             </button>
           ))}
         </div>
@@ -360,21 +357,16 @@ function BadgePreview() {
   );
 }
 
-function TabsPreview() {
+function TabsPreview({ t }: { t: LandingComponentsCopy["tabs"] }) {
   const [activeTab, setActiveTab] = useState(0);
-  const tabs = ["Overview", "API", "Examples"];
-  const content = [
-    "A fully accessible tab component built on Ark UI primitives. Keyboard navigable with arrow keys.",
-    "Tabs.Root, Tabs.List, Tabs.Trigger, Tabs.Content — composable API with zero hidden logic.",
-    "Use with icons, badges, or custom indicators. Animated underline included.",
-  ];
 
   return (
     <div className="space-y-0">
       <div className="flex" style={{ borderBottom: "1px solid var(--border)" }}>
-        {tabs.map((tab, i) => (
+        {t.labels.map((tab, i) => (
           <button
             key={tab}
+            type="button"
             onClick={() => setActiveTab(i)}
             className="relative px-4 py-3 font-ibm text-[12px] uppercase tracking-[0.15em] transition-colors"
             style={{
@@ -396,19 +388,19 @@ function TabsPreview() {
       </div>
       <div className="p-5">
         <p className="font-ibm text-[13px] leading-relaxed text-muted-foreground">
-          {content[activeTab]}
+          {t.paragraphs[activeTab]}
         </p>
       </div>
     </div>
   );
 }
 
-function SeparatorPreview() {
+function SeparatorPreview({ s }: { s: LandingComponentsCopy["separator"] }) {
   return (
     <div className="space-y-6 py-2">
       <div className="space-y-4">
         <p className="font-ibm text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-          Horizontal
+          {s.horizontal}
         </p>
         <div
           className="h-px w-full"
@@ -428,7 +420,7 @@ function SeparatorPreview() {
       </div>
       <div className="flex gap-8 items-stretch h-16">
         <p className="font-ibm text-[10px] uppercase tracking-[0.25em] text-muted-foreground self-center">
-          Vertical
+          {s.vertical}
         </p>
         <div className="w-px" style={{ backgroundColor: "var(--border)" }} />
         <div
@@ -447,93 +439,65 @@ function SeparatorPreview() {
   );
 }
 
-// ─── Component Index ───────────────────────────────────────────────────────
+function buildPreviewList(copy: LandingComponentsCopy) {
+  return [
+    () => <ButtonPreview b={copy.button} />,
+    () => <AlertPreview a={copy.alert} />,
+    () => <CardPreview c={copy.card} />,
+    () => <BadgePreview b={copy.badge} />,
+    () => <TabsPreview t={copy.tabs} />,
+    () => <SeparatorPreview s={copy.separator} />,
+  ];
+}
 
-const COMPONENTS = [
-  {
-    name: "Button",
-    category: "Actions",
-    count: "6 variants",
-    Preview: ButtonPreview,
-  },
-  {
-    name: "Alert",
-    category: "Feedback",
-    count: "4 types",
-    Preview: AlertPreview,
-  },
-  {
-    name: "Card",
-    category: "Layout",
-    count: "Composable",
-    Preview: CardPreview,
-  },
-  {
-    name: "Badge",
-    category: "Display",
-    count: "3 variants",
-    Preview: BadgePreview,
-  },
-  {
-    name: "Tabs",
-    category: "Navigation",
-    count: "Accessible",
-    Preview: TabsPreview,
-  },
-  {
-    name: "Separator",
-    category: "Layout",
-    count: "H + V",
-    Preview: SeparatorPreview,
-  },
-] as const;
-
-// ─── Main Section ──────────────────────────────────────────────────────────
-
-export function ComponentsSection({ locale }: { locale: string }) {
+export function ComponentsSection({
+  locale,
+  copy,
+}: {
+  locale: string;
+  copy: LandingComponentsCopy;
+}) {
   const [active, setActive] = useState(0);
-  const ActivePreview = COMPONENTS[active].Preview;
+  const previews = useMemo(() => buildPreviewList(copy), [copy]);
+  const ActivePreview = previews[active];
+  const items = copy.items;
 
   return (
     <section className="w-full px-6 md:px-8">
       <div className="relative flex mx-auto h-min-content max-w-[1440px] border-x flex-col">
-        {/* Header */}
         <div className="w-full border-b px-6 py-8 md:px-10">
           <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-3">
-            COMPONENT SYSTEM
+            {copy.overline}
           </p>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <h2
               className="font-display leading-none tracking-tight text-foreground"
               style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
             >
-              Built to compose.
+              {copy.titleLine1}
               <br />
-              Ready to ship.
+              {copy.titleLine2}
             </h2>
             <p className="font-ibm text-[13px] leading-[1.7] text-muted-foreground md:max-w-xs md:text-right">
-              Pick a component. Adjust its props. See the result live. Every
-              piece is accessible, themeable, and yours to own.
+              {copy.description}
             </p>
           </div>
         </div>
 
-        {/* Main grid */}
         <div className="w-full flex flex-col md:flex-row min-h-[520px]">
-          {/* Left: Component index */}
           <div
             className="w-full md:w-[30%] md:border-r md:overflow-x-visible"
             style={{ borderColor: "var(--border)" }}
           >
-            {/* Mobile: horizontal scroll row */}
             <div className="md:hidden h-[80px] w-full border-b">
               <div className="h-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="flex h-full min-w-max">
-                  {COMPONENTS.map((comp, i) => {
+                  {items.map((comp, i) => {
                     const isActive = active === i;
                     return (
                       <button
                         key={comp.name}
+                        type="button"
                         onClick={() => setActive(i)}
                         className="flex h-full min-w-[132px] shrink-0 items-center justify-center border-r last:border-r-0 px-4 font-ibm text-[11px] uppercase tracking-[0.15em] whitespace-nowrap transition-all cursor-pointer"
                         style={{
@@ -554,24 +518,24 @@ export function ComponentsSection({ locale }: { locale: string }) {
               </div>
             </div>
 
-            {/* Desktop: vertical list */}
             <div className="hidden md:block">
               <div
                 className="border-b px-5 h-[80px] flex items-center font-ibm text-[11px] font-bold uppercase tracking-[0.24em] text-muted-foreground"
                 style={{ borderColor: "var(--border)" }}
               >
-                Component Index
+                {copy.componentIndex}
               </div>
-              {COMPONENTS.map((comp, i) => {
+              {items.map((comp, i) => {
                 const isActive = active === i;
                 return (
                   <button
                     key={comp.name}
+                    type="button"
                     onClick={() => setActive(i)}
                     className="group flex w-full h-[80px] cursor-pointer items-center justify-between px-5 text-left transition-all duration-200 hover:bg-muted/60"
                     style={{
                       borderBottom:
-                        i < COMPONENTS.length - 1
+                        i < items.length - 1
                           ? "1px solid var(--border)"
                           : undefined,
                       borderLeft: `3px solid ${
@@ -636,14 +600,13 @@ export function ComponentsSection({ locale }: { locale: string }) {
             </div>
           </div>
 
-          {/* Right: Preview panel */}
           <div className="w-full md:w-[70%] flex flex-col flex-1 min-h-0">
             <div
               className="flex items-center justify-between px-6 h-[52px] md:h-[80px] border-b"
               style={{ borderColor: "var(--border)" }}
             >
               <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
-                Live Preview
+                {copy.livePreview}
               </p>
               <span
                 className="flex items-center gap-1.5 font-ibm text-[10px] uppercase tracking-[0.2em]"
@@ -653,7 +616,7 @@ export function ComponentsSection({ locale }: { locale: string }) {
                   className="h-1.5 w-1.5 rounded-full animate-pulse"
                   style={{ backgroundColor: "var(--primary)" }}
                 />
-                Interactive
+                {copy.interactive}
               </span>
             </div>
 
@@ -674,16 +637,15 @@ export function ComponentsSection({ locale }: { locale: string }) {
                   backgroundColor: "var(--card)",
                 }}
               >
-                <ActivePreview />
+                {ActivePreview && <ActivePreview />}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Footer */}
         <div className="w-full border-t px-6 py-5 md:px-10 flex items-center justify-between">
           <span className="font-ibm text-[12px] text-muted-foreground">
-            {COMPONENTS.length} components shown — 24+ available in docs
+            {copy.footerLine.replace("{count}", String(items.length))}
           </span>
           <Link
             href={`/${locale}/docs/components/button`}
@@ -700,7 +662,7 @@ export function ComponentsSection({ locale }: { locale: string }) {
               (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
             }}
           >
-            Explore Docs →
+            {copy.exploreDocs}
           </Link>
         </div>
       </div>

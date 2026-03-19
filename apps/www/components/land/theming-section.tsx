@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { THEME_PRESETS, type ThemePreset } from "../playground/theme-presets";
 import { CodeBlock } from "../code-block";
 import Image from "next/image";
+import type { LandingThemingCopy } from "@/lib/landing-dictionary";
 
 const THEME_ACCENT_COLORS: Record<string, string> = {
   default: "oklch(0.463 0.2818 264.2203)",
@@ -89,12 +90,14 @@ function CardDemo({
   heroBackground,
   radius,
   shadow,
+  card,
 }: {
   vars: React.CSSProperties;
   /** `preset.dark.background`: ocean, forest, sunset, midnight, default */
   heroBackground: string;
   radius: number;
   shadow: string;
+  card: LandingThemingCopy["cardDemo"];
 }) {
   const [liked, setLiked] = useState(false);
 
@@ -154,7 +157,7 @@ function CardDemo({
           {/* Lámpara */}
           <Image
             src="/lamp.png"
-            alt="Lámpara decorativa sobre la tarjeta de ejemplo"
+            alt={card.lampAlt}
             width={200}
             height={200}
             className="absolute left-1/2 -top-[108px] z-30 h-[320px] w-[320px] -translate-x-1/2 object-contain drop-shadow-lg"
@@ -164,7 +167,7 @@ function CardDemo({
           <div className="space-y-3 px-5 pb-4 pt-3">
             <div className="flex items-center justify-between gap-3">
               <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
-                COMPONENT
+                {card.componentLabel}
               </p>
               <span
                 className="shrink-0 bg-primary px-2 py-0.5 font-ibm text-[10px] font-bold uppercase tracking-[0.2em] text-primary-foreground transition-all duration-500"
@@ -175,16 +178,15 @@ function CardDemo({
             </div>
 
             <p className="font-display text-xl tracking-wide text-foreground -mt-2">
-              Profile Card
+              {card.profileCard}
             </p>
 
             <p className="font-ibm text-[12px] leading-relaxed text-muted-foreground line-clamp-2">
-              A composable card built on Ark UI primitives — accessible,
-              themeable, zero lock-in.
+              {card.description}
             </p>
 
             <div className="flex flex-wrap gap-1.5">
-              {["Accessible", "Themeable", "Composable"].map((tag) => (
+              {card.tags.map((tag) => (
                 <span
                   key={tag}
                   className="border border-border px-2 py-0.5 font-ibm text-[9px] uppercase tracking-[0.15em] text-muted-foreground transition-all duration-500"
@@ -206,14 +208,14 @@ function CardDemo({
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                {liked ? "★ Saved" : "☆ Save"}
+                {liked ? card.saved : card.save}
               </button>
               <button
                 type="button"
                 className="bg-primary px-3 py-1.5 font-ibm text-[11px] font-bold uppercase tracking-[0.15em] text-primary-foreground transition-all duration-500 hover:opacity-80"
                 style={{ borderRadius: buttonRadius }}
               >
-                View Docs
+                {card.viewDocs}
               </button>
             </div>
           </div>
@@ -223,7 +225,13 @@ function CardDemo({
   );
 }
 
-export function ThemingSection({ locale }: { locale: string }) {
+export function ThemingSection({
+  locale,
+  copy,
+}: {
+  locale: string;
+  copy: LandingThemingCopy;
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const { resolvedTheme } = useTheme();
   const activePreset = THEME_PRESETS[activeIndex];
@@ -240,20 +248,19 @@ export function ThemingSection({ locale }: { locale: string }) {
         {/* Header */}
         <div className="w-full border-b px-6 py-8 md:px-10">
           <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-3">
-            THEMING ENGINE
+            {copy.overline}
           </p>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <h2
               className="font-display leading-none tracking-tight text-foreground"
               style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
             >
-              One system.
+              {copy.titleLine1}
               <br />
-              Infinite palettes.
+              {copy.titleLine2}
             </h2>
             <p className="font-ibm text-[13px] leading-[1.7] text-muted-foreground md:max-w-xs md:text-right">
-              Switch between curated presets or craft your own. Every variable
-              updates in real time — what you see is what you ship.
+              {copy.blurb}
             </p>
           </div>
         </div>
@@ -289,7 +296,7 @@ export function ThemingSection({ locale }: { locale: string }) {
                           className="w-4 h-4 rounded-full shrink-0"
                           style={{ backgroundColor: accentColor }}
                         />
-                        {preset.label}
+                        {copy.presetLabels[preset.name] ?? preset.label}
                       </button>
                     );
                   })}
@@ -302,6 +309,7 @@ export function ThemingSection({ locale }: { locale: string }) {
                 heroBackground={heroBackground}
                 radius={CARD_RADIUS_OVERRIDE[activePreset.name] ?? activePreset.radius}
                 shadow={CARD_SHADOWS[activePreset.name] ?? "none"}
+                card={copy.cardDemo}
               />
             </div>
           </div>
@@ -324,7 +332,10 @@ export function ThemingSection({ locale }: { locale: string }) {
         {/* Footer */}
         <div className="w-full border-t px-6 py-5 md:px-10 flex items-center justify-between">
           <span className="font-ibm text-[12px] text-muted-foreground">
-            {THEME_PRESETS.length} presets included — fully customizable
+            {copy.footerPresets.replace(
+              "{count}",
+              String(THEME_PRESETS.length),
+            )}
           </span>
           <Link
             href={`/${locale}/playground`}
@@ -335,7 +346,7 @@ export function ThemingSection({ locale }: { locale: string }) {
               color: "var(--background)",
             }}
           >
-            Open Playground →
+            {copy.openPlayground}
           </Link>
         </div>
       </div>

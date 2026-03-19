@@ -8,21 +8,17 @@ import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
 import { useLocaleOptional } from "../../components/locale-provider";
+import { useSiteCopy } from "../../components/site-copy-provider";
+import { mainNavRoutes } from "../../lib/site-nav";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { SearchCommand } from "./search-command";
 import Image from "next/image";
 
-export const mainNav = [
-  { label: "Docs", href: "/docs/introduction" },
-  { label: "Components", href: "/docs/components/button" },
-  { label: "Playground", href: "/playground" },
-  { label: "Blog", href: "/blog" },
-];
-
 export function SiteHeader() {
   const pathname = usePathname();
   const locale = useLocaleOptional();
+  const site = useSiteCopy();
   const [searchOpen, setSearchOpen] = useState(false);
   const docsSidebarOpen = useDocsSidebar((s) => s.open);
   const toggleDocsSidebar = useDocsSidebar((s) => s.toggle);
@@ -40,9 +36,7 @@ export function SiteHeader() {
             variant="ghost"
             size="icon"
             className="md:hidden w-[56px] h-[56px] rounded-none border-r border-border"
-            aria-label={
-              mobileOpen ? "Close navigation menu" : "Open navigation menu"
-            }
+            aria-label={mobileOpen ? site.header.menuClose : site.header.menuOpen}
             onClick={toggleMobile}
           >
             {mobileOpen ? (
@@ -54,17 +48,23 @@ export function SiteHeader() {
 
           <Link href={prefix || "/"} className="flex items-center gap-2 pl-4">
             <span className="text-sm font-semibold tracking-tight">
-              <Image src="/logo.png" alt="Liminal UI" width={34} height={34} />
+              <Image
+                src="/logo.png"
+                alt={site.footer.logoAlt}
+                width={34}
+                height={34}
+              />
             </span>
           </Link>
 
           <nav className="hidden items-center text-sm md:flex">
-            {mainNav.map((item, index) => {
+            {mainNavRoutes.map((item, index) => {
               const href = prefix ? `${prefix}${item.href}` : item.href;
               const active =
                 pathname === href || pathname.startsWith(href + "/");
               const isFirst = index === 0;
-              const isLast = index === mainNav.length - 1;
+              const isLast = index === mainNavRoutes.length - 1;
+              const label = site.header.nav[item.key];
               return (
                 <Link
                   key={item.href}
@@ -77,7 +77,7 @@ export function SiteHeader() {
                     active && "text-foreground",
                   )}
                 >
-                  {item.label}
+                  {label}
                 </Link>
               );
             })}
@@ -89,8 +89,8 @@ export function SiteHeader() {
             type="button"
             variant="ghost"
             size="icon"
-            aria-label="Buscar"
-            title="Buscar (Ctrl+K)"
+            aria-label={site.header.searchAria}
+            title={site.header.searchTitle}
             className={cn(
               "h-10 w-10 rounded-none rounded-l-md border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
             )}
@@ -114,7 +114,7 @@ export function SiteHeader() {
             asChild
             variant="ghost"
             size="icon"
-            aria-label="Open GitHub repository"
+            aria-label={site.header.githubAria}
             className={cn(
               "-ml-px h-10 w-10 rounded-none rounded-r-md border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-background hover:text-foreground hover:z-10 relative",
             )}

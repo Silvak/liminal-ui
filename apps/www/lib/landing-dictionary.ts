@@ -1,9 +1,109 @@
 export type Locale = "en" | "es";
 
+export type LandingComponentsCopy = {
+  overline: string;
+  titleLine1: string;
+  titleLine2: string;
+  description: string;
+  componentIndex: string;
+  livePreview: string;
+  interactive: string;
+  footerLine: string;
+  exploreDocs: string;
+  items: Array<{ name: string; category: string; count: string }>;
+  button: {
+    execute: string;
+    inspect: string;
+    clone: string;
+    size: string;
+  };
+  alert: {
+    typeLabel: string;
+    info: { label: string; msg: string };
+    success: { label: string; msg: string };
+    warning: { label: string; msg: string };
+    error: { label: string; msg: string };
+  };
+  card: {
+    title: string;
+    subtitle: string;
+    body: string;
+    cancel: string;
+    save: string;
+    headerToggle: string;
+    footerToggle: string;
+  };
+  badge: {
+    variant: string;
+    solid: string;
+    outline: string;
+    accent: string;
+    outline1: string;
+    outline2: string;
+    outline3: string;
+    accent1: string;
+    accent2: string;
+  };
+  tabs: {
+    labels: [string, string, string];
+    paragraphs: [string, string, string];
+  };
+  separator: {
+    horizontal: string;
+    vertical: string;
+  };
+};
+
+export type LandingThemingCopy = {
+  overline: string;
+  titleLine1: string;
+  titleLine2: string;
+  blurb: string;
+  footerPresets: string;
+  openPlayground: string;
+  presetLabels: Record<string, string>;
+  cardDemo: {
+    componentLabel: string;
+    profileCard: string;
+    description: string;
+    tags: [string, string, string];
+    saved: string;
+    save: string;
+    viewDocs: string;
+    lampAlt: string;
+  };
+};
+
 export type LandingDictionary = {
   meta: {
     title: string;
     description: string;
+  };
+  pageHero: {
+    title1: string;
+    title2: string;
+    title3: string;
+    subtitle: string;
+    body: string;
+    ctaStarted: string;
+    ctaComponents: string;
+    panelSys: string;
+    panelArkTw: string;
+    panelBrand: string;
+  };
+  about: {
+    title: string;
+    description: string;
+  };
+  theming: LandingThemingCopy;
+  components: LandingComponentsCopy;
+  comingSoon: {
+    overline: string;
+    titleLine1: string;
+    titleLine2: string;
+    body: string;
+    closing: string;
+    imageAlt: string;
   };
   hero: {
     sysVersion: string;

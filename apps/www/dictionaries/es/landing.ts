@@ -1,4 +1,11 @@
 import type { LandingDictionary } from "../../lib/landing-dictionary";
+import {
+  landingAboutEs,
+  landingComingSoonEs,
+  landingComponentsEs,
+  landingPageHeroEs,
+  landingThemingEs,
+} from "./landing-main-es";
 
 export const landingEs: LandingDictionary = {
   meta: {
@@ -6,6 +13,11 @@ export const landingEs: LandingDictionary = {
     description:
       "Componentes React para copiar y pegar, con Ark UI y Tailwind CSS. Sin cajas negras: solo código fuente que controlas.",
   },
+  pageHero: landingPageHeroEs,
+  about: landingAboutEs,
+  theming: landingThemingEs,
+  components: landingComponentsEs,
+  comingSoon: landingComingSoonEs,
   hero: {
     sysVersion: "SYS.v0.15.0",
     arkTw: "ARK UI / TW CSS",
@@ -143,11 +155,11 @@ export const landingEs: LandingDictionary = {
       { iconKey: "Terminal", label: "REACT 19" },
       { iconKey: "Layers", label: "ARK UI" },
       { iconKey: "Wind", label: "TAILWIND V4" },
-      { iconKey: "Clipboard", label: "COPY-PASTE" },
-      { iconKey: "Box", label: "COMPOSABLE" },
-      { iconKey: "Lock", label: "ZERO LOCK-IN" },
+      { iconKey: "Clipboard", label: "COPIAR Y PEGAR" },
+      { iconKey: "Box", label: "COMPONIBLE" },
+      { iconKey: "Lock", label: "SIN ATADURAS" },
       { iconKey: "Cpu", label: "HEADLESS" },
-      { iconKey: "FileCode", label: "SOURCE OWNED" },
+      { iconKey: "FileCode", label: "CÓDIGO PROPIO" },
       { iconKey: "GitBranch", label: "OPEN SOURCE" },
     ],
   },

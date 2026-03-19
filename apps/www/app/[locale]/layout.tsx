@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
 import { LocaleProvider } from "../../components/locale-provider";
+import { SiteCopyProvider } from "../../components/site-copy-provider";
+import { getSiteDictionary } from "../../lib/site-dictionary";
+import type { Locale } from "../../lib/landing-dictionary";
 
-const LOCALES = ["en", "es"] as const;
-type Locale = (typeof LOCALES)[number];
+const LOCALES: Locale[] = ["en", "es"];
 
 function isValidLocale(value: string): value is Locale {
-  return LOCALES.includes(value as Locale);
+  return (LOCALES as readonly string[]).includes(value);
 }
 
 export function generateStaticParams() {
@@ -25,5 +27,11 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  return <LocaleProvider locale={locale}>{children}</LocaleProvider>;
+  const siteCopy = await getSiteDictionary(locale as Locale);
+
+  return (
+    <LocaleProvider locale={locale}>
+      <SiteCopyProvider value={siteCopy}>{children}</SiteCopyProvider>
+    </LocaleProvider>
+  );
 }
