@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/site/header";
+import { SiteFooter } from "@/components/site/footer";
 import { SidebarNav } from "@/components/site/sidebar-nav";
 import { cn } from "@/lib/utils";
 import { ThemingSection } from "@/components/land/theming-section";
@@ -213,9 +214,11 @@ export default async function Page({ params }: PageProps) {
       </div>
 
       {/* coming soon: dashboards & complex components */}
-      <div id="coming-soon" className="w-full border-b">
+      <div id="coming-soon" className="w-full">
         <ComingSoonSection />
       </div>
+
+      <SiteFooter />
     </main>
   );
 }
