@@ -20,7 +20,10 @@ function ButtonPreview() {
       <div className="flex flex-wrap items-center gap-3 min-h-[60px]">
         <button
           className={`${sizeClasses[size]} font-ibm font-bold tracking-[0.12em] uppercase transition-opacity hover:opacity-80`}
-          style={{ backgroundColor: "var(--foreground)", color: "var(--background)" }}
+          style={{
+            backgroundColor: "var(--foreground)",
+            color: "var(--background)",
+          }}
         >
           Execute
         </button>
@@ -53,9 +56,13 @@ function ButtonPreview() {
               onClick={() => setSize(s)}
               className="px-3 py-1.5 font-ibm text-[10px] uppercase tracking-[0.15em] transition-all"
               style={{
-                backgroundColor: size === s ? "var(--foreground)" : "transparent",
-                color: size === s ? "var(--background)" : "var(--muted-foreground)",
-                border: `1px solid ${size === s ? "var(--foreground)" : "var(--border)"}`,
+                backgroundColor:
+                  size === s ? "var(--foreground)" : "transparent",
+                color:
+                  size === s ? "var(--background)" : "var(--muted-foreground)",
+                border: `1px solid ${
+                  size === s ? "var(--foreground)" : "var(--border)"
+                }`,
               }}
             >
               {s}
@@ -68,7 +75,9 @@ function ButtonPreview() {
 }
 
 function AlertPreview() {
-  const [type, setType] = useState<"info" | "success" | "warning" | "error">("info");
+  const [type, setType] = useState<"info" | "success" | "warning" | "error">(
+    "info",
+  );
 
   const config = {
     info: {
@@ -109,10 +118,15 @@ function AlertPreview() {
           style={{ backgroundColor: c.color }}
         />
         <div>
-          <p className="font-display text-xl tracking-wider mb-1.5" style={{ color: c.color }}>
+          <p
+            className="font-display text-xl tracking-wider mb-1.5"
+            style={{ color: c.color }}
+          >
             {c.label}
           </p>
-          <p className="font-ibm text-[13px] leading-relaxed text-muted-foreground">{c.msg}</p>
+          <p className="font-ibm text-[13px] leading-relaxed text-muted-foreground">
+            {c.msg}
+          </p>
         </div>
       </div>
 
@@ -127,9 +141,13 @@ function AlertPreview() {
               onClick={() => setType(t)}
               className="px-3 py-1.5 font-ibm text-[10px] uppercase tracking-[0.15em] transition-all"
               style={{
-                backgroundColor: type === t ? "var(--foreground)" : "transparent",
-                color: type === t ? "var(--background)" : "var(--muted-foreground)",
-                border: `1px solid ${type === t ? "var(--foreground)" : "var(--border)"}`,
+                backgroundColor:
+                  type === t ? "var(--foreground)" : "transparent",
+                color:
+                  type === t ? "var(--background)" : "var(--muted-foreground)",
+                border: `1px solid ${
+                  type === t ? "var(--foreground)" : "var(--border)"
+                }`,
               }}
             >
               {t}
@@ -148,12 +166,20 @@ function CardPreview() {
   return (
     <div className="space-y-6">
       <div
-        style={{ border: "1px solid var(--border)", backgroundColor: "var(--card)" }}
+        style={{
+          border: "1px solid var(--border)",
+          backgroundColor: "var(--card)",
+        }}
         className="overflow-hidden"
       >
         {showHeader && (
-          <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--border)" }}>
-            <p className="font-display text-xl tracking-wider text-foreground">Card Title</p>
+          <div
+            className="px-5 py-4"
+            style={{ borderBottom: "1px solid var(--border)" }}
+          >
+            <p className="font-display text-xl tracking-wider text-foreground">
+              Card Title
+            </p>
             <p className="font-ibm text-[11px] text-muted-foreground uppercase tracking-[0.2em] mt-0.5">
               Composable
             </p>
@@ -161,7 +187,8 @@ function CardPreview() {
         )}
         <div className="px-5 py-5">
           <p className="font-ibm text-[13px] leading-relaxed text-muted-foreground">
-            Card body content goes here. Fully composable — add or remove sections as needed.
+            Card body content goes here. Fully composable — add or remove
+            sections as needed.
           </p>
         </div>
         {showFooter && (
@@ -174,7 +201,10 @@ function CardPreview() {
             </button>
             <button
               className="px-3 py-1.5 font-ibm text-[11px] font-bold uppercase tracking-[0.12em]"
-              style={{ backgroundColor: "var(--foreground)", color: "var(--background)" }}
+              style={{
+                backgroundColor: "var(--foreground)",
+                color: "var(--background)",
+              }}
             >
               Save
             </button>
@@ -211,7 +241,9 @@ function CardPreview() {
 }
 
 function BadgePreview() {
-  const [variant, setVariant] = useState<"solid" | "outline" | "accent">("solid");
+  const [variant, setVariant] = useState<"solid" | "outline" | "accent">(
+    "solid",
+  );
 
   return (
     <div className="space-y-6">
@@ -221,19 +253,28 @@ function BadgePreview() {
             <>
               <span
                 className="px-3 py-1.5 font-ibm text-[11px] font-bold tracking-[0.2em] uppercase"
-                style={{ backgroundColor: "var(--foreground)", color: "var(--background)" }}
+                style={{
+                  backgroundColor: "var(--foreground)",
+                  color: "var(--background)",
+                }}
               >
                 Ark UI
               </span>
               <span
                 className="px-3 py-1.5 font-ibm text-[11px] font-bold tracking-[0.2em] uppercase"
-                style={{ backgroundColor: "var(--foreground)", color: "var(--background)" }}
+                style={{
+                  backgroundColor: "var(--foreground)",
+                  color: "var(--background)",
+                }}
               >
                 React
               </span>
               <span
                 className="px-3 py-1.5 font-ibm text-[11px] font-bold tracking-[0.2em] uppercase"
-                style={{ backgroundColor: "var(--foreground)", color: "var(--background)" }}
+                style={{
+                  backgroundColor: "var(--foreground)",
+                  color: "var(--background)",
+                }}
               >
                 Tailwind
               </span>
@@ -299,9 +340,15 @@ function BadgePreview() {
               onClick={() => setVariant(v)}
               className="px-3 py-1.5 font-ibm text-[10px] uppercase tracking-[0.15em] transition-all"
               style={{
-                backgroundColor: variant === v ? "var(--foreground)" : "transparent",
-                color: variant === v ? "var(--background)" : "var(--muted-foreground)",
-                border: `1px solid ${variant === v ? "var(--foreground)" : "var(--border)"}`,
+                backgroundColor:
+                  variant === v ? "var(--foreground)" : "transparent",
+                color:
+                  variant === v
+                    ? "var(--background)"
+                    : "var(--muted-foreground)",
+                border: `1px solid ${
+                  variant === v ? "var(--foreground)" : "var(--border)"
+                }`,
               }}
             >
               {v}
@@ -330,7 +377,12 @@ function TabsPreview() {
             key={tab}
             onClick={() => setActiveTab(i)}
             className="relative px-4 py-3 font-ibm text-[12px] uppercase tracking-[0.15em] transition-colors"
-            style={{ color: activeTab === i ? "var(--foreground)" : "var(--muted-foreground)" }}
+            style={{
+              color:
+                activeTab === i
+                  ? "var(--foreground)"
+                  : "var(--muted-foreground)",
+            }}
           >
             {tab}
             {activeTab === i && (
@@ -358,8 +410,14 @@ function SeparatorPreview() {
         <p className="font-ibm text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
           Horizontal
         </p>
-        <div className="h-px w-full" style={{ backgroundColor: "var(--border)" }} />
-        <div className="h-px w-full" style={{ backgroundColor: "var(--primary)", opacity: 0.4 }} />
+        <div
+          className="h-px w-full"
+          style={{ backgroundColor: "var(--border)" }}
+        />
+        <div
+          className="h-px w-full"
+          style={{ backgroundColor: "var(--primary)", opacity: 0.4 }}
+        />
         <div
           className="h-[2px] w-full"
           style={{
@@ -373,7 +431,10 @@ function SeparatorPreview() {
           Vertical
         </p>
         <div className="w-px" style={{ backgroundColor: "var(--border)" }} />
-        <div className="w-px" style={{ backgroundColor: "var(--primary)", opacity: 0.4 }} />
+        <div
+          className="w-px"
+          style={{ backgroundColor: "var(--primary)", opacity: 0.4 }}
+        />
         <div
           className="w-[2px]"
           style={{
@@ -389,12 +450,42 @@ function SeparatorPreview() {
 // ─── Component Index ───────────────────────────────────────────────────────
 
 const COMPONENTS = [
-  { name: "Button", category: "Actions", count: "6 variants", Preview: ButtonPreview },
-  { name: "Alert", category: "Feedback", count: "4 types", Preview: AlertPreview },
-  { name: "Card", category: "Layout", count: "Composable", Preview: CardPreview },
-  { name: "Badge", category: "Display", count: "3 variants", Preview: BadgePreview },
-  { name: "Tabs", category: "Navigation", count: "Accessible", Preview: TabsPreview },
-  { name: "Separator", category: "Layout", count: "H + V", Preview: SeparatorPreview },
+  {
+    name: "Button",
+    category: "Actions",
+    count: "6 variants",
+    Preview: ButtonPreview,
+  },
+  {
+    name: "Alert",
+    category: "Feedback",
+    count: "4 types",
+    Preview: AlertPreview,
+  },
+  {
+    name: "Card",
+    category: "Layout",
+    count: "Composable",
+    Preview: CardPreview,
+  },
+  {
+    name: "Badge",
+    category: "Display",
+    count: "3 variants",
+    Preview: BadgePreview,
+  },
+  {
+    name: "Tabs",
+    category: "Navigation",
+    count: "Accessible",
+    Preview: TabsPreview,
+  },
+  {
+    name: "Separator",
+    category: "Layout",
+    count: "H + V",
+    Preview: SeparatorPreview,
+  },
 ] as const;
 
 // ─── Main Section ──────────────────────────────────────────────────────────
@@ -431,36 +522,42 @@ export function ComponentsSection({ locale }: { locale: string }) {
         <div className="w-full flex flex-col md:flex-row min-h-[520px]">
           {/* Left: Component index */}
           <div
-            className="w-full md:w-[30%] md:border-r overflow-x-auto md:overflow-x-visible"
+            className="w-full md:w-[30%] md:border-r md:overflow-x-visible"
             style={{ borderColor: "var(--border)" }}
           >
             {/* Mobile: horizontal scroll row */}
-            <div className="flex md:hidden flex-row border-b" style={{ borderColor: "var(--border)" }}>
-              {COMPONENTS.map((comp, i) => (
-                <button
-                  key={comp.name}
-                  onClick={() => setActive(i)}
-                  className="shrink-0 px-5 py-4 font-ibm text-[11px] uppercase tracking-[0.15em] transition-all border-r last:border-r-0"
-                  style={{
-                    borderColor: "var(--border)",
-                    color: active === i ? "var(--primary)" : "var(--muted-foreground)",
-                    backgroundColor:
-                      active === i
-                        ? "color-mix(in oklch, var(--primary) 8%, transparent)"
-                        : "transparent",
-                    borderBottom:
-                      active === i ? `2px solid var(--primary)` : "2px solid transparent",
-                  }}
-                >
-                  {comp.name}
-                </button>
-              ))}
+            <div className="md:hidden h-[80px] w-full border-b">
+              <div className="h-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="flex h-full min-w-max">
+                  {COMPONENTS.map((comp, i) => {
+                    const isActive = active === i;
+                    return (
+                      <button
+                        key={comp.name}
+                        onClick={() => setActive(i)}
+                        className="flex h-full min-w-[132px] shrink-0 items-center justify-center border-r last:border-r-0 px-4 font-ibm text-[11px] uppercase tracking-[0.15em] whitespace-nowrap transition-all cursor-pointer"
+                        style={{
+                          borderColor: "var(--border)",
+                          color: isActive
+                            ? "var(--background)"
+                            : "var(--muted-foreground)",
+                          backgroundColor: isActive
+                            ? "var(--foreground)"
+                            : "transparent",
+                        }}
+                      >
+                        {comp.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
             {/* Desktop: vertical list */}
             <div className="hidden md:block">
               <div
-                className="border-b px-5 py-3 font-ibm text-[11px] font-bold uppercase tracking-[0.24em] text-muted-foreground"
+                className="border-b px-5 h-[80px] flex items-center font-ibm text-[11px] font-bold uppercase tracking-[0.24em] text-muted-foreground"
                 style={{ borderColor: "var(--border)" }}
               >
                 Component Index
@@ -471,13 +568,17 @@ export function ComponentsSection({ locale }: { locale: string }) {
                   <button
                     key={comp.name}
                     onClick={() => setActive(i)}
-                    className="group flex w-full cursor-pointer items-center justify-between px-5 py-5 text-left transition-all duration-200 hover:bg-muted/60"
+                    className="group flex w-full h-[80px] cursor-pointer items-center justify-between px-5 text-left transition-all duration-200 hover:bg-muted/60"
                     style={{
                       borderBottom:
-                        i < COMPONENTS.length - 1 ? "1px solid var(--border)" : undefined,
-                      borderLeft: `3px solid ${isActive ? "var(--primary)" : "transparent"}`,
+                        i < COMPONENTS.length - 1
+                          ? "1px solid var(--border)"
+                          : undefined,
+                      borderLeft: `3px solid ${
+                        isActive ? "var(--primary)" : "transparent"
+                      }`,
                       backgroundColor: isActive
-                        ? "color-mix(in oklch, var(--primary) 8%, var(--background))"
+                        ? "var(--foreground)"
                         : "transparent",
                     }}
                   >
@@ -485,7 +586,9 @@ export function ComponentsSection({ locale }: { locale: string }) {
                       <span
                         className="w-6 font-ibm text-[11px] font-bold transition-colors duration-200"
                         style={{
-                          color: isActive ? "var(--primary)" : "var(--muted-foreground)",
+                          color: isActive
+                            ? "var(--background)"
+                            : "var(--muted-foreground)",
                         }}
                       >
                         {String(i + 1).padStart(2, "0")}
@@ -494,12 +597,21 @@ export function ComponentsSection({ locale }: { locale: string }) {
                         <div
                           className="font-display text-2xl tracking-wider transition-colors duration-200"
                           style={{
-                            color: isActive ? "var(--primary)" : "var(--foreground)",
+                            color: isActive
+                              ? "var(--background)"
+                              : "var(--foreground)",
                           }}
                         >
                           {comp.name}
                         </div>
-                        <div className="font-ibm text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                        <div
+                          className="font-ibm text-[11px] uppercase tracking-[0.2em] transition-colors duration-200"
+                          style={{
+                            color: isActive
+                              ? "color-mix(in oklch, var(--background) 72%, transparent)"
+                              : "var(--muted-foreground)",
+                          }}
+                        >
                           {comp.category}
                         </div>
                       </div>
@@ -507,9 +619,13 @@ export function ComponentsSection({ locale }: { locale: string }) {
                     <span
                       className="font-ibm text-[11px] font-bold transition-all duration-200"
                       style={{
-                        color: "var(--primary)",
+                        color: isActive
+                          ? "var(--background)"
+                          : "var(--primary)",
                         opacity: isActive ? 1 : 0,
-                        transform: isActive ? "translateX(0)" : "translateX(4px)",
+                        transform: isActive
+                          ? "translateX(0)"
+                          : "translateX(4px)",
                       }}
                     >
                       {comp.count}
@@ -521,9 +637,9 @@ export function ComponentsSection({ locale }: { locale: string }) {
           </div>
 
           {/* Right: Preview panel */}
-          <div className="w-full md:w-[70%] flex flex-col">
+          <div className="w-full md:w-[70%] flex flex-col flex-1 min-h-0">
             <div
-              className="flex items-center justify-between px-6 py-3 border-b"
+              className="flex items-center justify-between px-6 h-[52px] md:h-[80px] border-b"
               style={{ borderColor: "var(--border)" }}
             >
               <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
@@ -541,23 +657,18 @@ export function ComponentsSection({ locale }: { locale: string }) {
               </span>
             </div>
 
-            <div className="flex-1 relative p-6 md:p-8">
-              {/* Corner marks */}
+            <div
+              className="flex-1 min-h-[280px] relative p-6 md:p-8 flex items-center justify-center"
+              style={{
+                backgroundColor:
+                  "color-mix(in oklch, var(--background) 96%, var(--card))",
+                backgroundImage:
+                  "radial-gradient(circle at 1px 1px, color-mix(in oklch, var(--muted-foreground) 18%, transparent) 1px, transparent 0)",
+                backgroundSize: "16px 16px",
+              }}
+            >
               <div
-                className="absolute top-4 right-4 h-5 w-5 border-r border-t pointer-events-none"
-                style={{
-                  borderColor: "color-mix(in oklch, var(--primary) 40%, transparent)",
-                }}
-              />
-              <div
-                className="absolute bottom-4 left-4 h-5 w-5 border-l border-b pointer-events-none"
-                style={{
-                  borderColor: "color-mix(in oklch, var(--primary) 40%, transparent)",
-                }}
-              />
-
-              <div
-                className="relative p-6 md:p-8"
+                className="relative p-6 md:p-8 w-full max-w-[760px]"
                 style={{
                   border: "1px solid var(--border)",
                   backgroundColor: "var(--card)",

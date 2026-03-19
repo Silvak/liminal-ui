@@ -267,8 +267,9 @@ export function ThemingSection({ locale }: { locale: string }) {
           >
             <div className="relative h-full min-h-[360px] overflow-hidden">
               {/* Theme selector */}
-              <div className="w-full border-b h-[80px]">
-                <div className="grid grid-cols-5 h-full">
+              <div className="h-[80px] w-full border-b">
+                <div className="h-full overflow-x-auto md:overflow-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <div className="flex h-full min-w-max md:grid md:min-w-0 md:grid-cols-5">
                   {THEME_PRESETS.map((preset, i) => {
                     const accentColor =
                       THEME_ACCENT_COLORS[preset.name] ?? "oklch(0.5 0 0)";
@@ -278,7 +279,7 @@ export function ThemingSection({ locale }: { locale: string }) {
                         key={preset.name}
                         onClick={() => setActiveIndex(i)}
                         className={cn(
-                          "flex h-full items-center justify-center cursor-pointer gap-2 border-r last:border-r-0 px-4 py-2 font-ibm text-[11px] uppercase tracking-[0.15em] transition-all",
+                          "flex h-full min-w-[132px] shrink-0 items-center justify-center gap-2 border-r first:border-l px-3 py-2 font-ibm text-[10px] uppercase tracking-[0.12em] whitespace-nowrap transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 md:min-w-0 md:px-4 md:text-[11px] md:tracking-[0.15em] md:first:border-l-0 md:last:border-r-0",
                           isActive
                             ? "bg-foreground text-background border-black dark:border-white"
                             : "bg-transparent text-muted-foreground",
@@ -292,6 +293,7 @@ export function ThemingSection({ locale }: { locale: string }) {
                       </button>
                     );
                   })}
+                  </div>
                 </div>
               </div>
 
@@ -326,17 +328,11 @@ export function ThemingSection({ locale }: { locale: string }) {
           </span>
           <Link
             href={`/${locale}/playground`}
-            className="font-ibm text-[12px] font-bold uppercase tracking-[0.15em] px-5 py-2.5 transition-all"
+            className="font-ibm text-[12px] font-bold uppercase tracking-[0.15em] px-5 py-2.5 transition-opacity hover:opacity-85"
             style={{
               border: "1px solid var(--foreground)",
               backgroundColor: "var(--foreground)",
               color: "var(--background)",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
             }}
           >
             Open Playground →
