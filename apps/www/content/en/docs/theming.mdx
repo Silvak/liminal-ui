@@ -1,0 +1,82 @@
+---
+title: Theming
+description: Customize Liminal UI with design tokens, CSS variables, and dark mode patterns.
+---
+
+# Theming
+
+Liminal UI gives you full control over styling because component source code lives in your project. You can adapt every component to your brand using design tokens and CSS variables.
+
+## Theming model in Liminal UI
+
+Theming in Liminal UI is based on three simple layers:
+
+1. **Semantic tokens** (for example `--background`, `--foreground`, `--primary`).
+2. **Theme scopes** (`:root` for light, `.dark` for dark mode).
+3. **Tailwind utilities** that consume those tokens through your global styles.
+
+This approach keeps components reusable while letting your app define visual identity.
+
+## Base token structure
+
+You can start with a structure like this in your global stylesheet:
+
+```css
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 47.4% 11.2%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+}
+```
+
+<Callout type="tip" title="Use semantic names">
+  Prefer semantic token names (`--primary`, `--muted`, `--border`) over raw color names (`--blue-500`).
+  This makes redesigns easier and keeps components decoupled from specific palettes.
+</Callout>
+
+## Connecting tokens to Tailwind
+
+Expose your tokens in Tailwind so components can use utility classes consistently:
+
+```ts
+// tailwind.config.ts
+export default {
+  theme: {
+    extend: {
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: "hsl(var(--primary))",
+        "primary-foreground": "hsl(var(--primary-foreground))",
+      },
+    },
+  },
+};
+```
+
+With this setup, classes like `bg-background`, `text-foreground`, or `bg-primary` become theme-aware automatically.
+
+## Dark mode strategy
+
+A practical strategy is to toggle a `.dark` class on the root element and define dark tokens under that scope.
+
+- Keep contrast high for text and interactive states.
+- Test hover, focus, and disabled states in both themes.
+- Avoid one-off hardcoded colors in components.
+
+## Theming checklist
+
+- Define tokens once in your global CSS.
+- Map tokens to Tailwind theme extensions.
+- Keep components using semantic utilities.
+- Validate visual states in light and dark mode.
+
+The result is a secure, reusable, and maintainable theming foundation that scales as your design system grows.

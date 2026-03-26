@@ -33,7 +33,7 @@ Mantener la identidad del proyecto (code ownership, CLI copy-paste) pero que cad
 
 - [x] Añadir docs MDX para cada componente nuevo en `apps/www/content/docs/components/`
 - [x] Actualizar navegación en `apps/www/app/docs/layout.tsx`
-- [ ] Mejorar cada doc: ejemplo rápido, ejemplo completo, props, variantes
+- [x] Mejorar cada doc: ejemplo rápido, ejemplo completo, props, variantes
 - [ ] Crear página `/docs/theming`
 - [x] Pulir landing `apps/www/app/page.tsx`
 - [x] Mejorar CLI `init`: preguntar si copiar CSS de tokens
@@ -46,6 +46,14 @@ Mantener la identidad del proyecto (code ownership, CLI copy-paste) pero que cad
 - [ ] Testing local: proyecto Next.js limpio con `init` + `add` de varios componentes
 - [ ] Release final: changeset, push, merge "Version Packages"
 - [ ] Actualizar README con lista completa de componentes y features
+
+### TODO para pasar a otra IA (sin testing ni revisión de diseño global)
+
+- [ ] Crear página `/docs/theming` (EN/ES) y añadir enlace en navegación de docs
+- [ ] Completar patrón dual en componentes que aún son solo compuestos (`tooltip`, `accordion`) para alinear con la visión del sprint
+- [ ] Ampliar `alert` con variantes `warning` e `info` (ahora está en `default` y `destructive`)
+- [ ] Actualizar `README.md` con la lista completa de componentes y features actuales (23 componentes)
+- [ ] Preparar release final con Changesets (crear changeset, push y merge de "Version Packages")
 
 ---
 

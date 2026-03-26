@@ -1,0 +1,82 @@
+---
+title: Theming
+description: Personaliza Liminal UI con tokens de diseño, variables CSS y patrones para modo oscuro.
+---
+
+# Theming
+
+Liminal UI te da control total sobre los estilos porque el código fuente de los componentes vive en tu proyecto. Puedes adaptar cada componente a tu marca usando tokens de diseño y variables CSS.
+
+## Modelo de theming en Liminal UI
+
+El theming en Liminal UI se apoya en tres capas simples:
+
+1. **Tokens semánticos** (por ejemplo `--background`, `--foreground`, `--primary`).
+2. **Scopes de tema** (`:root` para claro, `.dark` para oscuro).
+3. **Utilidades de Tailwind** que consumen esos tokens a través de tus estilos globales.
+
+Este enfoque mantiene los componentes reutilizables y permite que tu app defina la identidad visual.
+
+## Estructura base de tokens
+
+Puedes comenzar con una estructura como esta en tu hoja de estilos global:
+
+```css
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 47.4% 11.2%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+}
+```
+
+<Callout type="tip" title="Usa nombres semánticos">
+  Prefiere nombres de token semánticos (`--primary`, `--muted`, `--border`) en lugar de nombres de color crudos (`--blue-500`).
+  Esto facilita rediseños y mantiene los componentes desacoplados de una paleta específica.
+</Callout>
+
+## Conectar tokens con Tailwind
+
+Expón tus tokens en Tailwind para que los componentes usen utilidades de forma consistente:
+
+```ts
+// tailwind.config.ts
+export default {
+  theme: {
+    extend: {
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: "hsl(var(--primary))",
+        "primary-foreground": "hsl(var(--primary-foreground))",
+      },
+    },
+  },
+};
+```
+
+Con esta base, clases como `bg-background`, `text-foreground` o `bg-primary` se vuelven conscientes del tema automáticamente.
+
+## Estrategia de modo oscuro
+
+Una estrategia practica es alternar una clase `.dark` en el elemento raiz y definir los tokens oscuros dentro de ese scope.
+
+- Mantén alto el contraste para texto y estados interactivos.
+- Prueba hover, focus y disabled en ambos temas.
+- Evita colores hardcodeados de una sola vez en componentes.
+
+## Checklist de theming
+
+- Define tokens una vez en tu CSS global.
+- Mapea tokens en extensiones de tema de Tailwind.
+- Mantén componentes usando utilidades semánticas.
+- Valida estados visuales en modo claro y oscuro.
+
+El resultado es una base de theming segura, reutilizable y mantenible que escala junto con tu sistema de diseño.

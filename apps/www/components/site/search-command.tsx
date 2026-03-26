@@ -28,6 +28,11 @@ const searchGroups = [
         href: "/docs/installation",
         keywords: ["install", "setup"],
       },
+      {
+        label: "Theming",
+        href: "/docs/theming",
+        keywords: ["theme", "tokens", "dark mode", "styles"],
+      },
     ],
   },
   {
