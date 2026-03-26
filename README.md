@@ -12,6 +12,14 @@
 - **Fully customizable** — Modify any component freely
 - **Headless foundation** — Built with [Ark UI](https://ark-ui.com/) + Tailwind CSS
 
+## Current Features
+
+- **Source-based architecture** — Components are copied into your app, so you keep full ownership.
+- **CLI workflow** — `init`, `add`, `list`, and `diff` for setup, install, discovery, and sync checks.
+- **Token-based theming** — CSS variables with presets (`slate`, `blue`, `green`) and easy customization.
+- **React/Next.js ready** — Works with modern React apps and supports RSC-aware setups.
+- **Headless + utility-first** — Ark UI primitives with Tailwind-friendly component APIs.
+
 ## Quick Start
 
 ```bash
@@ -37,23 +45,28 @@ npx liminal-ui add dialog accordion select
 ## Available Components
 
 - `accordion` — Expandable content sections with Ark UI
-- `badge` — Small status pill with variants (default, secondary, destructive, outline)
-- `button` — Variants: default, destructive, outline, secondary, ghost, link
-- `card` — Layout container with `CardHeader`, `CardContent`, `CardFooter`, etc.
-- `checkbox` — Ark UI checkbox with convenience API (`<Checkbox label="Acepto" />`) y API compuesta
-- `dialog` — Modal with overlay, header, footer, close button
-- `input` — Text input with error state via `aria-invalid`
-- `label` — Styled label for form fields
-- `select` — Dropdown selection with groups and convenience `Select` component
-- `separator` — Horizontal/vertical divider
-- `switch` — Toggle switch with convenience API (`<Switch label="Dark mode" />`)
-- `textarea` — Multiline text area aligned with `Input` styles
-- `tooltip` — Simple tooltip built on Ark UI
-- `alert` — Static alert banner with `AlertTitle` y `AlertDescription` (variantes `default`, `destructive`)
-- `tabs` — Ark Tabs con API compuesta y conveniencia (`<Tabs items={[{ value, label, content }]}/>`)
-- `avatar` — Ark Avatar con API dual (`Avatar`, `AvatarRoot`, `AvatarImage`, `AvatarFallback`)
-- `popover` — Ark Popover posicionado con Portal + Positioner, más componente de conveniencia (`<Popover trigger={...}>`)
-- `toast` — Wrapper de [`sonner`](https://sonner.emilkowal.dev/) con tokens de Liminal (`Toaster`, `toast(...)`)
+- `alert` — Static alert banner with semantic title and description slots
+- `avatar` — Avatar primitive with root, image, and fallback APIs
+- `badge` — Status badges with `default`, `secondary`, `destructive`, and `outline` variants
+- `button` — Variants (`default`, `destructive`, `outline`, `secondary`, `ghost`, `link`) and sizes
+- `card` — Composable card layout (`CardHeader`, `CardContent`, `CardFooter`, etc.)
+- `checkbox` — Checkbox primitive with convenience API and composed parts
+- `dialog` — Modal dialog with overlay, content, title, description, and close controls
+- `dropdown-menu` — Context/dropdown menu with groups, labels, separators, and items
+- `input` — Text input with consistent tokens and invalid-state styling
+- `label` — Form label component with accessible defaults
+- `popover` — Positioned popover with portal/positioner pattern and convenience wrapper
+- `progress` — Progress indicator with track/range and optional value text
+- `radio-group` — Radio group with item controls and text labels
+- `select` — Select component with collection API, groups, and item indicators
+- `separator` — Horizontal/vertical visual divider
+- `skeleton` — Loading placeholders with size variants
+- `slider` — Slider primitive with track, range, and thumb controls
+- `sonner` — Toast integration wrapper (`Toaster`, `toast`) for notifications
+- `switch` — Toggle switch with convenience API and composed parts
+- `tabs` — Tab system with list, triggers, content, and optional indicator
+- `textarea` — Multiline input aligned with `Input` styles
+- `tooltip` — Lightweight tooltip primitive with trigger and content
 
 Para ver ejemplos y detalles de uso de cada componente, consulta la documentación en la app de docs (`apps/www`), por ejemplo en `/docs/components/button`, `/docs/components/dialog`, etc.
 
