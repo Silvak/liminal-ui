@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/site/header";
@@ -12,6 +13,8 @@ import { WordsCarousel } from "@/components/land/words-carousel";
 import { ParallaxCloud } from "@/components/land/parallax-cloud";
 import { getLandingDictionary, type Locale } from "@/lib/landing-dictionary";
 import { PkgManTabs } from "@/components/pkg-man-tabs";
+
+const NPM_PACKAGE_URL = "https://www.npmjs.com/package/liminal-ui";
 
 const LOCALES: Locale[] = ["en", "es"];
 function isValidLocale(value: string): value is Locale {
@@ -84,6 +87,7 @@ export default async function Page({ params }: PageProps) {
   if (!isValidLocale(locale)) notFound();
 
   const dict = await getLandingDictionary(locale);
+  const npmPackageLabel = locale === "es" ? "Ir a npm" : "Go to npm";
 
   return (
     <main className="min-h-screen">
@@ -192,6 +196,30 @@ export default async function Page({ params }: PageProps) {
               yarn="yarn add liminal-ui"
               bun="bun add liminal-ui"
             />
+            <Button
+              asChild
+              variant="ghost"
+              className={cn(
+                "h-9 rounded-md border border-border bg-background/70 px-4 font-ibm text-xs uppercase tracking-wide text-muted-foreground backdrop-blur-md transition-colors hover:border-primary hover:bg-primary hover:text-background",
+              )}
+            >
+              <Link
+                href={NPM_PACKAGE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                  className="h-[18px] w-[18px] shrink-0 fill-current text-[#CB3837] transition-colors group-hover:text-background"
+                >
+                  <path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0H1.763zM5.13 5.323l13.837.019-.009 13.818h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z" />
+                </svg>
+                {npmPackageLabel}
+              </Link>
+            </Button>
           </div>
         </Container>
       </div>
