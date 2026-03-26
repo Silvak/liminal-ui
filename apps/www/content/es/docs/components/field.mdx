@@ -1,0 +1,37 @@
+---
+title: Field
+description: Contenedor de campo de formulario con label, ayuda y error
+component: true
+---
+
+# Field
+
+`Field` estructura entradas accesibles con etiqueta, texto de ayuda y mensaje de error.
+
+<Preview>
+  <Field
+    label="Email"
+    helperText="Solo lo usaremos para notificaciones de cuenta."
+    inputProps={{ placeholder: "tu@ejemplo.com", type: "email" }}
+  />
+
+```tsx title="field-demo.tsx" showLineNumbers
+import { Field } from "@/components/ui/field";
+
+export default function Example() {
+  return (
+    <Field
+      label="Email"
+      helperText="Solo lo usaremos para notificaciones de cuenta."
+      inputProps={{ placeholder: "tu@ejemplo.com", type: "email" }}
+    />
+  );
+}
+```
+</Preview>
+
+## Instalación
+
+```bash
+liminal add field
+```

@@ -1,0 +1,27 @@
+---
+title: Pin Input
+description: OTP/PIN segmented input fields
+component: true
+---
+
+# Pin Input
+
+`PinInput` renders segmented inputs for one-time codes and verification flows.
+
+<Preview>
+  <PinInput label="Verification code" length={6} />
+
+```tsx title="pin-input-demo.tsx" showLineNumbers
+import { PinInput } from "@/components/ui/pin-input";
+
+export default function Example() {
+  return <PinInput label="Verification code" length={6} />;
+}
+```
+</Preview>
+
+## Installation
+
+```bash
+liminal add pin-input
+```

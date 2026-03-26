@@ -1,0 +1,27 @@
+---
+title: Pagination
+description: Page navigation with previous, next, and numbered pages
+component: true
+---
+
+# Pagination
+
+`Pagination` renders prev/next controls and numbered pages from total item count.
+
+<Preview>
+  <Pagination count={120} pageSize={10} defaultPage={1} />
+
+```tsx title="pagination-demo.tsx" showLineNumbers
+import { Pagination } from "@/components/ui/pagination";
+
+export default function Example() {
+  return <Pagination count={120} pageSize={10} defaultPage={1} />;
+}
+```
+</Preview>
+
+## Installation
+
+```bash
+liminal add pagination
+```

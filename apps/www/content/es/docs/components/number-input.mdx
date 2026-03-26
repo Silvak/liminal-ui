@@ -1,0 +1,27 @@
+---
+title: Number Input
+description: Input numérico con controles de incremento y decremento
+component: true
+---
+
+# Number Input
+
+`NumberInput` agrega controles de step y edición numérica accesible.
+
+<Preview>
+  <NumberInput label="Cantidad" defaultValue="2" min={1} max={10} />
+
+```tsx title="number-input-demo.tsx" showLineNumbers
+import { NumberInput } from "@/components/ui/number-input";
+
+export default function Example() {
+  return <NumberInput label="Cantidad" defaultValue="2" min={1} max={10} />;
+}
+```
+</Preview>
+
+## Instalación
+
+```bash
+liminal add number-input
+```

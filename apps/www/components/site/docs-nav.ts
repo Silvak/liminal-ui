@@ -25,10 +25,17 @@ export const docNavSections: NavSection[] = [
     title: "Components / Forms",
     items: [
       { title: "Button", href: "/docs/components/button" },
+      { title: "Field", href: "/docs/components/field", addedDate: "2026-03-26" },
       { title: "Input", href: "/docs/components/input" },
       { title: "Textarea", href: "/docs/components/textarea" },
       { title: "Checkbox", href: "/docs/components/checkbox" },
       { title: "Switch", href: "/docs/components/switch" },
+      { title: "Combobox", href: "/docs/components/combobox", addedDate: "2026-03-26" },
+      { title: "Date Picker", href: "/docs/components/date-picker", addedDate: "2026-03-26" },
+      { title: "Number Input", href: "/docs/components/number-input", addedDate: "2026-03-26" },
+      { title: "Pin Input", href: "/docs/components/pin-input", addedDate: "2026-03-26" },
+      { title: "File Upload", href: "/docs/components/file-upload", addedDate: "2026-03-26" },
+      { title: "Tags Input", href: "/docs/components/tags-input", addedDate: "2026-03-26" },
       { title: "Radio Group", href: "/docs/components/radio-group", addedDate: "2026-03-11" },
       { title: "Slider", href: "/docs/components/slider", addedDate: "2026-03-11" },
       { title: "Label", href: "/docs/components/label" },
@@ -61,6 +68,7 @@ export const docNavSections: NavSection[] = [
     items: [
       { title: "Accordion", href: "/docs/components/accordion" },
       { title: "Tabs", href: "/docs/components/tabs" },
+      { title: "Pagination", href: "/docs/components/pagination", addedDate: "2026-03-26" },
     ],
   },
 ];

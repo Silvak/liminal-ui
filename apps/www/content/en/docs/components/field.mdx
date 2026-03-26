@@ -1,0 +1,37 @@
+---
+title: Field
+description: Form field wrapper with label, helper and error states
+component: true
+---
+
+# Field
+
+`Field` provides accessible form structure with label, helper text, and error message.
+
+<Preview>
+  <Field
+    label="Email"
+    helperText="We'll only use this for account notifications."
+    inputProps={{ placeholder: "you@example.com", type: "email" }}
+  />
+
+```tsx title="field-demo.tsx" showLineNumbers
+import { Field } from "@/components/ui/field";
+
+export default function Example() {
+  return (
+    <Field
+      label="Email"
+      helperText="We'll only use this for account notifications."
+      inputProps={{ placeholder: "you@example.com", type: "email" }}
+    />
+  );
+}
+```
+</Preview>
+
+## Installation
+
+```bash
+liminal add field
+```

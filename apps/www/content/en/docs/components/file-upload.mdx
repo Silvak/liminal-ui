@@ -1,0 +1,27 @@
+---
+title: File Upload
+description: Drag-and-drop and trigger-based file selection
+component: true
+---
+
+# File Upload
+
+`FileUpload` supports drag-and-drop, file listing, and per-item removal.
+
+<Preview>
+  <FileUpload label="Attachments" />
+
+```tsx title="file-upload-demo.tsx" showLineNumbers
+import { FileUpload } from "@/components/ui/file-upload";
+
+export default function Example() {
+  return <FileUpload label="Attachments" />;
+}
+```
+</Preview>
+
+## Installation
+
+```bash
+liminal add file-upload
+```

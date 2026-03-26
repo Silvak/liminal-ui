@@ -1,0 +1,45 @@
+---
+title: Combobox
+description: Searchable input with selectable options
+component: true
+---
+
+# Combobox
+
+`Combobox` combines text input and option selection with built-in filtering.
+
+<Preview>
+  <Combobox
+    label="Framework"
+    placeholder="Search framework..."
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue" },
+      { label: "Svelte", value: "svelte" },
+    ]}
+  />
+
+```tsx title="combobox-demo.tsx" showLineNumbers
+import { Combobox } from "@/components/ui/combobox";
+
+export default function Example() {
+  return (
+    <Combobox
+      label="Framework"
+      placeholder="Search framework..."
+      items={[
+        { label: "React", value: "react" },
+        { label: "Vue", value: "vue" },
+        { label: "Svelte", value: "svelte" },
+      ]}
+    />
+  );
+}
+```
+</Preview>
+
+## Installation
+
+```bash
+liminal add combobox
+```

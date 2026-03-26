@@ -125,6 +125,14 @@ import {
   RadioGroupItemHiddenInput,
 } from "./ui/radio-group";
 import { Skeleton } from "./ui/skeleton";
+import { Field } from "./ui/field";
+import { Combobox } from "./ui/combobox";
+import { DatePicker } from "./ui/date-picker";
+import { NumberInput } from "./ui/number-input";
+import { PinInput } from "./ui/pin-input";
+import { FileUpload } from "./ui/file-upload";
+import { TagsInput } from "./ui/tags-input";
+import { Pagination } from "./ui/pagination";
 import {
   SonnerDemo,
   SonnerDemoSimple,
@@ -484,6 +492,14 @@ export const mdxComponents: MDXComponents = {
   RadioGroupItemControl,
   RadioGroupItemHiddenInput,
   Skeleton,
+  Field,
+  Combobox,
+  DatePicker,
+  NumberInput,
+  PinInput,
+  FileUpload,
+  TagsInput,
+  Pagination,
   SonnerDemo,
   SonnerDemoSimple,
   SonnerDemoDescription,

@@ -1,0 +1,27 @@
+---
+title: Pin Input
+description: Campos segmentados para OTP/PIN
+component: true
+---
+
+# Pin Input
+
+`PinInput` renderiza celdas segmentadas para códigos de verificación.
+
+<Preview>
+  <PinInput label="Código de verificación" length={6} />
+
+```tsx title="pin-input-demo.tsx" showLineNumbers
+import { PinInput } from "@/components/ui/pin-input";
+
+export default function Example() {
+  return <PinInput label="Código de verificación" length={6} />;
+}
+```
+</Preview>
+
+## Instalación
+
+```bash
+liminal add pin-input
+```
