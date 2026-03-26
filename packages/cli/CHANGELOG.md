@@ -1,5 +1,11 @@
 ## [0.11.1](https://github.com/Silvak/liminal-ui/compare/v0.11.0...v0.11.1) (2025-12-19)
 
+## 0.17.0
+
+### Minor Changes
+
+- [`a003e70`](https://github.com/Silvak/liminal-ui/commit/a003e70a326dfcc96b245e9bae22364e51bca97d) Thanks [@Silvak](https://github.com/Silvak)! - Add Field, Combobox, DatePicker, NumberInput, PinInput, FileUpload, TagsInput and Pagination to the registry
+
 ## 0.16.0
 
 ### Minor Changes
