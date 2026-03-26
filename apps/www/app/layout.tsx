@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   title: "Liminal UI — Build beautiful UIs you own",
   description:
     "Copy-paste React components built with Ark UI and Tailwind CSS. No black boxes, just source code you control.",
+  icons: {
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: [{ url: "/logo.png", type: "image/png" }],
+  },
 };
 
 export default async function RootLayout({
