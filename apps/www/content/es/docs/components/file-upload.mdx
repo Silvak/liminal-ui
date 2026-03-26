@@ -1,12 +1,12 @@
 ---
 title: File Upload
-description: Selección de archivos por drag and drop y trigger
+description: Zona de arrastrar y soltar, selector de archivos, lista de aceptados y eliminación por archivo
 component: true
 ---
 
 # File Upload
 
-`FileUpload` soporta arrastrar/soltar, listado de archivos y eliminación por ítem.
+Subida de archivos basada en [Ark UI File Upload](https://ark-ui.com/docs/components/file-upload). El `<FileUpload />` por defecto incluye etiqueta, dropzone con borde discontinuo, disparador y lista de archivos con tamaño y acción de borrar. Pasa props de la raíz de Ark como `accept`, `maxFiles` o `maxFileSize` para restringir la selección.
 
 <Preview>
   <FileUpload label="Adjuntos" />
@@ -25,3 +25,82 @@ export default function Example() {
 ```bash
 liminal add file-upload
 ```
+
+## Uso
+
+`label` y `placeholder` personalizan el texto del dropzone. Reenvía validación en la raíz: por ejemplo `maxFiles={3}`, `accept={["image/png", "image/jpeg"]}` o `maxFileSize`.
+
+<Preview>
+  <FileUpload
+    label="Imágenes (máx. 3)"
+    placeholder="Suelta imágenes aquí o explora"
+    maxFiles={3}
+    accept={["image/png", "image/jpeg", "image/webp"]}
+  />
+
+```tsx title="file-upload-usage.tsx" showLineNumbers
+import { FileUpload } from "@/components/ui/file-upload";
+
+export default function Example() {
+  return (
+    <FileUpload
+      label="Imágenes (máx. 3)"
+      placeholder="Suelta imágenes aquí o explora"
+      maxFiles={3}
+      accept={["image/png", "image/jpeg", "image/webp"]}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### API compuesta
+
+Partes reexportadas: `FileUploadRoot`, `FileUploadLabel`, `FileUploadDropzone`, `FileUploadTrigger`, `FileUploadItemGroup`, `FileUploadItem`, `FileUploadItemName`, `FileUploadItemSizeText`, `FileUploadItemDeleteTrigger`, `FileUploadHiddenInput` y `FileUploadClearTrigger`. Usa `FileUpload.Context` de `@ark-ui/react/file-upload` para leer `acceptedFiles` o `rejectedFiles` y montar listas personalizadas (como el `<FileUpload />` de conveniencia).
+
+```tsx title="file-upload-compound.tsx" showLineNumbers
+import {
+  FileUploadRoot,
+  FileUploadLabel,
+  FileUploadDropzone,
+  FileUploadTrigger,
+  FileUploadHiddenInput,
+} from "@/components/ui/file-upload";
+
+export default function Example() {
+  return (
+    <FileUploadRoot maxFiles={5}>
+      <FileUploadLabel>Archivos</FileUploadLabel>
+      <FileUploadDropzone>
+        <p className="text-sm text-muted-foreground">Arrastra archivos o usa el botón</p>
+        <FileUploadTrigger>Elegir archivos</FileUploadTrigger>
+      </FileUploadDropzone>
+      <FileUploadHiddenInput />
+    </FileUploadRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "string",
+      default: "-",
+      description: "Etiqueta opcional sobre el control.",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: '"Drag and drop files here"',
+      description: "Texto de ayuda dentro del dropzone.",
+    },
+  ]}
+/>
+
+También acepta las props de `FileUpload.Root` de Ark (`accept`, `maxFiles`, `maxFileSize`, `minFileSize`, `disabled`, `onFileAccept`, etc.). Ver [Ark File Upload](https://ark-ui.com/docs/components/file-upload).

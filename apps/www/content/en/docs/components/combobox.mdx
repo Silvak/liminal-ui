@@ -1,12 +1,12 @@
 ---
 title: Combobox
-description: Searchable input with selectable options
+description: Searchable text input with a dropdown of filterable options; use for long lists where a plain select is awkward
 component: true
 ---
 
 # Combobox
 
-`Combobox` combines text input and option selection with built-in filtering.
+A combobox built on [Ark UI Combobox](https://ark-ui.com/docs/components/combobox). The default `<Combobox />` wires filtering, collection, and list UI for you. For full control over markup or data flow, use the compound parts (`ComboboxRoot`, `ComboboxInput`, etc.).
 
 <Preview>
   <Combobox
@@ -43,3 +43,134 @@ export default function Example() {
 ```bash
 liminal add combobox
 ```
+
+## Usage
+
+Pass `items` as an array of `{ label, value, disabled? }`. The input filters options with case-insensitive matching. Use `emptyText` when no item matches the query.
+
+<Preview>
+  <Combobox
+    label="Framework"
+    placeholder="Search framework..."
+    emptyText="No matches."
+    items={[
+      { label: "React", value: "react" },
+      { label: "Vue", value: "vue", disabled: true },
+      { label: "Svelte", value: "svelte" },
+    ]}
+  />
+
+```tsx title="combobox-usage.tsx" showLineNumbers
+import { Combobox } from "@/components/ui/combobox";
+
+export default function Example() {
+  return (
+    <Combobox
+      label="Framework"
+      placeholder="Search framework..."
+      emptyText="No matches."
+      items={[
+        { label: "React", value: "react" },
+        { label: "Vue", value: "vue", disabled: true },
+        { label: "Svelte", value: "svelte" },
+      ]}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### Compound API
+
+Use `ComboboxRoot` with `useListCollection` and `useFilter` from Ark UI to mirror the convenience behavior, or customize collection and item rendering. Export also includes `ComboboxLabel`, `ComboboxControl`, `ComboboxInput`, `ComboboxTrigger`, `ComboboxContent`, `ComboboxItem`, and `ComboboxEmpty`.
+
+```tsx title="combobox-compound.tsx" showLineNumbers
+import { useListCollection } from "@ark-ui/react/combobox";
+import { useFilter } from "@ark-ui/react/locale";
+import {
+  ComboboxRoot,
+  ComboboxLabel,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxTrigger,
+  ComboboxContent,
+  ComboboxItem,
+  ComboboxEmpty,
+} from "@/components/ui/combobox";
+
+type Item = { label: string; value: string };
+
+const items: Item[] = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+];
+
+export default function Example() {
+  const { contains } = useFilter({ sensitivity: "base" });
+  const { collection, filter } = useListCollection({
+    initialItems: items,
+    itemToString: (item) => item.label,
+    itemToValue: (item) => item.value,
+    filter: contains,
+  });
+
+  return (
+    <ComboboxRoot
+      collection={collection}
+      onInputValueChange={(d) => filter(d.inputValue)}
+    >
+      <ComboboxLabel>Framework</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="Search..." />
+        <ComboboxTrigger aria-label="Toggle combobox" />
+      </ComboboxControl>
+      <ComboboxContent>
+        <ComboboxEmpty>No results found.</ComboboxEmpty>
+        {collection.items.map((item) => (
+          <ComboboxItem key={item.value} item={item}>
+            {item.label}
+          </ComboboxItem>
+        ))}
+      </ComboboxContent>
+    </ComboboxRoot>
+  );
+}
+```
+
+For most cases, the convenience `<Combobox items={...} />` is enough.
+
+## API
+
+Props listed below are specific to the convenience component. The root also accepts Ark `Combobox.Root` props (for example `value`, `onValueChange`, `selectionBehavior`). See the [Ark Combobox docs](https://ark-ui.com/docs/components/combobox) for the full API.
+
+<ApiTable
+  data={[
+    {
+      prop: "items",
+      type: "{ label: string; value: string; disabled?: boolean }[]",
+      default: "-",
+      description: "Options shown in the list (convenience API).",
+    },
+    {
+      prop: "label",
+      type: "string",
+      default: "-",
+      description: "Optional field label above the control.",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: '"Search..."',
+      description: "Placeholder for the input.",
+    },
+    {
+      prop: "emptyText",
+      type: "string",
+      default: '"No results found."',
+      description: "Message when the filtered list is empty.",
+    },
+  ]}
+/>

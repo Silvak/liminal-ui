@@ -1,12 +1,12 @@
 ---
 title: Tags Input
-description: Input for adding and removing multiple tags
+description: Chip list with a text field to add tags (Enter) and remove tags inline
 component: true
 ---
 
 # Tags Input
 
-`TagsInput` lets users add chips/tags from keyboard input and remove them inline.
+A tags input built on [Ark UI Tags Input](https://ark-ui.com/docs/components/tags-input). The convenience `<TagsInput />` renders a label, chips with remove buttons, and a text field. Use `defaultValue` or controlled `value` / `onValueChange` on the root for initial or managed tags.
 
 <Preview>
   <TagsInput label="Tags" placeholder="Type and press Enter..." />
@@ -25,3 +25,93 @@ export default function Example() {
 ```bash
 liminal add tags-input
 ```
+
+## Usage
+
+Users add a tag by typing and pressing **Enter** (behavior comes from Ark). Optional `label` and `placeholder` apply to the field. Pass through Ark root props such as `defaultValue={["react"]}` or `value` / `onValueChange` for controlled usage.
+
+<Preview>
+  <TagsInput
+    label="Frameworks"
+    placeholder="Add a tag..."
+    defaultValue={["React", "TypeScript"]}
+  />
+
+```tsx title="tags-input-usage.tsx" showLineNumbers
+import { TagsInput } from "@/components/ui/tags-input";
+
+export default function Example() {
+  return (
+    <TagsInput
+      label="Frameworks"
+      placeholder="Add a tag..."
+      defaultValue={["React", "TypeScript"]}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### Compound API
+
+Exports include `TagsInputRoot`, `TagsInputLabel`, `TagsInputControl`, `TagsInputItem`, `TagsInputItemText`, `TagsInputInput`, `TagsInputDeleteTrigger`, `TagsInputHiddenInput`, and `TagsInputClearTrigger`. The convenience component uses `TagsInput.Context` to map tags to items—copy that pattern or compose your own.
+
+```tsx title="tags-input-compound.tsx" showLineNumbers
+import { TagsInput as ArkTagsInput } from "@ark-ui/react/tags-input";
+import {
+  TagsInputRoot,
+  TagsInputLabel,
+  TagsInputControl,
+  TagsInputItem,
+  TagsInputItemText,
+  TagsInputInput,
+  TagsInputDeleteTrigger,
+  TagsInputHiddenInput,
+} from "@/components/ui/tags-input";
+
+export default function Example() {
+  return (
+    <TagsInputRoot defaultValue={["alpha"]}>
+      <TagsInputLabel>Tags</TagsInputLabel>
+      <ArkTagsInput.Context>
+        {(api) => (
+          <TagsInputControl>
+            {api.value.map((value, index) => (
+              <TagsInputItem key={`${value}-${index}`} value={value} index={index}>
+                <TagsInputItemText>{value}</TagsInputItemText>
+                <TagsInputDeleteTrigger aria-label={`Remove ${value}`} />
+              </TagsInputItem>
+            ))}
+            <TagsInputInput placeholder="Add..." />
+          </TagsInputControl>
+        )}
+      </ArkTagsInput.Context>
+      <TagsInputHiddenInput />
+    </TagsInputRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "string",
+      default: "-",
+      description: "Optional label above the control.",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: '"Add tag..."',
+      description: "Placeholder for the inline text input.",
+    },
+  ]}
+/>
+
+Also accepts Ark `TagsInput.Root` props (`defaultValue`, `value`, `onValueChange`, `max`, `disabled`, etc.). See [Ark Tags Input](https://ark-ui.com/docs/components/tags-input).

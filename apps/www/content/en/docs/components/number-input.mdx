@@ -1,12 +1,12 @@
 ---
 title: Number Input
-description: Numeric input with increment and decrement controls
+description: Numeric field with increment and decrement controls and Ark Number Input behavior
 component: true
 ---
 
 # Number Input
 
-`NumberInput` adds step controls and keyboard-friendly numeric editing.
+A number input built on [Ark UI Number Input](https://ark-ui.com/docs/components/number-input). The convenience `<NumberInput />` adds a label, styled field, and stepper buttons. Use the compound parts when you need a custom layout or to split controls.
 
 <Preview>
   <NumberInput label="Quantity" defaultValue="2" min={1} max={10} />
@@ -25,3 +25,80 @@ export default function Example() {
 ```bash
 liminal add number-input
 ```
+
+## Usage
+
+Pass `min`, `max`, `step`, `defaultValue` or controlled `value` / `onValueChange`, and `disabled` as needed. Props are forwarded to `NumberInputRoot` (Ark `NumberInput.Root`).
+
+<Preview>
+  <NumberInput label="Step 0.5" step={0.5} min={0} max={10} defaultValue="1" />
+
+```tsx title="number-input-usage.tsx" showLineNumbers
+import { NumberInput } from "@/components/ui/number-input";
+
+export default function Example() {
+  return (
+    <NumberInput label="Step 0.5" step={0.5} min={0} max={10} defaultValue="1" />
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### Disabled
+
+<Preview>
+  <NumberInput label="Locked" defaultValue="5" disabled />
+
+```tsx title="number-input-disabled.tsx" showLineNumbers
+<NumberInput label="Locked" defaultValue="5" disabled />
+```
+
+</Preview>
+
+### Compound API
+
+Exports include `NumberInputRoot`, `NumberInputLabel`, `NumberInputInput`, `NumberInputControl`, `NumberInputIncrementTrigger`, and `NumberInputDecrementTrigger`.
+
+```tsx title="number-input-compound.tsx" showLineNumbers
+import {
+  NumberInputRoot,
+  NumberInputLabel,
+  NumberInputInput,
+  NumberInputControl,
+  NumberInputIncrementTrigger,
+  NumberInputDecrementTrigger,
+} from "@/components/ui/number-input";
+
+export default function Example() {
+  return (
+    <NumberInputRoot min={0} max={100} defaultValue="10">
+      <NumberInputLabel>Amount</NumberInputLabel>
+      <div className="relative">
+        <NumberInputInput />
+        <NumberInputControl>
+          <NumberInputIncrementTrigger />
+          <NumberInputDecrementTrigger />
+        </NumberInputControl>
+      </div>
+    </NumberInputRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "string",
+      default: "-",
+      description: "Optional label above the control.",
+    },
+  ]}
+/>
+
+Also accepts Ark `NumberInput.Root` props (`min`, `max`, `step`, `value`, `onValueChange`, `disabled`, `formatOptions`, etc.). See [Ark Number Input](https://ark-ui.com/docs/components/number-input).

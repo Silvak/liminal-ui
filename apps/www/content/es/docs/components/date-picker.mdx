@@ -1,21 +1,21 @@
 ---
 title: Date Picker
-description: Entrada de fecha construida con primitivos de Ark UI DatePicker
+description: Campo de fecha accesible con disparador y panel; compón las vistas del calendario con las partes de Ark Date Picker
 component: true
 ---
 
 # Date Picker
 
-`DatePicker` ofrece un control listo para usar con input, trigger y contenido componible.
+Selector de fechas basado en [Ark UI Date Picker](https://ark-ui.com/docs/components/date-picker). El `<DatePicker />` incluido ofrece etiqueta, input, disparador del calendario y un **panel placeholder** dentro de `DatePickerContent`: debes sustituir ese contenido por las vistas de calendario que necesites (por ejemplo cuadrícula mensual y navegación) usando las partes que exporta Ark.
 
 <Preview>
-  <DatePicker label="Fecha" placeholder="Selecciona una fecha" />
+  <DatePicker label="Fecha" placeholder="Elige una fecha" />
 
 ```tsx title="date-picker-demo.tsx" showLineNumbers
 import { DatePicker } from "@/components/ui/date-picker";
 
 export default function Example() {
-  return <DatePicker label="Fecha" placeholder="Selecciona una fecha" />;
+  return <DatePicker label="Fecha" placeholder="Elige una fecha" />;
 }
 ```
 </Preview>
@@ -25,3 +25,62 @@ export default function Example() {
 ```bash
 liminal add date-picker
 ```
+
+## Uso
+
+`label` y `placeholder` son opcionales. El resto de props se reenvían a `DatePickerRoot` (`DatePicker.Root` de Ark): locale, modo de selección, `value` / `onValueChange`, etc., según la documentación de Ark.
+
+El contenido por defecto del popover es solo una pista para componer el calendario; sustitúyelo por `DatePickerView*` / `DatePickerTable` / etc. como en los [ejemplos de Ark Date Picker](https://ark-ui.com/docs/components/date-picker).
+
+## Ejemplos
+
+### API compuesta
+
+Estas partes se reexportan desde `@/components/ui/date-picker`: `DatePickerRoot`, `DatePickerLabel`, `DatePickerControl`, `DatePickerInput`, `DatePickerTrigger`, `DatePickerPositioner`, `DatePickerContent`. Compón el calendario dentro de `DatePickerContent` para un selector completo.
+
+```tsx title="date-picker-compound.tsx" showLineNumbers
+import {
+  DatePickerRoot,
+  DatePickerLabel,
+  DatePickerControl,
+  DatePickerInput,
+  DatePickerTrigger,
+  DatePickerContent,
+} from "@/components/ui/date-picker";
+
+export default function Example() {
+  return (
+    <DatePickerRoot>
+      <DatePickerLabel>Fecha</DatePickerLabel>
+      <DatePickerControl>
+        <DatePickerInput placeholder="Elige una fecha" />
+        <DatePickerTrigger aria-label="Abrir calendario" />
+      </DatePickerControl>
+      <DatePickerContent>
+        {/* Añade DatePicker.View, DatePicker.Table, etc. según Ark */}
+      </DatePickerContent>
+    </DatePickerRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "string",
+      default: "-",
+      description: "Etiqueta opcional sobre el control.",
+    },
+    {
+      prop: "placeholder",
+      type: "string",
+      default: '"Select date"',
+      description: "Placeholder del input de texto.",
+    },
+  ]}
+/>
+
+También acepta todas las props de `DatePicker.Root` de Ark (por ejemplo `selectionMode`, `locale`, `value`, `onValueChange`). Ver [Ark Date Picker](https://ark-ui.com/docs/components/date-picker).

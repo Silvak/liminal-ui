@@ -6,7 +6,7 @@ component: true
 
 # Progress
 
-Componente de barra de progreso construido con Ark UI. Usa la API de conveniencia con `value` (y opcional `showLabel`) o la API compuesta para layout personalizado.
+Barra de progreso basada en [Ark UI Progress](https://ark-ui.com/docs/components/progress). Usa la API de conveniencia con `value` (y opcional `showLabel`) o la API compuesta para un layout personalizado.
 
 <Preview>
   <Progress value={60} showLabel />
@@ -29,7 +29,7 @@ liminal add progress
 
 ## Uso
 
-Pasa `value` (0–100 por defecto) y opcionalmente `min`, `max` y `showLabel` para mostrar el porcentaje.
+Pasa `value` (0–100 por defecto) y, si quieres, `min`, `max` y `showLabel` para mostrar el porcentaje sobre la pista.
 
 <Preview>
   <div className="w-full space-y-4">
@@ -48,17 +48,6 @@ import { Progress } from "@/components/ui/progress";
 
 ## Ejemplos
 
-### Con etiqueta
-
-<Preview>
-  <Progress value={75} showLabel />
-
-```tsx title="progress-label.tsx" showLineNumbers
-<Progress value={75} showLabel />
-```
-
-</Preview>
-
 ### Rango personalizado (min / max)
 
 <Preview>
@@ -72,7 +61,7 @@ import { Progress } from "@/components/ui/progress";
 
 ### API compuesta
 
-Usa `ProgressRoot`, `ProgressLabel`, `ProgressValueText`, `ProgressTrack` y `ProgressRange` para layout personalizado.
+Usa `ProgressRoot`, `ProgressLabel`, `ProgressValueText`, `ProgressTrack` y `ProgressRange` para un layout a medida.
 
 ```tsx title="progress-compound.tsx" showLineNumbers
 import {
@@ -106,7 +95,7 @@ export default function Example() {
       prop: "value",
       type: "number",
       default: "-",
-      description: "Valor actual de progreso (controlado).",
+      description: "Valor actual (controlado o no según la raíz de Ark).",
     },
     {
       prop: "min",
@@ -124,7 +113,9 @@ export default function Example() {
       prop: "showLabel",
       type: "boolean",
       default: "false",
-      description: "Mostrar texto de valor sobre la barra (API de conveniencia).",
+      description: "Muestra el texto del valor sobre la barra (API de conveniencia).",
     },
   ]}
 />
+
+El `Progress` de conveniencia pasa el resto de props a `ProgressRoot`. Ver [Ark Progress](https://ark-ui.com/docs/components/progress) para la API completa de la raíz.

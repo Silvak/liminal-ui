@@ -1,12 +1,12 @@
 ---
 title: Pin Input
-description: Campos segmentados para OTP/PIN
+description: Campos segmentados para OTP y códigos de verificación, con input oculto para formularios
 component: true
 ---
 
 # Pin Input
 
-`PinInput` renderiza celdas segmentadas para códigos de verificación.
+Input PIN / OTP basado en [Ark UI Pin Input](https://ark-ui.com/docs/components/pin-input). El componente de conveniencia renderiza `length` celdas, etiqueta e `PinInputHiddenInput` para envío nativo del formulario. Usa las partes compuestas para personalizar cada segmento.
 
 <Preview>
   <PinInput label="Código de verificación" length={6} />
@@ -25,3 +25,72 @@ export default function Example() {
 ```bash
 liminal add pin-input
 ```
+
+## Uso
+
+`length` define cuántos segmentos se muestran (por defecto `4`). El resto de props se reenvían a `PinInputRoot` (por ejemplo `otp`, `type`, `value`, `onValueChange`).
+
+<Preview>
+  <PinInput label="Código corto" length={4} />
+
+```tsx title="pin-input-usage.tsx" showLineNumbers
+import { PinInput } from "@/components/ui/pin-input";
+
+export default function Example() {
+  return <PinInput label="Código corto" length={4} />;
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### API compuesta
+
+Exportaciones: `PinInputRoot`, `PinInputLabel`, `PinInputControl`, `PinInputField`, `PinInputHiddenInput`. Renderiza un `PinInputField` por índice si compones a mano.
+
+```tsx title="pin-input-compound.tsx" showLineNumbers
+import {
+  PinInputRoot,
+  PinInputLabel,
+  PinInputControl,
+  PinInputField,
+  PinInputHiddenInput,
+} from "@/components/ui/pin-input";
+
+export default function Example() {
+  return (
+    <PinInputRoot count={4}>
+      <PinInputLabel>Código</PinInputLabel>
+      <PinInputControl>
+        <PinInputField index={0} />
+        <PinInputField index={1} />
+        <PinInputField index={2} />
+        <PinInputField index={3} />
+      </PinInputControl>
+      <PinInputHiddenInput />
+    </PinInputRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "string",
+      default: "-",
+      description: "Etiqueta opcional sobre el control.",
+    },
+    {
+      prop: "length",
+      type: "number",
+      default: "4",
+      description: "Número de segmentos (equivale a `count` en la raíz de Ark).",
+    },
+  ]}
+/>
+
+También acepta las props de `PinInput.Root` de Ark. Ver [Ark Pin Input](https://ark-ui.com/docs/components/pin-input).

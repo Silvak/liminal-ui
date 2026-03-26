@@ -1,12 +1,12 @@
 ---
 title: Field
-description: Contenedor de campo de formulario con label, ayuda y error
+description: Etiqueta, input, texto de ayuda y mensaje de error en un grupo accesible
 component: true
 ---
 
 # Field
 
-`Field` estructura entradas accesibles con etiqueta, texto de ayuda y mensaje de error.
+Grupo de campo basado en [Ark UI Field](https://ark-ui.com/docs/components/field). El `<Field />` de conveniencia envuelve un `FieldInput` de texto con `helperText` y `errorText` opcionales. Para textareas o control total, usa `FieldRoot` con `FieldLabel`, `FieldTextarea`, `FieldHelperText` y `FieldErrorText`.
 
 <Preview>
   <Field
@@ -35,3 +35,96 @@ export default function Example() {
 ```bash
 liminal add field
 ```
+
+## Uso
+
+Pasa `inputProps` para configurar el input nativo (tipo, placeholder, `aria-invalid`, `name`, etc.). `helperText` y `errorText` son opcionales; si coexisten, sigue tu sistema de diseño para mostrar ayuda junto a errores.
+
+<Preview>
+  <Field
+    label="Email"
+    errorText="Introduce un email válido."
+    inputProps={{
+      type: "email",
+      placeholder: "tu@ejemplo.com",
+      "aria-invalid": true,
+    }}
+  />
+
+```tsx title="field-usage.tsx" showLineNumbers
+import { Field } from "@/components/ui/field";
+
+export default function Example() {
+  return (
+    <Field
+      label="Email"
+      errorText="Introduce un email válido."
+      inputProps={{
+        type: "email",
+        placeholder: "tu@ejemplo.com",
+        "aria-invalid": true,
+      }}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Ejemplos
+
+### API compuesta (textarea)
+
+El `Field` de conveniencia solo envuelve `FieldInput`. Para un textarea, compón `FieldRoot`, `FieldLabel`, `FieldTextarea`, `FieldHelperText` y `FieldErrorText`.
+
+```tsx title="field-textarea.tsx" showLineNumbers
+import {
+  FieldRoot,
+  FieldLabel,
+  FieldTextarea,
+  FieldHelperText,
+} from "@/components/ui/field";
+
+export default function Example() {
+  return (
+    <FieldRoot>
+      <FieldLabel>Bio</FieldLabel>
+      <FieldTextarea placeholder="Cuéntanos sobre ti" rows={4} />
+      <FieldHelperText>Máximo 500 caracteres.</FieldHelperText>
+    </FieldRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Contenido de la etiqueta sobre el input.",
+    },
+    {
+      prop: "helperText",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Texto de ayuda debajo del input.",
+    },
+    {
+      prop: "errorText",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Mensaje de error (estilo destructivo).",
+    },
+    {
+      prop: "inputProps",
+      type: "React.ComponentProps<typeof FieldInput>",
+      default: "-",
+      description: "Props reenviadas al input de texto interno.",
+    },
+  ]}
+/>
+
+`Field` reenvía props adicionales a `FieldRoot` (`Field.Root` de Ark). Ver [Ark Field](https://ark-ui.com/docs/components/field).

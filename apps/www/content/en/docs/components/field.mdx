@@ -1,12 +1,12 @@
 ---
 title: Field
-description: Form field wrapper with label, helper and error states
+description: Label, input, helper text, and error message in one accessible group
 component: true
 ---
 
 # Field
 
-`Field` provides accessible form structure with label, helper text, and error message.
+A field group built on [Ark UI Field](https://ark-ui.com/docs/components/field). The convenience `<Field />` wraps a single text `FieldInput` with optional `helperText` and `errorText`. For text areas or full control over structure, use `FieldRoot` with `FieldLabel`, `FieldTextarea`, `FieldHelperText`, and `FieldErrorText`.
 
 <Preview>
   <Field
@@ -35,3 +35,96 @@ export default function Example() {
 ```bash
 liminal add field
 ```
+
+## Usage
+
+Pass `inputProps` to configure the native input (type, placeholder, `aria-invalid`, `name`, etc.). `helperText` and `errorText` are optional; when both apply, follow your design system for whether to show helper text alongside errors.
+
+<Preview>
+  <Field
+    label="Email"
+    errorText="Please enter a valid email address."
+    inputProps={{
+      type: "email",
+      placeholder: "you@example.com",
+      "aria-invalid": true,
+    }}
+  />
+
+```tsx title="field-usage.tsx" showLineNumbers
+import { Field } from "@/components/ui/field";
+
+export default function Example() {
+  return (
+    <Field
+      label="Email"
+      errorText="Please enter a valid email address."
+      inputProps={{
+        type: "email",
+        placeholder: "you@example.com",
+        "aria-invalid": true,
+      }}
+    />
+  );
+}
+```
+
+</Preview>
+
+## Examples
+
+### Compound API (textarea)
+
+The convenience `Field` only wraps `FieldInput`. For a textarea, compose `FieldRoot`, `FieldLabel`, `FieldTextarea`, `FieldHelperText`, and `FieldErrorText`.
+
+```tsx title="field-textarea.tsx" showLineNumbers
+import {
+  FieldRoot,
+  FieldLabel,
+  FieldTextarea,
+  FieldHelperText,
+} from "@/components/ui/field";
+
+export default function Example() {
+  return (
+    <FieldRoot>
+      <FieldLabel>Bio</FieldLabel>
+      <FieldTextarea placeholder="Tell us about yourself" rows={4} />
+      <FieldHelperText>Max 500 characters.</FieldHelperText>
+    </FieldRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Label content above the input.",
+    },
+    {
+      prop: "helperText",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Muted helper text below the input.",
+    },
+    {
+      prop: "errorText",
+      type: "React.ReactNode",
+      default: "-",
+      description: "Error message below the input (destructive styling).",
+    },
+    {
+      prop: "inputProps",
+      type: "React.ComponentProps<typeof FieldInput>",
+      default: "-",
+      description: "Props forwarded to the internal text input.",
+    },
+  ]}
+/>
+
+`Field` forwards additional props to `FieldRoot` (Ark `Field.Root`). See [Ark Field](https://ark-ui.com/docs/components/field).

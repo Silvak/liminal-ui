@@ -1,12 +1,12 @@
 ---
 title: Pin Input
-description: OTP/PIN segmented input fields
+description: Segmented inputs for OTPs and verification codes with a hidden input for forms
 component: true
 ---
 
 # Pin Input
 
-`PinInput` renders segmented inputs for one-time codes and verification flows.
+A PIN / OTP input built on [Ark UI Pin Input](https://ark-ui.com/docs/components/pin-input). The convenience component renders `length` cells, a label, and `PinInputHiddenInput` for native form submission. Use the compound parts to customize each segment.
 
 <Preview>
   <PinInput label="Verification code" length={6} />
@@ -25,3 +25,72 @@ export default function Example() {
 ```bash
 liminal add pin-input
 ```
+
+## Usage
+
+`length` sets how many segments are rendered (default `4`). Additional props are forwarded to `PinInputRoot` (for example `otp`, `type`, `value`, `onValueChange`).
+
+<Preview>
+  <PinInput label="Short code" length={4} />
+
+```tsx title="pin-input-usage.tsx" showLineNumbers
+import { PinInput } from "@/components/ui/pin-input";
+
+export default function Example() {
+  return <PinInput label="Short code" length={4} />;
+}
+```
+
+</Preview>
+
+## Examples
+
+### Compound API
+
+Exports: `PinInputRoot`, `PinInputLabel`, `PinInputControl`, `PinInputField`, `PinInputHiddenInput`. Render one `PinInputField` per index when composing manually.
+
+```tsx title="pin-input-compound.tsx" showLineNumbers
+import {
+  PinInputRoot,
+  PinInputLabel,
+  PinInputControl,
+  PinInputField,
+  PinInputHiddenInput,
+} from "@/components/ui/pin-input";
+
+export default function Example() {
+  return (
+    <PinInputRoot count={4}>
+      <PinInputLabel>Code</PinInputLabel>
+      <PinInputControl>
+        <PinInputField index={0} />
+        <PinInputField index={1} />
+        <PinInputField index={2} />
+        <PinInputField index={3} />
+      </PinInputControl>
+      <PinInputHiddenInput />
+    </PinInputRoot>
+  );
+}
+```
+
+## API
+
+<ApiTable
+  data={[
+    {
+      prop: "label",
+      type: "string",
+      default: "-",
+      description: "Optional label above the control.",
+    },
+    {
+      prop: "length",
+      type: "number",
+      default: "4",
+      description: "Number of segments (maps to Ark `count` on the root).",
+    },
+  ]}
+/>
+
+Also accepts Ark `PinInput.Root` props. See [Ark Pin Input](https://ark-ui.com/docs/components/pin-input).
