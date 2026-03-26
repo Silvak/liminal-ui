@@ -26,10 +26,25 @@ export function SiteHeader() {
   const prefix = locale ? `/${locale}` : "";
   const mobileOpen = docsSidebarOpen;
   const toggleMobile = toggleDocsSidebar;
+  const isContainedRoute =
+    pathname === prefix ||
+    pathname === `${prefix}/` ||
+    pathname === `${prefix}/blog` ||
+    pathname.startsWith(`${prefix}/blog/`);
 
   return (
-    <header className="sticky top-0 z-100 border-b border-border bg-background/70 backdrop-blur-md  px-6 md:px-8">
-      <div className="flex h-14 w-full items-center justify-between pl-0 pr-2 max-w-[1440px] mx-auto border-x">
+    <header
+      className={cn(
+        "sticky top-0 z-100 border-b border-border bg-background/70 backdrop-blur-md",
+        isContainedRoute && "px-6 md:px-8",
+      )}
+    >
+      <div
+        className={cn(
+          "flex h-14 w-full items-center justify-between pl-0 pr-2",
+          isContainedRoute && "max-w-[1440px] mx-auto border-x",
+        )}
+      >
         <div className="flex items-center gap-6">
           <Button
             type="button"
