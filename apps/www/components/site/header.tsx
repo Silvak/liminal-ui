@@ -45,13 +45,15 @@ export function SiteHeader() {
           isContainedRoute && "max-w-[1440px] mx-auto border-x",
         )}
       >
-        <div className="flex items-center gap-6">
+        <div className="flex items-center">
           <Button
             type="button"
             variant="ghost"
             size="icon"
             className="md:hidden w-[56px] h-[56px] rounded-none border-r border-border"
-            aria-label={mobileOpen ? site.header.menuClose : site.header.menuOpen}
+            aria-label={
+              mobileOpen ? site.header.menuClose : site.header.menuOpen
+            }
             onClick={toggleMobile}
           >
             {mobileOpen ? (
@@ -61,7 +63,10 @@ export function SiteHeader() {
             )}
           </Button>
 
-          <Link href={prefix || "/"} className="flex items-center gap-2 pl-4">
+          <Link
+            href={prefix || "/"}
+            className="flex items-center gap-2 ml-4 mr-4"
+          >
             <span className="text-sm font-semibold tracking-tight">
               <Image
                 src="/logo.png"

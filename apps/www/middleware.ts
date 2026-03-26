@@ -4,6 +4,10 @@ const LOCALE_COOKIE = "liminal-ui-locale";
 const LOCALES = ["en", "es"] as const;
 type Locale = (typeof LOCALES)[number];
 
+function isStaticAsset(pathname: string): boolean {
+  return /\.[a-zA-Z0-9]+$/.test(pathname);
+}
+
 function getPreferredLocale(request: NextRequest): Locale {
   const cookie = request.cookies.get(LOCALE_COOKIE)?.value;
   if (cookie === "es" || cookie === "en") return cookie;
@@ -23,6 +27,10 @@ function getPreferredLocale(request: NextRequest): Locale {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (isStaticAsset(pathname)) {
+    return NextResponse.next();
+  }
 
   if (pathname === "/") {
     const locale = getPreferredLocale(request);
@@ -53,5 +61,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/((?!_next|api).*)"],
+  matcher: ["/", "/((?!_next|api|favicon.ico|.*\\..*).*)"],
 };
