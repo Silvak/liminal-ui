@@ -54,4 +54,56 @@ const AccordionContent = React.forwardRef<
 ));
 AccordionContent.displayName = "AccordionContent";
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+type AccordionRootProps = React.ComponentPropsWithoutRef<typeof Accordion>;
+
+interface AccordionSimpleItem {
+  value: string;
+  title: React.ReactNode;
+  content: React.ReactNode;
+  disabled?: boolean;
+}
+
+interface AccordionSimpleProps
+  extends Omit<AccordionRootProps, "children"> {
+  items: AccordionSimpleItem[];
+  itemClassName?: string;
+  triggerClassName?: string;
+  contentClassName?: string;
+}
+
+const AccordionSimple = ({
+  items,
+  itemClassName,
+  triggerClassName,
+  contentClassName,
+  ...props
+}: AccordionSimpleProps) => (
+  <Accordion {...props}>
+    {items.map((item) => (
+      <AccordionItem
+        key={item.value}
+        value={item.value}
+        disabled={item.disabled}
+        className={itemClassName}
+      >
+        <AccordionTrigger className={triggerClassName}>
+          {item.title}
+        </AccordionTrigger>
+        <AccordionContent className={contentClassName}>
+          {item.content}
+        </AccordionContent>
+      </AccordionItem>
+    ))}
+  </Accordion>
+);
+AccordionSimple.displayName = "AccordionSimple";
+
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  AccordionSimple,
+  type AccordionSimpleItem,
+  type AccordionSimpleProps,
+};

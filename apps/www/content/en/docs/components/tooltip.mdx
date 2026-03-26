@@ -6,41 +6,22 @@ component: true
 
 # Tooltip
 
-A tooltip component built with Ark UI for showing additional information on hover or focus. Use it for short labels on icons or controls.
+A tooltip component built with Ark UI for showing additional information on hover or focus. Use `TooltipSimple` for the common case and the composed API for full control.
 
 <Preview>
-  <Tooltip>
-    <TooltipTrigger asChild>
-      <Button variant="outline">Hover me</Button>
-    </TooltipTrigger>
-    <TooltipPositioner>
-      <TooltipContent>
-        Additional information about this action.
-      </TooltipContent>
-    </TooltipPositioner>
-  </Tooltip>
+  <TooltipSimple content="Additional information about this action.">
+    <Button variant="outline">Hover me</Button>
+  </TooltipSimple>
 
-```tsx title="tooltip-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipPositioner,
-  TooltipContent,
-} from "@/components/ui/tooltip";
+```tsx title="tooltip-quick.tsx" showLineNumbers
+import { TooltipSimple } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 
 export default function Example() {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button variant="outline">Hover me</Button>
-      </TooltipTrigger>
-      <TooltipPositioner>
-        <TooltipContent>
-          Additional information about this action.
-        </TooltipContent>
-      </TooltipPositioner>
-    </Tooltip>
+    <TooltipSimple content="Additional information about this action.">
+      <Button variant="outline">Hover me</Button>
+    </TooltipSimple>
   );
 }
 ```
@@ -55,6 +36,30 @@ liminal add tooltip
 
 ## Usage
 
+### Quick API (recommended)
+
+<Preview>
+  <TooltipSimple content="Additional information about this action.">
+    <Button variant="outline">Hover me</Button>
+  </TooltipSimple>
+
+```tsx title="tooltip-quick.tsx" showLineNumbers
+import { TooltipSimple } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <TooltipSimple content="Additional information about this action.">
+      <Button variant="outline">Hover me</Button>
+    </TooltipSimple>
+  );
+}
+```
+
+</Preview>
+
+### Composed API (full control)
+
 <Preview>
   <Tooltip>
     <TooltipTrigger asChild>
@@ -67,7 +72,7 @@ liminal add tooltip
     </TooltipPositioner>
   </Tooltip>
 
-```tsx title="tooltip-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+```tsx title="tooltip-composed.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
 import {
   Tooltip,
   TooltipTrigger,
@@ -128,10 +133,22 @@ Wrap any focusable element with `TooltipTrigger asChild`; the tooltip appears on
 <ApiTable
   data={[
     {
+      prop: "content",
+      type: "ReactNode",
+      default: "-",
+      description: "Text or content rendered inside `TooltipSimple`.",
+    },
+    {
+      prop: "children",
+      type: "ReactElement",
+      default: "-",
+      description: "Trigger element used by `TooltipSimple`.",
+    },
+    {
       prop: "open",
       type: "boolean",
       default: "uncontrolled",
-      description: "Controlled open state.",
+      description: "Controlled open state (`Tooltip`/`TooltipSimple`).",
     },
     {
       prop: "onOpenChange",

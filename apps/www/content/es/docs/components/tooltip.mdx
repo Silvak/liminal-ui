@@ -6,41 +6,22 @@ component: true
 
 # Tooltip
 
-Componente tooltip construido con Ark UI para mostrar información adicional al pasar el ratón o al enfocar. Úsalo para etiquetas cortas en iconos o controles.
+Componente tooltip construido con Ark UI para mostrar información adicional al pasar el ratón o al enfocar. Usa `TooltipSimple` para el caso común y la API compuesta para control total.
 
 <Preview>
-  <Tooltip>
-    <TooltipTrigger asChild>
-      <Button variant="outline">Pasa el ratón</Button>
-    </TooltipTrigger>
-    <TooltipPositioner>
-      <TooltipContent>
-        Información adicional sobre esta acción.
-      </TooltipContent>
-    </TooltipPositioner>
-  </Tooltip>
+  <TooltipSimple content="Información adicional sobre esta acción.">
+    <Button variant="outline">Pasa el ratón</Button>
+  </TooltipSimple>
 
-```tsx title="tooltip-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipPositioner,
-  TooltipContent,
-} from "@/components/ui/tooltip";
+```tsx title="tooltip-rapido.tsx" showLineNumbers
+import { TooltipSimple } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 
 export default function Example() {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button variant="outline">Pasa el ratón</Button>
-      </TooltipTrigger>
-      <TooltipPositioner>
-        <TooltipContent>
-          Información adicional sobre esta acción.
-        </TooltipContent>
-      </TooltipPositioner>
-    </Tooltip>
+    <TooltipSimple content="Información adicional sobre esta acción.">
+      <Button variant="outline">Pasa el ratón</Button>
+    </TooltipSimple>
   );
 }
 ```
@@ -55,6 +36,30 @@ liminal add tooltip
 
 ## Uso
 
+### API rápida (recomendada)
+
+<Preview>
+  <TooltipSimple content="Información adicional sobre esta acción.">
+    <Button variant="outline">Pasa el ratón</Button>
+  </TooltipSimple>
+
+```tsx title="tooltip-rapido.tsx" showLineNumbers
+import { TooltipSimple } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return (
+    <TooltipSimple content="Información adicional sobre esta acción.">
+      <Button variant="outline">Pasa el ratón</Button>
+    </TooltipSimple>
+  );
+}
+```
+
+</Preview>
+
+### API compuesta (control total)
+
 <Preview>
   <Tooltip>
     <TooltipTrigger asChild>
@@ -67,7 +72,7 @@ liminal add tooltip
     </TooltipPositioner>
   </Tooltip>
 
-```tsx title="tooltip-basic.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
+```tsx title="tooltip-compuesto.tsx" {3,4,5,6,7,8,9,10} showLineNumbers
 import {
   Tooltip,
   TooltipTrigger,
@@ -128,10 +133,22 @@ Envuelve cualquier elemento enfocable con TooltipTrigger asChild; el tooltip apa
 <ApiTable
   data={[
     {
+      prop: "content",
+      type: "ReactNode",
+      default: "-",
+      description: "Contenido renderizado dentro de `TooltipSimple`.",
+    },
+    {
+      prop: "children",
+      type: "ReactElement",
+      default: "-",
+      description: "Elemento trigger usado por `TooltipSimple`.",
+    },
+    {
       prop: "open",
       type: "boolean",
       default: "uncontrolled",
-      description: "Estado abierto controlado.",
+      description: "Estado abierto controlado (`Tooltip`/`TooltipSimple`).",
     },
     {
       prop: "onOpenChange",

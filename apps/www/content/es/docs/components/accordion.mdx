@@ -6,48 +6,47 @@ component: true
 
 # Accordion
 
-Componente acordeón construido con Ark UI. Úsalo para FAQs, secciones de configuración o cualquier contenido expandible. Elige `type="single"` para un solo ítem abierto o `type="multiple"` para varios.
+Componente acordeón construido con Ark UI. Usa `AccordionSimple` para listas tipo FAQ y la API compuesta para control total. Elige `type="single"` para un solo ítem abierto o `type="multiple"` para varios.
 
 <Preview>
-  <Accordion defaultValue={["item-1"]} type="multiple">
-    <AccordionItem value="item-1">
-      <AccordionTrigger>¿Es accesible?</AccordionTrigger>
-      <AccordionContent>
-        Sí. Sigue el patrón de diseño WAI-ARIA.
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>¿Tiene estilos?</AccordionTrigger>
-      <AccordionContent>
-        Sí. Usa los tokens de Tailwind CSS de tu tema.
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
+  <AccordionSimple
+    type="multiple"
+    defaultValue={["item-1"]}
+    items={[
+      {
+        value: "item-1",
+        title: "¿Es accesible?",
+        content: "Sí. Sigue el patrón de diseño WAI-ARIA.",
+      },
+      {
+        value: "item-2",
+        title: "¿Tiene estilos?",
+        content: "Sí. Usa los tokens de Tailwind CSS de tu tema.",
+      },
+    ]}
+  />
 
-```tsx title="accordion-example.tsx" {10,17} showLineNumbers
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/ui/accordion";
+```tsx title="accordion-rapido.tsx" showLineNumbers
+import { AccordionSimple } from "@/components/ui/accordion";
 
 export default function Example() {
   return (
-    <Accordion defaultValue={["item-1"]} type="multiple">
-      <AccordionItem value="item-1">
-        <AccordionTrigger>¿Es accesible?</AccordionTrigger>
-        <AccordionContent>
-          Sí. Sigue el patrón de diseño WAI-ARIA.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2">
-        <AccordionTrigger>¿Tiene estilos?</AccordionTrigger>
-        <AccordionContent>
-          Sí. Usa los tokens de Tailwind CSS de tu tema.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+    <AccordionSimple
+      type="multiple"
+      defaultValue={["item-1"]}
+      items={[
+        {
+          value: "item-1",
+          title: "¿Es accesible?",
+          content: "Sí. Sigue el patrón de diseño WAI-ARIA.",
+        },
+        {
+          value: "item-2",
+          title: "¿Tiene estilos?",
+          content: "Sí. Usa los tokens de Tailwind CSS de tu tema.",
+        },
+      ]}
+    />
   );
 }
 ```
@@ -66,6 +65,47 @@ liminal add accordion
 
 ## Uso
 
+### API rápida (recomendada)
+
+<Preview>
+  <AccordionSimple
+    type="multiple"
+    defaultValue={["item-1"]}
+    items={[
+      {
+        value: "item-1",
+        title: "¿Es accesible?",
+        content: "Sí. Sigue el patrón de diseño WAI-ARIA.",
+      },
+      {
+        value: "item-2",
+        title: "¿Tiene estilos?",
+        content: "Sí. Usa los tokens de Tailwind CSS de tu tema.",
+      },
+    ]}
+  />
+
+```tsx title="accordion-rapido.tsx" showLineNumbers
+import { AccordionSimple } from "@/components/ui/accordion";
+
+export default function Example() {
+  return (
+    <AccordionSimple
+      type="multiple"
+      defaultValue={["item-1"]}
+      items={[
+        { value: "item-1", title: "¿Es accesible?", content: "Sí. Sigue el patrón de diseño WAI-ARIA." },
+        { value: "item-2", title: "¿Tiene estilos?", content: "Sí. Usa los tokens de Tailwind CSS de tu tema." },
+      ]}
+    />
+  );
+}
+```
+
+</Preview>
+
+### API compuesta (control total)
+
 <Preview>
   <Accordion defaultValue={["item-1"]} type="multiple">
     <AccordionItem value="item-1">
@@ -82,7 +122,7 @@ liminal add accordion
     </AccordionItem>
   </Accordion>
 
-```tsx title="accordion-example.tsx" {10,17} showLineNumbers
+```tsx title="accordion-compuesto.tsx" {10,17} showLineNumbers
 import {
   Accordion,
   AccordionItem,
@@ -165,10 +205,17 @@ export default function Example() {
 <ApiTable
   data={[
     {
+      prop: "items",
+      type: "AccordionSimpleItem[]",
+      default: "-",
+      description: "Lista rápida de secciones para `AccordionSimple`.",
+    },
+    {
       prop: "type",
       type: '"single" | "multiple"',
       default: '"single"',
-      description: "Si puede estar abierto un ítem o varios a la vez.",
+      description:
+        "Si puede estar abierto un ítem o varios a la vez (`Accordion`/`AccordionSimple`).",
     },
     {
       prop: "defaultValue",

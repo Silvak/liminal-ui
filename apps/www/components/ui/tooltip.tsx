@@ -38,4 +38,40 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = "TooltipContent";
 
-export { Tooltip, TooltipTrigger, TooltipPositioner, TooltipContent };
+type TooltipRootProps = React.ComponentPropsWithoutRef<typeof Tooltip>;
+
+interface TooltipSimpleProps extends Omit<TooltipRootProps, "children"> {
+  children: React.ReactElement;
+  content: React.ReactNode;
+  triggerClassName?: string;
+  positionerClassName?: string;
+  contentClassName?: string;
+}
+
+const TooltipSimple = ({
+  children,
+  content,
+  triggerClassName,
+  positionerClassName,
+  contentClassName,
+  ...props
+}: TooltipSimpleProps) => (
+  <Tooltip {...props}>
+    <TooltipTrigger asChild className={triggerClassName}>
+      {children}
+    </TooltipTrigger>
+    <TooltipPositioner className={positionerClassName}>
+      <TooltipContent className={contentClassName}>{content}</TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
+);
+TooltipSimple.displayName = "TooltipSimple";
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipPositioner,
+  TooltipContent,
+  TooltipSimple,
+  type TooltipSimpleProps,
+};
