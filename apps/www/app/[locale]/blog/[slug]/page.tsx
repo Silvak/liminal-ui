@@ -78,7 +78,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     : undefined;
 
   return (
-    <article className="space-y-8 min-w-0">
+    <article className="mx-auto min-w-0 max-w-4xl space-y-8 px-6 py-8 md:px-10 lg:py-12">
       <header className="space-y-4 border-b border-border pb-6">
         <Link
           href={`${prefix}/blog`}

@@ -11,8 +11,10 @@ export default function BlogLayout({
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <SidebarNav mobileOnly={true} />
-      <main className="mx-auto w-full max-w-4xl px-4 py-8 lg:py-12">
-        {children}
+      <main className="w-full px-6 md:px-8">
+        <div className="relative mx-auto min-h-[calc(100vh-3.5rem)] max-w-[1440px] border-x">
+          {children}
+        </div>
       </main>
       <SiteFooter />
     </div>
