@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { useDocsSidebar } from "../../store/docs-sidebar";
 import { useLocaleOptional } from "../../components/locale-provider";
@@ -77,7 +77,18 @@ function CollapsibleSection({
             const content = (
               <>
                 <span className="truncate">{item.title}</span>
-                {effectiveBadge && (
+                {effectiveBadge === "new" && (
+                  <Sparkles
+                    className={cn(
+                      "ml-auto h-3.5 w-3.5 shrink-0",
+                      active
+                        ? "text-primary-foreground"
+                        : "text-primary",
+                    )}
+                    aria-label="New"
+                  />
+                )}
+                {effectiveBadge && effectiveBadge !== "new" && (
                   <Badge
                     variant={
                       badgeVariantMap[effectiveBadge] as
@@ -111,12 +122,9 @@ function CollapsibleSection({
                 className={cn(
                   "relative group filter-pixel-noise flex h-[42px] w-full items-center rounded-md px-8 text-muted-foreground transition-colors hover:bg-primary/10 dark:hover:bg-muted  hover:text-foreground",
                   active &&
-                    "bg-linear-to-r from-primary/70 from-15% to-white/00  to-90% text-primary-foreground hover:text-white dark:hover:text-foreground ",
+                    "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground",
                 )}
               >
-                {active && (
-                  <div className="w-[8px] h-[26px] absolute left-2 bg-muted rounded-[2px] " />
-                )}
                 {content}
               </Link>
             );
@@ -184,12 +192,9 @@ function NavContent({
                     className={cn(
                       "relative group filter-pixel-noise flex h-[42px] mb-[2px] w-full items-center rounded-md px-8 text-base md:text-sm text-muted-foreground transition-colors hover:bg-primary/10 dark:hover:bg-muted hover:text-foreground",
                       active &&
-                        "bg-linear-to-r from-primary/70 from-15% to-white/00 to-90% text-primary-foreground hover:text-white dark:hover:text-foreground",
+                        "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground",
                     )}
                   >
-                    {active && (
-                      <div className="w-[8px] h-[26px] absolute left-2 bg-muted rounded-[2px]" />
-                    )}
                     <span className="truncate">{label}</span>
                   </Link>
                 );
