@@ -124,6 +124,8 @@ export function CodeBlock({
   hideHeader = false,
 }: CodeBlockProps) {
   const [html, setHtml] = React.useState<string | null>(null);
+  const [inView, setInView] = React.useState(false);
+  const codeContainerRef = React.useRef<HTMLDivElement | null>(null);
 
   const lineCount = code.split("\n").length;
   const effectiveShowLineNumbers = showLineNumbers || lineCount > 2;
@@ -159,14 +161,60 @@ export function CodeBlock({
     };
   }, [code, language, highlightLines, effectiveShowLineNumbers]);
 
+  React.useEffect(() => {
+    if (inView) return;
+
+    const node = codeContainerRef.current;
+    if (!node) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const isIntersecting = entries.some((entry) => entry.isIntersecting);
+        if (isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [inView]);
+
+  const baseHtml =
+    html ??
+    `<pre><code>${escapeHtml(code)}</code></pre>`;
+
+  const animatedHtml = React.useMemo(() => {
+    if (!inView) return baseHtml;
+
+    let lineIdx = 0;
+    return baseHtml.replace(
+      /<span\s+([^>]*class="[^"]*\bline\b[^"]*"[^>]*)>/g,
+      (_match, attrs: string) => {
+        const delay = Math.min(lineIdx * 30, 1500);
+        lineIdx += 1;
+        return `<span style="opacity:0;animation:code-typewriter 0.3s ease-out ${delay}ms forwards" ${attrs}>`;
+      },
+    );
+  }, [baseHtml, inView]);
+
   const content = (
     <div
+      ref={codeContainerRef}
       className="overflow-auto px-4 py-2.5 text-[0.82rem]"
       style={{ minHeight: estimatedHeight }}
       dangerouslySetInnerHTML={{
-        __html:
-          html ??
-          `<pre><code>${escapeHtml(code)}</code></pre>`,
+        __html: animatedHtml,
       }}
     />
   );

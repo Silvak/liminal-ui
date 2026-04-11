@@ -67,33 +67,47 @@ export function ComponentPreview({
 
         <div
           className={cn(
+            "pt-4 transition-[max-height] duration-300 ease-out",
             expanded
-              ? "max-h-[400px] overflow-auto scrollbar-hide pt-4"
-              : "max-h-[100px] overflow-hidden pt-4",
+              ? "max-h-[400px] overflow-auto scrollbar-hide"
+              : "max-h-[100px] overflow-hidden",
           )}
         >
           {codeNodeWithHideHeader}
         </div>
 
-        {!expanded && (
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() => setExpanded(true)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setExpanded(true);
-              }
-            }}
-            className="absolute inset-0 cursor-pointer flex items-center justify-center bg-linear-to-t from-(--code-bg) to-transparent"
-            aria-expanded={false}
-            aria-label="Expand code"
+        <div
+          role="button"
+          tabIndex={expanded ? -1 : 0}
+          onClick={() => {
+            if (!expanded) setExpanded(true);
+          }}
+          onKeyDown={(e) => {
+            if ((e.key === "Enter" || e.key === " ") && !expanded) {
+              e.preventDefault();
+              setExpanded(true);
+            }
+          }}
+          className={cn(
+            "absolute inset-0 cursor-pointer flex items-center justify-center bg-linear-to-t from-(--code-bg) to-transparent transition-opacity duration-300",
+            expanded && "opacity-0 pointer-events-none",
+          )}
+          aria-expanded={expanded}
+          aria-label="Expand code"
+        >
+          <span className="rounded-md h-[40px] flex items-center justify-center border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:border-primary">
+            View Code
+          </span>
+        </div>
+
+        {expanded && (
+          <button
+            type="button"
+            onClick={() => setExpanded(false)}
+            className="flex w-full items-center justify-center border-t border-border/70 py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
           >
-            <span className="rounded-md h-[40px] flex items-center justify-center border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:border-primary">
-              View Code
-            </span>
-          </div>
+            Collapse
+          </button>
         )}
       </div>
     </div>
