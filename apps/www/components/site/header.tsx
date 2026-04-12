@@ -36,7 +36,7 @@ export function SiteHeader() {
     <header
       className={cn(
         "sticky top-0 z-100 border-b border-border bg-background/70 backdrop-blur-md",
-        isContainedRoute && "px-6 md:px-8",
+        isContainedRoute && "px-4 md:px-8",
       )}
     >
       <div

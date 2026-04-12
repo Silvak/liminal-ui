@@ -463,7 +463,7 @@ export function ComponentsSection({
   const items = copy.items;
 
   return (
-    <section className="w-full px-6 md:px-8">
+    <section className="w-full px-4 md:px-8">
       <div className="relative flex mx-auto h-min-content max-w-[1440px] border-x flex-col">
         <div className="w-full border-b px-6 py-8 md:px-10">
           <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-3">

@@ -75,7 +75,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border bg-background">
-      <div className="w-full px-6 md:px-8">
+      <div className="w-full px-4 md:px-8">
         <div className="mx-auto max-w-[1440px] border-x border-border bg-white dark:bg-background">
           <div className="grid gap-10 px-6 py-12 md:grid-cols-2 md:gap-12 lg:grid-cols-12 lg:gap-8 lg:px-8">
             <div className="flex flex-col gap-5 lg:col-span-4">

@@ -50,7 +50,7 @@ export default async function Page({ params }: PageProps) {
       <SidebarNav mobileOnly />
       <div
         id="hero"
-        className="relative h-[80vh] min-h-[480px] md:min-h-[560px] w-full overflow-hidden px-6 md:px-8 "
+        className="relative h-[80vh] min-h-[480px] md:min-h-[560px] w-full overflow-hidden px-4 md:px-8 "
       >
         <Container className="relative z-10 flex flex-col md:flex-row h-full border-x">
           <div className="flex flex-col justify-between p-6 w-full md:w-[50%] md:border-r h-full relative">
@@ -115,7 +115,7 @@ export default async function Page({ params }: PageProps) {
         <div className="absolute bottom-[50%] text-4xl text-red-700">+</div>
       </div>
 
-      <div id="carrusel" className="w-full  h-[100px] border-y px-6 md:px-8">
+      <div id="carrusel" className="w-full  h-[100px] border-y px-4 md:px-8">
         <Container className="border-x h-full px-0">
           <WordsCarousel items={dict.carousel.items} />
         </Container>
@@ -123,7 +123,7 @@ export default async function Page({ params }: PageProps) {
 
       <div
         id="about"
-        className="flex w-full min-h-[400px] flex-col px-6 md:px-8"
+        className="flex w-full min-h-[400px] flex-col px-4 md:px-8"
       >
         <Container className="flex h-full min-h-0 flex-1 flex-col border-x">
           <div className="flex w-full flex-1 flex-col items-center justify-center gap-5 px-6 py-8 md:gap-6 md:px-10 md:py-12">
