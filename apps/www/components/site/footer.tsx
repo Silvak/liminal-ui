@@ -30,7 +30,7 @@ function FooterColumn({
       </p>
       <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
         {links.map((item) => (
-          <li key={item.label}>
+          <li key={item.href}>
             <Link
               href={item.external ? item.href : `${prefix}${item.href}`}
               {...(item.external

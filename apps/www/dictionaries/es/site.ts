@@ -28,6 +28,7 @@ export const siteEs: SiteDictionary = {
     links: {
       docs: "Documentación",
       components: "Componentes",
+      designSystem: "Design System",
       playground: "Playground",
       blog: "Blog",
       github: "GitHub",

@@ -25,6 +25,7 @@ export type SiteDictionary = {
     links: {
       docs: string;
       components: string;
+      designSystem: string;
       playground: string;
       blog: string;
       github: string;

@@ -28,6 +28,7 @@ export const siteEn: SiteDictionary = {
     links: {
       docs: "Docs",
       components: "Components",
+      designSystem: "Design System",
       playground: "Playground",
       blog: "Blog",
       github: "GitHub",
