@@ -25,7 +25,7 @@ export function ComingSoonSection({ copy }: { copy: ComingSoonCopy }) {
 
         <div className="w-full flex flex-col md:flex-row min-h-[400px]">
           <div
-            className="w-full md:w-[50%] md:border-r relative overflow-hidden min-h-[280px] md:min-h-[420px]"
+            className="relative w-full min-h-[200px] overflow-hidden md:w-[50%] md:min-h-[420px] md:border-r"
             style={{ borderColor: "var(--border)" }}
           >
             <div

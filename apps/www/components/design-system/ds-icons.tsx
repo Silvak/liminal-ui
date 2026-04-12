@@ -120,7 +120,7 @@ const STROKES = [1, 1.5, 2, 2.5] as const;
 
 export function DsIcons({ copy }: Props) {
   return (
-    <section id="icons" className="w-full border-b">
+    <section id="icons" className="w-full">
       {/* Header */}
       <div className="px-6 py-8 md:px-10 border-b">
         <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-3">
@@ -201,8 +201,12 @@ export function DsIcons({ copy }: Props) {
       </div>
 
       {/* Icon groups */}
-      {ICON_GROUPS.map((group) => (
-        <div key={group.name} className="border-b" style={{ borderColor: "var(--border)" }}>
+      {ICON_GROUPS.map((group, index) => (
+        <div
+          key={group.name}
+          className={cn(index < ICON_GROUPS.length - 1 && "border-b")}
+          style={{ borderColor: "var(--border)" }}
+        >
           <div
             className="border-b px-6 py-3 md:px-10"
             style={{ borderColor: "var(--border)" }}

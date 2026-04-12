@@ -95,13 +95,13 @@ export default async function Page({ params }: PageProps) {
       <SidebarNav mobileOnly />
       <div
         id="hero"
-        className="relative h-[80vh] min-h-[480px] md:min-h-[560px] w-full  px-4 md:px-8 "
+        className="relative h-[80vh] min-h-[480px] w-full overflow-hidden px-3 sm:px-4 md:min-h-[560px] md:px-8"
       >
         <Container className="relative z-10 flex flex-col md:flex-row h-full border-x overflow-hidden">
           {/* Main content */}
-          <div className="flex flex-col justify-between p-6 w-full md:w-[50%] md:border-r h-full">
+          <div className="flex h-full w-full flex-col justify-between p-5 md:w-[50%] md:border-r md:p-6">
             <div className="z-20 md:z-0">
-              <h1 className="font-display text-7xl sm:text-7xl md:text-7xl lg:text-9xl xl:text-9xl font-semibold leading-[0.95] tracking-tight">
+              <h1 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-semibold leading-[0.95] tracking-tight">
                 <span className="block">{dict.pageHero.title1}</span>
                 <span className="block">{dict.pageHero.title2}</span>
                 <span className="block">{dict.pageHero.title3}</span>
@@ -112,7 +112,7 @@ export default async function Page({ params }: PageProps) {
               <h2 className="font-ibm text-base md:text-lg text-foreground md:text-muted-foreground tracking-wide">
                 {dict.pageHero.subtitle}
               </h2>
-              <p className="my-4 text-sm md:text-base md:text-muted-foreground pr-12 ">
+              <p className="my-4 pr-0 text-sm md:pr-12 md:text-base md:text-muted-foreground">
                 {dict.pageHero.body}
               </p>
 
@@ -140,10 +140,10 @@ export default async function Page({ params }: PageProps) {
 
             <ParallaxCloud
               parallaxEnabled={true}
-              className="absolute  -bottom-[320px] -right-[100%] md:-right-[60%] lg:-right-[180px] w-[1200px] h-[900px] z-10"
+              className="absolute -bottom-[320px] -right-[75%] h-[900px] w-[900px] z-10 sm:w-[1100px] md:-right-[60%] md:w-[1200px] lg:-right-[180px]"
             />
 
-            <div className="absolute flex lg:hidden  bottom-0 right-0 w-full h-[220px] bg-gradient-to-t from-background to-transparent z-10 " />
+            <div className="absolute flex lg:hidden  bottom-0 right-0 w-full h-[220px] bg-linear-to-t from-background to-transparent z-10 " />
           </div>
 
           {/* second container */}
@@ -160,7 +160,7 @@ export default async function Page({ params }: PageProps) {
               </span>
             </div>
 
-            <div className="absolute -top-[1px]  -right-[1px] text-4xl text-red-700 h-[100px] w-[100px] bg-white border">
+            <div className="absolute -top-px  -right-px text-4xl text-red-700 h-[100px] w-[100px] bg-white border">
               +
             </div>
           </div>

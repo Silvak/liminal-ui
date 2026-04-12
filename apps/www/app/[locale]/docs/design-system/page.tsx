@@ -15,6 +15,8 @@ import { DsAnimations } from "@/components/design-system/ds-animations";
 import { DsBorders } from "@/components/design-system/ds-borders";
 import { DsIcons } from "@/components/design-system/ds-icons";
 import { DsToc } from "@/components/design-system/ds-toc";
+import { DocsPager } from "@/components/site/docs-pager";
+import { docNavItems } from "@/components/site/docs-nav";
 
 type Locale = "en" | "es";
 const LOCALES: Locale[] = ["en", "es"];
@@ -93,6 +95,26 @@ export default async function DesignSystemPage({ params }: PageProps) {
   const tocSections = locale === "es" ? TOC_SECTIONS_ES : TOC_SECTIONS_EN;
   const rawContent = buildDesignSystemRawContent(dict, tocSections);
 
+  const prefix = `/${locale}`;
+  const currentHref = `${prefix}/docs/design-system`;
+  const currentIndex = docNavItems.findIndex(
+    (item) => `${prefix}${item.href}` === currentHref,
+  );
+  const prev =
+    currentIndex > 0
+      ? {
+          title: docNavItems[currentIndex - 1].title,
+          href: `${prefix}${docNavItems[currentIndex - 1].href}`,
+        }
+      : undefined;
+  const next =
+    currentIndex >= 0 && currentIndex < docNavItems.length - 1
+      ? {
+          title: docNavItems[currentIndex + 1].title,
+          href: `${prefix}${docNavItems[currentIndex + 1].href}`,
+        }
+      : undefined;
+
   return (
     <div className="min-w-0">
       {/* Page header */}
@@ -109,6 +131,10 @@ export default async function DesignSystemPage({ params }: PageProps) {
         <DsAnimations copy={dict.animations} />
         <DsBorders copy={dict.borders} />
         <DsIcons copy={dict.icons} />
+      </div>
+
+      <div className="mt-8 min-w-0">
+        <DocsPager prev={prev} next={next} />
       </div>
 
       {/* ToC — fixed aside, exactly like TableOfContents */}

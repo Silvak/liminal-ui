@@ -330,7 +330,7 @@ export function ThemingSection({
         </div>
 
         {/* Footer */}
-        <div className="w-full border-t px-6 py-5 md:px-10 flex items-center justify-between">
+        <div className="flex w-full flex-col items-start gap-3 border-t px-6 py-5 sm:flex-row sm:items-center sm:justify-between md:px-10">
           <span className="font-ibm text-[12px] text-muted-foreground">
             {copy.footerPresets.replace(
               "{count}",

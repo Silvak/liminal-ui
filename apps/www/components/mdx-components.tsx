@@ -291,12 +291,27 @@ export const mdxComponents: MDXComponents = {
       );
     })()
   ),
-  p: ({ className, ...props }) => (
-    <p
-      className={cn("leading-7 text-muted-foreground", className)}
-      {...props}
-    />
-  ),
+  p: ({ className, children, ...props }) => {
+    const hasBlockChild = React.Children.toArray(children).some(
+      (child) =>
+        React.isValidElement(child) &&
+        (child.type === MdxImage || child.type === "figure" || child.type === "img"),
+    );
+
+    if (hasBlockChild) {
+      return (
+        <div className={cn("leading-7 text-muted-foreground", className)} {...props}>
+          {children}
+        </div>
+      );
+    }
+
+    return (
+      <p className={cn("leading-7 text-muted-foreground", className)} {...props}>
+        {children}
+      </p>
+    );
+  },
   ul: ({ className, ...props }) => (
     <ul
       className={cn("my-4 ml-6 list-disc space-y-1 text-muted-foreground", className)}

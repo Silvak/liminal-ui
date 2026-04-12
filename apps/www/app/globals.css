@@ -179,7 +179,11 @@
   }
   html {
     scroll-behavior: smooth;
-    scrollbar-gutter: stable;
+  }
+  @media (min-width: 768px) {
+    html {
+      scrollbar-gutter: stable;
+    }
   }
   html.playground-no-gutter {
     scrollbar-gutter: auto;
