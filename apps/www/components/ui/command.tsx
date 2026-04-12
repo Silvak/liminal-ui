@@ -32,12 +32,12 @@ const CommandInput = React.forwardRef<
   React.ElementRef<typeof CmdkInput>,
   React.ComponentPropsWithoutRef<typeof CmdkInput>
 >(({ className, ...props }, ref) => (
-  <div className="flex items-center border-b border-border px-3">
+  <div className="flex items-center border-b border-border px-4">
     <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
     <CmdkInput
       ref={ref}
       className={cn(
-        "flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
+        "flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
@@ -80,7 +80,7 @@ const CommandGroup = React.forwardRef<
   <CmdkGroup
     ref={ref}
     className={cn(
-      "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground",
+      "overflow-hidden p-1 pt-2 text-foreground first:pt-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:pt-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground",
       className,
     )}
     {...props}
@@ -95,7 +95,7 @@ const CommandItem = React.forwardRef<
   <CmdkItem
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none",
+      "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-2 text-sm outline-none transition-colors",
       "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground",
       "aria-disabled:pointer-events-none aria-disabled:opacity-50",
       className,

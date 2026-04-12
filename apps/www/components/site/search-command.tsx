@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import { FileText } from "lucide-react";
 import { Dialog, DialogContent } from "../ui/dialog";
 import {
   Command,
@@ -13,128 +14,69 @@ import {
 } from "../ui/command";
 import { cn } from "../../lib/utils";
 import { useLocaleOptional } from "../../components/locale-provider";
+import { docNavSections, type NavItem } from "./docs-nav";
 
-const searchGroups = [
-  {
-    heading: "Getting Started",
-    items: [
-      {
-        label: "Introduction",
-        href: "/docs/introduction",
-        keywords: ["intro", "welcome"],
-      },
-      {
-        label: "Installation",
-        href: "/docs/installation",
-        keywords: ["install", "setup"],
-      },
-      {
-        label: "Theming",
-        href: "/docs/theming",
-        keywords: ["theme", "tokens", "dark mode", "styles"],
-      },
-    ],
-  },
-  {
-    heading: "Components",
-    items: [
-      {
-        label: "Accordion",
-        href: "/docs/components/accordion",
-        keywords: ["collapse", "expand"],
-      },
-      {
-        label: "Alert",
-        href: "/docs/components/alert",
-        keywords: ["banner", "message"],
-      },
-      {
-        label: "Avatar",
-        href: "/docs/components/avatar",
-        keywords: ["profile", "image"],
-      },
-      {
-        label: "Badge",
-        href: "/docs/components/badge",
-        keywords: ["tag", "label"],
-      },
-      {
-        label: "Button",
-        href: "/docs/components/button",
-        keywords: ["click", "action"],
-      },
-      {
-        label: "Card",
-        href: "/docs/components/card",
-        keywords: ["container", "panel"],
-      },
-      {
-        label: "Checkbox",
-        href: "/docs/components/checkbox",
-        keywords: ["check", "toggle"],
-      },
-      {
-        label: "Dialog",
-        href: "/docs/components/dialog",
-        keywords: ["modal", "popup"],
-      },
-      {
-        label: "Input",
-        href: "/docs/components/input",
-        keywords: ["text", "field", "form"],
-      },
-      {
-        label: "Label",
-        href: "/docs/components/label",
-        keywords: ["form", "text"],
-      },
-      {
-        label: "Popover",
-        href: "/docs/components/popover",
-        keywords: ["dropdown", "floating"],
-      },
-      {
-        label: "Select",
-        href: "/docs/components/select",
-        keywords: ["dropdown", "picker"],
-      },
-      {
-        label: "Separator",
-        href: "/docs/components/separator",
-        keywords: ["divider", "line"],
-      },
-      {
-        label: "Sonner",
-        href: "/docs/components/sonner",
-        keywords: ["toast", "notification"],
-      },
-      {
-        label: "Switch",
-        href: "/docs/components/switch",
-        keywords: ["toggle", "checkbox"],
-      },
-      {
-        label: "Tabs",
-        href: "/docs/components/tabs",
-        keywords: ["tab", "panel"],
-      },
-      {
-        label: "Textarea",
-        href: "/docs/components/textarea",
-        keywords: ["text", "multiline"],
-      },
-      {
-        label: "Tooltip",
-        href: "/docs/components/tooltip",
-        keywords: ["hint", "popup"],
-      },
-    ],
-  },
-  {
-    heading: "Navigation",
-    items: [{ label: "Blog", href: "/blog", keywords: ["posts", "articles"] }],
-  },
-] as const;
+type SearchItem = {
+  label: string;
+  href: string;
+  keywords: string[];
+};
+
+const extraKeywordsByHref: Record<string, readonly string[]> = {
+  "/docs/introduction": ["intro", "welcome", "start"],
+  "/docs/installation": ["install", "setup", "cli"],
+  "/docs/theming": ["theme", "tokens", "dark mode", "styles"],
+  "/docs/understanding-ark-ui": ["ark", "headless", "primitives", "ark ui"],
+  "/docs/components/sonner": ["toast", "notification", "sonner"],
+  "/docs/components/dropdown-menu": ["menu", "context", "dropdown"],
+  "/docs/components/date-picker": ["calendar", "date"],
+  "/docs/components/file-upload": ["upload", "file", "input"],
+  "/docs/components/tags-input": ["tags", "chips", "multi"],
+  "/docs/components/pin-input": ["otp", "code", "pin"],
+  "/docs/components/number-input": ["numeric", "spinner"],
+  "/docs/components/radio-group": ["radio", "choice"],
+  "/docs/components/combobox": ["autocomplete", "select", "search"],
+};
+
+function navItemToSearchItem(item: NavItem): SearchItem {
+  const slug = item.href.split("/").pop() ?? "";
+  const fromTitle = item.title.toLowerCase().split(/\s+/).filter(Boolean);
+  const extras = extraKeywordsByHref[item.href] ?? [];
+  const keywords = [
+    ...fromTitle,
+    slug,
+    item.href.replace(/^\//, "").replaceAll("/", " "),
+    ...extras,
+  ];
+  return {
+    label: item.title,
+    href: item.href,
+    keywords: [...new Set(keywords.map((k) => k.trim()).filter(Boolean))],
+  };
+}
+
+function buildSearchGroups(): { heading: string; items: SearchItem[] }[] {
+  const fromNav = docNavSections.map((section) => ({
+    heading: section.title,
+    items: section.items
+      .filter((item) => !item.disabled)
+      .map(navItemToSearchItem),
+  }));
+
+  return [
+    ...fromNav,
+    {
+      heading: "Site",
+      items: [
+        {
+          label: "Blog",
+          href: "/blog",
+          keywords: ["posts", "articles", "blog", "news"],
+        },
+      ],
+    },
+  ];
+}
 
 export interface SearchCommandProps {
   open: boolean;
@@ -150,6 +92,8 @@ export function SearchCommand({
   const router = useRouter();
   const locale = useLocaleOptional();
   const prefix = locale ? `/${locale}` : "";
+
+  const searchGroups = useMemo(() => buildSearchGroups(), []);
 
   const runCommand = useCallback(
     (href: string) => {
@@ -197,12 +141,14 @@ export function SearchCommand({
                 {group.items.map((item) => (
                   <CommandItem
                     key={item.href}
-                    value={`${item.label} ${item.href} ${item.keywords.join(
-                      " ",
-                    )}`}
-                    keywords={[...item.keywords]}
+                    value={`${item.label} ${item.href} ${item.keywords.join(" ")}`}
+                    keywords={item.keywords}
                     onSelect={() => runCommand(item.href)}
                   >
+                    <FileText
+                      className="mr-2 h-4 w-4 shrink-0 text-muted-foreground"
+                      aria-hidden
+                    />
                     {item.label}
                   </CommandItem>
                 ))}
