@@ -1,7 +1,6 @@
 export const mainNavRoutes = [
   { key: "docs", href: "/docs/introduction" },
   { key: "components", href: "/docs/components/button" },
-  { key: "designSystem", href: "/docs/design-system" },
   { key: "playground", href: "/playground" },
   { key: "blog", href: "/blog" },
 ] as const;

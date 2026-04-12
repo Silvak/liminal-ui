@@ -6,7 +6,6 @@ export const siteEs: SiteDictionary = {
       home: "Inicio",
       docs: "Documentación",
       components: "Componentes",
-      designSystem: "Design System",
       playground: "Playground",
       blog: "Blog",
     },
