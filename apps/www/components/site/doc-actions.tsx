@@ -31,16 +31,45 @@ function copyToClipboard(text: string): Promise<void> {
   return ok ? Promise.resolve() : Promise.reject(new Error('Copy failed'));
 }
 
+function toPlainText(markdown: string): string {
+  return markdown
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^>\s?/gm, '')
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/_{1,2}([^_]+)_{1,2}/g, '$1')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 export function DocActions({ title, slug, rawContent, className }: DocActionsProps) {
   const [copied, setCopied] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const menuRef = React.useRef<HTMLDivElement>(null);
 
-  const handleCopy = React.useCallback(async () => {
+  const handleCopyMarkdown = React.useCallback(async () => {
     try {
       await copyToClipboard(rawContent);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
+      setOpen(false);
+    } catch {
+      setCopied(false);
+    }
+  }, [rawContent]);
+
+  const handleCopyText = React.useCallback(async () => {
+    try {
+      await copyToClipboard(toPlainText(rawContent));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+      setOpen(false);
     } catch {
       setCopied(false);
     }
@@ -105,7 +134,7 @@ export function DocActions({ title, slug, rawContent, className }: DocActionsPro
           'rounded-l-md px-3 gap-1.5',
         )}
         aria-label={copied ? 'Copied' : 'Copy page'}
-        onClick={handleCopy}
+        onClick={handleCopyMarkdown}
       >
         {copied ? (
           <Check className="h-3.5 w-3.5" />
@@ -134,6 +163,24 @@ export function DocActions({ title, slug, rawContent, className }: DocActionsPro
           className="absolute right-0 top-full z-50 mt-1 min-w-[180px] rounded-md border border-border bg-popover text-popover-foreground shadow-md"
           role="menu"
         >
+          <button
+            type="button"
+            role="menuitem"
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
+            onClick={handleCopyText}
+          >
+            <Copy className="h-4 w-4 shrink-0" />
+            Copy as Text
+          </button>
+          <button
+            type="button"
+            role="menuitem"
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
+            onClick={handleCopyMarkdown}
+          >
+            <Copy className="h-4 w-4 shrink-0" />
+            Copy as MD
+          </button>
           <button
             type="button"
             role="menuitem"

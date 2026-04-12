@@ -108,12 +108,11 @@ export function DsGlass({ copy }: Props) {
                 )}
               >
                 <div
-                  className="absolute top-0.5 h-3.5 w-3.5 transition-all"
-                  style={{
-                    left: noise ? "calc(100% - 0.5rem - 1px)" : "1px",
-                    backgroundColor: noise ? "var(--primary)" : "var(--border)",
-                    transform: "translateX(-50%)",
-                  }}
+                  className={cn(
+                    "absolute left-0.5 top-0.5 h-3.5 w-3.5 transition-transform",
+                    noise && "translate-x-4"
+                  )}
+                  style={{ backgroundColor: noise ? "var(--primary)" : "var(--border)" }}
                 />
               </button>
               <span className="font-ibm text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
@@ -140,8 +139,16 @@ export function DsGlass({ copy }: Props) {
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 100% 80% at 30% 50%, color-mix(in oklch, var(--primary) 25%, transparent), transparent 60%), radial-gradient(ellipse 60% 60% at 80% 20%, color-mix(in oklch, var(--accent) 20%, transparent), transparent 55%)",
+                "radial-gradient(ellipse 110% 90% at 28% 52%, color-mix(in oklch, var(--primary) 30%, transparent), transparent 62%), radial-gradient(ellipse 70% 65% at 82% 18%, color-mix(in oklch, var(--accent) 26%, transparent), transparent 58%), linear-gradient(135deg, color-mix(in oklch, var(--foreground) 8%, transparent), transparent 40%)",
               backgroundSize: "cover",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "repeating-linear-gradient(120deg, color-mix(in oklch, var(--border) 35%, transparent) 0px, color-mix(in oklch, var(--border) 35%, transparent) 1px, transparent 1px, transparent 28px)",
+              opacity: 0.25,
             }}
           />
           {/* Geometric shapes behind glass */}
@@ -156,6 +163,13 @@ export function DsGlass({ copy }: Props) {
           <div
             className="absolute top-1/2 left-1/3 h-32 w-1 -rotate-30 -translate-y-1/2"
             style={{ backgroundColor: "var(--primary)", opacity: 0.15 }}
+          />
+          <div
+            className="absolute right-20 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full border"
+            style={{
+              borderColor: "color-mix(in oklch, var(--accent) 45%, transparent)",
+              boxShadow: "0 0 50px color-mix(in oklch, var(--accent) 20%, transparent)",
+            }}
           />
 
           {/* Glass panel */}
@@ -207,18 +221,21 @@ export function DsGlass({ copy }: Props) {
               css: "bg-background/70\nbackdrop-blur-md",
               opacity: 70,
               blur: 12,
+              kind: "header",
             },
             {
               label: copy.codeExample,
               css: "code-mix(bg, 72%)\nbackdrop-blur(16px)\n+ noise overlay",
               opacity: 72,
               blur: 16,
+              kind: "code",
             },
             {
               label: copy.modalExample,
               css: "bg-background/80\nbackdrop-blur-lg",
               opacity: 80,
               blur: 20,
+              kind: "modal",
             },
           ].map((ex, i) => (
             <div
@@ -241,9 +258,28 @@ export function DsGlass({ copy }: Props) {
                   background: `linear-gradient(135deg, color-mix(in oklch, var(--primary) 8%, transparent), transparent 60%), color-mix(in oklab, var(--background) ${ex.opacity}%, transparent)`,
                 }}
               >
-                <div className="h-1.5 w-12 rounded-full mb-2" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.3 }} />
-                <div className="h-1.5 w-20 rounded-full mb-2" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.2 }} />
-                <div className="h-1.5 w-10 rounded-full" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.15 }} />
+                {ex.kind === "header" && (
+                  <div className="flex h-10 items-center justify-between border px-3" style={{ borderColor: "var(--border)" }}>
+                    <div className="h-1.5 w-10 rounded-full" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.3 }} />
+                    <div className="h-1.5 w-5 rounded-full" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.25 }} />
+                  </div>
+                )}
+                {ex.kind === "code" && (
+                  <div className="space-y-2">
+                    <div className="h-1.5 w-16 rounded-full" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.35 }} />
+                    <div className="h-1.5 w-24 rounded-full" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.26 }} />
+                    <div className="h-1.5 w-20 rounded-full" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.2 }} />
+                    <div className="h-1.5 w-12 rounded-full" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.16 }} />
+                  </div>
+                )}
+                {ex.kind === "modal" && (
+                  <div className="flex h-16 items-center justify-center">
+                    <div className="h-10 w-20 border px-2 py-1" style={{ borderColor: "var(--border)" }}>
+                      <div className="h-1.5 w-12 rounded-full mb-1" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.24 }} />
+                      <div className="h-1.5 w-8 rounded-full" style={{ backgroundColor: "var(--muted-foreground)", opacity: 0.16 }} />
+                    </div>
+                  </div>
+                )}
               </div>
               <pre className="font-ibm text-[9px] leading-relaxed text-muted-foreground/70">
                 {ex.css}

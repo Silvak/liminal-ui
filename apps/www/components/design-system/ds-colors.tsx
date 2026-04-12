@@ -146,15 +146,15 @@ export function DsColors({ copy }: Props) {
         <span className="font-ibm text-[11px] uppercase tracking-[0.25em] text-muted-foreground mr-4">
           {copy.semanticLabel}
         </span>
-        <div className="ml-auto flex">
+        <div className="ml-auto flex h-10 border" style={{ borderColor: "var(--border)" }}>
           <button
             type="button"
             onClick={() => setPreviewMode("light")}
             className={cn(
-              "flex h-10 items-center gap-2 border-l border-t border-b px-4 font-ibm text-[10px] uppercase tracking-[0.15em] transition-all first:border-l",
+              "relative z-10 flex h-full items-center gap-2 px-4 font-ibm text-[10px] uppercase tracking-[0.15em] transition-colors",
               previewMode === "light"
-                ? "bg-foreground text-background border-foreground"
-                : "text-muted-foreground border-border hover:text-foreground"
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:text-foreground"
             )}
           >
             <Sun className="h-3 w-3" />
@@ -164,10 +164,10 @@ export function DsColors({ copy }: Props) {
             type="button"
             onClick={() => setPreviewMode("dark")}
             className={cn(
-              "flex h-10 items-center gap-2 border px-4 font-ibm text-[10px] uppercase tracking-[0.15em] transition-all",
+              "relative flex h-full items-center gap-2 border-l px-4 font-ibm text-[10px] uppercase tracking-[0.15em] transition-colors",
               previewMode === "dark"
-                ? "bg-foreground text-background border-foreground"
-                : "text-muted-foreground border-border hover:text-foreground"
+                ? "z-10 -ml-px border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground hover:text-foreground"
             )}
           >
             <Moon className="h-3 w-3" />

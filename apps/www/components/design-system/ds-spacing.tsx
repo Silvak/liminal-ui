@@ -98,12 +98,13 @@ export function DsSpacing({ copy }: Props) {
 
         {/* Visual demo */}
         <div className="relative overflow-hidden" style={{ height: 160 }}>
-          {/* Full width */}
+          {/* Centered grid */}
           <div
-            className="absolute inset-0"
+            className="absolute top-4 bottom-4 left-1/2 w-[calc(100%-48px)] max-w-full -translate-x-1/2"
             style={{
               background:
                 "repeating-linear-gradient(90deg, color-mix(in oklch, var(--border) 60%, transparent) 0px, color-mix(in oklch, var(--border) 60%, transparent) 1px, transparent 1px, transparent 24px)",
+              opacity: 0.85,
             }}
           />
 

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDesignSystemDictionary } from "@/lib/design-system-dictionary";
+import {
+  getDesignSystemDictionary,
+  type DesignSystemDictionary,
+} from "@/lib/design-system-dictionary";
 import { DsHeader } from "@/components/design-system/ds-header";
 import { DsPrinciples } from "@/components/design-system/ds-principles";
 import { DsColors } from "@/components/design-system/ds-colors";
@@ -61,17 +64,39 @@ const TOC_SECTIONS_ES = [
   { id: "icons", label: "Iconos" },
 ];
 
+function buildDesignSystemRawContent(
+  dict: DesignSystemDictionary,
+  sections: Array<{ id: string; label: string }>
+): string {
+  const sectionLines = sections
+    .filter((section) => section.id !== "overview")
+    .map((section) => `- ${section.label}`)
+    .join("\n");
+
+  return [
+    `# ${dict.hero.overline}`,
+    "",
+    `## ${dict.hero.title1} ${dict.hero.title2}`,
+    "",
+    dict.hero.subtitle,
+    "",
+    "## Sections",
+    sectionLines,
+  ].join("\n");
+}
+
 export default async function DesignSystemPage({ params }: PageProps) {
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
   const dict = await getDesignSystemDictionary(locale);
   const tocSections = locale === "es" ? TOC_SECTIONS_ES : TOC_SECTIONS_EN;
+  const rawContent = buildDesignSystemRawContent(dict, tocSections);
 
   return (
     <div className="min-w-0">
       {/* Page header */}
-      <DsHeader copy={dict.hero} />
+      <DsHeader copy={dict.hero} rawContent={rawContent} />
 
       {/* Sections — flat, like MDX article content */}
       <div className="mt-8 space-y-0 min-w-0">
@@ -84,21 +109,6 @@ export default async function DesignSystemPage({ params }: PageProps) {
         <DsAnimations copy={dict.animations} />
         <DsBorders copy={dict.borders} />
         <DsIcons copy={dict.icons} />
-
-        {/* Footer */}
-        <div className="flex items-start gap-4 border-t pt-10 pb-10">
-          <div
-            className="mt-1.5 h-px w-12 shrink-0"
-            style={{
-              background: "linear-gradient(90deg, var(--primary), transparent)",
-            }}
-          />
-          <p className="font-ibm text-[12px] leading-relaxed text-muted-foreground">
-            {locale === "es"
-              ? "Este sistema de diseño es una referencia viva — evoluciona con cada componente que se añade a la librería."
-              : "This design system is a living reference — it evolves with every component added to the library."}
-          </p>
-        </div>
       </div>
 
       {/* ToC — fixed aside, exactly like TableOfContents */}

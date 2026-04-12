@@ -15,65 +15,93 @@ function AnimCard({
   description,
   playLabel,
   replayLabel,
+  columns,
 }: {
   name: string;
   className: string;
   description: string;
   playLabel: string;
   replayLabel: string;
+  columns: 2 | 3;
 }) {
   const [playing, setPlaying] = useState(false);
   const [key, setKey] = useState(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const lowerName = name.toLowerCase();
+  const isTerminal = className === "animate-terminal-blink";
+  const isPulse = className.includes("pulse") || className.includes("glow");
+  const isFloat = className.includes("float");
+  const isScan = lowerName.includes("scan");
+  const isFlicker = lowerName.includes("flicker");
 
   const play = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setKey((k) => k + 1);
     setPlaying(true);
-    timeoutRef.current = setTimeout(() => setPlaying(false), 1200);
+    timeoutRef.current = setTimeout(() => setPlaying(false), 1800);
   }, []);
 
   const hasAnimation = !!className;
 
   return (
-    <div className="flex flex-col border-b border-r last:border-r-0 [&:nth-child(3n)]:border-r-0 transition-colors hover:bg-muted/20">
+    <div
+      className={cn(
+        "flex flex-col border-b transition-colors hover:bg-muted/20",
+        columns === 3
+          ? "border-r last:border-r-0 [&:nth-child(3n)]:border-r-0"
+          : "sm:border-r sm:even:border-r-0"
+      )}
+    >
       {/* Preview area */}
       <div
         className="h-[100px] flex items-center justify-center border-b overflow-hidden relative"
         style={{ borderColor: "var(--border)" }}
       >
-        {hasAnimation && playing ? (
+        {isTerminal ? (
           <div
             key={key}
-            className={cn("h-8 w-8 border", className)}
+            className="flex items-center gap-1 font-ibm text-base text-foreground"
+          >
+            <span className="text-muted-foreground">$</span>
+            <span>run</span>
+            <span className={cn("text-primary", playing && className)}>▊</span>
+          </div>
+        ) : hasAnimation && playing ? (
+          <div
+            key={key}
+            className={cn(
+              "h-8 w-8 border",
+              isFloat && "rotate-12",
+              isPulse && "rounded-full",
+              className
+            )}
             style={{
               borderColor: "var(--primary)",
-              backgroundColor:
-                className.includes("pulse") || className.includes("glow")
-                  ? "var(--primary)"
-                  : "transparent",
+              backgroundColor: isPulse ? "var(--primary)" : "transparent",
               animationFillMode: "forwards",
             }}
           />
-        ) : className === "animate-terminal-blink" ? (
-          <span
-            className={cn(
-              "font-ibm text-xl text-foreground",
-              playing ? className : ""
-            )}
-            key={key}
-          >
-            ▊
-          </span>
         ) : (
-          <div
-            className="h-8 w-8 border"
-            style={{ borderColor: "var(--border)", opacity: 0.4 }}
-          />
+          <div className="flex items-center justify-center gap-2">
+            <div
+              className={cn("h-8 w-8 border", isFloat && "rotate-12", isPulse && "rounded-full")}
+              style={{
+                borderColor: "var(--border)",
+                backgroundColor: isPulse ? "color-mix(in oklch, var(--primary) 25%, transparent)" : "transparent",
+                opacity: 0.6,
+              }}
+            />
+            {isPulse && (
+              <div
+                className="h-2 w-2 rounded-full"
+                style={{ backgroundColor: "var(--primary)", opacity: 0.7 }}
+              />
+            )}
+          </div>
         )}
 
         {/* Lamp flicker special case */}
-        {!hasAnimation && name.toLowerCase().includes("flicker") && (
+        {!hasAnimation && isFlicker && (
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-2 h-16 w-32 -translate-x-1/2"
@@ -90,16 +118,30 @@ function AnimCard({
         )}
 
         {/* Scan line special case */}
-        {!hasAnimation && name.toLowerCase().includes("scan") && playing && (
-          <div
-            key={key}
-            className="absolute left-0 right-0 h-px"
-            style={{
-              backgroundColor: "var(--primary)",
-              opacity: 0.5,
-              animation: "scan-line 2s ease-in-out forwards",
-            }}
-          />
+        {isScan && (
+          <>
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  "repeating-linear-gradient(to bottom, transparent 0px, transparent 6px, color-mix(in oklch, var(--border) 30%, transparent) 6px, color-mix(in oklch, var(--border) 30%, transparent) 7px)",
+                opacity: 0.4,
+              }}
+            />
+            {playing && (
+              <div
+                key={key}
+                className="absolute left-0 right-0 h-px"
+                style={{
+                  backgroundColor: "var(--primary)",
+                  opacity: 0.65,
+                  boxShadow: "0 0 10px color-mix(in oklch, var(--primary) 55%, transparent)",
+                  animation: "scan-line 2s ease-in-out forwards",
+                }}
+              />
+            )}
+          </>
         )}
       </div>
 
@@ -200,7 +242,12 @@ export function DsAnimations({ copy }: Props) {
               {category.name}
             </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className={cn(
+              "grid grid-cols-1 sm:grid-cols-2",
+              category.items.length >= 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
+            )}
+          >
             {category.items.map((item) => (
               <AnimCard
                 key={item.name}
@@ -209,6 +256,7 @@ export function DsAnimations({ copy }: Props) {
                 description={item.description}
                 playLabel={copy.playLabel}
                 replayLabel={copy.replayLabel}
+                columns={category.items.length >= 3 ? 3 : 2}
               />
             ))}
           </div>

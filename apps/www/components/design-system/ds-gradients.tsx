@@ -144,7 +144,7 @@ export function DsGradients({ copy }: Props) {
 
       {/* Principle note */}
       <div
-        className="flex items-start gap-4 border-t px-6 py-6 md:px-10"
+        className="flex items-start gap-4 px-6 py-6 md:px-10"
         style={{ borderColor: "var(--border)" }}
       >
         <div

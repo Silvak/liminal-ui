@@ -103,6 +103,15 @@ const PRINCIPLE_VISUALS = [
   ),
 ];
 
+const FALLBACK_VISUAL = () => (
+  <div className="flex items-center justify-center h-full w-full">
+    <div
+      className="h-px w-20"
+      style={{ background: "linear-gradient(90deg, var(--border), transparent)" }}
+    />
+  </div>
+);
+
 export function DsPrinciples({ copy }: Props) {
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -124,7 +133,7 @@ export function DsPrinciples({ copy }: Props) {
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {copy.items.map((principle, i) => {
-          const Visual = PRINCIPLE_VISUALS[i];
+          const Visual = PRINCIPLE_VISUALS[i] ?? FALLBACK_VISUAL;
           const isHovered = hovered === i;
           return (
             <div
@@ -132,7 +141,7 @@ export function DsPrinciples({ copy }: Props) {
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
               className={cn(
-                "relative flex flex-col border-b border-r transition-colors duration-200 cursor-default",
+                "relative flex flex-col overflow-hidden border-b border-r transition-colors duration-200 cursor-default",
                 "last:border-b-0 [&:nth-child(3n)]:lg:border-r-0",
                 "[&:nth-child(2n)]:sm:border-r-0 lg:[&:nth-child(2n)]:border-r",
                 isHovered && "bg-muted/40"
@@ -140,8 +149,8 @@ export function DsPrinciples({ copy }: Props) {
               style={{ minHeight: 240 }}
             >
               {/* Visual area */}
-              <div className="h-[100px] border-b flex items-center px-6" style={{ borderColor: "var(--border)" }}>
-                {Visual && <Visual />}
+              <div className="h-[100px] border-b flex items-center px-6 overflow-hidden" style={{ borderColor: "var(--border)" }}>
+                <Visual />
               </div>
 
               {/* Content */}
@@ -172,7 +181,7 @@ export function DsPrinciples({ copy }: Props) {
 
               {/* Active indicator */}
               <div
-                className="absolute bottom-0 left-0 h-[2px] transition-all duration-300"
+                className="pointer-events-none absolute bottom-px left-0 h-px transition-all duration-300"
                 style={{
                   width: isHovered ? "100%" : "0%",
                   background:

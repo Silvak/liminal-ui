@@ -36,14 +36,14 @@ export function DsTypography({ copy }: Props) {
       {/* Font family intro */}
       <div className="grid grid-cols-1 md:grid-cols-2 border-b">
         {/* Display font */}
-        <div className="px-6 py-8 md:px-10 border-b md:border-b-0 md:border-r" style={{ borderColor: "var(--border)" }}>
+        <div className="px-6 py-8 md:px-10 overflow-hidden border-b md:border-b-0 md:border-r" style={{ borderColor: "var(--border)" }}>
           <p className="font-ibm text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4">
             {copy.displayLabel}
           </p>
           <div className="font-display text-5xl font-semibold tracking-tight text-foreground mb-3">
             Aa Bb Cc
           </div>
-          <div className="font-display text-2xl font-semibold tracking-tight text-muted-foreground mb-4">
+          <div className="w-full overflow-hidden font-display text-[clamp(1rem,2.2vw,1.5rem)] font-semibold leading-tight tracking-tight text-muted-foreground mb-4 break-all">
             ABCDEFGHIJKLMNOPQRSTUVWXYZ
           </div>
           <p className="font-ibm text-[12px] leading-relaxed text-muted-foreground">
@@ -60,14 +60,14 @@ export function DsTypography({ copy }: Props) {
         </div>
 
         {/* Mono font */}
-        <div className="px-6 py-8 md:px-10">
+        <div className="px-6 py-8 md:px-10 overflow-hidden">
           <p className="font-ibm text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4">
             {copy.monoLabel}
           </p>
           <div className="font-ibm text-4xl font-bold tracking-wider text-foreground mb-3">
             Aa Bb Cc
           </div>
-          <div className="font-ibm text-lg tracking-widest text-muted-foreground mb-4 uppercase">
+          <div className="w-full overflow-hidden font-ibm text-[clamp(0.75rem,1.6vw,1rem)] tracking-[0.18em] text-muted-foreground mb-4 uppercase break-all">
             ABCDEFGHIJKLMNOPQRSTUVWXYZ
           </div>
           <p className="font-ibm text-[12px] leading-relaxed text-muted-foreground">
