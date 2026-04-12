@@ -81,9 +81,7 @@ function CollapsibleSection({
                   <Sparkles
                     className={cn(
                       "ml-auto h-3.5 w-3.5 shrink-0",
-                      active
-                        ? "text-primary-foreground"
-                        : "text-primary",
+                      active ? "text-primary-foreground" : "text-primary",
                     )}
                     aria-label="New"
                   />
@@ -274,13 +272,15 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
             : "opacity-0 -translate-y-4 pointer-events-none",
         )}
       >
-        <div className="flex-1 overflow-hidden">
-          <NavContent
-            onNavigate={closeMenu}
-            hasPadding={true}
-            showSiteNav={true}
-            mobileMode={true}
-          />
+        <div className="flex-1 overflow-hidden px-4">
+          <div className="mx-auto max-w-[1440px] border-x border-border">
+            <NavContent
+              onNavigate={closeMenu}
+              hasPadding={true}
+              showSiteNav={true}
+              mobileMode={true}
+            />
+          </div>
         </div>
       </aside>
     </>

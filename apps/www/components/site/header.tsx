@@ -36,13 +36,15 @@ export function SiteHeader() {
     <header
       className={cn(
         "sticky top-0 z-100 border-b border-border bg-background/70 backdrop-blur-md",
-        isContainedRoute && "px-4 md:px-8",
+        "px-4",
+        isContainedRoute && "md:px-8",
       )}
     >
       <div
         className={cn(
           "flex h-14 w-full items-center justify-between pl-0 pr-2",
-          isContainedRoute && "max-w-[1440px] mx-auto border-x",
+          "mx-auto max-w-[1440px] border-x",
+          !isContainedRoute && "md:max-w-none md:border-x-0",
         )}
       >
         <div className="flex items-center">
