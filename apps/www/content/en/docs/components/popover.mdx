@@ -10,9 +10,9 @@ A popover component built with Ark UI, rendered in a portal and positioned relat
 
 <Preview>
   <Popover trigger={<Button>Open popover</Button>}>
-    <p className="text-sm">
+    <div className="text-sm">
       This is some content inside the popover.
-    </p>
+    </div>
   </Popover>
 
 ```tsx title="popover-convenience.tsx" {3,4,5,6,7,8,9} showLineNumbers
@@ -22,9 +22,9 @@ import { Button } from "@/components/ui/button";
 export default function Example() {
   return (
     <Popover trigger={<Button>Open popover</Button>}>
-      <p className="text-sm">
+      <div className="text-sm">
         This is some content inside the popover.
-      </p>
+      </div>
     </Popover>
   );
 }
@@ -42,9 +42,9 @@ liminal add popover
 
 <Preview>
   <Popover trigger={<Button>Open popover</Button>}>
-    <p className="text-sm">
+    <div className="text-sm">
       This is some content inside the popover.
-    </p>
+    </div>
   </Popover>
 
 ```tsx title="popover-convenience.tsx" {3,4,5,6,7,8,9} showLineNumbers
@@ -54,9 +54,9 @@ import { Button } from "@/components/ui/button";
 export default function Example() {
   return (
     <Popover trigger={<Button>Open popover</Button>}>
-      <p className="text-sm">
+      <div className="text-sm">
         This is some content inside the popover.
-      </p>
+      </div>
     </Popover>
   );
 }
@@ -72,12 +72,12 @@ Pass `trigger` (the element that opens the popover) and `children` (the popover 
 
 <Preview>
   <Popover trigger={<Button>Open popover</Button>}>
-    <p className="text-sm">Content inside the popover.</p>
+    <div className="text-sm">Content inside the popover.</div>
   </Popover>
 
 ```tsx title="popover-convenience.tsx" showLineNumbers
 <Popover trigger={<Button>Open popover</Button>}>
-  <p className="text-sm">Content inside the popover.</p>
+  <div className="text-sm">Content inside the popover.</div>
 </Popover>
 ```
 

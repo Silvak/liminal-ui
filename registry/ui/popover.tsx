@@ -135,7 +135,7 @@ export interface PopoverProps extends Omit<PopoverRootProps, "children"> {
 const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
   ({ trigger, children, ...props }, ref) => (
     <PopoverRoot ref={ref} {...props}>
-      <PopoverTrigger>{trigger}</PopoverTrigger>
+      <PopoverTrigger asChild>{trigger}</PopoverTrigger>
       <PopoverContent>{children}</PopoverContent>
     </PopoverRoot>
   ),

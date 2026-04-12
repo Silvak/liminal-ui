@@ -18,6 +18,7 @@ export const docNavSections: NavSection[] = [
       { title: "Introduction", href: "/docs/introduction" },
       { title: "Installation", href: "/docs/installation" },
       { title: "Theming", href: "/docs/theming" },
+      { title: "Design System", href: "/docs/design-system", badge: "new" },
       { title: "Using Ark UI components", href: "/docs/understanding-ark-ui" },
     ],
   },
