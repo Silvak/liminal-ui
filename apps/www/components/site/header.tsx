@@ -67,7 +67,7 @@ export function SiteHeader() {
 
           <Link
             href={prefix || "/"}
-            className="flex items-center gap-2 ml-4 mr-4"
+            className="flex items-center gap-2 ml-4 md:ml-0 mr-4"
           >
             <span className="text-sm font-semibold tracking-tight">
               <Image
