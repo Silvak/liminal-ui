@@ -3,8 +3,10 @@ import type { SiteDictionary } from "../../lib/site-dictionary";
 export const siteEn: SiteDictionary = {
   header: {
     nav: {
+      home: "Home",
       docs: "Docs",
       components: "Components",
+      designSystem: "Design System",
       playground: "Playground",
       blog: "Blog",
     },

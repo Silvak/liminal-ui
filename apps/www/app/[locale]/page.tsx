@@ -95,7 +95,7 @@ export default async function Page({ params }: PageProps) {
       <SidebarNav mobileOnly />
       <div
         id="hero"
-        className="relative h-[80vh] min-h-[480px] w-full overflow-hidden px-3 sm:px-4 md:min-h-[560px] md:px-8"
+        className="relative h-[80vh] min-h-[480px] w-full overflow-hidden px-4 md:min-h-[560px] md:px-8"
       >
         <Container className="relative z-10 flex flex-col md:flex-row h-full border-x overflow-hidden">
           {/* Main content */}

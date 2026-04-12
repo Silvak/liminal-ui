@@ -1,7 +1,7 @@
 import type { Locale } from "./landing-dictionary";
 
 export type SiteNavLabels = Record<
-  "docs" | "components" | "playground" | "blog",
+  "docs" | "components" | "playground" | "blog" | "designSystem" | "home",
   string
 >;
 

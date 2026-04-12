@@ -10,7 +10,7 @@ import { useLocaleOptional } from "../../components/locale-provider";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 import { useSiteCopy } from "../../components/site-copy-provider";
-import { mainNavRoutes } from "../../lib/site-nav";
+import { mainNavRoutes, mobileNavRoutes } from "../../lib/site-nav";
 import { docNavSections, type NavSection, type NavItem } from "./docs-nav";
 
 const NEW_BADGE_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
@@ -175,8 +175,10 @@ function NavContent({
               </div>
             )}
             <div className="mb-6">
-              {mainNavRoutes.map((item) => {
-                const href = prefix ? `${prefix}${item.href}` : item.href;
+              {(mobileMode ? mobileNavRoutes : mainNavRoutes).map((item) => {
+                const href = prefix
+                  ? `${prefix}${item.href}` || prefix
+                  : item.href || "/";
                 const active =
                   !mobileMode &&
                   (pathname === href || pathname.startsWith(href + "/"));
@@ -272,7 +274,7 @@ export function SidebarNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
             : "opacity-0 -translate-y-4 pointer-events-none",
         )}
       >
-        <div className="flex-1 overflow-hidden px-4">
+        <div className="flex-1 min-h-0 overflow-y-auto px-4">
           <div className="mx-auto max-w-[1440px] border-x border-border">
             <NavContent
               onNavigate={closeMenu}
