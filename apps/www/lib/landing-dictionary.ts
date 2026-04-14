@@ -108,6 +108,17 @@ export type LandingDictionary = {
     closing: string;
     imageAlt: string;
   };
+  homeParallax: {
+    overline: string;
+    title: string;
+  };
+  contact: {
+    overline: string;
+    title: string;
+    body: string;
+    emailCta: string;
+    githubCta: string;
+  };
   hero: {
     sysVersion: string;
     arkTw: string;

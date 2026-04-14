@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { ThemingSection } from "@/components/land/theming-section";
 import { ComponentsSection } from "@/components/land/components-section";
 import { ComingSoonSection } from "@/components/land/coming-soon-section";
+import { ContactSection } from "@/components/land/contact-section";
 import { WordsCarousel } from "@/components/land/words-carousel";
 import { ParallaxCloud } from "@/components/land/parallax-cloud";
 import { ParallaxDivider } from "@/components/land/parallax-divider";
@@ -234,6 +235,17 @@ export default async function Page({ params }: PageProps) {
       <div className="w-full px-4 md:px-8">
         <Container className="border-x overflow-hidden">
           <ParallaxDivider />
+          <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-end p-6 pb-10 md:p-10 md:pb-14">
+            <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.35em] text-white/90 drop-shadow-md">
+              {dict.homeParallax.overline}
+            </p>
+            <p
+              className="mt-3 max-w-lg font-display text-2xl leading-tight tracking-tight text-white drop-shadow-md md:max-w-2xl md:text-4xl"
+              style={{ textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}
+            >
+              {dict.homeParallax.title}
+            </p>
+          </div>
         </Container>
       </div>
 
@@ -255,6 +267,8 @@ export default async function Page({ params }: PageProps) {
       <div id="coming-soon" className="w-full">
         <ComingSoonSection copy={dict.comingSoon} />
       </div>
+
+      <ContactSection copy={dict.contact} />
 
       <SiteFooter />
     </main>

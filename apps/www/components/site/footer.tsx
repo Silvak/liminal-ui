@@ -7,10 +7,11 @@ import { cn } from "@/lib/utils";
 import { useLocaleOptional } from "@/components/locale-provider";
 import { useSiteCopy } from "@/components/site-copy-provider";
 import { mainNavRoutes } from "@/lib/site-nav";
-
-const REPO = "https://github.com/silvak/liminal-ui";
-const CONTACT_EMAIL = "sivak.jeg@gmail.com";
-const MAILTO_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Liminal UI")}`;
+import {
+  CONTACT_EMAIL,
+  contactMailtoHref,
+  GITHUB_REPO_URL,
+} from "@/lib/site-contact";
 
 type FooterLink = { label: string; href: string; external?: boolean };
 
@@ -59,15 +60,27 @@ export function SiteFooter() {
   }));
 
   const resourceLinks: FooterLink[] = [
-    { label: L.github, href: REPO, external: true },
-    { label: L.changelog, href: `${REPO}/releases`, external: true },
-    { label: L.mitLicense, href: `${REPO}/blob/main/LICENSE`, external: true },
+    { label: L.github, href: GITHUB_REPO_URL, external: true },
+    { label: L.changelog, href: `${GITHUB_REPO_URL}/releases`, external: true },
+    {
+      label: L.mitLicense,
+      href: `${GITHUB_REPO_URL}/blob/main/LICENSE`,
+      external: true,
+    },
   ];
 
   const communityLinks: FooterLink[] = [
-    { label: L.discussions, href: `${REPO}/discussions`, external: true },
-    { label: L.issues, href: `${REPO}/issues`, external: true },
-    { label: L.pullRequests, href: `${REPO}/pulls`, external: true },
+    {
+      label: L.discussions,
+      href: `${GITHUB_REPO_URL}/discussions`,
+      external: true,
+    },
+    { label: L.issues, href: `${GITHUB_REPO_URL}/issues`, external: true },
+    {
+      label: L.pullRequests,
+      href: `${GITHUB_REPO_URL}/pulls`,
+      external: true,
+    },
   ];
 
   const year = new Date().getFullYear();
@@ -98,7 +111,7 @@ export function SiteFooter() {
               </p>
               <div className="flex items-center gap-2">
                 <Link
-                  href={REPO}
+                  href={GITHUB_REPO_URL}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={site.footer.githubAria}
@@ -110,7 +123,7 @@ export function SiteFooter() {
                   <Github className="h-4 w-4" />
                 </Link>
                 <a
-                  href={MAILTO_HREF}
+                  href={contactMailtoHref()}
                   aria-label={`${site.footer.emailAriaPrefix} ${CONTACT_EMAIL}`}
                   title={CONTACT_EMAIL}
                   className={cn(

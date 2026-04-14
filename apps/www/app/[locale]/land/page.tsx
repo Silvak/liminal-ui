@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { ThemingSection } from "@/components/land/theming-section";
 import { ComponentsSection } from "@/components/land/components-section";
 import { ComingSoonSection } from "@/components/land/coming-soon-section";
+import { ContactSection } from "@/components/land/contact-section";
 import { PkgManTabs } from "@/components/pkg-man-tabs";
 import { WordsCarousel } from "@/components/land/words-carousel";
 import { getLandingDictionary, type Locale } from "@/lib/landing-dictionary";
@@ -155,6 +156,8 @@ export default async function Page({ params }: PageProps) {
       <div id="coming-soon" className="w-full border-b">
         <ComingSoonSection copy={dict.comingSoon} />
       </div>
+
+      <ContactSection copy={dict.contact} />
     </main>
   );
 }

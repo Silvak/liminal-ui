@@ -110,6 +110,19 @@ export const landingComingSoonEn = {
   imageAlt: "Dashboard and complex components preview",
 };
 
+export const landingHomeParallaxEn = {
+  overline: "LIMINAL UI",
+  title: "Open components. Ark UI + Tailwind. You own the source.",
+};
+
+export const landingContactEn = {
+  overline: "CONTACT",
+  title: "Let's talk.",
+  body: "Questions about the library, contributions, or collaborations — reach out by email or on GitHub.",
+  emailCta: "Email",
+  githubCta: "GitHub",
+};
+
 export const landingComponentsEn: LandingComponentsCopy = {
   overline: "COMPONENT SYSTEM",
   titleLine1: "Built to compose.",

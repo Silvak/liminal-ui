@@ -3,6 +3,8 @@ import {
   landingAboutEn,
   landingComingSoonEn,
   landingComponentsEn,
+  landingContactEn,
+  landingHomeParallaxEn,
   landingPageHeroEn,
   landingThemingEn,
 } from "./landing-main-en";
@@ -18,6 +20,8 @@ export const landingEn: LandingDictionary = {
   theming: landingThemingEn,
   components: landingComponentsEn,
   comingSoon: landingComingSoonEn,
+  homeParallax: landingHomeParallaxEn,
+  contact: landingContactEn,
   hero: {
     sysVersion: "SYS.v0.15.0",
     arkTw: "ARK UI / TW CSS",
