@@ -62,16 +62,19 @@ export type LandingThemingCopy = {
   footerPresets: string;
   openPlayground: string;
   presetLabels: Record<string, string>;
-  cardDemo: {
-    componentLabel: string;
-    profileCard: string;
-    description: string;
-    tags: [string, string, string];
-    saved: string;
-    save: string;
-    viewDocs: string;
-    lampAlt: string;
-  };
+  cardDemo: Record<string, CardDemoCopy>;
+};
+
+export type CardDemoCopy = {
+  componentLabel: string;
+  badge: string;
+  profileCard: string;
+  description: string;
+  tags: [string, string, string];
+  saved: string;
+  save: string;
+  viewDocs: string;
+  lampAlt: string;
 };
 
 export type LandingDictionary = {

@@ -47,6 +47,9 @@ export function PlaygroundPreview() {
     radius,
     spacing,
     letterSpacing,
+    borderWidth,
+    backdropBlur,
+    cardBgOpacity,
     shadow,
     fontSans,
     fontSerif,
@@ -67,6 +70,9 @@ export function PlaygroundPreview() {
 
     // Radius
     vars["--radius"] = `${radius}rem`;
+    vars["--border-width"] = `${borderWidth}px`;
+    vars["--backdrop-blur"] = `${backdropBlur}px`;
+    vars["--card-opacity"] = String(cardBgOpacity);
 
     // Spacing
     vars["--spacing"] = `${spacing}rem`;
@@ -111,7 +117,19 @@ export function PlaygroundPreview() {
     vars["--shadow-lg"] = shadowValue;
 
     return vars;
-  }, [themeVars, radius, spacing, letterSpacing, fontSans, fontSerif, fontMono, shadow]);
+  }, [
+    themeVars,
+    radius,
+    spacing,
+    letterSpacing,
+    borderWidth,
+    backdropBlur,
+    cardBgOpacity,
+    fontSans,
+    fontSerif,
+    fontMono,
+    shadow,
+  ]);
 
   return (
     <div

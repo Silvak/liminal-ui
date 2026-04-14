@@ -211,7 +211,7 @@ export function CodeBlock({
   const content = (
     <div
       ref={codeContainerRef}
-      className="overflow-auto px-4 py-2.5 text-[0.82rem]"
+      className="overflow-y-auto overflow-x-hidden px-4 py-2.5 text-[0.82rem] [&_pre]:break-all [&_pre]:whitespace-pre-wrap [&_code]:break-all [&_code]:whitespace-pre-wrap"
       style={{ minHeight: estimatedHeight }}
       dangerouslySetInnerHTML={{
         __html: animatedHtml,

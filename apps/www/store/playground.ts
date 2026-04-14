@@ -17,6 +17,9 @@ type PlaygroundState = {
   radius: number;
   spacing: number;
   letterSpacing: number;
+  borderWidth: number;
+  backdropBlur: number;
+  cardBgOpacity: number;
   shadow: ShadowConfig;
   fontSans: string;
   fontSerif: string;
@@ -30,6 +33,9 @@ type PlaygroundState = {
   setRadius: (r: number) => void;
   setSpacing: (s: number) => void;
   setLetterSpacing: (ls: number) => void;
+  setBorderWidth: (value: number) => void;
+  setBackdropBlur: (value: number) => void;
+  setCardBgOpacity: (value: number) => void;
   setShadowProp: (key: keyof ShadowConfig, value: number | string) => void;
   setFontSans: (f: string) => void;
   setFontSerif: (f: string) => void;
@@ -52,6 +58,9 @@ export const usePlaygroundStore = create<PlaygroundState>((set, get) => ({
   radius: defaultPreset.radius,
   spacing: defaultPreset.spacing,
   letterSpacing: defaultPreset.letterSpacing,
+  borderWidth: defaultPreset.borderWidth,
+  backdropBlur: defaultPreset.backdropBlur,
+  cardBgOpacity: defaultPreset.cardBgOpacity,
   shadow: { ...defaultPreset.shadow },
   fontSans: defaultPreset.fontSans,
   fontSerif: defaultPreset.fontSerif,
@@ -71,6 +80,9 @@ export const usePlaygroundStore = create<PlaygroundState>((set, get) => ({
       radius: preset.radius,
       spacing: preset.spacing,
       letterSpacing: preset.letterSpacing,
+      borderWidth: preset.borderWidth,
+      backdropBlur: preset.backdropBlur,
+      cardBgOpacity: preset.cardBgOpacity,
       shadow: { ...preset.shadow },
       fontSans: preset.fontSans,
       fontSerif: preset.fontSerif,
@@ -86,6 +98,9 @@ export const usePlaygroundStore = create<PlaygroundState>((set, get) => ({
   setRadius: (r) => set({ radius: r }),
   setSpacing: (s) => set({ spacing: s }),
   setLetterSpacing: (ls) => set({ letterSpacing: ls }),
+  setBorderWidth: (value) => set({ borderWidth: value }),
+  setBackdropBlur: (value) => set({ backdropBlur: value }),
+  setCardBgOpacity: (value) => set({ cardBgOpacity: value }),
 
   setShadowProp: (key, value) =>
     set((state) => ({
@@ -117,6 +132,9 @@ export const usePlaygroundStore = create<PlaygroundState>((set, get) => ({
       radius: preset.radius,
       spacing: preset.spacing,
       letterSpacing: preset.letterSpacing,
+      borderWidth: preset.borderWidth,
+      backdropBlur: preset.backdropBlur,
+      cardBgOpacity: preset.cardBgOpacity,
       shadow: { ...preset.shadow },
       fontSans: preset.fontSans,
       fontSerif: preset.fontSerif,
