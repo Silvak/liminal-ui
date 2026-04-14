@@ -11,6 +11,7 @@ import { ComponentsSection } from "@/components/land/components-section";
 import { ComingSoonSection } from "@/components/land/coming-soon-section";
 import { WordsCarousel } from "@/components/land/words-carousel";
 import { ParallaxCloud } from "@/components/land/parallax-cloud";
+import { ParallaxDivider } from "@/components/land/parallax-divider";
 import { getLandingDictionary, type Locale } from "@/lib/landing-dictionary";
 import { PkgManTabs } from "@/components/pkg-man-tabs";
 
@@ -227,6 +228,13 @@ export default async function Page({ params }: PageProps) {
       {/* theming */}
       <div id="theming" className="w-full border-y">
         <ThemingSection locale={locale} copy={dict.theming} />
+      </div>
+
+      {/* parallax divider */}
+      <div className="w-full px-4 md:px-8">
+        <Container className="border-x overflow-hidden">
+          <ParallaxDivider />
+        </Container>
       </div>
 
       {/* components */}
