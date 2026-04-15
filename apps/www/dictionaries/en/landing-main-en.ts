@@ -111,7 +111,6 @@ export const landingComingSoonEn = {
 };
 
 export const landingHomeParallaxEn = {
-  overline: "LIMINAL UI",
   title: "Open components. Ark UI + Tailwind. You own the source.",
 };
 

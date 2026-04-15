@@ -236,11 +236,8 @@ export default async function Page({ params }: PageProps) {
         <Container className="border-x overflow-hidden">
           <ParallaxDivider />
           <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-end p-6 pb-10 md:p-10 md:pb-14">
-            <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.35em] text-white/90 drop-shadow-md">
-              {dict.homeParallax.overline}
-            </p>
             <p
-              className="mt-3 max-w-lg font-display text-2xl leading-tight tracking-tight text-white drop-shadow-md md:max-w-2xl md:text-4xl"
+              className="max-w-lg font-display text-2xl leading-tight tracking-tight text-white drop-shadow-md md:max-w-2xl md:text-4xl"
               style={{ textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}
             >
               {dict.homeParallax.title}
@@ -249,8 +246,15 @@ export default async function Page({ params }: PageProps) {
         </Container>
       </div>
 
+      <div
+        id="words-marquee-2"
+        className="w-full h-[100px] border-t px-4 md:px-8"
+      >
+        <Container className="border-x h-full px-0">{null}</Container>
+      </div>
+
       {/* components */}
-      <div id="components" className="w-full border-b">
+      <div id="components" className="w-full border-y">
         <ComponentsSection locale={locale} copy={dict.components} />
       </div>
 

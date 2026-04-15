@@ -109,7 +109,6 @@ export type LandingDictionary = {
     imageAlt: string;
   };
   homeParallax: {
-    overline: string;
     title: string;
   };
   contact: {

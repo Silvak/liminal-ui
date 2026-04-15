@@ -36,7 +36,7 @@ export function ParallaxDivider() {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full h-[500px] md:h-[650px] overflow-hidden"
+      className="relative w-full h-[500px] md:h-[750px] overflow-hidden"
       aria-hidden="true"
     >
       {/* wrapper del parallax: se extiende 20% arriba/abajo para tener rango de movimiento */}

@@ -469,16 +469,16 @@ export function ComponentsSection({
           <p className="font-ibm text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-3">
             {copy.overline}
           </p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div className="flex flex-col md:flex-row-reverse md:items-end md:justify-between gap-4">
             <h2
-              className="font-display leading-none tracking-tight text-foreground"
+              className="font-display leading-none tracking-tight text-foreground md:text-right"
               style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
             >
               {copy.titleLine1}
               <br />
               {copy.titleLine2}
             </h2>
-            <p className="font-ibm text-[13px] leading-[1.7] text-muted-foreground md:max-w-xs md:text-right">
+            <p className="font-ibm text-[13px] leading-[1.7] text-muted-foreground md:max-w-xs">
               {copy.description}
             </p>
           </div>
