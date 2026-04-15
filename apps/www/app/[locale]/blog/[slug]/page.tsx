@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { allPosts } from "contentlayer/generated";
+import { BlogHero } from "../../../../components/blog/blog-hero";
 import { MdxContent } from "../../../../components/blog/mdx-content";
 import { DocsPager } from "../../../../components/site/docs-pager";
 
@@ -77,47 +78,53 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     ? { title: nextPost.title, href: `${prefix}/blog/${nextPost.slugAsParams}` }
     : undefined;
 
+  const backLabel = locale === "es" ? "Volver al blog" : "Back to Blog";
+  const readLabel = locale === "es" ? "min de lectura" : "min read";
+
   return (
-    <article className="mx-auto min-w-0 max-w-4xl space-y-8 px-6 py-8 md:px-10 lg:py-12">
-      <header className="space-y-4 border-b border-border pb-6">
-        <Link
-          href={`${prefix}/blog`}
-          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Back to Blog
-        </Link>
-        <h1 className="text-3xl font-semibold tracking-tight">
-          {post.title}
-        </h1>
-        {post.description && (
-          <p className="text-base text-muted-foreground">
-            {post.description}
-          </p>
-        )}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-          <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
-          <span>{post.author}</span>
-          <span>{post.readingTime} min read</span>
-        </div>
-        {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded border border-border bg-muted/50 px-2 py-0.5 text-xs text-muted-foreground"
-              >
-                {tag}
+    <>
+      <BlogHero
+        variant="article"
+        eyebrow="Blog"
+        title={post.title}
+        aside={<p>{post.description}</p>}
+        backgroundImage={post.image ?? undefined}
+        priorityImage
+        top={
+          <Link href={`${prefix}/blog`}>{backLabel}</Link>
+        }
+        footer={
+          <>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium text-foreground/90">
+              <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
+              <span>{post.author}</span>
+              <span>
+                {post.readingTime} {readLabel}
               </span>
-            ))}
-          </div>
-        )}
-      </header>
+            </div>
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded border border-border bg-background/80 px-2 py-0.5 text-xs font-medium text-foreground/85"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </>
+        }
+      />
 
-      <div className="prose prose-neutral dark:prose-invert max-w-none">
-        <MdxContent code={post.body.code} />
-      </div>
+      <article className="mx-auto min-w-0 max-w-4xl space-y-8 px-6 pb-8 pt-8 md:px-10 md:pt-10 lg:pb-12 lg:pt-12">
+        <div className="prose prose-neutral dark:prose-invert max-w-none">
+          <MdxContent code={post.body.code} />
+        </div>
 
-      <DocsPager prev={prev} next={next} />
-    </article>
+        <DocsPager prev={prev} next={next} />
+      </article>
+    </>
   );
 }

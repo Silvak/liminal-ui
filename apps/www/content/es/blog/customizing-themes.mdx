@@ -1,0 +1,33 @@
+---
+title: Personalizar temas con Tailwind
+description: Cómo encajan las variables CSS, Tailwind y tus tokens de diseño cuando los componentes viven en tu código.
+date: 2025-03-12
+author: Liminal UI Team
+tags:
+  - theming
+  - tailwind
+  - design-tokens
+---
+
+# Personalizar temas con Tailwind
+
+Cuando los componentes están **en tu repositorio**, el theming deja de ser un archivo de configuración dentro de una dependencia y pasa a ser algo que controlas de punta a punta. Liminal UI usa Tailwind y enlaza colores a tokens semánticos (`background`, `foreground`, `primary`, etc.) para que puedas rediseñar toda la UI desde un solo sitio.
+
+## Partir de tokens
+
+La mayoría de superficies usan variables CSS definidas en `:root` (y `.dark` si usas modo oscuro por clase). Tailwind enlaza esas variables en `tailwind.config` o en la extensión del tema. Eso implica:
+
+- Cambias un token una vez y se actualiza todo lo que lo referencia.
+- Añades modos (alto contraste, variantes de marca) intercambiando conjuntos de variables, sin tocar `node_modules`.
+
+## Por qué encaja con componentes copiados
+
+Al editar los archivos del componente directamente, puedes introducir nuevas utilidades, extender el tema o bifurcar un solo componente sin esperar un release de la biblioteca. La CLI te da un **punto de partida**; tu sistema de diseño manda.
+
+## Flujo práctico
+
+1. Define o ajusta colores semánticos en tu CSS global.
+2. Refléjalos en las extensiones del tema de Tailwind si usas claves personalizadas.
+3. Usa `className` en instancias concretas cuando necesites excepciones puntuales.
+
+Para instalación y uso de la CLI, consulta la [introducción](/docs/introduction). Para las bases de accesibilidad, lee [crear componentes accesibles](/blog/building-accessible-components).
